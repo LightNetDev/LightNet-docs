@@ -10,6 +10,9 @@ export default defineConfig({
 			social: {
 				github: 'https://github.com/LightNetDev/lightnet-library',
 			},
+			editLink: {
+				baseUrl: 'https://github.com/LightNetDev/lightnet-library-docs/edit/main/',
+			  },
 			sidebar: [
 				{
 					label: 'Start Here',
