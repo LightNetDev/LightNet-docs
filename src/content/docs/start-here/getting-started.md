@@ -3,4 +3,5 @@ title: Getting Started
 description: Learn the basics of how to use LightNet Library
 ---
 
-foo
+- SM wants to create a new LN instance
+- SM wants to do important/initial configurations

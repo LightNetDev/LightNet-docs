@@ -16,15 +16,49 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Start Here',
-					autogenerate: { directory: 'start-here' },
+					items: [
+						{slug: "start-here/getting-started"},
+						{slug:"start-here/overview"},
+						{slug:"start-here/whats-next"}
+					],
 				},
 				{
-					label: 'Guides',
-					autogenerate: { directory: 'guides' },
+					label: 'Build your Library',
+					items: [
+						{slug: "build/initial-configurations"},
+						{slug: "build/customize-home"},
+						{slug: "build/add-custom-pages"},
+						{slug: "build/internationalization"}
+					],
+				},
+				{
+					label: "Add content",
+					items: [
+						{slug: "add-content/understand-content"},
+						{slug: "add-content/media-items"},
+						{slug: "add-content/media-types"},
+						{slug: "add-content/categories"},
+						{slug: "add-content/media-collections"},
+						{slug: "add-content/use-admin-ui"},
+					]
+				},
+				{
+					label: "Run your Library",
+					items: [
+						{slug: "run/deploy"},
+						{slug: "run/maintain"}
+					]
 				},
 				{
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
+				},
+				{
+					label: "Contribute to LightNet",
+					items: [
+						{slug: "contribute/contribute"},
+						{slug: "contribute/understand-sdk"}
+					]
 				},
 			],
 		}),
