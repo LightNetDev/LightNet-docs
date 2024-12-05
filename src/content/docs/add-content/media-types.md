@@ -1,5 +1,5 @@
 ---
-title: Configure Media Types
+title: Media Types
 ---
 
 - SM wants to define media types

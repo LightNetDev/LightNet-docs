@@ -1,5 +1,5 @@
 ---
-title: Customize the Home Page
+title: Customizing Home
 ---
 
 - SM wants to configure the home page

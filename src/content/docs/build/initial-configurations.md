@@ -1,5 +1,5 @@
 ---
-title: Do Initial Configurations
+title: Configuring LightNet
 ---
 
 - SM wants to set the page title

@@ -51,7 +51,10 @@ export default defineConfig({
 				},
 				{
 					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					items: [
+						{slug: "reference/lightnet-configuration"},
+						{slug: "reference/components"}
+					]
 				},
 				{
 					label: "Contribute to LightNet",

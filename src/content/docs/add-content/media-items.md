@@ -1,5 +1,5 @@
 ---
-title: Add your Media Items
+title: Media Items
 ---
 
 - SM sets media item languages

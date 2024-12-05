@@ -1,5 +1,5 @@
 ---
-title: Do the Maintenance
+title: Maintaining your Site
 ---
 
 - SM wants to update to newest version of SDK

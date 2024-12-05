@@ -1,5 +1,5 @@
 ---
-title: LightNet Configuration Reference
+title: Configuration Reference
 ---
 
 - SM wants to know all configuration options available for LN library

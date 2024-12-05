@@ -1,5 +1,5 @@
 ---
-title: Understand the SDK Internals
+title: SDK Internals
 ---
 
 - Dev wants to understand the internals of LN SDK architecture
