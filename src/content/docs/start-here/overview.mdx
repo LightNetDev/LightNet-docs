@@ -1,0 +1,89 @@
+---
+title: Overview
+---
+
+import { FileTree } from "@astrojs/starlight/components";
+
+LightNet enables you to run your own web-based media distribution site, allowing you to publish curated content tailored to the language and culture of the communities you serve. This includes a variety of media types such as books, videos, audio, images, and more.
+
+## Our Design Goals
+
+LightNet is designed with the following goals in mind:
+
+- **Reusable Solution**: Build sites that require minimal coding.
+- **Cost-Effective**: Keep operational costs low.
+- **User-Friendly**: Easy to set up, modify, run, and maintain.
+- **Privacy-Focused**: No tracking and no advertising.
+- **Multilingual Support**: Easily translate into other languages, including right-to-left languages.
+- **Accessibility**: Function effectively in areas with poor internet access or on older devices.
+- **Security**: Protect against hacking attempts.
+
+## How It Works
+
+LightNet Library integrates with the [Astro](https://astro.build) framework. It transforms a folder containing configuration files, content files, and HTML files into a deployable folder containing HTML, JavaScript, and CSS.
+
+### Key Features
+
+- **Pre-rendering**: HTML is pre-rendered as much as possible to reduce traffic and improve load times.
+- **Static Output**: LightNet Library generates only static files, eliminating the need to maintain a running backend site.
+- **Content Management**: Website content can be edited as JSON files, or you can opt to use an administration interface that connects to a Git repository host, such as [GitLab](https://gitlab.com).
+
+With LightNet, you can create a robust media distribution site that meets the needs of your community while ensuring ease of use and security.
+
+## Limitations: What LightNet Does Not Provide
+
+While LightNet offers a robust solution for web-based media distribution, it is important to understand its limitations. Here are some aspects that LightNet does not address:
+
+- **User Authentication**: LightNet does not include built-in user authentication or account management features. There is no option to restrict access to specific media items.
+
+- **Advanced Analytics**: LightNet lacks advanced analytics and tracking capabilities. If you require detailed user behavior tracking or analytics, you will need to integrate third-party services.
+
+- **E-commerce Functionality**: LightNet is not designed for e-commerce sites. If you need shopping cart functionality, payment processing, or inventory management, you will need to use a separate platform.
+
+- **Complex Interactivity**: While LightNet supports basic interactivity through JavaScript, it cannot provide features that require a server to store user data. This means it does not support user comments or personalization features that sync across browsers.
+
+Understanding these limitations will help you make informed decisions about whether LightNet is the right fit for your project and what additional tools or services you may need to implement.
+
+# Project Structure
+
+LightNet Library is a [Astro Integration](https://docs.astro.build/en/guides/integrations-guide/). As a result, 
+all LightNet Library projects are structured based on the Astro project layout. 
+To learn more about the Astro project structure, please refer to 
+the [Astro Documentation](https://docs.astro.build/en/basics/project-structure/). In the following section, 
+we will explain the structure used by LightNet Library.
+
+## Directory Layout
+
+<FileTree>
+- public/
+- src/
+  - assets/
+  - content/
+  - pages/
+  - translations/
+- tailwind.config.mjs
+- package.json
+- astro.config.mjs
+- tsconfig.json
+</FileTree>
+
+### Directory and File Descriptions
+
+- **`public/`**: This directory contains static assets that are served directly by the web server. It is used for files that are published with your library, such as PDFs and MP3s.
+- **`src/`**: This is the main source directory where you will develop your site.
+  - **`assets/`**: A subdirectory for images, fonts referenced by your pages.
+  - **`content/`**: A directory for content files, such as JSON or Markdown files, that hold the data for your site. This is where you can [manage your media items and other content](/add-content/understand-content).
+  - **`pages/`**: This directory holds the individual pages of your site. Each file in this directory typically corresponds to a route in your site. You will need this folder to [customize your homepage](/build/customize-home) or [add custom pages](/build/add-custom-pages).
+  - **`translations`**: This directory contains translation files for the user interface (UI). You learn more about translations in the chapter on [Internationalization](/build/internationalization).
+- **`tailwind.config.mjs`**: This file configures the styling of the website using the [Tailwind CSS](https://tailwindcss.com/) framework. You can use it to extend styles and customize aspects such as the primary color of your site.
+- **`package.json`**: The file that manages your project's dependencies and scripts. It includes metadata about your project, such as its name, version, and the libraries it depends on.
+- **`astro.config.mjs`**: The main configuration file for your Astro project. This is where lot of LightNet Library [configurations](/build/configurations) are done.
+
+# What skills do you need to work with LightNet
+
+#
+
+- SM/Dev wants to get an overview how LN works and what it does
+- SM/Dev want to understand the limitations of LN
+- SM/Dev wants to understand the overall project structure
+- SM wants to understand what skills he needs to use LN

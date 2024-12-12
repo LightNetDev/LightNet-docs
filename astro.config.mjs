@@ -25,7 +25,7 @@ export default defineConfig({
 				{
 					label: 'Build your Library',
 					items: [
-						{slug: "build/initial-configurations"},
+						{slug: "build/configurations"},
 						{slug: "build/customize-home"},
 						{slug: "build/add-custom-pages"},
 						{slug: "build/internationalization"}
