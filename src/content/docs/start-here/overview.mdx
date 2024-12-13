@@ -20,7 +20,12 @@ LightNet is designed with the following goals in mind:
 
 ## How It Works
 
-LightNet Library integrates with the [Astro](https://astro.build) framework. It transforms a folder containing configuration files, content files, and HTML files into a deployable folder containing HTML, JavaScript, and CSS.
+The LightNet Library converts a folder filled with configuration files, content files, and various HTML and JavaScript files into a deployable package containing HTML, JavaScript, and CSS.
+
+It is implemented as an integration (plugin) for the [Astro framework](https://astro.build), so familiarizing yourself with Astro will enhance your understanding of how LightNet works. 
+We recommend exploring the [Astro documentation](https://docs.astro.build/en/getting-started/), which is comprehensive and well-crafted. ✨
+
+In summary, LightNet Library uses the Astro framework to perform static site generation for media distribution websites.
 
 ### Key Features
 
@@ -75,15 +80,11 @@ we will explain the structure used by LightNet Library.
   - **`content/`**: A directory for content files, such as JSON or Markdown files, that hold the data for your site. This is where you can [manage your media items and other content](/add-content/understand-content).
   - **`pages/`**: This directory holds the individual pages of your site. Each file in this directory typically corresponds to a route in your site. You will need this folder to [customize your homepage](/build/customize-home) or [add custom pages](/build/add-custom-pages).
   - **`translations`**: This directory contains translation files for the user interface (UI). You learn more about translations in the chapter on [Internationalization](/build/internationalization).
-- **`tailwind.config.mjs`**: This file configures the styling of the website using the [Tailwind CSS](https://tailwindcss.com/) framework. You can use it to extend styles and customize aspects such as the primary color of your site.
+- **`tailwind.config.mjs`**: This file configures the styling of the website. We are using the [Tailwind CSS](https://tailwindcss.com/) framework for styling. You can use this file to extend styles and customize aspects such as the primary color of your site.
 - **`package.json`**: The file that manages your project's dependencies and scripts. It includes metadata about your project, such as its name, version, and the libraries it depends on.
 - **`astro.config.mjs`**: The main configuration file for your Astro project. This is where lot of LightNet Library [configurations](/build/configurations) are done.
+- **`tsconfig.json`**: This file configures TypeScript settings for use with Astro.
 
 # What skills do you need to work with LightNet
 
-#
 
-- SM/Dev wants to get an overview how LN works and what it does
-- SM/Dev want to understand the limitations of LN
-- SM/Dev wants to understand the overall project structure
-- SM wants to understand what skills he needs to use LN
