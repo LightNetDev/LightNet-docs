@@ -1,24 +1,16 @@
 ---
-title: What's next
+title: What's Next
 ---
 
-SM wants to know what’s next
+Now that your site is up and running, here are some important next steps to help you further customize and optimize your project:
 
-- updating the site’s configuration
-- configuring the home page
-- adding content
-- (optionally) upload to git repository
-- deploying the site (e.g. on cloudflare pages)
-- (optionally) use a content administration interface
-- (optionally) use a large file storage (backblaze)
-- (optionally) setup monitoring (checkly)
+### Key Tasks to Explore:
 
-## Next Steps
+- **[Update the Site’s Configuration](/build/configurations)**: Learn to adjust your page settings to fit the needs of your ministry and audience.
+- **[Configure the Home Page](/build/customize-home)**: Personalize your homepage by customizing its content and structure to reflect your brand and mission.
+- **[Add and Manage Content](/add-content/understand-content)**: Discover how to efficiently add, organize, and manage media content, such as videos, books, and images.
+- **[Deploy Your Site](/run/deploy)**: Learn how to deploy your site to a hosting platform like [Cloudflare Pages](https://developers.cloudflare.com/pages/) for public access.
 
-To begin building with LightNet:
+---
 
-1. Install the LightNet Library using the [installation guide](/get-started/installation).
-2. Review the [Astro framework documentation](https://docs.astro.build/en/getting-started/).
-3. Explore how to [add and manage content](/add-content/understand-content).
-
-For more advanced use cases, refer to our [configuration guide](/build/configurations).
+By following these steps, you'll enhance the functionality and appearance of your site, while also optimizing it for your audience's needs.
