@@ -1,63 +1,58 @@
 ---
 title: Overview
+description: The Overview chapter introduces LightNet Library, its features, limitations, and setup using the Astro framework.
 ---
 
 import { FileTree } from "@astrojs/starlight/components";
 
-LightNet enables you to run your own web-based media distribution site, allowing you to publish curated content tailored to the language and culture of the communities you serve. This includes a variety of media types such as books, videos, audio, images, and more.
+LightNet empowers communities to access curated media through a customizable, web-based distribution platform. Designed with accessibility and privacy in mind, it supports diverse content types such as books, videos, audio, and images, tailored to your audience's language and culture.
 
-## Our Design Goals
+## Design Goals
 
-LightNet is designed with the following goals in mind:
+LightNet is built with the following principles:
 
-- **Reusable Solution**: Build sites that require minimal coding.
-- **Cost-Effective**: Keep operational costs low.
-- **User-Friendly**: Easy to set up, modify, run, and maintain.
-- **Privacy-Focused**: No tracking and no advertising.
-- **Multilingual Support**: Easily translate into other languages, including right-to-left languages.
-- **Accessibility**: Function effectively in areas with poor internet access or on older devices.
-- **Security**: Protect against hacking attempts.
+- **Reusable Solution**: Create media distribution sites with minimal coding.
+- **Cost-Effective**: Keep operational expenses low for sustainability.
+- **User-Friendly**: Simplify setup, modification, and maintenance.
+- **Privacy-Focused**: Ensure no tracking or advertisements.
+- **Multilingual Support**: Translate easily, including support for right-to-left languages.
+- **Accessible**: Operate efficiently on low-bandwidth connections and older devices.
+- **Secure**: Protect against common hacking attempts.
+
+---
 
 ## How It Works
 
-The LightNet Library converts a folder filled with configuration files, content files, and various HTML and JavaScript files into a deployable package containing HTML, JavaScript, and CSS.
+The **LightNet Library** transforms a folder of configuration files, content, HTML, and JavaScript into a fully deployable package of static assets (HTML, CSS, and JS).
 
-It is implemented as an integration (plugin) for the [Astro framework](https://astro.build), so familiarizing yourself with Astro will enhance your understanding of how LightNet works. 
-We recommend exploring the [Astro documentation](https://docs.astro.build/en/getting-started/), which is comprehensive and well-crafted. ✨
-
-In summary, LightNet Library uses the Astro framework to perform static site generation for media distribution websites.
+Built as a plugin for the [Astro framework](https://astro.build), LightNet uses Astro´s static site generation capabilities to simplify media distribution. To get the most out of LightNet, we recommend exploring the [Astro documentation](https://docs.astro.build/en/getting-started/).
 
 ### Key Features
 
-- **Pre-rendering**: HTML is pre-rendered as much as possible to reduce traffic and improve load times.
-- **Static Output**: LightNet Library generates only static files, eliminating the need to maintain a running backend site.
-- **Content Management**: Website content can be edited as JSON files, or you can opt to use an administration interface that connects to a Git repository host, such as [GitLab](https://gitlab.com).
+- **Pre-rendered HTML**: Reduces traffic and improves load times.
+- **Static Output**: Generates static files, removing the need for backend servers.
+- **Flexible Content Management**: Edit content as JSON or use an admin interface that integrates with [GitLab](https://gitlab.com).
 
-With LightNet, you can create a robust media distribution site that meets the needs of your community while ensuring ease of use and security.
+With LightNet, you can create a robust, efficient media site to serve your community’s needs.
 
-## Limitations: What LightNet Does Not Provide
+---
 
-While LightNet offers a robust solution for web-based media distribution, it is important to understand its limitations. Here are some aspects that LightNet does not address:
+## Scope and Limitations
 
-- **User Authentication**: LightNet does not include built-in user authentication or account management features. There is no option to restrict access to specific media items.
+While LightNet is a powerful tool, it does not include:
 
-- **Advanced Analytics**: LightNet lacks advanced analytics and tracking capabilities. If you require detailed user behavior tracking or analytics, you will need to integrate third-party services.
+- **User Authentication**: No built-in user accounts or access restrictions.
+- **Advanced Analytics**: Integrate third-party tools for detailed tracking.
+- **E-commerce Support**: Shopping carts and payment processing are not supported.
+- **Complex Interactivity**: Server-side features like comments or personalized user experiences are unavailable.
 
-- **E-commerce Functionality**: LightNet is not designed for e-commerce sites. If you need shopping cart functionality, payment processing, or inventory management, you will need to use a separate platform.
+These design choices keep LightNet lightweight and focused on its core purpose: static media distribution.
 
-- **Complex Interactivity**: While LightNet supports basic interactivity through JavaScript, it cannot provide features that require a server to store user data. This means it does not support user comments or personalization features that sync across browsers.
+---
 
-Understanding these limitations will help you make informed decisions about whether LightNet is the right fit for your project and what additional tools or services you may need to implement.
+## Project Structure
 
-# Project Structure
-
-LightNet Library is a [Astro Integration](https://docs.astro.build/en/guides/integrations-guide/). As a result, 
-all LightNet Library projects are structured based on the Astro project layout. 
-To learn more about the Astro project structure, please refer to 
-the [Astro Documentation](https://docs.astro.build/en/basics/project-structure/). In the following section, 
-we will explain the structure used by LightNet Library.
-
-## Directory Layout
+LightNet projects follow the [Astro project layout](https://docs.astro.build/en/basics/project-structure/). Below is an example directory structure:
 
 <FileTree>
 - public/
@@ -72,19 +67,41 @@ we will explain the structure used by LightNet Library.
 - tsconfig.json
 </FileTree>
 
-### Directory and File Descriptions
+### Directory Overview
 
-- **`public/`**: This directory contains static assets that are served directly by the web server. It is used for files that are published with your library, such as PDFs and MP3s.
-- **`src/`**: This is the main source directory where you will develop your site.
-  - **`assets/`**: A subdirectory for images, fonts referenced by your pages.
-  - **`content/`**: A directory for content files, such as JSON or Markdown files, that hold the data for your site. This is where you can [manage your media items and other content](/add-content/understand-content).
-  - **`pages/`**: This directory holds the individual pages of your site. Each file in this directory typically corresponds to a route in your site. You will need this folder to [customize your homepage](/build/customize-home) or [add custom pages](/build/add-custom-pages).
-  - **`translations`**: This directory contains translation files for the user interface (UI). You learn more about translations in the chapter on [Internationalization](/build/internationalization).
-- **`tailwind.config.mjs`**: This file configures the styling of the website. We are using the [Tailwind CSS](https://tailwindcss.com/) framework for styling. You can use this file to extend styles and customize aspects such as the primary color of your site.
-- **`package.json`**: The file that manages your project's dependencies and scripts. It includes metadata about your project, such as its name, version, and the libraries it depends on.
-- **`astro.config.mjs`**: The main configuration file for your Astro project. This is where lot of LightNet Library [configurations](/build/configurations) are done.
-- **`tsconfig.json`**: This file configures TypeScript settings for use with Astro.
+- **`public/`**: Static files (e.g., PDFs, MP3s) served directly by the web server.
+- **`src/`**: Core development directory.
+  - **`assets/`**: Images and fonts referenced in pages.
+  - **`content/`**: Media and content files (JSON/Markdown).
+  - **`pages/`**: Defines site routes (e.g. homepage or custom pages).
+  - **`translations/`**: Language files for internationalization.
+- **`tailwind.config.mjs`**: Customizes [Tailwind CSS](https://tailwindcss.com/) styles.
+- **`package.json`**: Manages dependencies and scripts.
+- **`astro.config.mjs`**: Configures LightNet and Astro settings.
+- **`tsconfig.json`**: TypeScript configuration for the project.
 
-# What skills do you need to work with LightNet
+---
+
+
+## Skills Needed to Work with LightNet
+
+LightNet is designed to be approachable for users of all skill levels. However, having familiarity with the following areas will help you make the most of the platform:
+
+### Core Skills
+
+- **HTML and JavaScript**: Understanding the basics of these web technologies is helpful for customizing site layouts and interactivity. For learning resources, see [HTML Basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics) and [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
+- **Markdown**: Custom page content is managed in Markdown format. Familiarize yourself with Markdown using the [Markdown Guide](https://www.markdownguide.org/).
+- **JSON**: Configuration and content files are written in JSON. Knowledge of JSON syntax and structure is important for making edits. Refer to [JSON Basics](https://www.json.org/json-en.html).
+
+### Framework and Tooling Knowledge
+
+- **Astro Framework**: LightNet is built as an integration for Astro. Knowing Astro’s project structure and static site generation features will enhance your experience. Get started with the [Astro Documentation](https://docs.astro.build/en/getting-started/).
+- **Tailwind CSS**: LightNet uses Tailwind CSS for styling. While not required, understanding Tailwind's utility-first approach can help you customize your site’s appearance. Check out the [Tailwind CSS Documentation](https://tailwindcss.com/docs).
+- **Git Basics**: Git is essential for managing content and collaborating effectively, especially when using the optional admin interface. Learn more in the [Git Handbook](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics).
+- **Command Line**: Familiarity with the command line will help you run build scripts, install dependencies, and manage your project efficiently. Start with this [Command Line Primer](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line).
+
+---
+
+Even without extensive experience in these areas, LightNet’s simple setup allows beginners to get started quickly. As you build your project, developing these skills will unlock more advanced customization options. For detailed guidance, visit our [LightNet Documentation](/docs/overview).
 
 
