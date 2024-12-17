@@ -26,20 +26,20 @@ export default defineConfig({
 					label: 'Build your Library',
 					items: [
 						{slug: "build/configurations"},
-						{slug: "build/customize-home"},
-						{slug: "build/add-custom-pages"},
-						{slug: "build/internationalization"}
+						{slug: "build/homepage"},
+						{slug: "build/custom-pages"},
+						{slug: "build/i18n"}
 					],
 				},
 				{
 					label: "Add content",
 					items: [
-						{slug: "add-content/understand-content"},
-						{slug: "add-content/media-items"},
-						{slug: "add-content/media-types"},
-						{slug: "add-content/categories"},
-						{slug: "add-content/media-collections"},
-						{slug: "add-content/use-admin-ui"},
+						{slug: "content/overview"},
+						{slug: "content/media-items"},
+						{slug: "content/media-types"},
+						{slug: "content/categories"},
+						{slug: "content/media-collections"},
+						{slug: "content/admin-ui"},
 					]
 				},
 				{
@@ -60,7 +60,7 @@ export default defineConfig({
 					label: "Contribute to LightNet",
 					items: [
 						{slug: "contribute/contribute"},
-						{slug: "contribute/understand-sdk"}
+						{slug: "contribute/sdk-internals"}
 					]
 				},
 			],
