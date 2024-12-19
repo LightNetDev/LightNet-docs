@@ -1,5 +1,5 @@
 ---
-title: Adding Custom Pages
+title: Add Custom Pages
 ---
 
 - SM wants to add an About page

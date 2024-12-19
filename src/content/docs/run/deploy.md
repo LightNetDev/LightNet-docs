@@ -1,5 +1,5 @@
 ---
-title: Deploying to the Web
+title: Deploy to the Web
 ---
 
 - SM wants a recommended setup on how to deploy LN (GitLab, Cloudflare Pages, Backblaze, Checkly)

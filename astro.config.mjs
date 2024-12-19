@@ -57,10 +57,10 @@ export default defineConfig({
 					]
 				},
 				{
-					label: "Contribute to LightNet",
+					label: "Advance Your Journey",
 					items: [
-						{slug: "contribute/contribute"},
-						{slug: "contribute/sdk-internals"}
+						{slug: "advanced/contribute"},
+						{slug: "advanced/internals"}
 					]
 				},
 			],

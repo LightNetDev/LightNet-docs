@@ -1,5 +1,5 @@
 ---
-title: Contribute
+title: Become a contributor
 ---
 
 - Dev wants to know how to setup is working environment (VS Code + extensions)
