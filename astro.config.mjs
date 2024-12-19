@@ -52,7 +52,7 @@ export default defineConfig({
 				{
 					label: 'Reference',
 					items: [
-						{slug: "reference/lightnet-configuration"},
+						{slug: "reference/configuration"},
 						{slug: "reference/components"}
 					]
 				},
