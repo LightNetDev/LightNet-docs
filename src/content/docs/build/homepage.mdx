@@ -1,5 +1,6 @@
 ---
 title: Customize Home
+description: Learn how to customize the homepage of your LightNet site.
 ---
 import { Aside } from '@astrojs/starlight/components';
 
@@ -100,7 +101,7 @@ const someEnglishBooks = await getMediaItems({
 ```
 
 Inside the frontmatter the `someEnglishBooks` variable is prepared. This will be executed only once when the site is built.
-The `getMediaItems` function is used to query media items. It takes a sql-like query object as an argument.
+The `getMediaItems` function helps to query media items (Alternatively you could also use Astro's `getCollection` function to query media items). It takes a sql-like query object as an argument.
 We filter for all media items that have the media-type `book` and the language `en`. We order them by the date they were created (newest first) and limit the result to 10 items.
 
 <Aside type="tip">
@@ -120,5 +121,3 @@ Pass your media items to the `items` prop. Also choose a layout to define the ap
 ### Add a category overview
 
 ### Add your own components
-
-- SM wants to configure the home page
