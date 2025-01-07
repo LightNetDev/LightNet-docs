@@ -12,7 +12,7 @@ The homepage is defined by the `src/pages/[locale]/index.astro` file. You can cu
 
 This is the basic layout of the homepage's `index.astro` file:
 
-```astro
+```astro title="src/pages/[locale]/index.astro"
 ---
 export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
 import { Page } from "@lightnet/library/components"
@@ -45,7 +45,7 @@ The hero image is the first thing that users see when they visit your site.
 It is a large image that takes up the full width of the screen. 
 You can add a hero image to your homepage by adding the following code:
 
-```astro
+```astro title="src/pages/[locale]/index.astro"
 ---
 export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
 import { Page, Hero } from "@lightnet/library/components"
@@ -80,7 +80,7 @@ You can add a gallery of media items to your homepage. This is a great way to sh
 We provide a `Gallery` component that you can use to display your media items. Also we offer a 
 `getMediaItems` function that you can use to query your media items. Here is an example on how to use both:
 
-```astro
+```astro title="src/pages/[locale]/index.astro"
 ---
 export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
 import { Page, Section, Gallery } from "@lightnet/library/components"
