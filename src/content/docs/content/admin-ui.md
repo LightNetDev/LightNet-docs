@@ -1,5 +1,5 @@
 ---
-title: Admin UI
+title: Administration UI
 ---
 
 - SM wants to provide a UI to administrate content (Decap CMS)
