@@ -1,0 +1,124 @@
+---
+title: Customize Home
+---
+import { Aside } from '@astrojs/starlight/components';
+
+The homepage is the first page that users see when they visit your site. You can customize the homepage to include a hero image, a call to action, or a content gallery, add your own components...
+
+The homepage is defined by the `src/pages/[locale]/index.astro` file. You can customize the homepage by editing this file.
+
+## Basic file layout
+
+This is the basic layout of the homepage's `index.astro` file:
+
+```astro
+---
+export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
+import { Page } from "@lightnet/library/components"
+---
+<Page>
+    {/* Add your content here */}
+</Page>
+```
+
+This file is an Astro component. Everything inside the `---` is the frontmatter. It will be executed while your site is being built. Use this part to import your components and define your page's variables. For example, you will query media items here.
+
+The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available user interface languages.
+
+Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
+reusable components that you can use to build your page. More details below.
+
+The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your content with this component to ensure that your page is styled correctly.
+
+<Aside type="tip">
+The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/) to get a deep understanding of how to extend it.
+</Aside>
+
+## Common Customizations
+
+Most LightNet instance will share some common customizations. Here are some examples of what you can do:
+
+### Add a Hero image
+
+The hero image is the first thing that users see when they visit your site. 
+It is a large image that takes up the full width of the screen. 
+You can add a hero image to your homepage by adding the following code:
+
+```astro
+---
+export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
+import { Page, Hero } from "@lightnet/library/components"
+import heroImage from "../../assets/hero.jpg"
+---
+
+<Page>
+    <Hero
+        image={heroImage}
+        title={"Your Title"}
+        subtitle={"Some slogan or description"}
+        titleSize="xl"
+        subtitleSize="xl"
+    />
+</Page>
+```
+
+Make sure you add your image to the `src/assets` folder and import it at the top of the file.
+We suggest to add a image that is at least 3000px wide to ensure that it looks good on all devices.
+The image will automatically be optimized for performance.
+
+If your site is multilingual, make sure pass a translated string for the `title` and `subtitle` props. Learn 
+more about how to [use translations](/build/i18n).
+
+Choose a font size for your title and subtitle according to their length. The available sizes are `sm`, `md`, `lg`, `xl`.
+The default for both sizes is `md`.
+
+
+### Add a media item gallery
+
+You can add a gallery of media items to your homepage. This is a great way to showcase your content.
+We provide a `Gallery` component that you can use to display your media items. Also we offer a 
+`getMediaItems` function that you can use to query your media items. Here is an example on how to use both:
+
+```astro
+---
+export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
+import { Page, Section, Gallery } from "@lightnet/library/components"
+import { getMediaItems } from "@lightnet/library/content"
+
+const someEnglishBooks = await getMediaItems({
+  where: { type: "book", language: "en" },
+  orderBy: "dateCreated",
+  limit: 10
+})
+---
+
+<Page>
+    <Section title="Some English Books">
+        <Gallery items={someEnglishBooks} layout="book"/>
+    </Section>
+</Page>
+```
+
+Inside the frontmatter the `someEnglishBooks` variable is prepared. This will be executed only once when the site is built.
+The `getMediaItems` function is used to query media items. It takes a sql-like query object as an argument.
+We filter for all media items that have the media-type `book` and the language `en`. We order them by the date they were created (newest first) and limit the result to 10 items.
+
+<Aside type="tip">
+You can use Astro's `Astro.currentLocale` to get the current user interface language of the site. This can be useful if you want to query media items matching the current language.
+</Aside>
+
+Use the `Section` component to layout your content. It will add spacing around your content, make sure it is centered horizontally
+and add a title. For multilingual sites you should pass a translated string for the `title` prop.
+
+The `Gallery` component will display your media items. It will show the title and image of each media item.
+Pass your media items to the `items` prop. Also choose a layout to define the appearance of the gallery. Use the [Components Reference](/reference/components#gallery) to learn more about the available layouts.
+
+
+
+### Add a image section
+
+### Add a category overview
+
+### Add your own components
+
+- SM wants to configure the home page

@@ -3,7 +3,7 @@ title: Getting Started
 description: Learn the basics of how to use LightNet Library
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside,Steps } from '@astrojs/starlight/components';
 
 
 Welcome to the LightNet Library Developer Documentation! LightNet Library allows you to build customizable media distribution websites. This guide will walk you through setting up your environment and creating your first project.
@@ -63,20 +63,24 @@ Your site will be available at [http://localhost:4321](http://localhost:4321). O
 
 As your first customization, let’s change the page title:
 
+<Steps>
 1. Open astro.config.mjs in a text editor.
 2. Modify the title field (e.g., change "Sk8 Ministry" to your desired site name).
 3. Save the file. Your browser will automatically refresh to show the updated title. Note that the title in front of the large skater image won’t change immediately; don’t worry, you’ll learn how to modify that later.
+</Steps>
 
 ### Optional Next Step: Make your first Change using the admin UI
 
 You can easily make your first content change using the admin UI interface. Follow these steps:
 
+<Steps>
 1. Ensure that `npm run dev` is still running in your terminal.
 2. Open a new terminal window in your project root and execute `npx decap-server`. This command will download and start a backend for Decap CMS, which is used for the content administration interface.
 3. Once you see the message `info: Decap CMS Proxy Server listening on port 8081` in your terminal, open your browser and navigate to [localhost:4321/admin](http://localhost:4321/admin).
 4. Click the "Login" button. You will be presented with a list of all available media items.
 5. Locate and select `how-to-360-flip--en`. Change the title to "How to Do a 360 Flip".
 6. Click the "Publish" button in the header bar, then select "Publish Now".
+</Steps>
 
 <Aside>
 This action will update the JSON content file stored on your computer. Additionally, the admin UI can integrate with a git host like [gitlab.com](https://gitlab.com) for internet access.
