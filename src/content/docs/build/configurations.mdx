@@ -53,7 +53,7 @@ Make sure you adjust them to match your ministry’s needs.
 
 The `site` property defines the base URL for your website. Update this to match your deployment URL.
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2}
 defineConfig({
   site: "https://yourdomain.com",
 })
@@ -65,7 +65,7 @@ defineConfig({
 The `title` property sets the title for your site, appearing in the browser tab and the header bar.  
 You can set this to your ministry’s or community’s name. It can be a fixed string or a translation key to support multiple locales.
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2}
 lightnetLibrary({
   title: "Your Ministry Name",
 });
@@ -78,7 +78,7 @@ The logo appears next to your site name in the header bar.
 Set the path to an image inside the `./src/assets` folder (or a subfolder). Supported formats include `svg`, `jpg`, `png`, and `webp`.  
 LightNet optimizes the image size for better performance.
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2}
 lightnetLibrary({
   logo: { src: "./src/assets/logo.png" },
 });
@@ -92,7 +92,7 @@ Refer to the [Internationalization Guide](/build/i18n) and [Adding Media Items G
 
 To start, add your default language for the user interface:
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2-11}
 lightnetLibrary({
   languages: [
     {
@@ -133,7 +133,7 @@ This file will be served at `/favicon.ico`, a standard location recognized by al
 
 For a better user experience, use multiple icon formats tailored to different platforms. This approach ensures optimal display quality across devices. Reference the icons in your `astro.config.mjs` file as follows:
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2-16}
 lightnetLibrary({
   favicon: [
     {
@@ -167,7 +167,7 @@ Each entry in the `favicon` array maps to an HTML `<link>` element. For example:
 
 Input:
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2-8}
 lightnetLibrary({
   favicon: [
     {
@@ -181,7 +181,7 @@ lightnetLibrary({
 
 Output:
 
-```html
+```html {2}
 <head>
   <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="32x32" />
 </head>
@@ -199,7 +199,7 @@ The menu can link to internal or external pages, such as the home page, search, 
 
 Here’s an example configuration:
 
-```js title="astro.config.mjs"
+```js title="astro.config.mjs" {2-19}
 lightnetLibrary({
   mainMenu: [
     {
@@ -243,7 +243,7 @@ This color is used in various UI elements, such as the hover effect on the searc
 
 Update the primary color in the `tailwind.config.mjs` file. For example:
 
-```js title="tailwind.config.mjs"
+```js title="tailwind.config.mjs" {5}
 import { lightnetStyles } from "@lightnet/library/tailwind.config.ts";
 
 export default {
