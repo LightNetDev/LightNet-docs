@@ -1,0 +1,64 @@
+---
+title: Use Internationalization
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+
+LightNet comes with full support for internationalization (i18n). This allows you to create a multilingual site with ease. 
+This guide will show you how to set up a new language, translate LightNet into a new language, and translate your own UI strings.
+
+## Add a new UI language
+
+Follow this steps to add a new UI language to your LightNet site:
+
+<Steps>
+1. **Add translations file**: Create a new file in the `src/translations` folder. The file should be named with the language code (e.g. `de.json` for German).
+    The content of the file should look like this:
+    ```json title="src/translations/de.json"
+    {
+        "hello-world": "Hallo Welt"
+    }
+    ```
+    The left side of the colon is the key and the right side is the translation value.
+1.  **Translate LightNet strings**: Some languages are already built-in to LightNet. Currently this is English and German. 
+    If your language is not built-in add LightNet translations to the new file. All required keys can be found [here](https://github.com/LightNetDev/lightnet-library/blob/main/packages/library/src/i18n/translations/en.json).
+    Translate the keys to your new language.
+1. **Translate your own UI strings**: Add your own UI strings to the new file. More details on custom UI strings can be found [below](#use-custom-ui-strings).
+1. **Add to config**: Add the new language to the `languages` array in your `astro.config.mjs` file.
+    ```js title="astro.config.mjs" ins={1} ins={7-11}
+    import deTranslations from "./src/translations/de.json"
+
+    export default defineConfig({
+        integrations: [
+            lightnetLibrary({
+                languages: [
+                    {
+                        code: "de", // Language code must match the translation file name
+                        name: "Deutsch", // Display name for the language selector
+                        translations: deTranslations,
+                    },
+                ],
+            }),
+        ],
+    })
+    ```
+1. **Set default (Optional)**: Set the new language as the default language by setting `isDefaultLocale: true` in the language object.
+1. **Validate**: Run the development server with `npm run dev` and check if the new language is available in the language selector. Select the new language and check if the translations are working as expected.
+</Steps>
+
+
+## Use custom UI strings
+
+Make sure they are distinct from LightNet's keys (all LightNet keys start with `ln.` to namespace them).
+
+- How to define a new UI language
+- How to translate LightNet into a new Language
+- How to translate your own UI strings
+- Other i18n helpers (e.g. accessing current locale)
+
+
+SM wants to add a new UI language
+
+
+[Builtin LightNet translations](https://github.com/LightNetDev/lightnet-library/blob/main/packages/library/src/i18n/translations/en.json)
