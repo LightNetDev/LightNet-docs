@@ -116,19 +116,19 @@ Pass your media items to the `items` prop. Also choose a layout to define the ap
 
 
 
-### Add a image highlight section
+### Add a highlight section
 
-If you have some content to highlight you can use the `ImageSection` component. This component will display a large image with a title, 
+If you have some content to highlight you can use the `HighlightSection` component. This component will display a large image with a title, 
 a description and a optional link to another page. Here is an example on how to use it:
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-import { Page, ImageSection } from "@lightnet/library/components"
+import { Page, HighlightSection } from "@lightnet/library/components"
 import highlightImage from "../../assets/highlightImage.jpg"
 ---
 <Page>
-    <ImageSection
-        image={eventImage}
+    <HighlightSection
+        image={highlightImage}
         title="Your Title"
         text="Some description"
         link={{
