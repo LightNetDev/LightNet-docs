@@ -4,7 +4,7 @@ title: What's Next
 
 Now that your site is up and running, here are some important next steps to help you further customize and optimize your project:
 
-### Key Tasks to Explore:
+## Key Tasks to Explore
 
 - **[Update the Site’s Configuration](/build/configurations)**: Learn to adjust your page settings to fit the needs of your ministry and audience.
 - **[Configure the Home Page](/build/customize-home)**: Personalize your homepage by customizing its content and structure to reflect your brand and mission.
