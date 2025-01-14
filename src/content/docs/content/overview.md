@@ -1,5 +1,22 @@
 ---
 title: Content Overview
+description: Learn how to manage the content of your LightNet Library.
 ---
 
-- get an overview over all the content folders the data store + option to use an Admininstration UI.
+All the media items of your LightNet Library are described in JSON files. You find them in the `src/content` folder. It contains this types of content files:
+
+- **media**: Each file in this folder describes a media item. This is the core of your LightNet Library. Media Items
+  will reference other content files like categories, collections. Learn more about [media items](/content/media-items).
+- **media-types**: Media types are used to group media items by their type. Eg. "Video", "Audio" could be media types that are
+  referenced. Also the media type will be used to determine the layout of the media item details page. Learn more about [media types](/content/media-types).
+- **categories**: Categories group your media items by different topics. Eg. "Sermons", "Music", "Kids" could be
+  categories that are referenced by media items. Learn more about [categories](/content/categories).
+- **media-collections**: Media collections group media items that belong together. For example a video playlist
+  could be modeled as a media collection. Other collection items will show up on the details page on a media item. Learn more about [media collections](/content/media-collections).
+
+## Content Editing
+
+You can edit the content files using your text editor. LightNet will automatically validate the structure of the content files.
+If you have a syntax error in your content files, the LightNet development server will show you an error message in the console.
+
+Alternatively you can use a Administration User Interface to edit the content files. This is also useful if you have non-technical users that want to edit the content. Learn more about the [Administration UI](/docs/administration-ui).

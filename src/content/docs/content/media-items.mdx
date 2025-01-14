@@ -1,0 +1,181 @@
+---
+title: Media Items
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+
+Media items are the core of your LightNet Library. Each file in the `src/content/media` folder describes a media item. Media items will reference other content files like categories, collections, and media types.
+
+Here is an example of a media item:
+
+```json title="src/content/media/sermon-1--en.json"
+{
+  "commonId": "sermon-1",
+  "title": "The Good Samaritan",
+  "description": "A sermon about the Good Samaritan",
+  "type": "video",
+  "image": "./images/sermon-1-en.jpg",
+  "categories": ["sermons"],
+  "language": "en",
+  "content": [
+    {
+      "url": "https://www.youtube.com/watch?v=1234"
+    }
+  ]
+}
+```
+
+<Aside>
+By convention we name our files with the following pattern: `commonId--language.json`. This makes it easy to find the media item for a specific language.
+</Aside>
+
+## Media Item Structure
+
+A media item is a JSON file that describes a media item. 
+We recommend to fill as many properties as possible to provide a good user experience.
+Here is a description of the available properties.
+
+### commonId
+
+type: `string` \
+example: `"sermon-1"` \
+optional: `false`
+
+The `commonId` is a unique identifier for a media item. If your media item is available in multiple languages, 
+you should create a media item for each language. In this case you should use the same `commonId` for all languages.
+We use the `commonId` to find translations of a media item. By convention we name our files with the following pattern: `[commonId]--[language].json`.
+
+### title
+
+type: `string` \
+example: `"The Good Samaritan"` \
+optional: `false`
+
+The title of the media item. The title should be in the language of the media item.
+
+### language
+
+type: `string`\
+example: `"en"` \
+optional: `false`
+
+The language of the media item. The language should be a BCP-47 language code like `en`, `de`, `fr`.
+The language will be used to filter media items by language and to display the media item in the correct language.
+For every language used you need to provide a language definition in the `astro.config.mjs` file. The 
+language will be referenced by the `code` property in the language definition. Add a new language definition like shown below. 
+Notice that `translations` are not required when adding a language that is only a content language for media items and not a UI language.
+
+```javascript title="astro.config.mjs" ins={5-8}
+export default defineConfig({
+  integrations: [
+    lightnetLibrary({
+      languages: [
+        {
+          code: "en",
+          name: "English",
+        },
+      ]
+    })
+  ]
+})
+```
+
+### type
+
+type: `string`\
+example: `"video"` \
+optional: `false`
+
+This property defines the type of the media item. It will reference a file inside the `src/content/media-types` folder.
+For example if you have a file `src/content/media-types/book.json` you can set the the `type` property to `book`.
+The media type will be used to determine the layout of the media item details page.
+
+### image
+
+type: `string`\
+example: `"./images/sermon-1-en.jpg"` \
+optional: `false`
+
+The path to the image file that should be used as a cover picture for the media item. The image should be in the `src/content/media/images` folder.
+By convention we name our image files with the following pattern: `[commonId]--[language]`. If the image contains text, it should be in the language of the media item.
+Provided image formats include `jpg`, `png`, `webp`. The image will be optimized for performance. We recommend to use a image that is at least 1000px wide to ensure that it looks good on all devices.
+
+### content
+
+type: `{ url: string, name?: string }[]`\
+example: `[{url: "https://www.youtube.com/watch?v=1234"}]` \
+optional: `false`
+
+This references the actual content of the media item. For example this references a video on YouTube, or a file served from your server.
+The `content` property is an array of objects. The first object in the array is considered to be the primary content of the media item.
+The primary content is used for example with the embeded video player on the media item details page. All other content objects are considered to be additional content.
+They will be displayed on the content section of the media item details page.
+
+#### content.url
+
+Each object should have a `url` property that points to the content. 
+If you want to make a file available for your media item store it inside the `public/files` folder and reference it with the `url` property.
+For example if you have a pdf file `public/files/sermon-1.pdf` you can reference it with the `url` property like this: `url: "/files/sermon-1.pdf"`.
+
+This is urls that are supported:
+
+- YouTube video urls like `"https://www.youtube.com/watch?v=1234"`
+- Vimeo video urls like `"https://vimeo.com/1234"`
+- Files served from your server like `"/files/sermon-1.pdf"`, we suppport all file types like pdf, mp3, mp4, etc.
+
+<Aside type="tip">
+Use the `media-type` to configure how the content should be displayed. For example if you have a video you can configure the video player to be used.
+Media types can add support for content urls that are not supported out of the box. Learn more about [media types](/content/media-types).
+</Aside>
+
+#### content.name
+
+The `name` property is optional and can be used to give a name to the content. This name will be displayed on the content section of the media item details page.
+If no `name` property is provided the name will be derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the name will be `sermon-1`.
+If it is `"https://www.youtube.com/watch?v=1234"` the content name will be `youtube.com`.
+
+
+### dateCreated
+
+type: `string`\
+example: `"2022-01-01"` \
+optional: `false`
+
+The date when the media item was created in this library. The date should be in the format `YYYY-MM-DD`. 
+This date will be used to sort the media items from newest to oldest.
+
+<Aside type="note">
+The dateCreated is not the date when the media item was originally published. It is the date when the media item was added to the library.
+</Aside>
+
+### description
+
+type: `string` \
+example: `"A sermon about the Good Samaritan"` \
+optional: `true`
+
+A short description of the media item. The description should be in the language of the media item.
+It can use Markdown syntax for formatting the text.
+
+### authors
+
+type: `string[]` \
+example: `["John Doe", "Jane Doe"]` \
+optional: `true`
+
+A array containing the Author names of the media item.
+
+
+### categories
+
+type: `string[]`\
+example: `["sermons"]` \
+optional: `true`
+
+An array containing the identifiers of the categories this media item belongs to. The category ids should match files 
+in the `src/content/categories` folder. For example if you have a file `src/content/categories/sermons.json` you can set the the `categories` property to `["sermons"]`.
+
+
+- SM wants to add a new media item, review/change a media item, remove a media item
+- SM wants to upload media items with multiple files attached
