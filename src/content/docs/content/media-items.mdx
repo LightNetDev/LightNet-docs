@@ -105,7 +105,7 @@ Provided image formats include `jpg`, `png`, `webp`. The image will be optimized
 
 type: `{ url: string, name?: string }[]`\
 example: `[{url: "https://www.youtube.com/watch?v=1234"}]` \
-optional: `false`
+optional: `false` (at least one content object is required)
 
 This references the actual content of the media item. For example this references a video on YouTube, or a file served from your server.
 The `content` property is an array of objects. The first object in the array is considered to be the primary content of the media item.
@@ -113,6 +113,10 @@ The primary content is used for example with the embeded video player on the med
 They will be displayed on the content section of the media item details page.
 
 #### content.url
+
+type: `string`\
+example: `"/files/sermon-1.mp3"` \
+optional: `false`
 
 Each object should have a `url` property that points to the content. 
 If you want to make a file available for your media item store it inside the `public/files` folder and reference it with the `url` property.
@@ -123,6 +127,9 @@ This is urls that are supported:
 - YouTube video urls like `"https://www.youtube.com/watch?v=1234"`
 - Vimeo video urls like `"https://vimeo.com/1234"`
 - Files served from your server like `"/files/sermon-1.pdf"`, we suppport all file types like pdf, mp3, mp4, etc.
+- External files eg. from a CDN like `"https://cdn.example.com/sermon-1.mp3"`
+- External websites like `"https://example.com/sermon-1"`
+
 
 <Aside type="tip">
 Use the `media-type` to configure how the content should be displayed. For example if you have a video you can configure the video player to be used.
@@ -130,6 +137,10 @@ Media types can add support for content urls that are not supported out of the b
 </Aside>
 
 #### content.name
+
+type: `string`\
+example: `"Sermon 1"` \
+optional: `true`
 
 The `name` property is optional and can be used to give a name to the content. This name will be displayed on the content section of the media item details page.
 If no `name` property is provided the name will be derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the name will be `sermon-1`.
@@ -176,6 +187,31 @@ optional: `true`
 An array containing the identifiers of the categories this media item belongs to. The category ids should match files 
 in the `src/content/categories` folder. For example if you have a file `src/content/categories/sermons.json` you can set the the `categories` property to `["sermons"]`.
 
+### collections
 
-- SM wants to add a new media item, review/change a media item, remove a media item
-- SM wants to upload media items with multiple files attached
+type: `{ collection: string, index?: number }[]`\
+example: `[{collection: "sermon-series", index: 1}]` \
+optional: `true`
+
+An array containing references to collection this media item is contained in.
+This is the properties of each collection reference object:
+
+#### collections.collection
+
+type: `string`\
+example: `"sermon-series"` \
+optional: `false`
+
+Identifier of the collections this media item belongs to. It must match a collection definition inside 
+the `src/content/media-collections` folder. For example if you have a file `src/content/media-collections/sermon-series.json` you can set the the `collections` property to `"sermon-series"`.
+
+#### collections.index
+
+type: `number`\
+example: `1` \
+optional: `true`
+
+The index of the media item in the collection. The index is used to sort the media items in the collection. 
+Entries with a lower index will be displayed first. Entries without index will be displayed after the entries with an index.
+They will be sorted by their identifier.
+
