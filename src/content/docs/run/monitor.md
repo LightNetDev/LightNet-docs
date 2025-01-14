@@ -1,5 +1,5 @@
 ---
-title: Monitoring
+title: Monitor Availability
 ---
 
 - SM,DEV wants to verify a LN instance is running
