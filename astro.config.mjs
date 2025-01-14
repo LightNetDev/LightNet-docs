@@ -23,7 +23,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Build your Library',
+					label: "Build",
 					items: [
 						{slug: "build/configurations"},
 						{slug: "build/homepage"},
@@ -32,7 +32,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Add content",
+					label: "Add Content",
 					items: [
 						{slug: "content/overview"},
 						{slug: "content/media-items"},
@@ -43,10 +43,16 @@ export default defineConfig({
 					]
 				},
 				{
-					label: "Run your Library",
+					label: "Ship",
 					items: [
-						{slug: "run/deploy"},
-						{slug: "run/maintain"}
+						{slug: "ship/hosting"}
+					]
+				},
+				{
+					label: "Run",
+					items: [
+						{slug: "run/update"},
+						{slug: "run/monitor"}
 					]
 				},
 				{

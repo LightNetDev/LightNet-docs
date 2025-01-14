@@ -1,5 +1,6 @@
 ---
 title: Use Internationalization
+description: Learn how to add a new language to your LightNet site and translate your own UI strings.
 ---
 
 import { Steps,Aside } from '@astrojs/starlight/components';
@@ -23,10 +24,10 @@ Follow this steps to add a new UI language to your LightNet site:
     The left side of the colon is the key and the right side is the translation value.
 1.  **Translate LightNet strings**: Some languages are already built-in to LightNet. Currently this is English and German. 
     If your language is not built-in add LightNet translations to the new file. All required keys can be found [here](https://github.com/LightNetDev/lightnet-library/blob/main/packages/library/src/i18n/translations/en.json).
-    Translate the keys to your new language.
+    Translate the keys to your new language. If you choose a built-in language your translations will override the internal translations.
 1. **Translate your own UI strings**: Add your own UI strings to the file. More details on custom UI strings can be found [below](#use-custom-ui-strings).
 1. **Add to config**: Add the new language to the `languages` array in your `astro.config.mjs` file.
-    ```js title="astro.config.mjs" ins={1} ins={7-11}
+    ```js title="astro.config.mjs" ins={1} ins={7-18}
     import deTranslations from "./src/translations/de.json"
 
     export default defineConfig({
@@ -34,9 +35,16 @@ Follow this steps to add a new UI language to your LightNet site:
             lightnetLibrary({
                 languages: [
                     {
-                        code: "de", // Language code must match the translation file name
-                        name: "Deutsch", // Display name for the language selector
-                        translations: deTranslations,
+                        // Language code must match the translation 
+                        // file name. For example "de.json" has the code "de"
+                        code: "de", 
+                        // Display name for the language selector.
+                        name: "Deutsch", 
+                        // Reference the imported translations
+                        translations: deTranslations, 
+                         // Set the text direction to left-to-right 
+                         // (this is the default)
+                        direction: "ltr",
                     },
                 ],
             }),
