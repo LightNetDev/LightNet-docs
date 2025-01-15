@@ -105,7 +105,7 @@ The video layout will show a details page with embedded video player. The video 
 }
 ```
 
-Currently there are no additional configuration options for the video layout.
+Currently there are no additional configuration options for the video layout. The video layout supports YouTube and Vimeo video urls. Also it supports video files that are stored on your server.
 
 ##### layout: "custom"
 
