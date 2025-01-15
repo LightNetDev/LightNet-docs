@@ -121,7 +121,13 @@ The custom layout will show a details page with your own layout. You can define 
 }
 ```
 
-Custom details pages require you to create a Astro component that will be used to render the details page. The component should be stored in the `/src/details-pages` folder. The component should accept a `slug` prop that contains the media item's identifier. Here is an example of a custom details page component:
+###### customComponent
+
+type: `string` \
+example: `"CustomDetailsPage.astro"` \
+optional: `false`
+
+Custom details pages require you to reference a Astro component that will be used to render the details page. The component must be stored in the `/src/details-pages` folder. The component should accept a `slug` prop that contains the media item's identifier. Here is an example of a custom details page component:
 
 ```astro title="src/details-pages/CustomDetailsPage.astro"
 ---
