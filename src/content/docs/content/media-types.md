@@ -2,6 +2,146 @@
 title: Media Types
 ---
 
-- SM wants to define media types
-- SM wants to create a custom details page
-- SM wants to know all options how details pages can be configured
+Media types are used to group media items that are of the same kind. For example you could have a media type for
+books, sermons, music, videos, etc.
+Media types control how the details page of a media item is rendered. Also they can be used to filter media items on the search page. The icon of a media type will hint the user what kind of media item it is.
+
+Here is an example of a media type:
+
+```json title="src/content/media-types/video.json"
+{
+  "label": "type.video",
+  "icon": "mdi--video-outline",
+  "detailsPage": {
+    "layout": "video"
+  }
+}
+```
+
+We now go into detail what each property does.
+
+## Media Type Structure
+
+A media type is a JSON file that describes a media type. The media type identifier is its filename without the `.json` suffix. Here is the available properties.
+
+### label
+
+type: `string` \
+example: `"type.video"` \
+optional: `false`
+
+The label is either a fixed string or a translation key to support multiple locales. LightNet will try to lookup the translation with the key. If it does not find a translation with this key, it will return the key itself (this is how fixed strings work).
+
+### icon
+
+type: `string` \
+example: `"mdi--video-outline"` \
+optional: `false`
+
+The icon is a Material Design Icon that will show up on the UI. You can find a list of all available icons on the [Material Design Icons](https://pictogrammers.com/library/mdi/) website. The icon should be in the format `mdi--[icon-name]`. With
+`[icon-name]` being the name of the icon from the website.
+
+### detailsPage
+
+type: `object` \
+optional: `true`
+
+The details page configuration. If not object is supplied, the default layout will be shown.
+This object can have the following properties:
+
+#### layout
+
+type: `"default" | "video" | "custom"` \
+example: `"video"` \
+optional: `false`
+
+The layout of the details page. Depending on the layout you choose there will be additional config options
+on the detailPage object. Here is a description of each available layout:
+
+##### layout: "default"
+
+The default layout will show the media item cover with a button that links to the primary content url (first item
+in the media item `content` array). For example if the url links to a PDF file, the button will open the PDF file inside the browser. The button text will either be "Open" or "Download" depending on the url suffix. A example of a default layout configuration is:
+
+```json
+{
+  // ...
+  "detailsPage": {
+    "layout": "default",
+    "openActionLabel": "action.read"
+  }
+}
+```
+
+With the default layout you can configure the following properties:
+
+###### openActionLabel
+
+type: `string` \
+example: `"action.read"` \
+optional: `true`
+
+The label of the button that opens the primary content url. This needs to be a translation key. The default will translate to "Open".
+
+###### coverStyle
+
+type: `"default" | "book"` \
+example: `"book"` \
+optional: `true` \
+default: `"default"`
+
+This sets the style of the cover image. The `book` style will make the cover look like a book with sharp corners and a book fold. The default style will show the cover image as is.
+
+##### layout: "video"
+
+The video layout will show a details page with embedded video player. The video player will show the primary content url (first item in the media item `content` array). All other content urls will be shown as additional content below the video player. A example of a video layout configuration is:
+
+```json
+{
+  // ...
+  "detailsPage": {
+    "layout": "video"
+  }
+}
+```
+
+Currently there are no additional configuration options for the video layout.
+
+##### layout: "custom"
+
+The custom layout will show a details page with your own layout. You can define your own layout with a Astro component. A example of a custom layout configuration is:
+
+```json
+{
+  // ...
+  "detailsPage": {
+    "layout": "custom",
+    "customComponent": "CustomDetailsPage.astro"
+  }
+}
+```
+
+Custom details pages require you to create a Astro component that will be used to render the details page. The component should be stored in the `/src/details-pages` folder. The component should accept a `slug` prop that contains the media item's identifier. Here is an example of a custom details page component:
+
+```astro title="src/details-pages/CustomDetailsPage.astro"
+---
+import { Hero } from "@lightnet/library/components";
+import { AstroError } from "astro/errors";
+import { getEntry } from "astro:content";
+import { MediaCollections } from "@lightnet/library/details-page";
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+
+const mediaItem = await getEntry("media", slug);
+if (!mediaItem) {
+  throw new AstroError(`Cannot find media item for slug: ${slug}`);
+}
+---
+
+<h1>{mediaItem.title}</h1>
+```
+
+This example fetches the media item with the given slug and renders the title of the media item. You can use any Astro component to render the details page. LightNet will wrap your component inside its `<Page>` layout.
