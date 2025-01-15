@@ -1,0 +1,96 @@
+---
+title: Administration UI
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+
+LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical users. That's why LightNet provides a Administration UI to manage your content with a user interface.
+The interface will allow you to create, update, and delete media items and media collections.
+We use a tool called [Decap CMS](https://decapcms.org/) to provide the Administration UI. It is a headless CMS that we configure to work with LightNet.
+
+All changes made will be written to your file system or to your git repository if the user interface is used online.
+
+## Add the Administration UI to your project
+
+This is how you add the Administration UI to your LightNet project:
+
+<Steps>
+1. **Add Integration**: Add the LightNet Decap CMS integration using Astro's add command:
+    ```bash
+    npm run astro add @lightnet/decap-admin
+    ```
+    Confirm the questions with `y` to install required dependencies and add the integration to your `astro.config.mjs` file.
+1. **Adjust Configuration**: Add your Administration UI configuration to Astro's `astro.config.mjs` file. This is a minimal 
+    example:
+    ```js ins={1-7,12,16}
+    const languages = [{
+      code: "en",
+      name: "English",
+      translations: {
+        //...
+      }
+    }];
+
+    export default defineConfig({ 
+      integrations: [
+        lightnetLibrary({
+            languages: languages,
+            //...
+        }),
+        lightnetDecapAdmin({
+            languages: languages,
+        })
+      ]    
+    });
+    ```
+    This adds a shared languages configuration to both the LightNet Library and the Administration UI. 
+    The Administration UI will use the languages configuration to fill the language selection dropdowns for media items.
+
+
+</Steps>
+
+## Run the Administration UI
+
+The Administration UI can write its changes to your local file system or to a Git Host like (GitLab or GitHub).
+
+### Accessing your Local File System
+
+Run your Administration UI on your local computer using npm scripts. 
+
+<Steps>
+1. In your Terminal execute this command from your project's root folder.
+    ```bash
+    npm run dev
+    ```
+    This will start the LightNet development server. 
+1. Open a new Terminal at the same location and execute:
+    ```bash
+    npx decap-server
+    ``` 
+    This will start a application that enables Decap CMS to access your file system. 
+1. Navigate your browser to [localhost:4321/admin](localhost:4321/admin). You should see 
+    the Administration UI showing you a list of your media items.
+</Steps>
+
+### Accessing a Git Host
+
+The Administration UI also supports connecting to a Git Host like GitLab or GitHub.
+A Administrator can access the UI on your website, all requests will be send to the Git Host's API.
+Every change done on the Administration UI will change files inside your project using Git commits.
+Authentication also will be handled by the Git Host, so only Persons you give access will be able to 
+edit your page's content.
+
+This architecture brings several advantages:
+- No need to deploy and maintain a running server backend API.
+- Security is handled by Git Host (with support for 2FA and more).
+- Git History enables rollback and gives overview what has changed.
+- Git repositories can be free of charge.
+
+LightNet supports different Git Hosts. We recommend using GitLab as it supports Authentication from the 
+User's Browser.
+
+Here is how to configure LightNet Decap Admin to connect to a GitLab repository. For other Git Hosts please check
+the [Configuration Reference](/reference/configuration).
+
+

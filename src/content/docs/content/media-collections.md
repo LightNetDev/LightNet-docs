@@ -1,5 +1,6 @@
 ---
 title: Media Collections
+description: Learn how to group media items that belong together in media collections.
 ---
 
 Use media collections to group media items that belong togther. For example a video playlist, a series of sermons, a music album or a book series could be modeled as a media collection.

@@ -1,5 +1,6 @@
 ---
 title: Media Types
+description: Learn how to group media items by their type.
 ---
 
 Media types are used to group media items that are of the same kind. For example you could have a media type for
