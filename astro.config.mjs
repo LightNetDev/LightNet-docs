@@ -45,7 +45,8 @@ export default defineConfig({
 				{
 					label: "Ship",
 					items: [
-						{slug: "ship/hosting"}
+						{slug: "ship/hosting"},
+						{slug: "ship/file-storage"}
 					]
 				},
 				{

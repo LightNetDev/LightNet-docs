@@ -2,13 +2,28 @@
 title: What's Next
 ---
 
+import { LinkCard } from '@astrojs/starlight/components';
+
+
 Now that your site is up and running, here are some important next steps to help you further customize and optimize your project:
 
-## Key Tasks to Explore
-
-- **[Update the Site’s Configuration](/build/configurations)**: Learn to adjust your page settings to fit the needs of your ministry and audience.
-- **[Configure the Home Page](/build/customize-home)**: Personalize your homepage by customizing its content and structure to reflect your brand and mission.
-- **[Add and Manage Content](/content/overview)**: Discover how to efficiently add, organize, and manage media content, such as videos, books, and images.
-- **[Deploy Your Site](/run/deploy)**: Learn how to deploy your site to a hosting platform like [Cloudflare Pages](https://developers.cloudflare.com/pages/) for public access.
-
-By following these steps, you'll enhance the functionality and appearance of your site, while also optimizing it for your audience's needs.
+<LinkCard
+  title="Update the Site’s Configuration"
+  href="/build/configurations"
+  description="Learn to adjust your page settings to fit the needs of your ministry and audience."
+/>
+<LinkCard
+  title="Configure the Homepage"
+  href="/build/homepage"
+  description="Personalize your homepage by customizing its content and structure to reflect your brand and mission."
+/>
+<LinkCard
+  title="Add and Manage Content"
+  href="/content/overview"
+  description="Discover how to efficiently add, organize, and manage media items."
+/>
+<LinkCard
+  title="Deploy Your Site"
+  href="/ship/hosting"
+  description="Learn how to deploy your site to a hosting platform like Cloudflare Pages for public access."
+/>
