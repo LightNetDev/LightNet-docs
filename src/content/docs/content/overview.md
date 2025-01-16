@@ -9,7 +9,7 @@ All the media items of your LightNet Library are described in JSON files. You fi
   will reference other content files like categories, collections. Learn more about [media items](/content/media-items).
 - **media-types**: Media types are used to group media items by their type. Eg. "Video", "Audio" could be media types that are
   referenced. Also the media type will be used to determine the layout of the media item details page. Learn more about [media types](/content/media-types).
-- **categories**: Categories group your media items by different topics. Eg. "Sermons", "Music", "Kids" could be
+- **categories**: Categories group your media items by different topics. Eg. "Theology", "Christian Living", "Kids" could be
   categories that are referenced by media items. Learn more about [categories](/content/categories).
 - **media-collections**: Media collections group media items that belong together. For example a video playlist
   could be modeled as a media collection. Other collection items will show up on the details page on a media item. Learn more about [media collections](/content/media-collections).
