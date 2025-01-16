@@ -127,6 +127,11 @@ Each object should have a `url` property that points to the content.
 If you want to make a file available for your media item store it inside the `public/files` folder and reference it with the `url` property.
 For example if you have a pdf file `public/files/sermon-1.pdf` you can reference it with the `url` property like this: `url: "/files/sermon-1.pdf"`.
 
+<Aside type="tip">
+For a good user experience make sure to keep your files inside `public/files` as small as possible. They won't be further optimized
+for performance.
+</Aside>
+
 This is urls that are supported:
 
 - YouTube video urls like `"https://www.youtube.com/watch?v=1234"`

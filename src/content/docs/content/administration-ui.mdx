@@ -1,8 +1,9 @@
 ---
 title: Administration UI
+description: Learn how to add a Administration UI to your library.
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Steps, Aside } from '@astrojs/starlight/components';
 
 
 LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical users. That's why LightNet provides a Administration UI to manage your content with a user interface.
@@ -23,7 +24,8 @@ This is how you add the Administration UI to your LightNet project:
     Confirm the questions with `y` to install required dependencies and add the integration to your `astro.config.mjs` file.
 1. **Adjust Configuration**: Add your Administration UI configuration to Astro's `astro.config.mjs` file. This is a minimal 
     example:
-    ```js ins={1-7,12,16}
+
+    ```js title="astro.config.mjs" ins={1-7,12,16}
     const languages = [{
       code: "en",
       name: "English",
@@ -73,6 +75,7 @@ Run your Administration UI on your local computer using npm scripts.
     the Administration UI showing you a list of your media items.
 </Steps>
 
+
 ### Accessing a Git Host
 
 The Administration UI also supports connecting to a Git Host like GitLab or GitHub.
@@ -82,15 +85,58 @@ Authentication also will be handled by the Git Host, so only Persons you give ac
 edit your page's content.
 
 This architecture brings several advantages:
-- No need to deploy and maintain a running server backend API.
+- No need for you to deploy and maintain a running server backend API.
 - Security is handled by Git Host (with support for 2FA and more).
 - Git History enables rollback and gives overview what has changed.
 - Git repositories can be free of charge.
 
-LightNet supports different Git Hosts. We recommend using GitLab as it supports Authentication from the 
-User's Browser.
+LightNet supports different Git Hosts. We highly recommend using GitLab as it supports Authentication
+from the user's browser.
 
-Here is how to configure LightNet Decap Admin to connect to a GitLab repository. For other Git Hosts please check
-the [Configuration Reference](/reference/configuration).
+<Aside>
+We recommend using GitLab, if you need to use GitHub:
+GitHub repositories only support Server Side Authentication. This means you need to configure a backend
+that forwards the authentication request. See the [Decap CMS instructions](https://decapcms.org/docs/github-backend/) on how to connect GitHub repositories. 
+</Aside>
 
+#### Connect to GitLab
 
+To connect your Administration UI to a GitLab repository, follow this steps.
+
+<Steps>
+1. Make sure your LightNet Library is hosted on GitLab. If this is not the case, check the [guide on hosting](/ship/hosting) on how to setup a GitLab repository
+   for your project.
+2. On [GitLab.com](https://gitlab.com) navigate to `Groups` and select the group that hosts the repository. Open the `Settings` of this group.
+3. Open the `Application` settings and select to `Add a new Application`.
+4. In the Add new Application dialog:
+    - **Name**: Choose any name for your website
+    - **Redirect URI**: Give the final address of your LightNet Library followed by `/admin/`. Eg. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
+    - **Confidential**: Unselect this option.
+    - **Scopes**: Select the `api` scope.
+5. Save the new Application. GitLab will present you with a Application ID. Copy and store this ID to use it later.
+6. Go back to your project on your computer and open `astro.config.mjs`. 
+7. Add the GitLab backend config for your repository
+    ```js title="astro.config.mjs" ins={7-11}
+    // ...
+    export default defineConfig({ 
+      integrations: [
+        // ...
+        lightnetDecapAdmin({
+            languages: languages,
+            backend: {
+                name: "gitlab",
+                repo: "<Group>/<Repository Name>",
+                appId: "<Application ID>",  
+            },
+        })
+      ]    
+    });
+    ```
+    Make sure to set `repo` with the GitLab path of your repository. Set the `appId` to the Application ID you have copied in step 5.
+8. Deploy your changes, then open your website on `/admin`. Press the Login Button and allow LightNet to access your GitLab account. You now can edit your 
+    media items online. 🎉 If Content Administrators need access, add their accounts to the GitLab repository.
+</Steps>
+
+<Aside>
+Even when you have configured a GitLab backend, your local development server will always connect to a local `decap-server`.
+</Aside>
