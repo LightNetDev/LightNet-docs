@@ -33,7 +33,7 @@ export default defineConfig({
       languages: [
         {
           code: "en", // ISO code for English
-          name: "English", // Display name for the language selector
+          label: "English", // Display name for the language selector
           translations: {}, // Placeholder for custom UI translations
           isDefaultLocale: true, // Default language for the UI
         },
@@ -97,7 +97,7 @@ lightnetLibrary({
   languages: [
     {
       code: "en", // Language code for English
-      name: "English", // Display name for the language selector
+      label: "English", // Display name for the language selector
       translations: {
         // Add custom UI translations here
       },
@@ -108,7 +108,7 @@ lightnetLibrary({
 ```
 
 - **`code`**: Use your language's [BCP-47 tag](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish).
-- **`name`**: Display name for the language selector (e.g., `Español`).
+- **`label`**: Display name for the language selector this can either be a fixed string (e.g., `Español`) or a translation key (e.g. `languages.es`).
 - **`translations`**: Add custom translations for UI elements not covered by LightNet.  
   See the [Internationalization Guide](/build/i18n) for more information.
 - **`isDefaultLocale`**: Set this to `true` for exactly one language. This becomes the fallback language, used for missing translations or when users visit `/`.
