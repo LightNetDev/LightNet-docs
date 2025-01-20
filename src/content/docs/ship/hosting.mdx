@@ -4,34 +4,29 @@ title: Hosting
 
 import { Aside, Steps, Badge } from '@astrojs/starlight/components';
 
+## Hosting Your LightNet Library
 
-Your LightNet Library can be hosted on any file server of your choice. To create a folder that can 
-be deployed run from your project's root folder:
+Your LightNet Library can be hosted on any file server of your choice. To create a folder that can be deployed, run the following command from your project's root folder:
 
 ```bash
 npm run build
 ```
-This will create a folder named `dist`. This folder contains static html, css, js and assets to be put
-on a webserver. Copy it to the file-server of your choice. 
 
-If you do not have preferences on hosting you can choose our recommended setup (GitLab & Cloudflare Pages).
+This will create a folder named `dist`. This folder contains static HTML, CSS, JS, and assets to be put on a web server. Copy it to the file server of your choice.
 
-## Setup hosting on GitLab and Cloudflare Pages
+If you do not have preferences on hosting, you can choose our recommended setup (GitLab & Cloudflare Pages).
 
-We recommend using GitLab as the git repository host. This enables you to collaborate with others, also Cloudflare will use 
-GitLab to read your source code and automatically release when there is new commits.
+## Setup Hosting on GitLab and Cloudflare Pages
+
+We recommend using GitLab as the Git repository host. This enables you to collaborate with others, and Cloudflare will use GitLab to read your source code and automatically release when there are new commits.
 
 <Aside>
 We prefer GitLab as a Git Host because it integrates well with the [Administration UI](/content/administration-ui).
 </Aside>
 
+Cloudflare Pages is recommended to deliver your website to your audience. It takes care of building your website on Cloudflare's servers, caching, distributing your page around the globe (using Cloudflare's CDN), and more.
 
-Cloudflare Pages is recommended to deliver your website to your audience. 
-It takes care of building your website on Cloudflare's servers, caching, distributing
-your page around the globe (using Cloudflare's CDN) and more.
-
-Both GitLab and Cloudflare Pages should be free of charge if your website does not turn into 
-the next YouTube:
+Both GitLab and Cloudflare Pages should be free of charge if your website does not turn into the next YouTube:
 
 - Cloudflare's free plan includes unlimited requests to static pages.
 - GitLab's free plan allows you to collaborate with up to 5 people inside a group.
@@ -39,31 +34,29 @@ the next YouTube:
 ### Setup GitLab
 
 <Steps>
-1. Create GitLab Account
-1. In GitLab: Add a new repository
-1. Push repository to GitLab 
+1. **Create a GitLab Account**: If you don't have one, sign up at [GitLab](https://gitlab.com).
+2. **Add a New Repository**: In GitLab, create a new repository for your project.
+3. **Push Repository to GitLab**: Push your local repository to the newly created GitLab repository.
 </Steps>
-
 
 ### Setup Cloudflare Pages
 
 <Steps>
-1. Create Cloudflare Account
-1. Create Cloudflare Pages
-1. Grant access from Cloudflare to GitLab repository
-1. Configure Pages settings
+1. **Create a Cloudflare Account**: Sign up at [Cloudflare](https://cloudflare.com) if you don't have an account.
+2. **Create Cloudflare Pages**: In the Cloudflare dashboard, create a new Cloudflare Pages project.
+3. **Grant Access to GitLab Repository**: Allow Cloudflare to access your GitLab repository.
+4. **Configure Pages Settings**: Set up the build and deployment settings for your Cloudflare Pages project.
 </Steps>
 
 <Aside type="tip">
-Cloudflare will automatically create preview deployments when you are working with branches.
-It will put a link on your merge request.
+Cloudflare will automatically create preview deployments when you are working with branches. It will put a link on your merge request.
 </Aside>
-
 
 ### Configure a Cloudflare Domain
 
-Cloudflare pages will provide you with a `.pages.dev` domain for free. If you need a custom
-domain you can use Cloudflare domains to purchase a domain registration.
+Cloudflare Pages will provide you with a `.pages.dev` domain for free. If you need a custom domain, you can use Cloudflare Domains to purchase a domain registration.
 
-Describe how to use Cloudflare Domains.
+To configure a custom domain:
+1. Purchase a domain from [Cloudflare Domains](https://www.cloudflare.com/products/registrar/).
+2. Follow the instructions in the Cloudflare dashboard to link your new domain to your Cloudflare Pages project.
 
