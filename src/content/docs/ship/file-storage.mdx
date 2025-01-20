@@ -2,4 +2,20 @@
 title: Large File Storage
 ---
 
-- SM wants to use Backblaze for large file storage
+import { Steps, Aside } from "@astrojs/starlight/components"
+
+Cloudflare pages puts a limit of 25 mb on your file sizes. 
+If you need to store bigger files we recommend using Backblaze.
+
+Here is how to use it:
+
+<Steps>
+1. Create a Backblaze Account
+1. Create a Backblaze Bucket and add your files
+1. Reference your Backblaze URL with the media item's content url.
+1. Set internal domains config inside `astro.config.mjs` to include your Backblaze domain.
+</Steps>
+
+<Aside type="tip">
+We recommend keeping your file sizes as small as possible to provide a good user experience.
+</Aside>
