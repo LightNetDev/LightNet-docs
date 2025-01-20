@@ -2,4 +2,26 @@
 title: Update your Site
 ---
 
-- SM wants to update to newest version of SDK
+import { Aside, Steps } from "@astrojs/starlight/components"
+
+
+Keep your LightNet Library up to date by following these steps:
+
+<Steps>
+1. Check your dependencies by running
+    ```bash
+    npm outdated
+    ```
+2. Read the release notes on [GitHub](https://github.com/lightnetdev/lightnet-library/releases)
+3. Update your dependencies by running
+    ```bash
+    npm update
+    ```
+    This will update your dependencies to the latest version according to the [version specifiers](https://docs.npmjs.com/cli/v8/commands/npm-update) inside `package.json`.
+4. If there are any breaking changes, you will need to update your code to match the new API. Also update the dependencies to the latest version inside `package.json`.
+   When you are done, run `npm install` to install the new dependencies.
+</Steps>
+
+<Aside>
+LightNet follows [Semantic Versioning](https://semver.org/). This means you can update your dependencies to the latest minor version without breaking your site.
+</Aside>
