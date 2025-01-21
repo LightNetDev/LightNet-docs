@@ -108,7 +108,7 @@ lightnetLibrary({
 ```
 
 - **`code`**: Use your language's [BCP-47 tag](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish).
-- **`label`**: Display name for the language selector this can either be a fixed string (e.g., `Español`) or a translation key (e.g. `languages.es`).
+- **`label`**: Display name for the language selector this can either be a fixed string (e.g., `Español`) or a translation key (e.g. `custom.languages.es`).
 - **`translations`**: Add custom translations for UI elements not covered by LightNet.  
   See the [Internationalization Guide](/build/i18n) for more information.
 - **`isDefaultLocale`**: Set this to `true` for exactly one language. This becomes the fallback language, used for missing translations or when users visit `/`.
@@ -212,7 +212,7 @@ lightnetLibrary({
     },
     {
       href: "/about",
-      label: "navigation.about",
+      label: "custom.navigation.about",
     },
     {
       href: "https://www.another-ministry-site.com",

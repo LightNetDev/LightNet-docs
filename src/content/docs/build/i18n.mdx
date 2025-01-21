@@ -18,7 +18,7 @@ Follow this steps to add a new UI language to your LightNet site:
     The content of the file should look like this:
     ```json title="src/translations/de.json"
     {
-        "hello-world": "Hallo Welt"
+        "custom.hello-world": "Hallo Welt"
     }
     ```
     The left side of the colon is the key and the right side is the translation value.
@@ -59,7 +59,7 @@ Follow this steps to add a new UI language to your LightNet site:
 ## Use custom UI strings
 
 LightNet allows you to add custom UI strings to your site. This is useful if you want to add custom text to your site that is not part of LightNet.
-This can be used for example to add custom text to the navigation or to add a text to the homepage.
+Custom strings can be used for example to add custom text to the navigation or to add a text to the homepage.
 Follow this steps to add custom UI strings to your LightNet site:
 
 <Steps>
@@ -67,17 +67,18 @@ Follow this steps to add custom UI strings to your LightNet site:
     this is how you would add a custom string to the English translations file:
     ```json title="src/translations/en.json" ins={3}
     {
-        "hello-world": "Hello World",
-        "my-custom-string": "My custom text"
+        "custom.hello-world": "Hello World",
+        "custom.my-custom-string": "My custom text"
     }
     ```
-    Choose a unique key (left side of the colon) for your custom string. To make sure you don't have any conflicts with LightNet keys, all LightNet keys start with `ln.`.
+    Choose a unique key (left side of the colon) for your custom string. By convention all your keys should be prefixed with `custom.`. LightNet's internal keys are prefixed with `ln.`. 
+    This helps to avoid naming collisions and will improve the validation of your keys.
     The key will be used to referenced your custom string in your site. We recommend to use English keys for your custom strings.
 2. Add the translation for your custom string to the other translations files. This is important if you want to support multiple languages.
    ```json title="src/translations/de.json" ins={3}
     {
-        "hello-world": "Hallo Welt",
-        "my-custom-string": "Mein eigener Text"
+        "custom.hello-world": "Hallo Welt",
+        "custom.my-custom-string": "Mein eigener Text"
     }
     ```
     <Aside type="caution">
@@ -90,7 +91,7 @@ Follow this steps to add custom UI strings to your LightNet site:
     import { Page } from "@lightnet/library/components"
     ---
     <Page>
-        <h1>{Astro.locals.i18n.t("my-custom-string")}</h1>
+        <h1>{Astro.locals.i18n.t("custom.my-custom-string")}</h1>
     </Page>
     ```
     The translation function will return the translation of the key `my-custom-string` in the current language.
