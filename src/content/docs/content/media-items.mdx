@@ -45,7 +45,7 @@ Here is a description of the available properties.
 
 type: `string` \
 example: `"sermon-1"` \
-optional: `false`
+required: `true`
 
 The `commonId` is a unique identifier for a media item. If your media item is available in multiple languages, 
 you should create a media item for each language. In this case you should use the same `commonId` for all languages.
@@ -55,7 +55,7 @@ We use the `commonId` to find translations of a media item. By convention we nam
 
 type: `string` \
 example: `"The Good Samaritan"` \
-optional: `false`
+required: `true`
 
 The title of the media item. The title should be in the language of the media item.
 
@@ -63,7 +63,7 @@ The title of the media item. The title should be in the language of the media it
 
 type: `string`\
 example: `"en"` \
-optional: `false`
+required: `true`
 
 The language of the media item. The language should be a BCP-47 language code like `en`, `de`, `fr`.
 The language will be used to filter media items by language and to display the media item in the correct language.
@@ -90,7 +90,7 @@ export default defineConfig({
 
 type: `string`\
 example: `"video"` \
-optional: `false`
+required: `true`
 
 This property defines the type of the media item. It will reference a file inside the `src/content/media-types` folder.
 For example if you have a file `src/content/media-types/book.json` you can set the the `type` property to `book`.
@@ -100,7 +100,7 @@ The media type will be used to determine the layout of the media item details pa
 
 type: `string`\
 example: `"./images/sermon-1-en.jpg"` \
-optional: `false`
+required: `true`
 
 The path to the image file that should be used as a cover picture for the media item. The image should be in the `src/content/media/images` folder.
 By convention we name our image files with the following pattern: `[commonId]--[language]`. If the image contains text, it should be in the language of the media item.
@@ -110,7 +110,7 @@ Provided image formats include `jpg`, `png`, `webp`. The image will be optimized
 
 type: `{ url: string, name?: string }[]`\
 example: `[{url: "https://www.youtube.com/watch?v=1234"}]` \
-optional: `false` (at least one content object is required)
+required: `true` (at least one content object is required)
 
 This references the actual content of the media item. For example this references a video on YouTube, or a file served from your server.
 The `content` property is an array of objects. The first object in the array is considered to be the primary content of the media item.
@@ -121,7 +121,7 @@ They will be displayed on the content section of the media item details page.
 
 type: `string`\
 example: `"/files/sermon-1.mp3"` \
-optional: `false`
+required: `true`
 
 Each object should have a `url` property that points to the content. 
 If you want to make a file available for your media item store it inside the `public/files` folder and reference it with the `url` property.
@@ -150,7 +150,7 @@ Media types can add support for content urls that are not supported out of the b
 
 type: `string`\
 example: `"Sermon 1"` \
-optional: `true`
+required: `false`
 
 The `name` property is optional and can be used to give a name to the content. This name will be displayed on the content section of the media item details page.
 If no `name` property is provided the name will be derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the name will be `sermon-1`.
@@ -161,7 +161,7 @@ If it is `"https://www.youtube.com/watch?v=1234"` the content name will be `yout
 
 type: `string`\
 example: `"2022-01-01"` \
-optional: `false`
+required: `true`
 
 The date when the media item was created in this library. The date should be in the format `YYYY-MM-DD`. 
 This date will be used to sort the media items from newest to oldest.
@@ -174,7 +174,7 @@ The dateCreated is not the date when the media item was originally published. It
 
 type: `string` \
 example: `"A sermon about the Good Samaritan"` \
-optional: `true`
+required: `false`
 
 A short description of the media item. The description should be in the language of the media item.
 It can use Markdown syntax for formatting the text.
@@ -183,7 +183,7 @@ It can use Markdown syntax for formatting the text.
 
 type: `string[]` \
 example: `["John Doe", "Jane Doe"]` \
-optional: `true`
+required: `false`
 
 A array containing the Author names of the media item.
 
@@ -192,7 +192,7 @@ A array containing the Author names of the media item.
 
 type: `string[]`\
 example: `["sermons"]` \
-optional: `true`
+required: `false`
 
 An array containing the identifiers of the categories this media item belongs to. The category ids should match files 
 in the `src/content/categories` folder. For example if you have a file `src/content/categories/sermons.json` you can set the the `categories` property to `["sermons"]`.
@@ -201,7 +201,7 @@ in the `src/content/categories` folder. For example if you have a file `src/cont
 
 type: `{ collection: string, index?: number }[]`\
 example: `[{collection: "sermon-series", index: 1}]` \
-optional: `true`
+required: `false`
 
 An array containing references to collection this media item is contained in.
 This is the properties of each collection reference object:
@@ -210,7 +210,7 @@ This is the properties of each collection reference object:
 
 type: `string`\
 example: `"sermon-series"` \
-optional: `false`
+required: `true`
 
 Identifier of the collections this media item belongs to. It must match a collection definition inside 
 the `src/content/media-collections` folder. For example if you have a file `src/content/media-collections/sermon-series.json` you can set the the `collections` property to `"sermon-series"`.
@@ -219,7 +219,7 @@ the `src/content/media-collections` folder. For example if you have a file `src/
 
 type: `number`\
 example: `1` \
-optional: `true`
+required: `false`
 
 The index of the media item in the collection. The index is used to sort the media items in the collection. 
 Entries with a lower index will be displayed first. Entries without index will be displayed after the entries with an index.

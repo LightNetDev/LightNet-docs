@@ -21,6 +21,6 @@ A category is a JSON file that describes a category. The category identifier is 
 
 type: `string` \
 example: `"theology"` \
-optional: `false`
+required: `true`
 
 The label is a the name of the category that will show up on the UI. The label can either be a fixed string or a translation key to support multiple locales. LightNet will try to lookup the translation with the key. If it does not find a translation with this key, it will return the key itself (this is how fixed strings work).

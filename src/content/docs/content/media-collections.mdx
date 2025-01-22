@@ -23,6 +23,6 @@ A media collection is a JSON file that describes a media collection. The collect
 
 type: `string` \
 example: `"Sermon Series 1"` \
-optional: `false`
+required: `true`
 
 The name of the media collection. The label can either be a fixed string or a translation key to support multiple locales. LightNet will try to lookup the translation with the key. If it does not find a translation with this key, it will return the key itself (this is how fixed strings work).
