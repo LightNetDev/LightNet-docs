@@ -97,7 +97,7 @@ type: `object` \
 example: `{ src: "./src/assets/logo.png" }` \
 required: `false`
 
-The logo of your site. This will be used as the logo of the site and the header bar.
+The logo of your site to be shown in the header bar next to the site title.
 
 #### `logo.src`
 
@@ -105,8 +105,8 @@ type: `string` \
 example: `"./src/assets/logo.png"` \
 required: `true`
 
-The path to the logo image. Provide a path to an image inside `src/assets`. Supported formats include `svg`, `jpg`, `png`, and `webp`.  
-LightNet optimizes the image size for better performance. We recommend providing a image file with a width and height of 150px.
+The path to the logo image. Provide a path to an image inside `src/assets`. Supported formats include `jpg`, `png`, `svg` and `webp`.  
+LightNet optimizes the image size for better performance (except for SVGs). We recommend providing a image file with a width and height of 150px.
 
 #### `logo.alt`
 
@@ -116,6 +116,14 @@ required: `false`
 
 The alt text of the logo. This will be used if the logo image is not available or if the user has disabled images. For example when using a screen reader.
 The value of the `alt` attribute can either be a fixed string or a translation key to support multiple locales.
+
+#### `logo.size`
+
+type: `number` \
+example: `30` \
+required: `false`
+
+The size of the logo in the header bar in pixels. This will be applied to the shorter side of the logo image.
 
 ### `favicon`
 
