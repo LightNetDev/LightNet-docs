@@ -19,7 +19,7 @@ export default defineConfig({
 					items: [
 						{slug: "start-here/getting-started"},
 						{slug:"start-here/overview"},
-						{slug:"start-here/whats-next"}
+						{slug:"start-here/outline"}
 					],
 				},
 				{
