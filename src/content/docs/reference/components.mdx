@@ -2,8 +2,315 @@
 title: Components Reference
 ---
 
-SM wants to know all components that are available for the start page
+LightNet provides a set of components that you can use to build your pages.
+These components can be used to customize the homepage or other custom Astro pages.
 
-## Gallery
+This is the layout of a LightNet page:
 
-is referenced by the homepage docs.
+```astro title="example.astro"
+---
+import { Page } from "@lightnet/library/components"
+---
+<Page>
+    {/* Add components here */}
+</Page>
+```
+
+The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... 
+
+The components are expected to be placed inside the `Page` component.
+This reference gives you an overview of all available components. You import them from `@lightnet/library/components`.
+
+## Available components
+
+### Hero
+
+The `Hero` component is used to display a hero image with a page title and a subtitle.
+It is covering the full width of the screen. Title and subtitle are centered on top of the image.
+
+
+```astro title="example.astro"
+---
+import { Hero, Page } from "@lightnet/library/components"
+import heroImage from "../../assets/hero.jpg"
+---
+<Page>
+    <Hero title={Astro.locals.i18n.t("custom.hero.title")} image={heroImage} />
+</Page>
+```
+
+The Hero component has the following properties:
+
+#### `image`
+
+type: `ImageMetadata` \
+example: `import heroImage from "../../assets/hero.jpg"` \
+required: `true`
+
+The background image of the hero.
+
+#### `title`
+
+type: `string` \
+example: `"My page title"` \
+required: `false`
+
+The title that is displayed on top of the image.
+
+#### `subtitle`
+
+type: `string` \
+example: `"My page subtitle"` \
+required: `false`
+
+The subtitle that is displayed on top of the image.
+
+#### `titleSize`
+
+type: `"sm" | "md" | "lg" | "xl"` \
+example: `"md"` \
+required: `false`
+
+The size of the title. `sm` is the smallest, `xl` is the largest.
+
+#### `subtitleSize`
+
+type: `"sm" | "md" | "lg" | "xl"` \
+example: `"md"` \
+required: `false`
+
+The size of the subtitle. `sm` is the smallest, `xl` is the largest.
+
+#### `titleClass`
+
+type: `string` \
+example: `"italic text-yellow-50"` \
+required: `false`
+
+Additional css classes, separated by spaces, to further customize title´s appearance.
+Use Tailwind CSS classes.
+
+#### `subtitleClass`
+
+type: `string` \
+example: `"italic text-yellow-50"` \
+required: `false`
+
+Additional css classes, separated by spaces, to further customize subtitle´s appearance.
+
+#### `className`
+
+type: `string` \
+example: `"to-amber-400/20"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the hero image. They will be applied to a element that is overlaying the image.
+You can use this to add a gradient or a blur effect.
+
+### Section
+
+The `Section` component is used to create a section with a optional title. It takes care of the spacing and the layout of its content.
+
+```astro title="example.astro"
+---
+import { Section } from "@lightnet/library/components"
+---
+<Section title={Astro.locals.i18n.t("custom.section.title")}>
+    {/* Add components here */}
+</Section>
+```
+
+The `Section` component has the following properties:
+
+#### `title`
+
+type: `string` \
+example: `"My section title"` \
+required: `false`
+
+The title of the section.
+
+#### `maxWidth`
+
+type: `"full" | "prose"` \
+example: `"prose"` \
+required: `false` \
+default: `"full"`
+
+A `Section` will grow its width with the screen size. It will stop growing according to the `maxWidth` property.
+After this it will be centered on the screen. The `maxWidth` property can be set to `full` or `prose`.
+
+- `full`: The section will stop growing with the full width of the LightNet container. This will align 
+    the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
+- `prose`: The section will stop growing so that contained text is still well readable. This is the width used on the details page.
+
+#### `id`
+
+type: `string` \
+example: `"my-section"` \
+required: `false`
+
+The id of the section. This can be used to link to the section e.g. `/about#my-section`.
+
+#### `className`
+
+type: `string` \
+example: `"py-4 bg-gray-100"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the section. The classes will be applied to the section's container element.
+
+
+### Gallery
+
+The `Gallery` component is used to display a list of media items in a grid. It should be used inside a `Section` component that has maxWidth set to `full` (the default).
+
+```astro title="example.astro"
+---
+import { Page, Section, Gallery } from "@lightnet/library/components"
+import { getMediaItems } from "@lightnet/library/content"
+
+const books = await getMediaItems({/*...*/})
+---
+
+<Page>
+    <Section title={Astro.locals.i18n.t("custom.books.title")}>
+        <Gallery items={books} layout="book"/>
+    </Section>
+</Page>
+```
+
+The `Gallery` component has the following properties:
+
+#### `items`
+
+type: `MediaItem[]` \
+example: `const books = await getMediaItems({/*...*/})` \
+required: `true`
+
+The list of media items to display.
+
+#### `layout`
+
+type: `"book" | "video" | "portrait" | "landscape"`  \
+example: `"book"` \
+required: `true`
+
+The layout of the gallery. The layout will be used to determine the number of columns and 
+to style the cover images. Available layouts are:
+
+- `portrait`: Takes 2 to 5 columns. Use this for cover images that are portrait oriented.
+- `book`: Takes 2 to 5 columns. This equals to `portrait` layout. Additionally a book fold is added to the cover image and corners are less rounded.
+- `landscape`: Takes 1 to 4 columns. Use this for cover images that are landscape oriented.
+- `video`: Takes 1 to 4 columns. This equals to `landscape` layout. Additionally all covers will have a aspect ratio of 16:9 with a black background.
+
+### CategoriesOverview
+
+The `CategoriesOverview` component is used to display a grid of all available categories. Clicking on a category will navigate to the search page filtered by the category.
+
+```astro title="example.astro"
+---
+import { CategoriesOverview, Page } from "@lightnet/library/components"
+---
+<Page>
+    <CategoriesOverview />
+</Page>
+```
+
+The `CategoriesOverview` component has the following properties:
+
+#### `title`
+
+type: `string` \
+example: `"Categories"` \
+required: `false` \
+default: `Astro.locals.i18n.t("ln.common.categories")`
+
+The title of the categories overview section. By default the title will be translated from the `ln.common.categories` key (this is "Categories" in English).
+In case you want to use a different title, you can set the `title` property. Make sure to translate the title.
+
+### HighlightSection
+
+The `HighlightSection` component will display a large image with a title, 
+a description and a optional link to another page. It will take the full width of the screen.
+
+```astro title="example.astro"
+---
+import { Page, HighlightSection } from "@lightnet/library/components"
+import highlightImage from "../../assets/highlightImage.jpg"
+---
+<Page>
+    <HighlightSection
+        image={highlightImage}
+        title="Your Title"
+        text="Some description"
+        link={{
+            href: "/some-page",
+            text: "Link Text",
+        }}
+    />
+</Page>
+```
+
+The `HighlightSection` component has the following properties:
+
+#### `image`
+
+type: `ImageMetadata` \
+example: `import highlightImage from "../../assets/highlightImage.jpg"` \
+required: `true`
+
+The image of the highlight section. It will be optimized for performance. 
+We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
+
+
+
+
+
+
+### Icon
+
+The `Icon` component is used to display an icon from the Material Design Icons library.
+
+```astro title="example.astro"
+---
+import { Icon } from "@lightnet/library/components"
+---
+<Icon className="mdi--home" />
+```
+
+The `Icon` component has the following properties:
+
+#### `className`
+
+type: `string` \
+example: `"mdi--home"` \
+required: `true`
+
+The css classes of the icon separated by spaces. This must include the icon name. 
+The icon name is the name of the icon from the [Material Design Icons library](https://pictogrammers.com/library/mdi/) prefixed with `mdi--`.
+
+For example: the Material Design Icon "home" becomes `mdi--home`.
+
+You can use all available icons from the [Material Design Icons library](https://pictogrammers.com/library/mdi/).
+
+#### `ariaLabel`
+
+type: `string` \
+example: `"Home"` \
+required: `true`
+
+The aria label of the icon. This is used to describe the icon to users of assistive technologies.
+Make sure to translate the aria label to the current locale. If you set this to a blank string, the icon will be hidden from assistive technologies.
+
+#### `flipIcon`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+If set to `true` this flips the icon horizontally. This is useful if you want to mirror an icon on a right-to-left language.
+
+
+

@@ -66,8 +66,8 @@ export default defineConfig({
 				{
 					label: "Advance Your Journey",
 					items: [
-						{slug: "advanced/contribute"},
-						{slug: "advanced/internals"}
+						{slug: "advanced/internals"},
+						{slug: "advanced/contribute"}
 					]
 				},
 			],
