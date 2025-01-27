@@ -204,6 +204,35 @@ to style the cover images. Available layouts are:
 - `landscape`: Takes 1 to 4 columns. Use this for cover images that are landscape oriented.
 - `video`: Takes 1 to 4 columns. This equals to `landscape` layout. Additionally all covers will have a aspect ratio of 16:9 with a black background.
 
+### MediaItemList
+
+The `MediaItemList` component is used to display a list of media items (like on the search page). It should be used inside a `Section` component.
+
+```astro title="example.astro"
+---
+import { Page, Section, MediaItemList } from "@lightnet/library/components"
+import { getMediaItems } from "@lightnet/library/content"
+
+const books = await getMediaItems({/*...*/})
+---
+
+<Page>
+    <Section title={Astro.locals.i18n.t("custom.books.title")} maxWidth="prose">
+        <MediaItemList items={books}/>
+    </Section>
+</Page>
+```
+
+The `MediaItemList` component has the following properties:
+
+#### `items`
+
+type: `MediaItem[]` \
+example: `const books = await getMediaItems({/*...*/})` \
+required: `true`
+
+The list of media items to display.
+
 ### CategoriesOverview
 
 The `CategoriesOverview` component is used to display a grid of all available categories. Clicking on a category will navigate to the search page filtered by the category.
@@ -263,10 +292,63 @@ required: `true`
 The image of the highlight section. It will be optimized for performance. 
 We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
 
+#### `id`
 
+type: `string` \
+example: `"my-section"` \
+required: `false`
 
+The id of the section. This can be used to link to the section e.g. `/about#my-section`.
 
+#### `title`
 
+type: `string` \
+example: `"My section title"` \
+required: `false`
+
+The title to show above the text.
+
+#### `text`
+
+type: `string` \
+example: `"Some description"` \
+required: `true`
+
+The text to describe the highlight section.
+
+#### `link`
+
+type: `{ href: string, text: string }` \
+example: `{ href: "/en/some-page", text: "Link Text" }` \
+required: `false`
+
+The link to show as a button below the text.
+The `href` property will not be automatically prefixed with the current locale.
+The `text` will be shown on the button without any further translation.
+
+#### `className`
+
+type: `string` \
+example: `"bg-blue-600 text-white"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the highlight section.
+
+#### `titleClass`
+
+type: `string` \
+example: `"text-2xl font-bold"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the title.
+
+#### `textClass`
+
+type: `string` \
+example: `"text-lg"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the text.
 
 ### Icon
 
