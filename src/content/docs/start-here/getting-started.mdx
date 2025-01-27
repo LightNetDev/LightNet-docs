@@ -3,7 +3,7 @@ title: Getting Started
 description: Learn the basics of how to use LightNet Library
 ---
 
-import { Aside,Steps } from '@astrojs/starlight/components';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
 
 Welcome to the LightNet Library Developer Documentation! LightNet Library allows you to build customizable media distribution websites. This guide will walk you through setting up your environment and creating your first project.
@@ -62,12 +62,12 @@ Your site will be available at [http://localhost:4321](http://localhost:4321). O
 
 ## Step 3: Make Your First Customization
 
-As your first customization, let’s change the page title:
+As your first customization, let’s change the site title:
 
 <Steps>
-1. Open astro.config.mjs in a text editor.
-2. Modify the title field (e.g., change "Sk8 Ministry" to your desired site name).
-3. Save the file. Your browser will automatically refresh to show the updated title. Note that the title in front of the large skater image won’t change immediately; don’t worry, you’ll learn how to modify that later.
+1. Open `src/translations/en.json` in a text editor.
+2. Modify the value of the `custom.site.title` key by changing "Sk8 Ministry" to your desired site name.
+3. Save the file. Still running `npm run dev`, your browser will automatically refresh to show the updated title.
 </Steps>
 
 ### Optional Next Step: Make your first Change using the Administration UI
