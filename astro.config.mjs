@@ -43,10 +43,10 @@ export default defineConfig({
 					]
 				},
 				{
-					label: "Ship",
+					label: "Deploy",
 					items: [
-						{slug: "ship/hosting"},
-						{slug: "ship/file-storage"}
+						{slug: "deploy/hosting"},
+						{slug: "deploy/file-storage"}
 					]
 				},
 				{
