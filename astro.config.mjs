@@ -39,7 +39,7 @@ export default defineConfig({
 						{slug: "content/media-types"},
 						{slug: "content/categories"},
 						{slug: "content/media-collections"},
-						{slug: "content/administration-ui"},
+						{slug: "content/administration-ui", badge: "Beta"},
 					]
 				},
 				{

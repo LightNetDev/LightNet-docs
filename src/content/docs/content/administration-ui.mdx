@@ -3,7 +3,7 @@ title: Administration UI
 description: Learn how to add a Administration UI to your library.
 ---
 
-import { Steps, Aside } from '@astrojs/starlight/components';
+import { Steps, Aside, Badge } from '@astrojs/starlight/components';
 
 
 LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical users. That's why LightNet provides a Administration UI to manage your content with a user interface.
@@ -11,6 +11,14 @@ The interface will allow you to create, update, and delete media items and media
 We use a tool called [Decap CMS](https://decapcms.org/) to provide the Administration UI. It is a headless CMS that we configure to work with LightNet.
 
 All changes made will be written to your file system or to your git repository if the user interface is used online.
+
+<Aside title="Beta" type="caution">
+The Administration UI is currently in Beta status. 
+
+It enables the content administration for most scenarios. 
+Some scenarios will require manual changes on the JSON files (for example changing the identifier of a media item is not supported by the 
+Administration UI). Implementing a better Administration UI is already on our roadmap.
+</Aside>
 
 ## Add the Administration UI to your project
 
