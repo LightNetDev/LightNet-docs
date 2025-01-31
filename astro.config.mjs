@@ -4,14 +4,15 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: "https://lightnet-docs.pages.dev",
 	integrations: [
 		starlight({
-			title: 'LightNet Library',
+			title: 'LightNet',
 			social: {
-				github: 'https://github.com/LightNetDev/lightnet-library',
+				github: 'https://github.com/LightNetDev/lightnet',
 			},
 			editLink: {
-				baseUrl: 'https://github.com/LightNetDev/lightnet-library-docs/edit/main/',
+				baseUrl: 'https://github.com/LightNetDev/lightnet-docs/edit/main/',
 			  },
 			sidebar: [
 				{

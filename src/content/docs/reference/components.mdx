@@ -9,7 +9,7 @@ This is the layout of a LightNet page:
 
 ```astro title="example.astro"
 ---
-import { Page } from "@lightnet/library/components"
+import { Page } from "lightnet/components"
 ---
 <Page>
     {/* Add components here */}
@@ -19,7 +19,7 @@ import { Page } from "@lightnet/library/components"
 The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... 
 
 The components are expected to be placed inside the `Page` component.
-This reference gives you an overview of all available components. You import them from `@lightnet/library/components`.
+This reference gives you an overview of all available components. You import them from `lightnet/components`.
 
 ## Available components
 
@@ -31,7 +31,7 @@ It is covering the full width of the screen. Title and subtitle are centered on 
 
 ```astro title="example.astro"
 ---
-import { Hero, Page } from "@lightnet/library/components"
+import { Hero, Page } from "lightnet/components"
 import heroImage from "../../assets/hero.jpg"
 ---
 <Page>
@@ -113,7 +113,7 @@ The `Section` component is used to create a section with a optional title. It ta
 
 ```astro title="example.astro"
 ---
-import { Section } from "@lightnet/library/components"
+import { Section } from "lightnet/components"
 ---
 <Section title={Astro.locals.i18n.t("custom.section.title")}>
     {/* Add components here */}
@@ -167,8 +167,8 @@ The `Gallery` component is used to display a list of media items in a grid. It s
 
 ```astro title="example.astro"
 ---
-import { Page, Section, Gallery } from "@lightnet/library/components"
-import { getMediaItems } from "@lightnet/library/content"
+import { Page, Section, Gallery } from "lightnet/components"
+import { getMediaItems } from "lightnet/content"
 
 const books = await getMediaItems({/*...*/})
 ---
@@ -210,8 +210,8 @@ The `MediaItemList` component is used to display a list of media items (like on 
 
 ```astro title="example.astro"
 ---
-import { Page, Section, MediaItemList } from "@lightnet/library/components"
-import { getMediaItems } from "@lightnet/library/content"
+import { Page, Section, MediaItemList } from "lightnet/components"
+import { getMediaItems } from "lightnet/content"
 
 const books = await getMediaItems({/*...*/})
 ---
@@ -239,7 +239,7 @@ The `CategoriesOverview` component is used to display a grid of all available ca
 
 ```astro title="example.astro"
 ---
-import { CategoriesOverview, Page } from "@lightnet/library/components"
+import { CategoriesOverview, Page } from "lightnet/components"
 ---
 <Page>
     <CategoriesOverview />
@@ -265,7 +265,7 @@ a description and a optional link to another page. It will take the full width o
 
 ```astro title="example.astro"
 ---
-import { Page, HighlightSection } from "@lightnet/library/components"
+import { Page, HighlightSection } from "lightnet/components"
 import highlightImage from "../../assets/highlightImage.jpg"
 ---
 <Page>
@@ -356,7 +356,7 @@ The `Icon` component is used to display an icon from the Material Design Icons l
 
 ```astro title="example.astro"
 ---
-import { Icon } from "@lightnet/library/components"
+import { Icon } from "lightnet/components"
 ---
 <Icon className="mdi--home" />
 ```

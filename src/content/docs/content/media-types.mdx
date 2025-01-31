@@ -132,10 +132,10 @@ Custom details pages require you to reference a Astro component that will be use
 
 ```astro title="src/details-pages/CustomDetailsPage.astro"
 ---
-import { Hero } from "@lightnet/library/components";
+import { Hero } from "lightnet/components";
 import { AstroError } from "astro/errors";
 import { getEntry } from "astro:content";
-import { MediaCollections } from "@lightnet/library/details-page";
+import { MediaCollections } from "lightnet/details-page";
 
 interface Props {
   slug: string;

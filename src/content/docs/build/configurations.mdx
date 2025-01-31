@@ -15,13 +15,13 @@ The primary configuration file for your LightNet project is `astro.config.mjs`. 
 Below is a minimal `astro.config.mjs` file for a LightNet site:
 
 ```js title="astro.config.mjs"
-import lightnetLibrary from "@lightnet/library";
+import lightnet from "lightnet";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
   site: "https://yourdomain.com", 
   integrations: [
-    lightnetLibrary({
+    lightnet({
       title: "Your Site's Name", 
       languages: [
         {
@@ -83,7 +83,7 @@ LightNet optimizes the image size for better performance. We recommend providing
 
 ```js title="astro.config.mjs" ins={4}
 // ...
-lightnetLibrary({
+lightnet({
   // ...
   logo: { src: "./src/assets/logo.png" },
 })
@@ -109,7 +109,7 @@ For a better user experience, use multiple icon formats tailored to different pl
 
 ```js title="astro.config.mjs" ins={4-18}
 // ...
-lightnetLibrary({
+lightnet({
   // ...
   favicon: [
     {
@@ -148,7 +148,7 @@ Here’s an example configuration:
 
 ```js title="astro.config.mjs" ins={4-21}
 // ...
-lightnetLibrary({
+lightnet({
   // ...
   mainMenu: [
     {
@@ -193,7 +193,7 @@ This color is used in various UI elements, such as the hover effect on the searc
 Update the primary color in the `tailwind.config.mjs` file. For example:
 
 ```js title="tailwind.config.mjs" {5}
-import { lightnetStyles } from "@lightnet/library/tailwind.config.ts";
+import { lightnetStyles } from "lightnet/tailwind.config.ts";
 
 export default {
   presets: [

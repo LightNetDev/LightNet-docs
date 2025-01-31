@@ -14,8 +14,8 @@ This is the basic layout of the homepage's `index.astro` file:
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
-import { Page } from "@lightnet/library/components"
+export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
+import { Page } from "lightnet/components"
 ---
 <Page>
     {/* Add your content here */}
@@ -47,8 +47,8 @@ You can add a hero image to your homepage by adding the following code:
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
-import { Page, Hero } from "@lightnet/library/components"
+export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
+import { Page, Hero } from "lightnet/components"
 import heroImage from "../../assets/hero.jpg"
 ---
 
@@ -82,9 +82,9 @@ We provide a `Gallery` component that you can use to display your media items. A
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
-import { Page, Section, Gallery } from "@lightnet/library/components"
-import { getMediaItems } from "@lightnet/library/content"
+export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
+import { Page, Section, Gallery } from "lightnet/components"
+import { getMediaItems } from "lightnet/content"
 
 const someEnglishBooks = await getMediaItems({
   where: { type: "book", language: "en" },
@@ -123,7 +123,7 @@ a description and a optional link to another page. Here is an example on how to 
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-import { Page, HighlightSection } from "@lightnet/library/components"
+import { Page, HighlightSection } from "lightnet/components"
 import highlightImage from "../../assets/highlightImage.jpg"
 ---
 <Page>
@@ -154,7 +154,7 @@ Here is an example on how to use it:
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-import { Page, CategoriesOverview } from "@lightnet/library/components"
+import { Page, CategoriesOverview } from "lightnet/components"
 ---
 <Page>
     <CategoriesOverview />
@@ -169,7 +169,7 @@ Refer to the Astro and TailwindCSS documentation to learn more about how to crea
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
-import { Page } from "@lightnet/library/components"
+import { Page } from "lightnet/components"
 ---
 <Page>
     <section class="bg-gray-800 py-12 mt-24 md:mt-28 text-gray-100">

@@ -1,6 +1,6 @@
 ---
 title: Administration UI
-description: Learn how to add a Administration UI to your library.
+description: Learn how to add a Administration UI to your site.
 ---
 
 import { Steps, Aside, Badge } from '@astrojs/starlight/components';
@@ -44,7 +44,7 @@ This is how you add the Administration UI to your LightNet project:
 
     export default defineConfig({ 
       integrations: [
-        lightnetLibrary({
+        lightnet({
             languages: languages,
             //...
         }),
@@ -54,7 +54,7 @@ This is how you add the Administration UI to your LightNet project:
       ]    
     });
     ```
-    This adds a shared languages configuration to both the LightNet Library and the Administration UI. 
+    This adds a shared languages configuration to both the LightNet and the Administration UI. 
     The Administration UI will use the languages configuration to fill the language selection dropdowns for media items.
 
 
@@ -112,13 +112,13 @@ that forwards the authentication request. See the [Decap CMS instructions](https
 To connect your Administration UI to a GitLab repository, follow this steps.
 
 <Steps>
-1. Make sure your LightNet Library is hosted on GitLab. If this is not the case, check the [guide on hosting](/deploy/hosting) on how to setup a GitLab repository
+1. Make sure your LightNet site is hosted on GitLab. If this is not the case, check the [guide on hosting](/deploy/hosting) on how to setup a GitLab repository
    for your project.
 2. On [GitLab.com](https://gitlab.com) navigate to `Groups` and select the group that hosts the repository. Open the `Settings` of this group.
 3. Open the `Application` settings and select to `Add a new Application`.
 4. In the Add new Application dialog:
     - **Name**: Choose any name for your website
-    - **Redirect URI**: Give the final address of your LightNet Library followed by `/admin/`. Eg. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
+    - **Redirect URI**: Give the final address of your LightNet site followed by `/admin/`. Eg. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
     - **Confidential**: Unselect this option.
     - **Scopes**: Select the `api` scope.
 5. Save the new Application. GitLab will present you with a Application ID. Copy and store this ID to use it later.

@@ -1,6 +1,6 @@
 ---
 title: Media Items
-description: Learn how to manage the media items of your LightNet Library.
+description: Learn how to manage the media items of your LightNet site.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -74,7 +74,7 @@ Notice that `translations` are not required when adding a language that is only 
 ```javascript title="astro.config.mjs" ins={5-8}
 export default defineConfig({
   integrations: [
-    lightnetLibrary({
+    lightnet({
       languages: [
         {
           code: "en",

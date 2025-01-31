@@ -1,19 +1,19 @@
 ---
 title: Custom Pages
-description: Learn how to add custom pages to your LightNet Library site.
+description: Learn how to add custom pages to your LightNet site.
 ---
 
 import { FileTree } from "@astrojs/starlight/components";
 
 
-LightNet Library will automatically generate this pages for you:
+LightNet will automatically generate this pages for you:
 
 - **Homepage**: The first page that users see when they visit your site. This is on the `/` route.
 - **Search Page**: A page that displays all media items. This is on the `/media` route.
 - **Details Page**: A page that displays the details of a specific media item. This is on the `/media/:id` route.
 - **404 Page**: A page that is displayed when a user tries to access a page that does not exist. This is on the `/404` route.
 
-All other pages have to be added manually. This guide will show you how to add custom pages to your LightNet Library.
+All other pages have to be added manually. This guide will show you how to add custom pages to your LightNet site.
 
 ## Understand the page folder structure
 
@@ -30,7 +30,7 @@ We offer a helper function to generate the dynamic paths for all locales. You ca
 
 ```astro title="src/pages/[locale]/about.astro"
 ---
-export { getLocalePaths as getStaticPaths } from "@lightnet/library/i18n"
+export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
 ---
 ```
 
@@ -58,7 +58,7 @@ The content of the `/en/about.md` file would look like this:
 
 ```markdown title="src/pages/en/about.md"
 ---
-layout: "@lightnet/library/layouts/MarkdownPage.astro"
+layout: "lightnet/layouts/MarkdownPage.astro"
 ---
 # About 
 
@@ -76,7 +76,7 @@ You will also need to add the about page to the navigation. You can do this by a
 ```js title="astro.config.mjs" ins={5-8}
 export default defineConfig({
   integrations: [
-    lightnetLibrary({
+    lightnet({
         mainMenu: [
             {
                 href: "/about",

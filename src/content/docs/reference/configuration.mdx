@@ -4,26 +4,26 @@ title: Configuration Reference
 
 import { Aside } from "@astrojs/starlight/components"
 
-## Configure the `lightnetLibrary` integration
+## Configure the `lightnet` integration
 
-LightNet Library is an integration built on top of the [Astro](https://astro.build/) web framework.
+LightNet is an integration built on top of the [Astro](https://astro.build/) web framework.
 You can configure the integration in your `astro.config.mjs` file.
 
 ```js title="astro.config.mjs"
-import lightnetLibrary from "@lightnet/library";
+import lightnet from "lightnet";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
   site: "https://yourdomain.com", 
   integrations: [
-    lightnetLibrary({
+    lightnet({
       title: "Your Site's Name"
     }),
   ],
 })
 ```
 
-You can pass the following options to the `lightnetLibrary` integration:
+You can pass the following options to the `lightnet` integration:
 
 ### `title`
 
@@ -138,7 +138,7 @@ Our API supports multiple favicon formats. Each entry in the `favicon` array map
 Input:
 
 ```js title="astro.config.mjs" {2-8}
-lightnetLibrary({
+lightnet({
   favicon: [
     {
       rel: "icon",
@@ -274,13 +274,13 @@ LightNet Decap Admin is an Astro integration built on top of the [Decap CMS](htt
 You can configure the integration in your `astro.config.mjs` file.
 
 ```js title="astro.config.mjs" {8-10}
-import lightnetLibrary from "@lightnet/library";
+import lightnet from "lightnet";
 import decapAdmin from "@lightnet/decap-admin";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
   integrations: [
-    lightnetLibrary({...})
+    lightnet({...})
     decapAdmin({
       languages: [{...}],
     }),
@@ -297,8 +297,8 @@ example: `[{ code: "en", label: "English", translations: {}, isDefaultLocale: tr
 required: `true`
 
 The languages of your site. This will be used to support multiple locales and content languages. 
-You should use the same languages as in the `lightnetLibrary` integration. We recommend creating a shared variable that is used in both integrations.
-See the [lightnetLibrary configuration](#languages) for more information on the languages structure.
+You should use the same languages as in the `lightnet` integration. We recommend creating a shared variable that is used in both integrations.
+See the [lightnet configuration](#languages) for more information on the languages structure.
 
 ### `path`
 
