@@ -108,7 +108,7 @@ Provided image formats include `jpg`, `png`, `webp`. The image will be optimized
 
 ### content
 
-type: `{ url: string, name?: string }[]`\
+type: `{ url: string, label?: string }[]`\
 example: `[{url: "https://www.youtube.com/watch?v=1234"}]` \
 required: `true` (at least one content object is required)
 
@@ -146,15 +146,15 @@ Use the `media-type` to configure how the content should be displayed. For examp
 Media types can add support for content urls that are not supported out of the box. Learn more about [media types](/content/media-types).
 </Aside>
 
-#### content.name
+#### content.label
 
 type: `string`\
 example: `"Sermon 1"` \
 required: `false`
 
-The `name` property is optional and can be used to give a name to the content. This name will be displayed on the content section of the media item details page.
-If no `name` property is provided the name will be derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the name will be `sermon-1`.
-If it is `"https://www.youtube.com/watch?v=1234"` the content name will be `youtube.com`.
+The `label` property is optional and can be used to give a name to the content. This label will be displayed on the content section of the media item details page.
+If no `label` property is provided the label will be derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the label will be `sermon-1`.
+If it is `"https://www.youtube.com/watch?v=1234"` the content label will be `youtube.com`. You also can pass a translation key to this.
 
 
 ### dateCreated
