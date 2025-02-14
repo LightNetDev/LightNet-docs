@@ -8,7 +8,7 @@ on:
     branches: [main]
 
 jobs:
-  check-code-style:
+  check-project:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
