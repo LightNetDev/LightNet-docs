@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightLinksValidator from 'starlight-links-validator';
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -72,6 +74,15 @@ export default defineConfig({
 					]
 				},
 			],
+			plugins: process.env.CHECK_LINKS
+				? [
+					starlightLinksValidator({
+						errorOnFallbackPages: false,
+						errorOnInconsistentLocale: true,
+						errorOnLocalLinks: false
+					}),
+				]
+				: [],
 		}),
 	],
 });
