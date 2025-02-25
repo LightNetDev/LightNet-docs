@@ -2,7 +2,7 @@
 title: Configuration Reference
 ---
 
-import { Aside } from "@astrojs/starlight/components"
+import { Aside } from "@astrojs/starlight/components";
 
 ## Configure the `lightnet` integration
 
@@ -14,13 +14,13 @@ import lightnet from "lightnet";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://yourdomain.com", 
+  site: "https://yourdomain.com",
   integrations: [
     lightnet({
-      title: "Your Site's Name"
+      title: "Your Site's Name",
     }),
   ],
-})
+});
 ```
 
 You can pass the following options to the `lightnet` integration:
@@ -37,7 +37,7 @@ It can be a fixed string or a translation key to support multiple locales.
 ### `languages`
 
 type: `array` \
-example: `[{ code: "en", label: "English", translations: {}, isDefaultLocale: true }]` \
+example: `[{ code: "en", label: "English", translations: {}, isDefaultUILanguage: true }]` \
 required: `true`
 
 The languages of your site. This will be used to support multiple locales and content languages.
@@ -48,8 +48,7 @@ type: `string` \
 example: `"en"` \
 required: `true`
 
-The [BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code will be used as the language´s identifier.
-
+The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code will be used as the language´s identifier.
 
 #### `languages.label`
 
@@ -59,37 +58,26 @@ required: `true`
 
 The name of the language. This will be used as the language name in the UI. It can be a fixed string or a translation key to support multiple locales.
 
-#### `languages.translations`
-
-type: `object` \
-example: `{}` \
-required: `false`
-
-The translations of the language. This will be used to support multiple locales. 
-You need to provide a translation object if you want to use the language as a user interface language.
-
-#### `languages.isDefaultLocale`
+#### `languages.isUILanguage`
 
 type: `boolean` \
 example: `true` \
 required: `false`
 
-If you set this to `true`, the language will be used as the default locale.
-You must set exactly one language to `true`. The default locale is used:
+Configure this language to be available as a user interface language. It will show up in the language picker in the menu bar.
+You do not need to set this, if you set `isDefaultUILanguage` to true.
+
+#### `languages.isDefaultUILanguage`
+
+type: `boolean` \
+example: `true` \
+required: `false`
+
+If you set this to `true`, the language will be used as the default user interface language.
+You must set exactly one language to `true`. The default user interface language is used:
 
 - As the fallback language if a translation is not available for the current locale.
 - As the default language when the user navigates to the root URL.
-
-#### `languages.direction`
-
-type: `"ltr" | "rtl"` \
-example: `"ltr"` \
-required: `false` \
-default: `"ltr"`
-
-The text direction of the language. This will be used to set the direction of the language in the UI.
-Left-to-right languages are `"ltr"` and right-to-left languages are `"rtl"`.
-
 
 ### `logo`
 
@@ -111,7 +99,7 @@ LightNet optimizes the image size for better performance (except for SVGs). We r
 #### `logo.alt`
 
 type: `string` \
-example: `"custom.logo.alt"` \
+example: `"x.logo.alt"` \
 required: `false`
 
 The alt text of the logo. This will be used if the logo image is not available or if the user has disabled images. For example when using a screen reader.
@@ -157,8 +145,9 @@ Maps to the following HTML:
 </head>
 ```
 
-<Aside> 
-LightNet automatically determines the `type` attribute based on the file extension in the `href`.
+<Aside>
+  LightNet automatically determines the `type` attribute based on the file
+  extension in the `href`.
 </Aside>
 
 #### `favicon.href`
@@ -176,7 +165,7 @@ example: `"icon"` \
 required: `false` \
 default: `"icon"`
 
-The rel attribute of the favicon. This will be used to set the rel attribute of the favicon. 
+The rel attribute of the favicon. This will be used to set the rel attribute of the favicon.
 Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-rel) for more information.
 
 #### `favicon.sizes`
@@ -197,13 +186,15 @@ required: `false`
 The path to the manifest file. This will be used to set the manifest of the site. The file is expected to be in the `public/` directory.
 
 <Aside>
-The manifest is a JSON file that describes the site and its capabilities. More information can be found in the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Manifest).
+  The manifest is a JSON file that describes the site and its capabilities. More
+  information can be found in the [MDN
+  documentation](https://developer.mozilla.org/en-US/docs/Web/Manifest).
 </Aside>
 
 ### `mainMenu`
 
 type: `array` \
-example: `[{ href: "/about", label: "custom.navigation.about" }]` \
+example: `[{ href: "/about", label: "x.navigation.about" }]` \
 required: `false`
 
 The main menu of the site. This will be used to set the main menu of the site. It is expected to be an array with at least one entry.
@@ -215,12 +206,12 @@ type: `string` \
 example: `"/about"` \
 required: `true`
 
-The link attribute of the main menu entry. The value can be a relative URL or an absolute URL. 
+The link attribute of the main menu entry. The value can be a relative URL or an absolute URL.
 
 #### `mainMenu.label`
 
 type: `string` \
-example: `"custom.navigation.about"` \
+example: `"x.navigation.about"` \
 required: `true`
 
 The label of the main menu entry. The value can be a fixed string or a translation key to support multiple locales.
@@ -236,7 +227,6 @@ Relative URLs are by default prefixed with the current locale (e.g., `/media` be
 To disable this, set `requiresLocale` property to `false`.
 
 This option will be ignored if the path is absolute (e.g. `https://wikipedia.org`).
-
 
 ### `internalDomains`
 
@@ -267,7 +257,6 @@ default: `false`
 If you set this to `true`, the search page will be initially filtered by the current UI language.
 The filter will only be set when there is any media item in the current language.
 
-
 ## Configure the `decapAdmin` integration
 
 LightNet Decap Admin is an Astro integration built on top of the [Decap CMS](https://decap-cms.org/) headless CMS.
@@ -293,10 +282,10 @@ You can pass the following options to the `decapAdmin` integration:
 ### `languages`
 
 type: `array` \
-example: `[{ code: "en", label: "English", translations: {}, isDefaultLocale: true }]` \
+example: `[{ code: "en", label: "English", translations: {}, isDefaultUILanguage: true }]` \
 required: `true`
 
-The languages of your site. This will be used to support multiple locales and content languages. 
+The languages of your site. This will be used to support multiple locales and content languages.
 You should use the same languages as in the `lightnet` integration. We recommend creating a shared variable that is used in both integrations.
 See the [lightnet configuration](#languages) for more information on the languages structure.
 
@@ -329,7 +318,7 @@ This configures the git host that your Administration UI is connected to. Curren
 The configuration directly maps (replacing snake_case with camelCase) to the Decap CMS [GitHub](https://decapcms.org/docs/github-backend) and [GitLab](https://decapcms.org/docs/gitlab-backend) backend configuration.
 
 <Aside type="tip">
-We recommend using the GitLab backend for LightNet sites.
+  We recommend using the GitLab backend for LightNet sites.
 </Aside>
 
 #### `backend: "gitlab"`
@@ -353,12 +342,9 @@ GitHub backend configuration has this options:
 
 <Aside>
 GitHub does not support the PKCE authentication type. This means that you will need an authentication server to handle the authentication request.
-This is why we recommend using the GitLab backend for LightNet sites. 
+This is why we recommend using the GitLab backend for LightNet sites.
 
-See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy) 
+See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy)
 for more information on how to create an authentication server for GitHub.
+
 </Aside>
-
-
-
-

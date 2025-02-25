@@ -5,7 +5,6 @@ description: Learn how to add custom pages to your LightNet site.
 
 import { FileTree } from "@astrojs/starlight/components";
 
-
 LightNet will automatically generate this pages for you:
 
 - **Homepage**: The first page that users see when they visit your site. This is on the `/` route.
@@ -42,7 +41,7 @@ To learn about how to create custom pages, we will go through some scenarios. We
 
 ### Add an About page
 
-The about page is a common page that provides information about your ministry or community. You can add an about page by creating a markdown file for each locale. 
+The about page is a common page that provides information about your ministry or community. You can add an about page by creating a markdown file for each locale.
 For example, if your site supports English and German, you would create the following files:
 
 <FileTree>
@@ -60,14 +59,15 @@ The content of the `/en/about.md` file would look like this:
 ---
 layout: "lightnet/layouts/MarkdownPage.astro"
 ---
-# About 
+
+# About
 
 Some text about your ministry or community.
 
 ![Community Picture](../../assets/my-community-picture.jpg)
 ```
 
-Inside the frontmatter you choose the layout that you want to use. We offer a `MarkdownPage` layout that will render the markdown content. 
+Inside the frontmatter you choose the layout that you want to use. We offer a `MarkdownPage` layout that will render the markdown content.
 This will make sure your page includes the header and looks good on all screen sizes.
 You can also create your own layout if you want to customize the look of the page.
 Astro will take care of optimizing your images that are referenced in the markdown file.
@@ -77,14 +77,13 @@ You will also need to add the about page to the navigation. You can do this by a
 export default defineConfig({
   integrations: [
     lightnet({
-        mainMenu: [
-            {
-                href: "/about",
-                label: "custom.navigation.about",
-            },
-        ]
-    })
-  ]
-})
+      mainMenu: [
+        {
+          href: "/about",
+          label: "x.navigation.about",
+        },
+      ],
+    }),
+  ],
+});
 ```
-

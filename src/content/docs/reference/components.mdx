@@ -16,7 +16,7 @@ import { Page } from "lightnet/components"
 </Page>
 ```
 
-The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... 
+The `Page` component handles the layout of the page. This will add the header, language switcher, menu system...
 
 The components are expected to be placed inside the `Page` component.
 This reference gives you an overview of all available components. You import them from `lightnet/components`.
@@ -28,14 +28,13 @@ This reference gives you an overview of all available components. You import the
 The `Hero` component is used to display a hero image with a page title and a subtitle.
 It is covering the full width of the screen. Title and subtitle are centered on top of the image.
 
-
 ```astro title="example.astro"
 ---
 import { Hero, Page } from "lightnet/components"
 import heroImage from "../../assets/hero.jpg"
 ---
 <Page>
-    <Hero title={Astro.locals.i18n.t("custom.hero.title")} image={heroImage} />
+    <Hero title={Astro.locals.i18n.t("x.hero.title")} image={heroImage} />
 </Page>
 ```
 
@@ -115,7 +114,7 @@ The `Section` component is used to create a section with a optional title. It ta
 ---
 import { Section } from "lightnet/components"
 ---
-<Section title={Astro.locals.i18n.t("custom.section.title")}>
+<Section title={Astro.locals.i18n.t("x.section.title")}>
     {/* Add components here */}
 </Section>
 ```
@@ -140,8 +139,8 @@ default: `"full"`
 A `Section` will grow its width with the screen size. It will stop growing according to the `maxWidth` property.
 After this it will be centered on the screen. The `maxWidth` property can be set to `full` or `prose`.
 
-- `full`: The section will stop growing with the full width of the LightNet container. This will align 
-    the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
+- `full`: The section will stop growing with the full width of the LightNet container. This will align
+  the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
 - `prose`: The section will stop growing so that contained text is still well readable. This is the width used on the details page.
 
 #### `id`
@@ -160,7 +159,6 @@ required: `false`
 
 Additional css classes, separated by spaces, to style the section. The classes will be applied to the section's container element.
 
-
 ### Gallery
 
 The `Gallery` component is used to display a list of media items in a grid. It should be used inside a `Section` component that has maxWidth set to `full` (the default).
@@ -174,7 +172,7 @@ const books = await getMediaItems({/*...*/})
 ---
 
 <Page>
-    <Section title={Astro.locals.i18n.t("custom.books.title")}>
+    <Section title={Astro.locals.i18n.t("x.books.title")}>
         <Gallery items={books} layout="book"/>
     </Section>
 </Page>
@@ -192,11 +190,11 @@ The list of media items to display.
 
 #### `layout`
 
-type: `"book" | "video" | "portrait" | "landscape"`  \
+type: `"book" | "video" | "portrait" | "landscape"` \
 example: `"book"` \
 required: `true`
 
-The layout of the gallery. The layout will be used to determine the number of columns and 
+The layout of the gallery. The layout will be used to determine the number of columns and
 to style the cover images. Available layouts are:
 
 - `portrait`: Takes 2 to 5 columns. Use this for cover images that are portrait oriented.
@@ -217,7 +215,7 @@ const books = await getMediaItems({/*...*/})
 ---
 
 <Page>
-    <Section title={Astro.locals.i18n.t("custom.books.title")} maxWidth="prose">
+    <Section title={Astro.locals.i18n.t("x.books.title")} maxWidth="prose">
         <MediaItemList items={books}/>
     </Section>
 </Page>
@@ -260,7 +258,7 @@ In case you want to use a different title, you can set the `title` property. Mak
 
 ### HighlightSection
 
-The `HighlightSection` component will display a large image with a title, 
+The `HighlightSection` component will display a large image with a title,
 a description and a optional link to another page. It will take the full width of the screen.
 
 ```astro title="example.astro"
@@ -289,7 +287,7 @@ type: `ImageMetadata` \
 example: `import highlightImage from "../../assets/highlightImage.jpg"` \
 required: `true`
 
-The image of the highlight section. It will be optimized for performance. 
+The image of the highlight section. It will be optimized for performance.
 We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
 
 #### `id`
@@ -369,7 +367,7 @@ type: `string` \
 example: `"mdi--home"` \
 required: `true`
 
-The css classes of the icon separated by spaces. This must include the icon name. 
+The css classes of the icon separated by spaces. This must include the icon name.
 The icon name is the name of the icon from the [Material Design Icons library](https://pictogrammers.com/library/mdi/) prefixed with `mdi--`.
 
 For example: the Material Design Icon "home" becomes `mdi--home`.
@@ -393,6 +391,3 @@ required: `false` \
 default: `false`
 
 If set to `true` this flips the icon horizontally. This is useful if you want to mirror an icon on a right-to-left language.
-
-
-

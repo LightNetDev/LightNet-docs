@@ -3,8 +3,7 @@ title: Getting Started
 description: Learn the basics of how to use LightNet
 ---
 
-import { Aside, Steps } from '@astrojs/starlight/components';
-
+import { Aside, Steps } from "@astrojs/starlight/components";
 
 Welcome to the LightNet Developer Documentation! LightNet allows you to build customizable media distribution websites. This guide will walk you through setting up your environment and creating your first project.
 
@@ -24,7 +23,6 @@ git --version
 ```
 
 If these commands return version numbers, you're ready to go!
-
 
 ## 1. Set Up the Sk8 Ministries Example
 
@@ -48,7 +46,6 @@ Once finished, navigate into your project folder:
 cd your-project-name
 ```
 
-
 ## 2. Run the Development Server
 
 Now that your project is set up, start the development server to see your site in action:
@@ -59,15 +56,15 @@ npm run dev
 
 Your site will be available at [localhost:4321](http://localhost:4321). Open your browser to preview the example site.
 
-
 ## 3. Make Your First Modification
 
 As your first modification, let’s change the site title:
 
 <Steps>
-1. Open `src/translations/en.json` in a text editor.
-2. Modify the value of the `custom.site.title` key by changing "Sk8 Ministry" to your desired site name.
-3. Save the file. Still running `npm run dev`, your browser will automatically refresh to show the updated title.
+  1. Open `src/translations/en.yml` in a text editor. 2. Modify the value of
+  the `x.site.title` key by changing "Sk8 Ministry" to your desired site name.
+  3. Save the file. Still running `npm run dev`, your browser will automatically
+  refresh to show the updated title.
 </Steps>
 
 ### Optional: Make another Modification using the Administration UI
@@ -75,27 +72,35 @@ As your first modification, let’s change the site title:
 You can easily update content using the Administration UI. Follow these steps:
 
 <Steps>
-1. Ensure that `npm run dev` is still running in your terminal.
-2. Open a new terminal window in your project root and execute `npx decap-server`. This command will download and start a backend for Decap CMS, which is used for the content Administration UI.
-3. Once you see the message `info: Decap CMS Proxy Server listening on port 8081` in your terminal, open your browser and navigate to [localhost:4321/admin](http://localhost:4321/admin).
-4. Click the "Login" button. You will be presented with a list of all available media items.
-5. Locate and select `how-to-360-flip--en`. Change the title to "How to Do a 360 Flip".
-6. Click the "Publish" button in the header bar, then select "Publish Now".
+  1. Ensure that `npm run dev` is still running in your terminal. 2. Open a new
+  terminal window in your project root and execute `npx decap-server`. This
+  command will download and start a backend for Decap CMS, which is used for the
+  content Administration UI. 3. Once you see the message `info: Decap CMS Proxy
+  Server listening on port 8081` in your terminal, open your browser and
+  navigate to [localhost:4321/admin](http://localhost:4321/admin). 4. Click the
+  "Login" button. You will be presented with a list of all available media
+  items. 5. Locate and select `how-to-360-flip--en`. Change the title to "How to
+  Do a 360 Flip". 6. Click the "Publish" button in the header bar, then select
+  "Publish Now".
 </Steps>
 
 <Aside>
-This action will update the JSON content file stored on your computer. Additionally, the Administration UI can integrate with a git host like [gitlab.com](https://gitlab.com) for internet access.
+  This action will update the JSON content file stored on your computer.
+  Additionally, the Administration UI can integrate with a git host like
+  [gitlab.com](https://gitlab.com) for internet access.
 </Aside>
 
 #### Inspect changes
 
 <Steps>
-1. **Check the Updated Content File**: Open the file located at `/src/content/media/how-to-360-flip--en.json`. The `title` attribute should reflect your changes.
-2. **View the Updated Website**: In your browser, go to [localhost:4321/en/media/how-to-360-flip--en](http://localhost:4321/en/media/how-to-360-flip--en). You should see the updated title displayed below the video.
+  1. **Check the Updated Content File**: Open the file located at
+  `/src/content/media/how-to-360-flip--en.json`. The `title` attribute should
+  reflect your changes. 2. **View the Updated Website**: In your browser, go to
+  [localhost:4321/en/media/how-to-360-flip--en](http://localhost:4321/en/media/how-to-360-flip--en).
+  You should see the updated title displayed below the video.
 </Steps>
 
 Feel free to experiment further by adding new media items through the Administration UI or by creating additional JSON files.
-
 
 ## 4. Build and Deploy Your Site
 
@@ -108,7 +113,6 @@ npm run build
 This command generates a `dist` folder with static HTML files that are ready to be deployed to any server.
 
 For detailed deployment instructions, check out our [Deployment Guide](/deploy/hosting).
-
 
 ## What's Next?
 
