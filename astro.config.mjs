@@ -21,8 +21,15 @@ export default defineConfig({
 					label: 'Start Here',
 					items: [
 						{slug: "start-here/getting-started"},
-						{slug:"start-here/overview"},
-						{slug:"start-here/outline"}
+						{label:"Concepts", items: [
+							{slug: "start-here/concepts/media-site-structure"},
+							{slug: "start-here/concepts/architecture"},
+							{slug: "start-here/concepts/workflow"}
+						]},
+						{label: "Guides", items: [
+							{slug: "start-here/guides/building-the-skills"},
+							{slug: "start-here/guides/using-the-docs"}
+						]}
 					],
 				},
 				{
