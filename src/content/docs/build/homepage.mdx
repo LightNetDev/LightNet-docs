@@ -24,7 +24,7 @@ import { Page } from "lightnet/components"
 
 This file is an Astro component. Everything inside the `---` is the frontmatter. It will be executed while your site is being built. Use this part to import your components and define your page's variables. For example, you will query media items here.
 
-The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available user interface languages.
+The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available site languages.
 
 Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
 reusable components that you can use to build your page. More details below.
@@ -105,7 +105,7 @@ The `getMediaItems` function helps to query media items (Alternatively you could
 We filter for all media items that have the media-type `book` and the language `en`. We order them by the date they were created (newest first) and limit the result to 10 items.
 
 <Aside type="tip">
-You can use Astro's `Astro.currentLocale` to get the current user interface language of the site. This can be useful if you want to query media items matching the current language.
+You can use Astro's `Astro.currentLocale` to get the current site language of the site. This can be useful if you want to query media items matching the current language.
 </Aside>
 
 Use the `Section` component to layout your content. It will add spacing around your content, make sure it is centered horizontally

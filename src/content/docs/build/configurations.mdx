@@ -27,7 +27,7 @@ export default defineConfig({
         {
           code: "en",
           label: "English",
-          isDefaultUILanguage: true,
+          isDefaultSiteLanguage: true,
         },
       ],
     }),
@@ -50,13 +50,13 @@ This highlights essential settings for every site built with LightNet. Make sure
    ```
 1. **Languages** - 
   This setting defines the languages available on your site, including UI and content languages. Refer to the [Internationalization Guide](/build/i18n) and [Adding Media Items Guide](/content/media-items) for more details.  
-  For the beginning, add your default language for the user interface:
+  For the beginning, add your default language for the site:
    ```js
    languages: [
       {
         code: "en",
         label: "English",
-        isDefaultUILanguage: true,
+        isDefaultSiteLanguage: true,
       },
     ]
     ```
@@ -64,7 +64,7 @@ This highlights essential settings for every site built with LightNet. Make sure
     - **`label`**: Display name for the language selector this can either be a fixed string (e.g., `Español`) or a translation key (e.g. `x.languages.es`).
     - **`translations`**: Add custom translations for UI elements not covered by LightNet.  
       See the [Internationalization Guide](/build/i18n) for more information.
-    - **`isDefaultUILanguage`**: Set this to `true` for exactly one language. This becomes the fallback language, used for missing translations or when users visit `/`.
+    - **`isDefaultSiteLanguage`**: Set this to `true` for exactly one language. This becomes the fallback language, used for missing translations or when users visit `/`.
 </Steps>
 
 ## Common Configuration Tasks
