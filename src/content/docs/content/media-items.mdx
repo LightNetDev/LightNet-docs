@@ -69,7 +69,7 @@ The language of the media item. The language should be a BCP-47 language code li
 The language will be used to filter media items by language and to display the media item in the correct language.
 For every language used you need to provide a language definition in the `astro.config.mjs` file. The 
 language will be referenced by the `code` property in the language definition. Add a new language definition like shown below. 
-Notice that `translations` are not required when adding a language that is only a content language for media items and not a UI language.
+Notice that `translations` are not required when adding a language that is only a content language for media items and not a site language.
 
 ```javascript title="astro.config.mjs" ins={5-8}
 export default defineConfig({
