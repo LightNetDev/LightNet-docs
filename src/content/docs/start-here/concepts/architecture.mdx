@@ -1,45 +1,53 @@
 ---
-title: Architecture
-description: 
+title: Static Architecture
+description: > 
+    Discover how LightNet leverages static site generation (SSG) 
+    to create fast, secure, and cost-effective media sites.
 ---
 
-This chapter gives an high-level overview on how a media site using LightNet is built.
-It explains the concept of static site generation and why this fits with LightNet's goals.
+This chapter provides a high-level overview of the concept LightNet uses to build media sites. 
+It explores the principle of static site generation and explains why and how this approach aligns with LightNet.
 
-## Static Site generation
+## Why Static Site Generation (SSG)?
 
-{/* todo: link technical file types to something with more details, eg. how to build the skills */}
+{/* TODO: Link technical file types to more detailed guides, such as "how to build the skills." */}
 
-LightNet utilizes static site generation (SSG) to build media sites. 
-SSG is the process of building a website by converting raw content (like Markdown, JSON, or YAML files) 
-and templates into static HTML, CSS, and JavaScript files. This process involves:
+LightNet utilizes **static site generation (SSG)** to create media sites. 
+SSG is a method of pre-building a website by converting raw content (e.g., Markdown, JSON, or YAML files) 
+into static HTML, CSS, and JavaScript files. 
+This process involves:
 
-1. **Content and Data**: The website content is stored in structured files.
-2. **Templates**: Predefined templates or layouts determine the design and structure of each page.
-3. **Build Process**: A build command processes the content with the templates to generate a complete set of static files.
-4. **Deployment**: These static files can be directly served by any web server or distributed via a CDN.
+1. **Content and Data** - Website content is stored in structured, easily manageable files.
+2. **Templates** - Predefined layouts determine the visual structure of each page.
+3. **Build Process** - A build command compiles content and templates into fully rendered static files.
+4. **Deployment** - These static files are then hosted on a web server or distributed via a CDN.
 
-LightNet uses SSG in order to:
+### Why LightNet Uses SSG
 
-- simplify the deployment process: While traditional sites need a running backend application, LightNet sites are just static files.
-- increase site performance: Rendering of the pages is done during built time, doing this LightNet avoids rerendering with every page visit and minimizes the transmitted data.
-- lower security risks: Since LightNet does not depend on a running backend application, it is more unlikely to be hacked.
-- reduce maintenance tasks: Statically hosted files rarely crash, like backend applications do from time to time. This makes them more reliable.
-- minimize cost: Hosting of static files is very cheap. You basically get it for free from some providers.
+SSG provides numerous advantages that make it an ideal choice for LightNet-powered sites:
 
+- **Simplified Deployment** - Traditional websites require a running backend, but LightNet sites consist of simple static files, reducing complexity.
+- **Faster Performance** - Pages are pre-rendered during the build process, eliminating unnecessary rerendering and reducing data transmission.
+- **Enhanced Security** - Without a backend application, the attack surface is significantly reduced, lowering the risk of hacks.
+- **Lower Maintenance** - Static files are more reliable than backend applications, which can crash or require frequent updates.
+- **Minimal Hosting Costs** - Hosting static files is extremely affordable, with some providers offering free hosting options.
 
-With SSG also comes limitations:
-- no dynamic content: SSG will not support different permissions on media-items, it is not the solution to build highly interactive sites (chats, comments)
+### Limitations of SSG
 
-While LightNet focuses on providing a simple SSG approach it allows you to embed your dynamic components into your media site.
+While SSG has many advantages, it also has limitations:
 
+- **No Dynamic Content** - LightNet does not support personalized content or user-based media permissions out of the box.
+- **Limited Interactivity** - Highly interactive features like real-time chats and comment sections require external solutions.
 
-## How does LightNet help with SSG?
+However, LightNet offers flexibility by allowing the integration of dynamic components when needed.
 
-LightNet uses existing SSG tooling.
-This how LightNet fits into the SSG process:
+## How LightNet Uses SSG
 
-1. **Content and Data**: LightNet defines a data structure you build on. Data is stored in plain text files. This makes it easy to import and export to other systems.
-2. **Templates**: LightNet comes with reusable layouts and building blocks. This radically increases development speed and simplifies building your media site.
-3. **Build Process**: LightNet select state of the art tooling to transform data and templates into a static media site.
-4. **Deployment**: LightNet will guide you with doing the deployment. Sites built with LightNet are infrastructure agnostic. This means you can deploy them anywhere. If you don't have an opinion on where to deploy, LightNet will give recommendations.
+LightNet builds upon existing SSG tools and streamlines the process:
+
+1. **Content and Data** - LightNet defines a structured format for media content, stored as plain text files. This ensures easy import/export compatibility with other systems.
+2. **Templates** - Prebuilt layouts and UI components speed up development and provide a professional appearance out of the box.
+3. **Build Process** - LightNet leverages state-of-the-art tools to transform data and templates into a fully functional static media site.
+4. **Deployment** - LightNet provides deployment guidance, ensuring that sites remain infrastructure-agnostic. If users need recommendations, LightNet suggests best-practice hosting solutions.
+
+By combining the power of static site generation with flexible deployment options, LightNet enables users to build efficient, scalable, and cost-effective media sites with ease.
