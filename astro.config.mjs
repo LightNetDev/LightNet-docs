@@ -27,8 +27,7 @@ export default defineConfig({
 							{slug: "start-here/concepts/collaboration"}
 						]},
 						{label: "Guides", items: [
-							{slug: "start-here/guides/building-the-skills"},
-							{slug: "start-here/guides/using-the-docs"}
+							{slug: "start-here/guides/essential-skills"},
 						]}
 					],
 				},
@@ -72,14 +71,7 @@ export default defineConfig({
 						{slug: "reference/configuration"},
 						{slug: "reference/components"}
 					]
-				},
-				{
-					label: "Advance Your Journey",
-					items: [
-						{slug: "advanced/internals"},
-						{slug: "advanced/contribute"}
-					]
-				},
+				}
 			],
 			plugins: process.env.CHECK_LINKS
 				? [
