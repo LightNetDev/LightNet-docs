@@ -1,47 +1,45 @@
 ---
 title: Architecture
+description: 
 ---
 
-explain technical high-level aspects how LightNet is built
+This chapter gives an high-level overview on how a media site using LightNet is built.
+It explains the concept of static site generation and why this fits with LightNet's goals.
+
+## Static Site generation
+
+{/* todo: link technical file types to something with more details, eg. how to build the skills */}
+
+LightNet utilizes static site generation (SSG) to build media sites. 
+SSG is the process of building a website by converting raw content (like Markdown, JSON, or YAML files) 
+and templates into static HTML, CSS, and JavaScript files. This process involves:
+
+1. **Content and Data**: The website content is stored in structured files.
+2. **Templates**: Predefined templates or layouts determine the design and structure of each page.
+3. **Build Process**: A build command processes the content with the templates to generate a complete set of static files.
+4. **Deployment**: These static files can be directly served by any web server or distributed via a CDN.
+
+LightNet uses SSG in order to:
+
+- simplify the deployment process: While traditional sites need a running backend application, LightNet sites are just static files.
+- increase site performance: Rendering of the pages is done during built time, doing this LightNet avoids rerendering with every page visit and minimizes the transmitted data.
+- lower security risks: Since LightNet does not depend on a running backend application, it is more unlikely to be hacked.
+- reduce maintenance tasks: Statically hosted files rarely crash, like backend applications do from time to time. This makes them more reliable.
+- minimize cost: Hosting of static files is very cheap. You basically get it for free from some providers.
 
 
-{/* todo use some to explain the why of the Architecture */}
-{/* todo put the goals on the homepage */}
-## Design Goals
+With SSG also comes limitations:
+- no dynamic content: SSG will not support different permissions on media-items, it is not the solution to build highly interactive sites (chats, comments)
 
-LightNet is built with the following principles:
+While LightNet focuses on providing a simple SSG approach it allows you to embed your dynamic components into your media site.
 
-- **Reusable Solution**: Create media distribution sites with minimal coding.
-- **Cost-Effective**: Keep operational expenses low for sustainability.
-- **User-Friendly**: Simplify setup, modification, and maintenance.
-- **Privacy-Focused**: Ensure no tracking or advertisements.
-- **Multilingual Support**: Translate easily, including support for right-to-left languages.
-- **Accessible**: Operate efficiently on low-bandwidth connections and older devices.
-- **Secure**: Protect against common hacking attempts.
 
-{/* todo improve and add the why and base details */}
+## How does LightNet help with SSG?
 
-## How It Works
+LightNet uses existing SSG tooling.
+This how LightNet fits into the SSG process:
 
-A **LightNet** project transforms a folder of configuration files, content, HTML, and JavaScript into a fully deployable package of static assets (HTML, CSS, and JS).
-
-Built as a plugin for the [Astro framework](https://astro.build), LightNet uses Astro's static site generation capabilities to simplify media distribution. To get the most out of LightNet, we recommend exploring the [Astro documentation](https://docs.astro.build/en/getting-started/).
-
-### Key Features
-
-- **Pre-rendered HTML**: Reduces traffic and improves load times.
-- **Static Output**: Generates static files, removing the need for backend servers.
-- **Flexible Content Management**: Edit content as JSON or [use an Administration UI](/content/administration-ui) that integrates with Git hosts such as [GitLab](https://gitlab.com).
-
-With LightNet, you can create a robust, efficient media site to serve your community's needs.
-
-## Scope and Limitations
-
-While LightNet is a powerful tool, it does not include:
-
-- **User Authentication**: No built-in user accounts or access restrictions.
-- **Advanced Analytics**: Integrate third-party tools for detailed tracking.
-- **E-commerce Support**: Shopping carts and payment processing are not supported.
-- **Complex Interactivity**: Server-side features like comments or personalized user experiences are unavailable.
-
-These design choices keep LightNet lightweight and focused on its core purpose: static media distribution.
+1. **Content and Data**: LightNet defines a data structure you build on. Data is stored in plain text files. This makes it easy to import and export to other systems.
+2. **Templates**: LightNet comes with reusable layouts and building blocks. This radically increases development speed and simplifies building your media site.
+3. **Build Process**: LightNet select state of the art tooling to transform data and templates into a static media site.
+4. **Deployment**: LightNet will guide you with doing the deployment. Sites built with LightNet are infrastructure agnostic. This means you can deploy them anywhere. If you don't have an opinion on where to deploy, LightNet will give recommendations.
