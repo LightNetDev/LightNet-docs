@@ -34,23 +34,45 @@ export default defineConfig({
 				{
 					label: "Build",
 					items: [
-						{slug: "build/configurations"},
-						{slug: "build/homepage"},
-						{slug: "build/custom-pages"},
-						{slug: "build/i18n"}
+						{label: "Concepts", items: [
+							{slug: "build/concepts/astro"},
+							{slug: "build/concepts/internationalisation"},
+							{slug: "build/concepts/project-structure"}
+						]},
+						{label: "Configuration", items: [
+							{slug: "build/configuration/fundamentals"},
+							{slug: "build/configuration/initialize-configurations"},
+							{slug: "build/configuration/set-logo"},
+							{slug: "build/configuration/set-favicon"},
+							{slug: "build/configuration/set-main-menu"},
+							{slug: "build/configuration/set-primary-color"}
+						]},
+						{label: "Internationalization", items:[
+							{slug: "build/i18n/fundamentals"},
+							{slug: "build/i18n/custom-site-strings"},
+							{slug: "build/i18n/add-language"}
+						]},
+						{label: "Pages", items: [
+							{slug: "build/pages/fundamentals"},
+							{slug: "build/pages/categories-overview"},
+							{slug: "build/pages/initialize-homepage"},
+							{slug: "build/pages/hero"},
+							{slug: "build/pages/highlight-section"},
+							{slug: "build/pages/media-gallery"},
+							{slug: "build/pages/section"},
+							{slug: "build/pages/custom-components"},
+							{slug: "build/pages/about-page"}
+						]}
 					],
 				},
-				{
-					label: "Add Content",
-					items: [
-						{slug: "content/overview"},
-						{slug: "content/media-items"},
-						{slug: "content/media-types"},
-						{slug: "content/categories"},
-						{slug: "content/media-collections"},
-						{slug: "content/administration-ui", badge: "Beta"},
-					]
-				},
+				{label:"Content", items: [
+					{slug: "content/fundamentals"},
+					{slug: "content/media-items"},
+					{slug: "content/media-types"},
+					{slug: "content/media-collections"},
+					{slug: "content/categories"},
+					{slug: "content/administration-ui", badge: "Beta"}
+				]},
 				{
 					label: "Deploy",
 					items: [
@@ -68,8 +90,7 @@ export default defineConfig({
 				{
 					label: 'Reference',
 					items: [
-						{slug: "reference/configuration"},
-						{slug: "reference/components"}
+						{slug: "reference/configuration"}
 					]
 				}
 			],
