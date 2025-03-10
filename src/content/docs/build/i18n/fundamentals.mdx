@@ -1,0 +1,13 @@
+---
+title: Fundamentals
+---
+
+## How translations are resolved
+
+1. User translations are merged with built-in translations. User translations will override built-in translations.
+2. Lookup translation key in exactly matching translation file
+3. Lookup translation key in base language. E.g. for `en_US` this will use `en` to resolve the key.
+4. Lookup translation key in fallbackLanguages defined for this language. Starting from first item. Stopping on first match.
+5. Lookup translation key in default user-interface language. 
+6. Lookup translation key in english translations
+7. Return key if nothing is found. If key starts with `ln.` or `x.` throw an error.

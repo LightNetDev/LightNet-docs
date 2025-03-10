@@ -1,0 +1,53 @@
+---
+title: Create an About Page
+---
+
+import { FileTree } from "@astrojs/starlight/components";
+
+
+The about page is a common page that provides information about your ministry or community. You can add an about page by creating a markdown file for each locale.
+For example, if your site supports English and German, you would create the following files:
+
+<FileTree>
+- src
+  - pages
+    - en
+      - about.md
+    - de
+      - about.md
+</FileTree>
+
+The content of the `/en/about.md` file would look like this:
+
+```markdown title="src/pages/en/about.md"
+---
+layout: "lightnet/layouts/MarkdownPage.astro"
+---
+
+# About
+
+Some text about your ministry or community.
+
+![Community Picture](../../assets/my-community-picture.jpg)
+```
+
+Inside the frontmatter you choose the layout that you want to use. We offer a `MarkdownPage` layout that will render the markdown content.
+This will make sure your page includes the header and looks good on all screen sizes.
+You can also create your own layout if you want to customize the look of the page.
+Astro will take care of optimizing your images that are referenced in the markdown file.
+You will also need to add the about page to the navigation. You can do this by adding the following code to the `astro.config.mjs` file:
+
+```js title="astro.config.mjs" ins={5-8}
+export default defineConfig({
+  integrations: [
+    lightnet({
+      mainMenu: [
+        {
+          href: "/about",
+          label: "x.navigation.about",
+        },
+      ],
+    }),
+  ],
+});
+```

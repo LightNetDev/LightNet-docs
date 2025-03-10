@@ -1,0 +1,54 @@
+---
+title: Add a Section
+---
+
+The `Section` component is used to create a section with a optional title. It takes care of the spacing and the layout of its content.
+
+```astro
+---
+import { Section } from "lightnet/components"
+---
+<Section title={Astro.locals.i18n.t("x.section.title")}>
+    {/* Add components here */}
+</Section>
+```
+
+The `Section` component has the following properties:
+
+#### `title`
+
+type: `string` \
+example: `"My section title"` \
+required: `false`
+
+The title of the section.
+
+#### `maxWidth`
+
+type: `"full" | "prose"` \
+example: `"prose"` \
+required: `false` \
+default: `"full"`
+
+A `Section` will grow its width with the screen size. It will stop growing according to the `maxWidth` property.
+After this it will be centered on the screen. The `maxWidth` property can be set to `full` or `prose`.
+
+- `full`: The section will stop growing with the full width of the LightNet container. This will align
+  the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
+- `prose`: The section will stop growing so that contained text is still well readable. This is the width used on the details page.
+
+#### `id`
+
+type: `string` \
+example: `"my-section"` \
+required: `false`
+
+The id of the section. This can be used to link to the section e.g. `/about#my-section`.
+
+#### `className`
+
+type: `string` \
+example: `"py-4 bg-gray-100"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the section. The classes will be applied to the section's container element.

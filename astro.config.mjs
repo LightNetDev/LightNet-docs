@@ -26,7 +26,7 @@ export default defineConfig({
 							{slug: "start-here/concepts/architecture"},
 							{slug: "start-here/concepts/collaboration"}
 						]},
-						{label: "Guides", items: [
+						{label: "How to...", items: [
 							{slug: "start-here/guides/essential-skills"},
 						]}
 					],

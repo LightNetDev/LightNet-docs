@@ -1,0 +1,101 @@
+---
+title: Add a Highlight Section
+---
+
+If you have some content to highlight you can use the `HighlightSection` component. This component will display a large image with a title, 
+a description and a optional link to another page. Here is an example on how to use it:
+
+```astro
+---
+import { Page, HighlightSection } from "lightnet/components"
+import highlightImage from "../../assets/highlightImage.jpg"
+---
+<Page>
+    <HighlightSection
+        image={highlightImage}
+        title="Your Title"
+        text="Some description"
+        link={{
+            href: "/some-page",
+            text: "Link Text",
+        }}
+    />
+</Page>
+```
+
+Make sure you add your image to the `src/assets` folder and import it at the top of the file. 
+We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. The 
+image will be optimized for performance. Supported Image formats are `jpg`, `png`, `webp`.
+
+For multilingual sites make sure to pass a translated string for the `title`, `text` props.
+
+## Reference
+
+The `HighlightSection` component has the following properties:
+
+#### `image`
+
+type: `ImageMetadata` \
+example: `import highlightImage from "../../assets/highlightImage.jpg"` \
+required: `true`
+
+The image of the highlight section. It will be optimized for performance.
+We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
+
+#### `id`
+
+type: `string` \
+example: `"my-section"` \
+required: `false`
+
+The id of the section. This can be used to link to the section e.g. `/about#my-section`.
+
+#### `title`
+
+type: `string` \
+example: `"My section title"` \
+required: `false`
+
+The title to show above the text.
+
+#### `text`
+
+type: `string` \
+example: `"Some description"` \
+required: `true`
+
+The text to describe the highlight section.
+
+#### `link`
+
+type: `{ href: string, text: string }` \
+example: `{ href: "/en/some-page", text: "Link Text" }` \
+required: `false`
+
+The link to show as a button below the text.
+The `href` property will not be automatically prefixed with the current locale.
+The `text` will be shown on the button without any further translation.
+
+#### `className`
+
+type: `string` \
+example: `"bg-blue-600 text-white"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the highlight section.
+
+#### `titleClass`
+
+type: `string` \
+example: `"text-2xl font-bold"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the title.
+
+#### `textClass`
+
+type: `string` \
+example: `"text-lg"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the text.

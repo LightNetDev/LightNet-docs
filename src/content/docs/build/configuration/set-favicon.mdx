@@ -1,0 +1,46 @@
+---
+title: Set a Favicon
+---
+
+LightNet allows you to set an favicon (icon displayed in browser tabs and bookmarks).
+
+#### Basic Method (Not Recommended)
+
+The simplest way to set a favicon is by placing a `favicon.ico` file in your project's `public/` folder.  
+This file will be served at `/favicon.ico`, a standard location recognized by all browsers.
+
+#### Recommended Method
+
+For a better user experience, use multiple icon formats tailored to different platforms. This approach ensures optimal display quality across devices. Reference the icons in your `astro.config.mjs` file as follows:
+
+```js title="astro.config.mjs" ins={4-18}
+// ...
+lightnet({
+  // ...
+  favicon: [
+    {
+      rel: "icon",
+      href: "favicon.ico",
+      sizes: "32x32",
+    },
+    {
+      rel: "icon",
+      href: "icon.svg",
+    },
+    {
+      rel: "apple-touch-icon",
+      href: "apple-touch-icon.png",
+    },
+  ],
+});
+```
+
+#### Required Files
+
+Place these files in your `public/` folder:
+
+- **`favicon.ico`**: A fallback icon for all browsers. Recommended size: 32x32 pixels.
+- **`icon.svg`**: A vector graphic for high-resolution displays. Ensure good contrast on light and dark backgrounds.
+- **`apple-touch-icon.png`**: Used for home screen shortcuts on iPhones/iPads. Recommended size: 180x180 pixels.
+
+
