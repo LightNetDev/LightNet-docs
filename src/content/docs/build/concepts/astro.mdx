@@ -2,37 +2,69 @@
 title: Astro
 ---
 
-import { Aside } from "@astrojs/starlight/components";
+LightNet is build on the shoulders of Astro. To understand how LightNet integrates with Astro, this chapter introduces Astro's main concepts and how LightNet 
+is making use of them. Astro is a JavaScript web framework optimized for building fast, content-driven websites. 
+The following features are used by LightNet, we recommend using the [Astro documentation](https://docs.astro.build/) to understand them.
+
+### Static site generation
+
+Astro implements [static site generation](/start-here/concepts/architecture/) (SSG), 
+to create static HTML, CSS and JavaScript that can be hosted on any web server. 
+It also supports Server Side Rendering (SSR) for more dynamic scenarios.
+
+Every LightNet site is a Astro project. It will use Astro's SSG capabilities to generate a static media library.
+LightNet does not build on Astro's SSR features.
+
+### Developer experience
+
+Astro aims to provide a great developer experience. It has a fast development server, 
+quick build times, good documentation and is close to web standards.
+
+LightNet picks this up and adds additional tooling to simplify the development of static media libraries.
+
+### Integrations
+
+Astro can be extended with integrations. Integrations add support for other tools such as React or can even automate the generation of pages.
+
+LightNet is build as an Astro integration. It will automatically generate pages such as the search and details pages for you. 
+It also adds additional integrations to the Astro project for example React and Tailwind-CSS.
+
+### Pages
+
+The pages folder inside a Astro project maps to the generated static folder. This means that the structure of the pages folder 
+defines the routes of the final website.
+
+LightNet uses this concept but will in addition add pages like the search page automatically. 
+Learn more about this inside [chapters on pages](/build/pages/fundamentals).
+
+### Components
+
+With Astro you can defined reusable components that receive parameters and map variables into the HTML structure.
+For example a video player component could be reused on different pages and have the video url as its parameter.
+
+LightNet provides several prebuilt Astro components to help building a media library.
 
 
-- what is Astro?
-- How does it work?
-- How does LightNet use it and integrate with Astro?
+### Astro Islands
+
+With Astro you can also embed components build with other JavaScript frameworks such as React. This allows to have 
+interactive islands within a static page.
+
+LightNet uses React to implement the search page. Using React you could also add interactive elements to other pages.
+
+### Content Collections
+
+Astro projects store content metadata as files in a dedicated `content` folder. Astro provides access to the data stored in these files and 
+makes sure that their structure is correct.
+
+LightNet uses the concept of content collections to offer a structure for the media library data. This makes sure the data is correct and 
+accessible. LightNet will use the data inside the 
+content collections to generate pages e.g. the search page and the details page. LightNet also provides helper functions to simplify access to 
+the media library's content collections for example by offering a query function to filter media items. Learn more about LightNet's use of 
+content collection inside the [chapter on adding content](/content/fundamentals).
 
 
-## Basic file layout
 
-This is the basic layout of the homepage's `index.astro` file:
 
-```astro title="src/pages/[locale]/index.astro"
----
-export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
-import { Page } from "lightnet/components"
----
-<Page>
-    {/* Add your content here */}
-</Page>
-```
 
-This file is an Astro component. Everything inside the `---` is the frontmatter. It will be executed while your site is being built. Use this part to import your components and define your page's variables. For example, you will query media items here.
 
-The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available site languages.
-
-Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
-reusable components that you can use to build your page. More details below.
-
-The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your content with this component to ensure that your page is styled correctly.
-
-<Aside type="tip">
-The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/) to get a deep understanding of how to extend it.
-</Aside>

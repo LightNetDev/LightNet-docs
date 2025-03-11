@@ -2,7 +2,7 @@
 title: Fundamentals
 ---
 
-import { FileTree } from "@astrojs/starlight/components";
+import { FileTree, Aside } from "@astrojs/starlight/components";
 
 LightNet will automatically generate this pages for you:
 
@@ -33,3 +33,33 @@ export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
 ```
 
 Inside a component on dynamic path you can use `Astro.currentLocale` to get the current locale of the site.
+
+
+
+
+## Basic file layout
+
+This is the basic layout of the homepage's `index.astro` file:
+
+```astro title="src/pages/[locale]/index.astro"
+---
+export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
+import { Page } from "lightnet/components"
+---
+<Page>
+    {/* Add your content here */}
+</Page>
+```
+
+This file is an Astro component. Everything inside the `---` is the frontmatter. It will be executed while your site is being built. Use this part to import your components and define your page's variables. For example, you will query media items here.
+
+The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available site languages.
+
+Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
+reusable components that you can use to build your page. More details below.
+
+The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your content with this component to ensure that your page is styled correctly.
+
+<Aside type="tip">
+The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/) to get a deep understanding of how to extend it.
+</Aside>
