@@ -2,69 +2,77 @@
 title: Astro
 ---
 
-LightNet is build on the shoulders of Astro. To understand how LightNet integrates with Astro, this chapter introduces Astro's main concepts and how LightNet 
-is making use of them. Astro is a JavaScript web framework optimized for building fast, content-driven websites. 
-The following features are used by LightNet, we recommend using the [Astro documentation](https://docs.astro.build/) to understand them.
+LightNet is built on the foundation of Astro. To understand how LightNet integrates with Astro, 
+this chapter introduces Astro's main concepts and how LightNet uses them. Astro is a JavaScript web framework optimized for building fast, 
+content-driven websites. We recommend consulting the [Astro documentation](https://docs.astro.build/) for a deeper understanding.
 
-### Static site generation
+### Static Site Generation
 
-Astro implements [static site generation](/start-here/concepts/architecture/) (SSG), 
-to create static HTML, CSS and JavaScript that can be hosted on any web server. 
-It also supports Server Side Rendering (SSR) for more dynamic scenarios.
+Astro implements [static site generation](/start-here/concepts/architecture/) (SSG) to produce static 
+HTML, CSS, and JavaScript that can be hosted on any web server. It also supports 
+server-side rendering (SSR) for dynamic scenarios.
 
-Every LightNet site is a Astro project. It will use Astro's SSG capabilities to generate a static media library.
-LightNet does not build on Astro's SSR features.
+Every LightNet site is an Astro project utilizing Astro's SSG capabilities to generate a static media library. 
+LightNet does not rely on Astro's SSR features.
 
-### Developer experience
+### Developer Experience
 
-Astro aims to provide a great developer experience. It has a fast development server, 
-quick build times, good documentation and is close to web standards.
+Astro offers an excellent developer experience with a fast development server, quick build times, 
+comprehensive documentation, and adherence to web standards.
 
-LightNet picks this up and adds additional tooling to simplify the development of static media libraries.
+LightNet enhances this experience by adding tools that simplify the development of static media libraries.
+
+
+### Templates
+
+Astro templates allow you to kickstart new projects by copying the structure and configuration of an existing project. 
+Using the `npm create astro` command in the terminal, you can initialize a new project by providing the template's URL. 
+The Astro setup wizard will then guide you through the setup process.
+
+This approach is utilized in our [getting started](/start-here/getting-started/) guide. 
+For instance, the Sk8-Ministry project serves as a template for creating a LightNet media site, 
+providing a foundational structure to build upon. It includes the required dependencies, an initial configuration and 
+example content.
+
 
 ### Integrations
 
-Astro can be extended with integrations. Integrations add support for other tools such as React or can even automate the generation of pages.
+Astro can be extended with integrations that add support for tools like React or automate page generation.
 
-LightNet is build as an Astro integration. It will automatically generate pages such as the search and details pages for you. 
-It also adds additional integrations to the Astro project for example React and Tailwind-CSS.
+LightNet is developed as an Astro integration. It automatically generates pages such as search and detail pages and adds additional 
+integrations like React and Tailwind CSS to the Astro project. By [configuring the LightNet integration](/build/configuration/fundamentals), you can customize the main menu, 
+add [support for new languages](/build/i18n/fundamentals) — including right-to-left (RTL) languages — and adjust other settings to tailor the media library to your needs.
+
+
 
 ### Pages
 
-The pages folder inside a Astro project maps to the generated static folder. This means that the structure of the pages folder 
-defines the routes of the final website.
+The `pages` folder in an Astro project maps to the generated static folder, defining the routes of the final website.
 
-LightNet uses this concept but will in addition add pages like the search page automatically. 
-Learn more about this inside [chapters on pages](/build/pages/fundamentals).
+LightNet builds upon this by automatically adding essential pages, such as a 404 page and 
+a redirect to your site's default language. Learn more in the 
+[chapters on pages](/build/pages/fundamentals).
 
 ### Components
 
-With Astro you can defined reusable components that receive parameters and map variables into the HTML structure.
-For example a video player component could be reused on different pages and have the video url as its parameter.
+Astro allows for defining reusable components that accept parameters and render static HTML. 
+For example, a video player component can be reused with different video URLs.
 
-LightNet provides several prebuilt Astro components to help building a media library.
+LightNet provides several prebuilt Astro components to assist in building a media library. 
+These include components for page layouts, a video player, and UI elements such as media galleries. 
 
 
 ### Astro Islands
 
-With Astro you can also embed components build with other JavaScript frameworks such as React. This allows to have 
-interactive islands within a static page.
+Astro supports embedding components from other JavaScript frameworks like React, enabling interactive elements within static pages.
 
-LightNet uses React to implement the search page. Using React you could also add interactive elements to other pages.
+LightNet uses React to implement the search page and allows for adding interactive elements to other pages as well.
 
 ### Content Collections
 
-Astro projects store content metadata as files in a dedicated `content` folder. Astro provides access to the data stored in these files and 
-makes sure that their structure is correct.
+Astro projects manage content metadata through files in a dedicated `content` folder, ensuring structural consistency and accessible data.
 
-LightNet uses the concept of content collections to offer a structure for the media library data. This makes sure the data is correct and 
-accessible. LightNet will use the data inside the 
-content collections to generate pages e.g. the search page and the details page. LightNet also provides helper functions to simplify access to 
-the media library's content collections for example by offering a query function to filter media items. Learn more about LightNet's use of 
-content collection inside the [chapter on adding content](/content/fundamentals).
-
-
-
-
-
+LightNet uses content collections to structure media library data, ensuring accuracy and accessibility. 
+It utilizes this data to generate pages like the media items details pages and offers helper functions for simplified data access, 
+such as a query function to filter media items. Learn more in the [chapter on adding content](/content/fundamentals).
 
