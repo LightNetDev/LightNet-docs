@@ -36,7 +36,7 @@ export default defineConfig({
 					items: [
 						{label: "Concepts", items: [
 							{slug: "build/concepts/astro"},
-							{slug: "build/concepts/internationalisation"},
+							{slug: "build/concepts/internationalization"},
 							{slug: "build/concepts/project-structure"}
 						]},
 						{label: "Configuration", items: [
@@ -54,12 +54,12 @@ export default defineConfig({
 						]},
 						{label: "Pages", items: [
 							{slug: "build/pages/fundamentals"},
-							{slug: "build/pages/categories-overview"},
 							{slug: "build/pages/initialize-homepage"},
 							{slug: "build/pages/hero"},
+							{slug: "build/pages/section"},
+							{slug: "build/pages/categories-overview"},
 							{slug: "build/pages/highlight-section"},
 							{slug: "build/pages/media-gallery"},
-							{slug: "build/pages/section"},
 							{slug: "build/pages/custom-components"},
 							{slug: "build/pages/about-page"}
 						]}
