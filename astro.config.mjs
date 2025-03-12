@@ -44,7 +44,8 @@ export default defineConfig({
 							{slug: "build/configuration/set-logo"},
 							{slug: "build/configuration/set-favicon"},
 							{slug: "build/configuration/set-main-menu"},
-							{slug: "build/configuration/set-primary-color"}
+							{slug: "build/configuration/set-primary-color"},
+							{slug: "build/configuration/reference"}
 						]},
 						{label: "Internationalization", items:[
 							{slug: "build/i18n/fundamentals"},
@@ -70,7 +71,8 @@ export default defineConfig({
 					{slug: "content/media-types"},
 					{slug: "content/media-collections"},
 					{slug: "content/categories"},
-					{slug: "content/administration-ui", badge: "Beta"}
+					{slug: "content/administration-ui", badge: "Beta"},
+					{slug: "content/decap-admin-reference"}
 				]},
 				{
 					label: "Deploy",
@@ -84,12 +86,6 @@ export default defineConfig({
 					items: [
 						{slug: "run/update"},
 						{slug: "run/monitor"}
-					]
-				},
-				{
-					label: 'Reference',
-					items: [
-						{slug: "reference/configuration"}
 					]
 				}
 			],

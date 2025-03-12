@@ -4,11 +4,10 @@ title: Initialize Configurations
 
 import { Steps } from "@astrojs/starlight/components";
 
+The primary configuration file for your LightNet project is `astro.config.mjs`. 
+This file defines global configurations for your site, such as the title, languages, base URL, and more.
 
-The primary configuration file for your LightNet project is `astro.config.mjs`. This file defines global configurations
-for your site, such as the title, languages, base URL, and more.
-
-Below is a minimal `astro.config.mjs` file for a LightNet site:
+Here is a minimal version of an `astro.config.mjs` file for a LightNet site:
 
 ```js title="astro.config.mjs"
 import lightnet from "lightnet";
@@ -31,26 +30,30 @@ export default defineConfig({
 });
 ```
 
-This highlights essential settings for every site built with LightNet. Make sure you adjust them to match 
-your ministry's needs.
+This configuration highlights the essential settings for every site built with LightNet. Customize them to match your ministry's needs.
 
 <Steps>
-1. **Site** - 
-  The `site` property defines the base URL for your website. Update this to match your deployment URL.
+1. **Site** -
+   The `site` property defines the base URL for your website. Update this to reflect your deployment URL.
    ```js
    site: "https://yourdomain.com"
    ```
-1. **Title** - 
-  The `title` property sets the title for your site, appearing in the browser tab and the header bar. You can set this to 
-  your site name. The title property accepts a fixed string or a [translation key](/build/i18n/todo). We recommend setting
-  the title to a translation key for example `"x.site.title"`. By doing so you can change the title based on the curren site language.
+
+2. **Title** -
+   The `title` property sets the site title, which appears in the browser tab and header bar. 
+   You can use a fixed string or a [translation key](/build/i18n/todo). 
+   Using a translation key like `"x.site.title"` allows the title to adapt based on the current site language.
    ```js
    title: "x.site.title"
    ```
-   To change the value of the translation key use the translation files inside `src/translation`.
-1. **Languages** - 
-  This defines the languages available on your site, including site and content languages. Refer to the 
-  [Internationalization Guide](/build/i18n) for more details on how changing languages. In the Sk8-Ministry example the 
-  languages are declared as a variable in order to also pass them to the [Administration UI config](/content/todo). This is our recommended way
-  to share the languages config between both integrations.
+   To modify the translation key's value, use the files located in `src/translation/`.
+
+3. **Languages** -
+   This section defines the available languages for your site. 
+   It includes both site and content languages. Refer to the [Internationalization Guide](/build/i18n) for more details on managing languages.
+   
+   In the Sk8-Ministry example, languages are declared as a variable to also pass them to the [Administration UI config](/content/todo). 
+   This approach ensures consistency between both integrations.
 </Steps>
+
+There is more configuration available. Use the other guides of this chapter to customize your site even further.

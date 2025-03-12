@@ -1,0 +1,95 @@
+---
+title: DecapAdmin Config Reference
+---
+import { Aside } from "@astrojs/starlight/components";
+
+
+LightNet Decap Admin is an Astro integration built on top of the [Decap CMS](https://decap-cms.org/) headless CMS.
+You can configure the integration in your `astro.config.mjs` file.
+
+```js title="astro.config.mjs" {8-10}
+import lightnet from "lightnet";
+import decapAdmin from "@lightnet/decap-admin";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  integrations: [
+    lightnet({...})
+    decapAdmin({
+      languages: [{...}],
+    }),
+  ],
+});
+```
+
+You can pass the following options to the `decapAdmin` integration:
+
+### `languages`
+
+type: `array` \
+example: `[{ code: "en", label: "English", translations: {}, isDefaultSiteLanguage: true }]` \
+required: `true`
+
+The languages of your site. This will be used to support multiple locales and content languages.
+You should use the same languages as in the `lightnet` integration. We recommend creating a shared variable that is used in both integrations.
+See the [lightnet configuration](#languages) for more information on the languages structure.
+
+### `path`
+
+type: `string` \
+example: `"admin"` \
+required: `false` \
+default: `"admin"`
+
+The path to the admin page.
+
+### `imagesFolder`
+
+type: `string` \
+example: `"images"` \
+required: `false` \
+default: `"images"`
+
+The name of the images folder next to your content files. Change this if you want to use a different name for the images folder.
+For example if your images stored inside a folder `src/content/media/covers`, you can set this to `"covers"`.
+
+### `backend`
+
+type: `object` \
+example: `{ name: "gitlab", repo: "your-org/your-site", appId: "12345abcd" }` \
+required: `false`
+
+This configures the git host that your Administration UI is connected to. Currently we support GitLab and GitHub backends.
+The configuration directly maps (replacing snake_case with camelCase) to the Decap CMS [GitHub](https://decapcms.org/docs/github-backend) and [GitLab](https://decapcms.org/docs/gitlab-backend) backend configuration.
+
+<Aside type="tip">
+  We recommend using the GitLab backend for LightNet sites.
+</Aside>
+
+#### `backend: "gitlab"`
+
+GitLab backend configuration has this options:
+
+- **name**: `"gitlab"` (required) this selects the GitLab backend.
+- **repo**: `string` (required) the GitLab repository path of your site.
+- **appId**: `string` Application ID from the sites GitLab settings. Our [guide on the Administration UI](/content/administration-ui#connect-to-gitlab) shows how to get this.
+- **branch**: `string` the branch that is used for the Administration UI. Default is `"main"`.
+- **authType**: `"pkce"` the authentication type to use. Default and only option is `"pkce"`.
+
+#### `backend: "github"`
+
+GitHub backend configuration has this options:
+
+- **name**: `"github"` (required) this selects the GitHub backend.
+- **repo**: `string` (required) the GitHub repository path of your site.
+- **branch**: `string` the branch that is used for the Administration UI. Default is `"main"`.
+- **baseUrl**: `string` the URL of your service doing the authentication request.
+
+<Aside>
+GitHub does not support the PKCE authentication type. This means that you will need an authentication server to handle the authentication request.
+This is why we recommend using the GitLab backend for LightNet sites.
+
+See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy)
+for more information on how to create an authentication server for GitHub.
+
+</Aside>
