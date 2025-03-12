@@ -40,7 +40,6 @@ export default defineConfig({
 							{slug: "build/concepts/project-structure"}
 						]},
 						{label: "Configuration", items: [
-							{slug: "build/configuration/fundamentals"},
 							{slug: "build/configuration/initialize-configurations"},
 							{slug: "build/configuration/set-logo"},
 							{slug: "build/configuration/set-favicon"},
