@@ -10,48 +10,24 @@ recommend using the [Astro documentation](https://docs.astro.build) if you want 
 ## Routing
 
 The routes of your media site are defined by the files inside the `src/pages` folder.
-The path within the `src/pages` folder will be the route of the page. For example, a page at `src/pages/en/about.astro` will be available at the `/en/about` route.
+The path within the `src/pages` folder will be the route of the page. 
+For example, a page at `src/pages/en/about.astro` will be available at `https://your.site/en/about`.
 
 In addition to the routes of the pages folder LightNet will automatically add:
 
-- **Redirect to Homepage**: When users visit the `/` root of your project. They will see the homepage in the default site language.
-- **Search Page**: A page that displays all media items. This is on the `/media` route.
-- **Details Page**: A page that displays the details of a specific media item. This is on the `/media/:id` route.
+- **Redirect to Homepage**: When users visit the root path of your site (`https://your.site/`), they will see the homepage in the default site language.
+- **Search Page**: A page that displays all media items. This is on the `[locale]/media` route.
+- **Details Page**: A page that displays the details of a specific media item. This is on the `[locale]/media/[id]` route.
 - **404 Page**: A page that is displayed when a user tries to access a page that does not exist. This is on the `/404` route.
 
 
-## Route structure
-
-LightNet sites are prepared to be available in multiple languages. To support multiple languages LightNet routes follow a simple structure:
-Every page needs to be available in all site languages of your
-[configuration](/build/configuration/initialize-configurations). The 
-
-So the language
-
-
-
-
-This is why all pages of a LightNet site start with a language code. 
-
-
-
-
-
-
-
-
-The routes of the pages will be prefixed with the language code of the 
-site languages. For example if your site supports both English and German. LightNet translates 
-
-
-All routes of a LightNet site start with the locale. For example `/en` is the homepage for the english locale and `/de/media` is the search page for 
-a german locale. The locale is the same bcp-47 code that you set in the languages  
-
 ## Understand the page folder structure
 
-All pages are stored in the `src/pages` folder. The path within the `src/pages` folder will be the route of the page. For example, a file at `src/pages/en/about.astro` will be available at the `/en/about` route.
-
-By convention all LightNet pages are stored in a folder with the locale code. For example, the English version of the about page would be stored in `src/pages/en/about.astro`. The locale code is used to infer the language of the page.
+The structure of the pages folder directly maps to the available paths of your site.
+With LightNet every pages needs to have a locale folder at its top level.
+By convention all LightNet pages are stored in a folder with the locale. 
+For example, the English version of the about page would be stored in `src/pages/en/about.astro`. 
+The locale code is used to infer the language of the page.
 
 With Astro you have two options on how to name your locale folders:
 
@@ -67,7 +43,6 @@ export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
 ```
 
 Inside a component on dynamic path you can use `Astro.currentLocale` to get the current locale of the site.
-
 
 
 
