@@ -21,7 +21,7 @@ export default defineConfig({
 					label: 'Start Here',
 					items: [
 						{slug: "start-here/getting-started"},
-						{label:"Core Concepts", items: [
+						{label:"Concepts", items: [
 							{slug: "start-here/concepts/media-site-structure"},
 							{slug: "start-here/concepts/architecture"},
 							{slug: "start-here/concepts/collaboration"}
@@ -34,13 +34,9 @@ export default defineConfig({
 				{
 					label: "Build",
 					items: [
-						{label: "Concepts", items: [
-							{slug: "build/concepts/astro"},
-							{slug: "build/concepts/internationalization"},
-							{slug: "build/concepts/project-structure"}
-						]},
+						{slug: "build/astro"},
 						{label: "Configuration", items: [
-							{slug: "build/configuration/initialize-configurations"},
+							{slug: "build/configuration/initialize-configuration"},
 							{slug: "build/configuration/set-logo"},
 							{slug: "build/configuration/set-favicon"},
 							{slug: "build/configuration/set-main-menu"},
