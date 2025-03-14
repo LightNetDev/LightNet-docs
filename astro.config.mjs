@@ -35,9 +35,9 @@ export default defineConfig({
 					label: "Build",
 					items: [
 						{slug: "build/astro"},
-						{label: "Configuration", items: [
+						{label: "Global Configuration", items: [
 							{slug: "build/configuration/initialize-configuration"},
-							{slug: "build/configuration/set-logo"},
+							{slug: "build/configuration/set-logo"},	
 							{slug: "build/configuration/set-favicon"},
 							{slug: "build/configuration/set-main-menu"},
 							{slug: "build/configuration/set-primary-color"},
