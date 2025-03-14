@@ -40,7 +40,8 @@ export default defineConfig({
 
 ### Language Configuration Properties
 
-- **`code`**: The language identifier using [IETF BCP-47 tags](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish). Use [this tool](https://r12a.github.io/app-subtags/) if unsure.
+- **`code`**: The language identifier using [IETF BCP-47 tags](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish). 
+  [This tool](https://r12a.github.io/app-subtags/), google or chat-gpt might be helping you with this.
 - **`label`**: The display name for the language selector. This can be a static string (e.g., `Español`) or a translation key (e.g., `x.languages.es`).
 
 All listed languages are available as content languages. For site languages, explicitly set either `isDefaultSiteLanguage` or `isSiteLanguage` to `true`.
@@ -82,12 +83,12 @@ Usually, you don't need quotes around translation values.
 - The translation key is on the left, and the translation value is on the right.
 - Use periods (`.`) in keys to add context (e.g., `x.homepage.title`).
 
-LightNet uses the same mechanism to translate builtin strings for example the title on the search page (`ln.search.title`).
-All translation keys used by LightNet are defined in the [builtin English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) on GitHub. This file will always be up to date.
+LightNet uses the same mechanism to translate built-in strings for example the title on the search page (`ln.search.title`).
+All translation keys used by LightNet are defined in the [built-in English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) on GitHub. This file will always be up to date.
 Next to the English translation files you find other translations for LightNet. They are maintained by the community - you are welcome to [contribute your
 translations](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations).
 
-By convention all of LightNet's builtin translation keys start with `ln.`. You should start your custom translation keys with `x.`. 
+By convention all of LightNet's built-in translation keys start with `ln.`. You should start your custom translation keys with `x.`. 
 
 ### Translation Resolution Order
 

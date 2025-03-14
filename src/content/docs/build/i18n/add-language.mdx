@@ -1,39 +1,31 @@
 ---
-title: Add a Language
+title: Add a Site Language
 ---
 
 import { Steps } from "@astrojs/starlight/components";
 
-{/* todo */}
-use [this tool](https://r12a.github.io/app-subtags/) to look up a new language's code.
-
-{/* todo: add fallback languages */}
-
-Follow this steps to add a new site language to your LightNet site:
+Follow this steps to add a new site language to your media site:
 
 <Steps>
-1. **Add translations file**: Create a new file in the `src/translations` folder. The file must be named with the language code (e.g. `de.yml` for German).
-    The content of the file should look like this:
-    ```yml title="src/translations/de.yml"
-    # Your description of the translation.
-    x.hello-world: Hallo Welt
-    ```
-    The left side of the colon is the key and the right side is the translation value. You may add a description by starting the line with `#`.
-1.  **Translate LightNet strings**: Some languages are built-in to LightNet. This languages are maintained by the community. So it might be there is 
-    missing translation.
-    If your language is not built-in add LightNet translations to the new file. All required keys can be found [here](https://github.com/LightNetDev/lightnet/blob/main/packages/lightnet/src/i18n/translations/en.yml).
-    Translate the keys to your new language. If you choose a built-in language your translations will override the internal translations.
-    Please consider [sharing your LightNet translations with the community](#share-your-translations). 
-1. **Translate your own UI strings**: Add your own UI strings to the file. More details on custom UI strings can be found [below](#use-custom-ui-strings).
-1. **Add to config**: Add the new language to the `languages` array in your `astro.config.mjs` file.
-    ```js title="astro.config.mjs" ins={5-13}
+1. **Identify the language's BCP-47 code**: [Wikipedia](https://en.wikipedia.org/wiki/IETF_language_tag), [this tool](https://r12a.github.io/app-subtags/), google or chat-gpt might be helping you with this. E.g. `en` for English.
+1. **Create translations file**: Create a empty file in the `src/translations` folder. The file must be named with the language code ending with `.yml` (e.g. `en.yml` for English).
+1. **Find out if LightNet already offers your language**: Open LightNet's [built-in translations on GitHub](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations).
+    See if there is a file named `[your language code].yml`.
+        - If there is no such file, LightNet does not yet offer built-in translations for your language. In this case you can add translations inside your project (see explanation below).
+        - If there is a translation file for your language, checkout the [Translation-Status](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/TRANSLATION-STATUS.md) 
+          to see if there are missing keys for your language.  
+1. **Add LightNet translations to your project**: If your language is not yet built-in, or if the built-in translation file is missing keys you need to add these keys to your
+    translation file. To do so, copy all missing entries from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) 
+    to your newly created translation file (from step 2). Translate the values to your language.
+1. **Add your custom site strings**: If you already have other translation files that define custom site strings (keys starting with `x.`), add them to your new translation file.
+1. **Add language to config**: Add the new language to the `languages` array in your `astro.config.mjs` file.
+    ```js title="astro.config.mjs" ins={5-12}
     export default defineConfig({
         integrations: [
             lightnet({
                 languages: [
                     {
-                        // Language code must match the translation
-                        // file name. For example "de.yml" has the code "de"
+                        // BCP-47 code from step 1
                         code: "de",
                         // Display name for the language selector.
                         label: "Deutsch",
@@ -45,6 +37,8 @@ Follow this steps to add a new site language to your LightNet site:
         ],
     })
     ```
-1. **Set default language (Optional)**: Inside `astro.config.mjs` set the new language as the default language by setting `isDefaultSiteLanguage: true` in the language config object.
-1. **Validate**: Run the development server with `npm run dev` and check if the new language is available in the language selector. Select the new language and check if the translations are working as expected.
+1. **Set default language**: Your pages needs exactly one default site language. 
+    If you want to use the new language as the default site language, replace `isSiteLanguage: true` with `isDefaultSiteLanguage: true`.
+1. **Validate**: Run the development server with `npm run dev` and check if the new language is available in the language selector. 
+    Select the new language and check if the translations are working as expected.
 </Steps>
