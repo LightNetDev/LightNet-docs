@@ -10,49 +10,67 @@ recommend using the [Astro documentation](https://docs.astro.build) if you want 
 ## Routing
 
 The routes of your media site are defined by the files inside the `src/pages` folder.
-The path within the `src/pages` folder will be the route of the page. 
-For example, a page at `src/pages/en/about.astro` will be available at `https://your.site/en/about`.
+The path within the `src/pages` folder directly maps to the route of the page. 
+For example, a page at `src/pages/en/about.astro` is available at `https://your.site/en/about`.
 
-In addition to the routes of the pages folder LightNet will automatically add:
+In addition to the routes of the pages folder LightNet automatically adds:
 
-- **Redirect to Homepage**: When users visit the root path of your site (`https://your.site/`), they will see the homepage in the default site language.
+- **Redirect to Homepage**: When users visit the root path of your site (`https://your.site`), they see the homepage in the default site language.
 - **Search Page**: A page that displays all media items. This is on the `[locale]/media` route.
 - **Details Page**: A page that displays the details of a specific media item. This is on the `[locale]/media/[id]` route.
 - **404 Page**: A page that is displayed when a user tries to access a page that does not exist. This is on the `/404` route.
 
 
-## Understand the page folder structure
+## Page Folder Structure
 
-The structure of the pages folder directly maps to the available paths of your site.
-With LightNet every pages needs to have a locale folder at its top level.
-By convention all LightNet pages are stored in a folder with the locale. 
-For example, the English version of the about page would be stored in `src/pages/en/about.astro`. 
-The locale code is used to infer the language of the page.
+With LightNet every page (except `404` and `/`) is inside a folder defining its [locale](/build/i18n/fundamentals).
+For example, the English version of the about page could be stored in `src/pages/en/about.astro`. 
 
-With Astro you have two options on how to name your locale folders:
+There are two different types of locale folders: **static** and **dynamic**. You can use both inside the same project.
 
-- **static**: You can create a folder for each locale. For example, `src/pages/en/about.astro` and `src/pages/de/about.astro`.
-- **dynamic**: You can use square brackets in the file name to create dynamic routes. For example, a file at `src/pages/[locale]/about.astro` will be available at the `/:locale/about` route. The `:locale` part will be replaced by the actual locale of the site. You need to export all available locales in the `getStaticPaths` function. We offer a helper function to generate the static paths for all locales. You can use it like this:
+<Aside type="note">
+Static and dynamic routes are a [Astro concept](https://docs.astro.build/en/guides/routing/).
+</Aside>
 
-We offer a helper function to generate the dynamic paths for all locales. You can use it like this:
+### Static Locale Folder
 
-```astro title="src/pages/[locale]/about.astro"
+Create a separate folder for each locale. For example, `src/pages/en/` and `src/pages/de/`.
+With this approach you can have a completely different structure for pages in different languages.
+For example you could build an English homepage starting with gallery and a German homepage starting with a text.
+
+We recommend using static locale folders:
+- For rendering Markdown for different locales
+- For high customization of pages according to locale
+
+### Dynamic Locale Folder
+
+Create one folder for all locales. This folder is used to create pages in all site languages.
+To use a dynamic locale folder, create a folder named `src/pages/[locale]/` (Use exactly this name for the folder).
+`[locale]` serves as a placeholder that is populated by Astro during the build process. Astro reads the 
+possible values from a `getStaticPaths` function that must be exported by every Astro page inside this folder.
+ 
+We offer a helper function to generate the static paths for all locales. Use it like this:
+
+
+```astro title="src/pages/[locale]/some-page.astro"
 ---
 export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
 ---
 ```
 
-Inside a component on dynamic path you can use `Astro.currentLocale` to get the current locale of the site.
+<Aside type="tip">
+If you need the locale of a page inside the dynamic locale folder, use `Astro.currentLocale`.
+</Aside>
+
+We recommend using dynamic locale folders for pages that have the same structure but need a different translations
 
 
+## File layout
 
-## Basic file layout
+This is the basic layout of a LightNet page file:
 
-This is the basic layout of the homepage's `index.astro` file:
-
-```astro title="src/pages/[locale]/index.astro"
+```astro title="some-page.astro"
 ---
-export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
 import { Page } from "lightnet/components"
 ---
 <Page>
@@ -60,15 +78,26 @@ import { Page } from "lightnet/components"
 </Page>
 ```
 
-This file is an Astro component. Everything inside the `---` is the frontmatter. It will be executed while your site is being built. Use this part to import your components and define your page's variables. For example, you will query media items here.
-
-The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available site languages.
+The file is an Astro component. Everything inside the `---` is the frontmatter. 
+It will be executed while your site is being built. Use this part to import your components and define your page's variables. 
+For example query media items here.
 
 Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
-reusable components that you can use to build your page. More details below.
+reusable components that you can use to build your page.
 
-The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your content with this component to ensure that your page is styled correctly.
+The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... 
+Wrap your page with this component to ensure that it is styled correctly.
 
-<Aside type="tip">
-The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/) to get a deep understanding of how to extend it.
+Every component inside the pages folder maps to an HTML file in the output directory. 
+The mapping will use the component's file name.
+For example:
+
+- `src/pages/en/index.astro` maps to `/en/index.html`
+- `src/pages/en/about.astro` maps to `/en/about/index.html`
+- `src/pages/en/info.md` maps to `/en/info/index.html` 
+
+<Aside type="note">
+Notice how Astro is generating `index.html` files. By web convention when opening a folder path in the 
+browser the contained `index.html` is presented. Using this convention the helps simplify the paths of 
+the website. E.g. the path is `https://your.site/en/about` instead of `https://your.site/en/about.html`.
 </Aside>
