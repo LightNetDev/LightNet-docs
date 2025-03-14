@@ -6,33 +6,41 @@ import { Aside } from "@astrojs/starlight/components";
 
 
 LightNet supports adding a main menu in the header bar, displayed as a hamburger icon on smaller screens.  
-The menu can link to internal or external pages, such as the home page, search, or about sections.
+The menu can link to internal or external pages, such as the homepage, search, or about sections.
 
 Here's an example configuration:
 
-```js title="astro.config.mjs" ins={4-21}
-// ...
-lightnet({
-  // ...
-  mainMenu: [
-    {
-      href: "/",
-      label: "ln.home.title",
-    },
-    {
-      href: "/media",
-      label: "ln.search.title",
-    },
-    {
-      href: "/about",
-      label: "x.navigation.about",
-    },
-    {
-      href: "https://www.om.org/eng/mediaworks/lightnet",
-      label: "LightNet",
-    },
+```js title="astro.config.mjs" ins={9-26}
+export default defineConfig({
+
+  site: "https://your.site",
+
+  integrations: [
+    // ...
+    lightnet({
+      // ...
+      mainMenu: [
+        {
+          href: "/",
+          label: "ln.home.title",
+        },
+        {
+          href: "/media",
+          label: "ln.search.title",
+        },
+        {
+          href: "/about",
+          label: "x.navigation.about",
+        },
+        {
+          href: "https://www.om.org/eng/mediaworks/lightnet",
+          label: "LightNet",
+        },
+      ],
+      // ...
+    }),
   ],
-});
+})
 ```
 
 
@@ -41,10 +49,14 @@ lightnet({
 - **`href`**: Defines the link destination. It can be relative (e.g., `/media`) or absolute (e.g., an external URL).  
   External links will open in a new browser tab.
 - **`label`**: The text displayed on the menu item. Use a translation key for localization or a fixed string for non-localized labels.  
-  Learn more about translation keys in the [Internationalization Guide](/build/i18n).
+  Learn more about translation keys in the [Internationalization Guide](/build/i18n/fundamentals).
+
+
+{/* Des Aside dät ich löschen... - oder in internationalisazion packen.
 
 <Aside>
-  Relative URLs are automatically prefixed with the current locale (e.g.,
-  `/media` becomes `/en/media` for English). To disable this, add the
-  `requiresLocale: false` property to the menu item.
-</Aside>
+ Relative URLs are automatically prefixed with the current locale (e.g.,
+ `/media` becomes `/en/media` for English). To disable this, add the
+ `requiresLocale: false` property to the menu item.
+</Aside> 
+*/}
