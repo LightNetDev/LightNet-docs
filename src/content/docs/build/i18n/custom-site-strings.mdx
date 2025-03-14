@@ -1,43 +1,38 @@
 ---
-title: Add a Custom String
+title: Add a Custom Translation Key
 ---
 
 import { Steps, Aside } from "@astrojs/starlight/components";
 
 
-LightNet allows you to add custom site strings to your site. This is useful if you want to add custom text to your site that is not part of LightNet.
-Custom strings can be used for example to add custom text to the navigation or to add a text to the homepage.
-Follow this steps to add custom site strings to your LightNet site:
+LightNet allows you to add custom translation key to your site, for example to add a custom text 
+for the navigation or for the homepage.
+Follow this steps to create and use a custom translation key for your media site:
+
+<Aside type="tip">
+If you translate a text only page (e.g. [the about page](/build/pages/about-page)) consider using Markdown files instead of custom translation keys.
+</Aside>
 
 <Steps>
-1. Use your translations file from the previous chapter to add the custom site string as a key-value pair. For example 
-    this is how you would add a custom string to the English translations file:
-    ```yml title="src/translations/en.yml" ins={2}   
+1. **Add to translation files**: Add a entry for your custom translation key to all translation files inside `src/translations`.
+    For example adding a key to the English translations:
+    ```yml title="src/translations/en.yml" ins={1}   
     x.hello-world: Hello World
-    x.my-custom-string: My custom text
     ```
-    Choose a unique key (left side of the colon) for your custom string. By convention all your keys should be prefixed with `x.`. LightNet's internal keys are prefixed with `ln.`. 
-    This helps to avoid naming collisions and will improve the validation of your keys.
-    The key will be used to referenced your custom string in your site. We recommend to use English keys for your custom strings.
-2. Add the translation for your custom string to the other translations files. This is important if you want to support multiple languages.
-   ```yml title="src/translations/de.yml" ins={2}
-    x.hello-world: Hallo Welt
-    x.my-custom-string: Mein eigener Text
-    ```
-    <Aside type="caution">
-        Notice how the key is the same in all translations files. Keys must not be translated. Only the values should be translated.
-    </Aside>
-3. Use the custom string in your site. We provide a translation function with `Astro.locals.i18n.t`. You can use this function to get the translation of your custom string.
-    ```astro title="src/pages/[locale]/index.astro" {6}
+    Choose a unique key (left side of the colon). By convention prefix your custom keys with `x.`. 
+    The key will be used to referenced your custom translation in your site.
+2. **Translate**: Make sure the entry is translated correctly for all translation files. Only 
+3. **Use inside Astro component**: Use the custom translation key in your Astro component. LightNet provides a translation function with `Astro.locals.i18n.t`. 
+    You can use this function to get the translation of your custom key.
+    ```astro title="src/pages/[locale]/index.astro" {5}
     ---
-    export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
     import { Page } from "lightnet/components"
     ---
     <Page>
-        <h1>{Astro.locals.i18n.t("x.my-custom-string")}</h1>
+        <h1>{Astro.locals.i18n.t("x.hello-world")}</h1>
     </Page>
     ```
-    The translation function will return the translation of the key `my-custom-string` in the current language.
+    The translation function will return the translation of the key `Hello World` in the current language.
     If the key is not found in the translations file, the function will return the value of the default translations file.
     If the key is not found in the default translations file, the function will throw an Error.
     <Aside type="tip">

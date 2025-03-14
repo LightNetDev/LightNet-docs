@@ -66,6 +66,9 @@ To enable translations LightNet uses translation keys. A translation key is used
 The translate function `Astro.locals.i18n.t` is available in all Astro files. 
 It maps the translation key to the value based on the current locale, derived from the page's URL path.
 
+The translate function is implemented by using the external library i18next. Checkout the [i18next docs](https://www.i18next.com/) to learn 
+how they support plurals, context, interpolation...
+
 ### Translation Files
 
 Translations are stored in `src/translations/`, with one file per site language named `[language-code].yml`.
