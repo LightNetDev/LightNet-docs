@@ -18,13 +18,16 @@ Follow this steps to add a new site language:
     translation file. To do so, copy all missing entries from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) 
     to your newly created translation file (from step 2). Translate the values to your language.
     <Aside>
-    LightNet enables languages with multiple plural forms. Keys will be suffixed with:
+    LightNet enables languages with multiple plural forms (using [i18next](https://www.i18next.com/translation-function/plurals)). Keys will be suffixed with:
     - `_one` : for a singular item (e.g., "1 item")
-    - `_other`: for a plural item
+    - `_other`: for an plural item.
+    
     If your translated language has more plural forms, add the same keys suffixed with,
+    
     - `_two` : for exactly two items
     - `_few` : for a few items (language-specific rules)
     - `_many` : for many items (language-specific rules)
+    
     For guidance on the correct plural forms for your language, [use this tool](https://jsfiddle.net/6bpxsgd4).
     </Aside>
 1. **Add your custom translation keys**: If you already have other translation files that define custom translation keys (keys starting with `x.`), add them to your new translation file.
