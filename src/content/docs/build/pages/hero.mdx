@@ -10,13 +10,15 @@ You can add a hero image to your homepage by adding the following code:
 ---
 import { Page, Hero } from "lightnet/components"
 import heroImage from "../../assets/hero.jpg"
+
+const { t } = Astro.locals.i18n
 ---
 
 <Page>
     <Hero
         image={heroImage}
-        title={"Your Title"}
-        subtitle={"Some slogan or description"}
+        title={t("x.hero.title")}
+        subtitle={t("x.hero.subtitle")}
         titleSize="xl"
         subtitleSize="xl"
     />

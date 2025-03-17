@@ -17,12 +17,14 @@ What is TailwindCSS, why use it, how to set it up.
 ```astro
 ---
 import { Page } from "lightnet/components"
+
+const { t } = Astro.locals.i18n
 ---
 <Page>
     <section class="bg-gray-800 py-12 mt-24 md:mt-28 text-gray-100">
         <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center">Your Title</h2>
-            <p class="text-lg text-center">Some description</p>
+            <h2 class="text-3xl font-bold text-center">{t("x.some.title")}</h2>
+            <p class="text-lg text-center">{t("x.some.description")}</p>
         </div>
     </section>
 </Page>

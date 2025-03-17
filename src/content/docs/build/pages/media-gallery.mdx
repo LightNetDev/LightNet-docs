@@ -19,10 +19,12 @@ const someEnglishBooks = await getMediaItems({
   orderBy: "dateCreated",
   limit: 10
 })
+
+const { t } = Astro.locals.i18n
 ---
 
 <Page>
-    <Section title="Some English Books">
+    <Section title={t("x.english-books.title")}>
         <Gallery items={someEnglishBooks} layout="book"/>
     </Section>
 </Page>

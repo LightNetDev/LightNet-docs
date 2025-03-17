@@ -51,13 +51,13 @@ export default defineConfig({
 						{label: "Pages", items: [
 							{slug: "build/pages/fundamentals"},
 							{slug: "build/pages/initialize-homepage"},
-							{slug: "build/pages/hero"},
+							{slug: "build/pages/about-page"},
 							{slug: "build/pages/section"},
+							{slug: "build/pages/hero"},
+							{slug: "build/pages/media-gallery"},
 							{slug: "build/pages/categories-overview"},
 							{slug: "build/pages/highlight-section"},
-							{slug: "build/pages/media-gallery"},
 							{slug: "build/pages/custom-components"},
-							{slug: "build/pages/about-page"}
 						]}
 					],
 				},

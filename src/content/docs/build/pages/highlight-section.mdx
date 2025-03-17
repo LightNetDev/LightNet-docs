@@ -9,15 +9,17 @@ a description and a optional link to another page. Here is an example on how to 
 ---
 import { Page, HighlightSection } from "lightnet/components"
 import highlightImage from "../../assets/highlightImage.jpg"
+
+const { t } = Astro.locals.i18n
 ---
 <Page>
     <HighlightSection
         image={highlightImage}
-        title="Your Title"
-        text="Some description"
+        title={t("x.highlight.title")}
+        text={t("x.highlight.text")}
         link={{
-            href: "/some-page",
-            text: "Link Text",
+            href: {`/${Astro.currentLocale}/some-page`},
+            text: {t("x.highlight.link")},
         }}
     />
 </Page>

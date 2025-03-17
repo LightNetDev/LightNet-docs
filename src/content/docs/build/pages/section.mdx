@@ -8,8 +8,10 @@ and the layout of its content.
 ```astro
 ---
 import { Section } from "lightnet/components"
+
+const { t } = Astro.locals.i18n
 ---
-<Section title={Astro.locals.i18n.t("x.section.title")}>
+<Section title={t("x.section.title")}>
     {/* Add components here */}
 </Section>
 ```
