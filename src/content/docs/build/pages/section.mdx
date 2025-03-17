@@ -2,7 +2,8 @@
 title: Add a Section
 ---
 
-The `Section` component is used to create a section with a optional title. It takes care of the spacing and the layout of its content.
+The `Section` component is used to create a section with a optional title. It takes care of the spacing
+and the layout of its content.
 
 ```astro
 ---
@@ -23,7 +24,7 @@ type: `string` \
 example: `"My section title"` \
 required: `false`
 
-The title of the section.
+The title of the section. {/*Is it automatically displayed? Where? Or, if not, how to access it within the section?*/}
 
 #### `maxWidth`
 
@@ -37,7 +38,8 @@ After this it will be centered on the screen. The `maxWidth` property can be set
 
 - `full`: The section will stop growing with the full width of the LightNet container. This will align
   the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
-- `prose`: The section will stop growing so that contained text is still well readable. This is the width used on the details page.
+- `prose`: The section will stop growing so that contained text is still well readable. This is the width used on the
+  details page.
 
 #### `id`
 
