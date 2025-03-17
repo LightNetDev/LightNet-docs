@@ -3,7 +3,7 @@ title: Getting Started
 description: Learn the basics of how to use LightNet
 ---
 
-import { Steps } from "@astrojs/starlight/components";
+import { Steps, Aside } from "@astrojs/starlight/components";
 
 Welcome to the LightNet Developer Documentation site! 
 LightNet enables you to build customizable media distribution websites. 
@@ -37,7 +37,7 @@ To create a local copy of the project -  navigate your terminal to a folder wher
 npm create astro@latest -- --template LightNetDev/LightNet/examples/sk8-ministries
 ```
 
-This command starts [Astro's](https://astro.build) setup wizard. In this wizard:
+This starts [Astro's](https://astro.build) `create astro` command - which lets you:
 
 
 - Choose a location for your project. This will create the folder for your project and also set its name.
@@ -67,7 +67,7 @@ As you will need the development server for the next steps, please keep it runni
 As your first modification, let's change the site title:
 
 <Steps>
-  1. Open the project folder in VS-Code (or your preferred editor).
+  1. Open the project folder in VS Code (or your preferred text editor).
   1. Inside VS-Code open `src/translations/en.yml`. 
   1. Modify the value of the `x.site.title`-key by changing "Sk8 Ministries" to your desired site name.
   1. Save the file. Still running `npm run dev`, your browser will automatically
@@ -82,7 +82,7 @@ accessing the source code. Follow these steps to run the Administration UI:
 
 <Steps>
   1. Ensure that `npm run dev` is still running in your terminal. 
-  2. Open a new terminal window on your project's root folder and execute the following command. This
+  2. Open a new terminal window in your project's folder and execute the following command. This
      command will download and start a backend for Decap CMS, which is used for the
      content Administration UI.
       ```bash
@@ -100,9 +100,7 @@ accessing the source code. Follow these steps to run the Administration UI:
 
 {/* todo: link json content file to explanation, link admin ui to guide  */}
 
-This action will update the a JSON content file stored on inside your local project folder.
-Additionally, the Administration UI can integrate with a git host like
-[gitlab.com](https://gitlab.com) to be accessed online. Later you will learn how to do this.
+This action will update the a JSON content file stored on inside your project folder.
 
 Inspect the changes you have just made:
 
@@ -117,7 +115,12 @@ Inspect the changes you have just made:
 
 Feel free to experiment further by adding new media items through the Administration UI or by creating additional JSON files.
 
+<Aside type="tip">
+Stop a running terminal application with the keyboard combination `control` + `c`.
+</Aside>
+
 
 ## What's Next?
 
-Great job! 🎉 You've successfully set up a media site running locally. Now, let's dive deeper into how LightNet works and explore more advanced customization options.
+Great job! 🎉 You've successfully created, run and modified a local copy of the SK8 Ministries media site. 
+Now, let's dive deeper into how LightNet works and explore more advanced customization options.
