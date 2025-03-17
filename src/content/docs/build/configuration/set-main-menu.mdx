@@ -5,18 +5,14 @@ title: Set a Main Menu
 import { Aside } from "@astrojs/starlight/components";
 
 
-LightNet supports adding a main menu in the header bar, displayed as a hamburger icon on smaller screens.  
-The menu can link to internal or external pages, such as the homepage, search, or about sections.
+LightNet supports adding a main menu in the header bar, displayed as a hamburger icon in the top right corner.  
+The menu can link to internal or external pages, such as the homepage, search, or about pages.
 
 Here's an example configuration:
 
-```js title="astro.config.mjs" ins={9-26}
+```js title="astro.config.mjs" ins={5-22}
 export default defineConfig({
-
-  site: "https://your.site",
-
   integrations: [
-    // ...
     lightnet({
       // ...
       mainMenu: [
@@ -33,30 +29,24 @@ export default defineConfig({
           label: "x.navigation.about",
         },
         {
-          href: "https://www.om.org/eng/mediaworks/lightnet",
+          href: "https://lightnet.community",
           label: "LightNet",
         },
       ],
-      // ...
     }),
   ],
 })
 ```
 
-
 #### Menu Item Properties
 
-- **`href`**: Defines the link destination. It can be relative (e.g., `/media`) or absolute (e.g., an external URL).  
+- **`href`**: Defines the link destination. It can be internal (e.g., `/media`) or external links (e.g., https://wikipedia.org). 
   External links will open in a new browser tab.
-- **`label`**: The text displayed on the menu item. Use a translation key for localization or a fixed string for non-localized labels.  
-  Learn more about translation keys in the [Internationalization Guide](/build/i18n/fundamentals).
+  <Aside>
+    Do not add locales in front of your internal links (use `/media` and not `/en/media`).
+    LightNet will add the locales automatically. You can disable this behavior by setting  
+    `requiresLocale: false` on the menu item.
+  </Aside> 
+- **`label`**: The text displayed on the menu item. Use a [translation key](/build/i18n/fundamentals) for localized or a fixed string for non-localized labels.  
 
 
-{/* Des Aside dät ich löschen... - oder in internationalisazion packen.
-
-<Aside>
- Relative URLs are automatically prefixed with the current locale (e.g.,
- `/media` becomes `/en/media` for English). To disable this, add the
- `requiresLocale: false` property to the menu item.
-</Aside> 
-*/}

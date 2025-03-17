@@ -117,7 +117,7 @@ The `content` property is an array of objects. The first object in the array is 
 The primary content is used for example with the embedded video player on the media item details page. All other content objects are considered to be additional content.
 They will be displayed on the content section of the media item details page.
 
-#### content.url
+#### content: url
 
 type: `string`\
 example: `"/files/sermon-1.mp3"` \
@@ -146,7 +146,7 @@ Use the `media-type` to configure how the content should be displayed. For examp
 Media types can add support for content urls that are not supported out of the box. Learn more about [media types](/content/media-types).
 </Aside>
 
-#### content.label
+#### content: label
 
 type: `string`\
 example: `"Sermon 1"` \
@@ -206,7 +206,7 @@ required: `false`
 An array containing references to collection this media item is contained in.
 This is the properties of each collection reference object:
 
-#### collections.collection
+#### collections: collection
 
 type: `string`\
 example: `"sermon-series"` \
@@ -215,7 +215,7 @@ required: `true`
 Identifier of the collections this media item belongs to. It must match a collection definition inside 
 the `src/content/media-collections` folder. For example if you have a file `src/content/media-collections/sermon-series.json` you can set the the `collections` property to `"sermon-series"`.
 
-#### collections.index
+#### collections: index
 
 type: `number`\
 example: `1` \

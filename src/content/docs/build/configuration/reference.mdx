@@ -28,7 +28,7 @@ type: `string` \
 example: `"x.site.title"` \
 required: `true`
 
-The title of your site. This will be used as the title of the site and the header bar.
+The title of your site. For example shown on the the header bar.
 It can be a fixed string or a translation key to support multiple locales.
 
 ### `languages`
@@ -37,25 +37,25 @@ type: `array` \
 example: `[{ code: "en", label: "English", isDefaultSiteLanguage: true }]` \
 required: `true`
 
-The languages of your site. This will be used to support multiple locales and content languages.
+The site and content languages of your site.
 
-#### `languages.code`
+#### languages: `code`
 
 type: `string` \
 example: `"en"` \
 required: `true`
 
-The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code will be used as the language's identifier.
+The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code is used as the language's identifier.
 
-#### `languages.label`
+#### languages: `label`
 
 type: `string` \
 example: `"English"` \
 required: `true`
 
-The name of the language. This will be used as the language name in the UI. It can be a fixed string or a translation key to support multiple locales.
+The name of the language. This is used as the language name in the language picker. It can be a fixed string or a translation key to support multiple locales.
 
-#### `languages.isSiteLanguage`
+#### languages: `isSiteLanguage`
 
 type: `boolean` \
 example: `true` \
@@ -64,17 +64,17 @@ required: `false`
 Configure this language to be available as a site language. It will show up in the language picker in the menu bar.
 You do not need to set this, if you set `isDefaultSiteLanguage` to true.
 
-#### `languages.isDefaultSiteLanguage`
+#### languages: `isDefaultSiteLanguage`
 
 type: `boolean` \
 example: `true` \
 required: `false`
 
-If you set this to `true`, the language will be used as the default site language.
+If you set this to `true`, the language is used as the default site language.
 You must set exactly one language to be the default language. The default site language is used:
 
 - As the fallback language if a translation is not available for the current locale.
-- As the default language when the user navigates to the root URL (`/`).
+- As the default language when the user navigates to the root URL path (`/`).
 
 ### `logo`
 
@@ -84,31 +84,31 @@ required: `false`
 
 The logo of your site to be shown in the header bar next to the site title.
 
-#### `logo.src`
+#### logo: `src`
 
 type: `string` \
 example: `"./src/assets/logo.png"` \
 required: `true`
 
 The path to the logo image. Provide a path to an image inside `src/assets`. Supported formats include `jpg`, `png`, `svg` and `webp`.  
-LightNet optimizes the image size for better performance (except for SVGs). We recommend providing a image file with a width and height of 150px.
+LightNet optimizes the image size for better performance (except for SVGs). We recommend providing a image file with a width and height of 150 pixels.
 
-#### `logo.alt`
+#### logo: `alt`
 
 type: `string` \
 example: `"x.logo.alt"` \
 required: `false`
 
-The alt text of the logo. This will be used if the logo image is not available or if the user has disabled images. For example when using a screen reader.
+The alt text of the logo. This is used if the logo image is not available or if the user has disabled images. For example when using a screen reader.
 The value of the `alt` attribute can either be a fixed string or a translation key to support multiple locales.
 
-#### `logo.size`
+#### logo: `size`
 
 type: `number` \
 example: `30` \
 required: `false`
 
-The size of the logo in the header bar in pixels. This will be applied to the shorter side of the logo image.
+The size of the logo in the header bar in pixels. This is applied to the shorter side of the logo image.
 
 ### `favicon`
 
@@ -116,9 +116,9 @@ type: `array` \
 example: `[{ rel: "icon", href: "favicon.ico" }]` \
 required: `false`
 
-The favicon of your site. This will be used as the favicon of the site. Favicon is a small icon displayed in the browser tab and bookmarks.
+The favicon of your site. Favicon is a small icon displayed in the browser tab and bookmarks.
 
-Our API supports multiple favicon formats. Each entry in the `favicon` array maps to an HTML `<link>` element. For example:
+LightNet's API supports multiple favicon formats. Each entry in the `favicon` array maps to an HTML `<link>` element. For example:
 
 Input:
 
@@ -147,31 +147,31 @@ Maps to the following HTML:
   extension in the `href`.
 </Aside>
 
-#### `favicon.href`
+#### favicon: `href`
 
 type: `string` \
 example: `"/favicon.svg"` \
 required: `true`
 
-Reference the favicon. This must be a path to an image in the `public/` directory.
+Reference the favicon. This must be a path to an image inside the `public/` directory.
 
-#### `favicon.rel`
+#### favicon: `rel`
 
 type: `"icon" | "apple-touch-icon"` \
 example: `"icon"` \
 required: `false` \
 default: `"icon"`
 
-The rel attribute of the favicon. This will be used to set the rel attribute of the favicon.
+This sets the rel attribute of the favicon.
 Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-rel) for more information.
 
-#### `favicon.sizes`
+#### favicon: `sizes`
 
 type: `string` \
 example: `"32x32"` \
 required: `false`
 
-The sizes attribute of the favicon. This will be used to set the sizes attribute of the favicon.
+This sets the sizes attribute of the favicon.
 Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-sizes) for more information.
 
 ### `manifest`
@@ -180,10 +180,10 @@ type: `string` \
 example: `"/manifest.json"` \
 required: `false`
 
-The path to the manifest file. This will be used to set the manifest of the site. The file is expected to be in the `public/` directory.
+This sets the manifest of the site. The file must be inside the `public/` directory.
 
 <Aside>
-  The manifest is a JSON file that describes the site and its capabilities. More
+  The manifest is a standardized JSON file that describes a web application. More
   information can be found in the [MDN
   documentation](https://developer.mozilla.org/en-US/docs/Web/Manifest).
 </Aside>
@@ -194,18 +194,19 @@ type: `array` \
 example: `[{ href: "/about", label: "x.navigation.about" }]` \
 required: `false`
 
-The main menu of the site. This will be used to set the main menu of the site. It is expected to be an array with at least one entry.
+This sets the main menu of the site. It is expected to be an array with at least one entry.
 Each entry is an object with the following properties:
 
-#### `mainMenu.href`
+#### mainMenu: `href`
 
 type: `string` \
 example: `"/about"` \
 required: `true`
 
-The link attribute of the main menu entry. The value can be a relative URL or an absolute URL.
+The link attribute of the main menu entry. The value can be an internal or an external link.
+Internal links will be automatically prefixed with the current locale.
 
-#### `mainMenu.label`
+#### mainMenu: `label`
 
 type: `string` \
 example: `"x.navigation.about"` \
@@ -213,28 +214,28 @@ required: `true`
 
 The label of the main menu entry. The value can be a fixed string or a translation key to support multiple locales.
 
-#### `mainMenu.requiresLocale`
+#### mainMenu: `requiresLocale`
 
 type: `boolean` \
 example: `false` \
 required: `false` \
 default: `true`
 
-Relative URLs are by default prefixed with the current locale (e.g., `/media` becomes `/en/media` for English).  
+Internal links are by default prefixed with the current locale (e.g., `/media` becomes `/en/media` for English).  
 To disable this, set `requiresLocale` property to `false`.
 
-This option will be ignored if the path is absolute (e.g. `https://wikipedia.org`).
+You don't need to set this option for external links (e.g. https://wikipedia.org) since they won't be prefixed anyway.
 
 ### `internalDomains`
 
 type: `array` \
-example: `["files.your-domain.com"]` \
+example: `[ "files.your-domain.com" ]` \
 required: `false`
 
-The internal domains of the site. This will be used to determine if a link is internal or external.
+The internal domains of the site. This is used to determine if a URL is internal or external.
 
-For example if you want to link to files on your subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
-Your link to `https://files.your-domain.com/file.pdf` won't show up as an external link in the UI.
+For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
+A link to `https://files.your-domain.com/file.pdf` won't be treated as an external link.
 
 ### `searchPage`
 
@@ -244,13 +245,13 @@ required: `false`
 
 Search page related settings.
 
-#### `searchPage.filterByLocale`
+#### searchPage: `filterByLocale`
 
 type: `boolean` \
 example: `true` \
 required: `false` \
 default: `false`
 
-If you set this to `true`, the search page will be initially filtered by the current site language.
+If you set this to `true`, the search page is initially filtered by the current site language.
 The filter will only be set when there is any media item in the current language.
 
