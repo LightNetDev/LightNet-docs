@@ -8,7 +8,9 @@ description: >
 import { FileTree } from "@astrojs/starlight/components";
 
 
-The about page is a common page that provides information about your ministry or community. You can add an about page by creating a markdown file for each locale.
+The about page is a common page that provides information about your ministry or community.
+This guide can also be used to create any text-based pages to your LightNet site.
+You can add an about page by creating a markdown file for each locale.
 For example, if your site supports English and German, you would create the following files:
 
 <FileTree>
@@ -34,7 +36,8 @@ Some text about your ministry or community.
 ![Community Picture](../../assets/my-community-picture.jpg)
 ```
 
-Inside the frontmatter you choose the layout that you want to use. We offer a `MarkdownPage` layout that will render the markdown content.
+Inside the frontmatter you choose the layout that you want to use. We offer a `MarkdownPage` layout that 
+renders the markdown content.
 This will make sure your page includes the header and looks good on all screen sizes.
 You can also create your own layout if you want to customize the look of the page.
 Astro will take care of optimizing your images that are referenced in the markdown file.

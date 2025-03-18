@@ -6,7 +6,12 @@ description: >
 ---
 
 The `Section` component is used to create a section with a optional title. It takes care of the spacing
-and the layout of its content.
+and the layout of its content. You can use a section to easily fit your custom component into the 
+structure and design of your LightNet site.
+
+If you add a title to your section ...{/*Is it automatically displayed? Where? Or, if not, how to access it within the section?*/}
+
+You can add a section to your homepage by adding the following code:
 
 ```astro
 ---
@@ -29,8 +34,7 @@ type: `string` \
 example: `"My section title"` \
 required: `false`
 
-The title of the section. {/*Is it automatically displayed? Where? Or, if not, how to access it within the section?*/}
-
+The title of the section.
 #### `maxWidth`
 
 type: `"full" | "prose"` \
