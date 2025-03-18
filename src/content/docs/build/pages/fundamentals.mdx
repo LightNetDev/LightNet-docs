@@ -21,6 +21,20 @@ LightNet also automatically adds:
 - **Details Pages**: Displays details of a media item at `[locale]/media/[id]`.
 - **404 Page**: Shown when a non-existent page is accessed, at `/404`.
 
+## Creating Internal Links
+
+If you want to create an internal link to a LightNet page. Make sure you always add the locale in front of the link.
+For example this is how you can create a link to the about page inside a Astro component using JavaScript template strings:
+
+```ts
+`/${Astro.currentLocale}/about`
+```
+
+Additionally LightNet offers utility functions inside `lightnet/utils` to create paths:
+
+- `detailsPagePath`: To build the localized path to a media item's details page
+- `searchPagePath`: To build the localized path to the search page including preset filters.
+
 ## Page Folder Structure
 
 All pages (except `404` and `/`) 
