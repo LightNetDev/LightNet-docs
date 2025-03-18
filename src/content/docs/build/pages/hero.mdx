@@ -5,9 +5,9 @@ description: >
     The hero image is a large image that takes up the full width of the screen with a big centered title on top of it.
 ---
 
-The hero image is the first thing that users see when they visit your site. 
+The hero image is the eye catcher that users see when they visit your page. 
 It is a large image that takes up the full width of the screen with a big centered title on top of it. 
-You can add a hero image to your homepage by adding the following code:
+You can add a hero image to your page by adding the following code:
 
 ```astro
 ---
@@ -29,15 +29,14 @@ const { t } = Astro.locals.i18n
 ```
 
 Make sure you add your image to the `src/assets` folder and import it at the top of the file.
-We suggest to add a image that is at least 3000px wide to ensure that it looks good on all devices.
-The image will automatically be optimized for performance.
+We suggest to add a landscape oriented image that is at least 3000 pixels wide to ensure that it looks good on all devices.
+The image is automatically optimized for performance. LightNet shows the full width of image but centers it vertically behind the 
+hero section. So the visible portion of the image depends on the screen width.
 
-If your site is multilingual, make sure pass a translated string for the `title` and `subtitle` props. Learn 
-more about how to [use translations](/build/i18n).
+If your site is multilingual, make sure pass a translated string for the `title` and `subtitle` properties. 
 
 Choose a font size for your title and subtitle according to their length. The available sizes are `sm`, `md`, `lg`, `xl`.
 The default for both sizes is `md`.
-
 
 ## Reference
 
