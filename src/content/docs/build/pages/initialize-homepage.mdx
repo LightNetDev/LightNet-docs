@@ -2,20 +2,53 @@
 title: Initialize Homepage
 description: >
     How to add a homepage to your LightNet media site. The homepage is the first page that users see when they visit your site. You can customize the homepage
-    to include a hero image, a call to action, a content gallery or add your own components...
+    to include a hero image, a call to action, a media item gallery or add your own components...
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
 
 The homepage is the first page that users see when they visit your site. You can customize the homepage
-to include a hero image, a call to action, a content gallery or add your own components...
+to include a hero image, a call to action, a media item gallery or add your own components...
 
-The homepage is defined by the `src/pages/[locale]/index.astro` file. You can customize the homepage by editing this file.
+You have [two different options](/build/pages/fundamentals/#page-folder-structure) on how to create the homepage:
 
-## Basic file layout
+- **static locale**: Use this if you plan to have a different layout for each locale. Layout means different components or different order of components.
+- **dynamic locale**: Use this if you plan to have the same layout for each locale but different translations and content.
 
-This is the basic layout of the homepage's `index.astro` file:
+This differentiation is only about page layout not about the content inside the components. 
+
+## Static locale
+
+For each site language create a folder named with the language code.
+The homepage is defined in `index.astro` files inside this folders.
+For example when your page needs to support English and German, create:
+
+- `src/pages/en/index.astro`
+- `src/pages/de/index.astro`
+
+Every `index.astro` file has this initial structure:
+
+```astro title="src/pages/en/index.astro"
+---
+import { Page } from "lightnet/components"
+---
+<Page>
+    {/* Add components & HTML here */}
+</Page>
+```
+
+<Aside type="tip">
+Although this solution could use hard wired texts, we recommend using translation keys
+to have all translated text in one place. This simplifies translation management when adding a new language.
+</Aside>
+
+
+## Dynamic locale
+
+Create one file named `src/pages/[locale]/index.astro. The homepage for all locales is 
+defined inside this file.
+This is the basic layout:
 
 ```astro title="src/pages/[locale]/index.astro"
 ---
@@ -23,33 +56,21 @@ export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
 import { Page } from "lightnet/components"
 ---
 <Page>
-    {/* Add your content here */}
+    {/* Add components & HTML here */}
 </Page>
 ```
 
-The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site.
-You need this because the homepage is a localized page that will be translated into all available site languages.
-
-Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
-reusable components that you can use to build your page. More details below.
-
-The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your
-content with this component to ensure that your page is styled correctly.
-
 <Aside type="tip">
-The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/)
-to get a deep understanding of how to extend it.
+Use `Astro.currentLocale` to change the content based on the locale.
 </Aside>
-
 
 ## Add Components
 
-The following prebuilt components are offered by Lightnet for you to build your page easily.
-If you build further reusable components yourself, you are very welcome to share them with the [Community]().{/*todo: add link here.*/}
+Add components to your homepage. These components are available.
 
 - [Section](/build/pages/section): used to structure the page and take care of the layout of other components
 - [Hero Section](/build/pages/hero): a big Image, optional with a Title inside, that serves as an eye-catcher, normally at the top of a page.
 - [Media Item Gallery](/build/pages/media-gallery): shows a selection of Media Items in a gallery view.
 - [Categories Overview](/build/pages/categories-overview): displays a grid of all available categories leading to a search page filtered by category.
 - [Highlight Section](/build/pages/highlight-section): combination of a large Image, headline, text and optional a link button.
-- [Custom Components](/build/pages/custom-components): your own Astro components. 
+- [Custom Components](/build/pages/custom-components): your own Astro components. You are very welcome to share them with the community. Start a conversation with us by opening a [feature proposal](https://github.com/LightNetDev/LightNet/issues/new?template=---02-feature-proposal.yml).
