@@ -7,21 +7,22 @@ description: >
 
 The `Section` component is used to create a section with a optional title. It takes care of the spacing
 and the layout of its content. You can use a section to easily fit your custom component into the 
-structure and design of your LightNet site.
+structure and design of your LightNet site. Its title is displayed above the section content in a well visible
+font size.
 
-If you add a title to your section ...{/*Is it automatically displayed? Where? Or, if not, how to access it within the section?*/}
-
-You can add a section to your homepage by adding the following code:
+You can add a section to your page by adding the following code:
 
 ```astro
 ---
-import { Section } from "lightnet/components"
+import { Page, Section } from "lightnet/components"
 
 const { t } = Astro.locals.i18n
 ---
-<Section title={t("x.section.title")}>
-    {/* Add components here */}
-</Section>
+<Page>
+  <Section title={t("x.section.title")}>
+    {/* Add components and HTML here */}
+  </Section>
+</Page>
 ```
 
 ## Reference
@@ -34,7 +35,8 @@ type: `string` \
 example: `"My section title"` \
 required: `false`
 
-The title of the section.
+The title of the section. Is displayed above the section content.
+
 #### `maxWidth`
 
 type: `"full" | "prose"` \
@@ -45,9 +47,9 @@ default: `"full"`
 A `Section` will grow its width with the screen size. It will stop growing according to the `maxWidth` property.
 After this it will be centered on the screen. The `maxWidth` property can be set to `full` or `prose`.
 
-- `full`: The section will stop growing with the full width of the LightNet container. This will align
+- `full` (1280 px): The section will stop growing with the full width of the LightNet container. This will align
   the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
-- `prose`: The section will stop growing so that contained text is still well readable. This is the width used on the
+- `prose` (768 px): The section will stop growing so that contained text is still well readable. This is the width used on the
   details page.
 
 #### `id`
@@ -56,7 +58,7 @@ type: `string` \
 example: `"my-section"` \
 required: `false`
 
-The id of the section. This can be used to link to the section e.g. `/about#my-section`.
+The id of the section. This can be used to link to the section e.g. `/en/about#my-section`.
 
 #### `className`
 
