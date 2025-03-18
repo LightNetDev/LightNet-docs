@@ -38,7 +38,7 @@ For multilingual sites make sure to pass a translated string for the `title`, `t
 
 The `HighlightSection` component has the following properties:
 
-#### `image`
+### `image`
 
 type: `ImageMetadata` \
 example: `import highlightImage from "../../assets/highlightImage.jpg"` \
@@ -47,7 +47,7 @@ required: `true`
 The image of the highlight section. It will be optimized for performance.
 We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
 
-#### `id`
+### `id`
 
 type: `string` \
 example: `"my-section"` \
@@ -55,7 +55,7 @@ required: `false`
 
 The id of the section. This can be used to link to the section e.g. `/about#my-section`.
 
-#### `title`
+### `title`
 
 type: `string` \
 example: `"My section title"` \
@@ -63,7 +63,7 @@ required: `false`
 
 The title to show above the text.
 
-#### `text`
+### `text`
 
 type: `string` \
 example: `"Some description"` \
@@ -71,7 +71,7 @@ required: `true`
 
 The text to describe the highlight section.
 
-#### `link`
+### `link`
 
 type: `{ href: string, text: string }` \
 example: `{ href: "/en/some-page", text: "Link Text" }` \
@@ -81,7 +81,7 @@ The link to show as a button below the text.
 The `href` property will not be automatically prefixed with the current locale.
 The `text` will be shown on the button without any further translation.
 
-#### `className`
+### `className`
 
 type: `string` \
 example: `"bg-blue-600 text-white"` \
@@ -89,7 +89,7 @@ required: `false`
 
 Additional css classes, separated by spaces, to style the highlight section.
 
-#### `titleClass`
+### `titleClass`
 
 type: `string` \
 example: `"text-2xl font-bold"` \
@@ -97,7 +97,7 @@ required: `false`
 
 Additional css classes, separated by spaces, to style the title.
 
-#### `textClass`
+### `textClass`
 
 type: `string` \
 example: `"text-lg"` \
