@@ -1,8 +1,9 @@
 ---
 title: Initialize Homepage
+description: >
+    How to add a homepage to your LightNet media site. The homepage is the first page that users see when they visit your site. You can customize the homepage
+    to include a hero image, a call to action, a content gallery or add your own components...
 ---
-
-{/*Is "initialize homepage the right title - or are these actually the basics for every LightNet page?"*/}
 
 import { Aside } from "@astrojs/starlight/components";
 
@@ -26,15 +27,18 @@ import { Page } from "lightnet/components"
 </Page>
 ```
 
-The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site. You need this because the homepage is a localized page that will be translated into all available site languages.
+The export of `getLocalePaths` is used to generate the static paths for the site. This will export all available locales for the site.
+You need this because the homepage is a localized page that will be translated into all available site languages.
 
 Everything below the frontmatter is the actual content of the page. You can add any HTML here. We provide 
 reusable components that you can use to build your page. More details below.
 
-The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your content with this component to ensure that your page is styled correctly.
+The `Page` component handles the layout of the page. This will add the header, language switcher, menu system... You should wrap your
+content with this component to ensure that your page is styled correctly.
 
 <Aside type="tip">
-The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/) to get a deep understanding of how to extend it.
+The homepage file is using the Astro templating language. It is highly recommended to [learn more about Astro](https://astro.build/)
+to get a deep understanding of how to extend it.
 </Aside>
 
 
