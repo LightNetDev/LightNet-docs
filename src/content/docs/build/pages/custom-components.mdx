@@ -3,17 +3,16 @@ title: Add Custom Components
 description: How to build your own reusable components for your LightNet media site.
 ---
 
+import { Aside } from "@astrojs/starlight/components"
+
+
 You can also add your own components. All HTML, Astro and React components are supported.
-Use TailwindCSS to style your components. Here is an example on create a custom html section:
-Refer to the Astro and TailwindCSS documentation to learn more about how to create custom components.
+Use TailwindCSS to style your components (TailwindCSS is not mandatory but highly recommended). 
+Refer to the [Astro](https://docs.astro.build) and [TailwindCSS](https://tailwindcss.com/) documentation to learn more about how to create custom components.
 
-## Using CSS
-
-
-## Using TailwindCSS
+Here is an example on create a custom html section:
 
 
-What is TailwindCSS, why use it, how to set it up. {/*gehört tailwind nicht eher in die fundamentals?*/}
 
 ```astro
 ---
@@ -31,10 +30,17 @@ const { t } = Astro.locals.i18n
 </Page>
 ```
 
+<Aside>
+Because TailwindCSS uses features that are not yet widely available across browsers. LightNet
+might not be using the latest version of TailwindCSS. To identify the version used by LightNet,
+inspect the `package.json` file.
+</Aside>
+
 
 ## Share with the community
 
-You are very welcome to share them with the community. Start a conversation with us by opening a [feature proposal](https://github.com/LightNetDev/LightNet/issues/new?template=---02-feature-proposal.yml).
+You are very welcome to share your custom components with the community. 
+Start a conversation with us by opening a [feature proposal](https://github.com/LightNetDev/LightNet/issues/new?template=---02-feature-proposal.yml).
 
 
  
