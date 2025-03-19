@@ -5,28 +5,25 @@ description: Learn how to manage the content of your LightNet site.
 
 import { Aside } from "@astrojs/starlight/components"
 
-All the media items of your LightNet site are described in JSON files in the `src/content` folder. 
-It contains these types of content files:
+All the media items of your LightNet site are described in JSON files in the `src/content` folder containing:
 
-- **media**: Each file in this folder describes a media item. This is the core of your LightNet site. Media Items
-  reference other content files like categories, collections. Learn more about [media items](/content/media-items).
-- **media-types**: Media types are used to group media items by their type. Eg. "Video" and "Audio" could be media types that are
-  referenced. Also the media type is used to determine the layout of the media item details page. Learn more about 
-  [media types](/content/media-types).
-- **categories**: Categories group your media items by different topics. Eg. "Theology", "Christian Living", "Kids" could be
-  categories that are referenced by media items. Learn more about [categories](/content/categories).
-- **media-collections**: Media collections group media items that belong together. For example a video playlist
-  could be modeled as a media collection. Other collection items show up on the details page on a media item. 
-  Learn more about [media collections](/content/media-collections).
+- [media](/content/media-items): Each file in this folder describes a media item. This is the core of your LightNet site. Media Items
+  reference other content files like categories, collections.
+- [media-types](/content/media-types): are used to group media items by their type. Eg. "Video" and "Audio" could be media types that are
+  referenced. Also the media type is used to determine the layout of the media item details page.
+- [categories](/content/categories): Categories group your media items by different topics. Eg. "Theology", "Christian Living", "Kids" could be
+  categories that are referenced by media items.
+- [media-collections](/content/media-collections): Media collections group media items that belong together. For example a video playlist
+  could be modeled as a media collection. Other collection items show up on the details page on a media item.
 
 <Aside>
-The content files are built using [Astro's content collections](https://docs.astro.build/en/guides/content-collections/).
+This content folder is using [Astro's content collections](https://docs.astro.build/en/guides/content-collections/) feature.
 </Aside>
 
 ## Content Editing
 
-You can edit the content files using your text editor. LightNet automatically validates the structure of the content files.
-If you have a syntax error in your content files, the LightNet development server shows you an error message in the console.
+You can edit the content files using your text editor. Astro automatically validates the structure of the content files.
+If you have a syntax error in your content files, the Astro development server shows you an error message in the terminal.
 
-Alternatively you can use a Administration User Interface to edit the content files. This is also useful if you have 
-non-technical users that want to edit the content. Learn more about the [Administration UI](/content/administration-ui).
+Alternatively you can use a [Administration User Interface](/content/administration-ui) (Administration UI) to edit the content files. 
+This is also useful if you need to support non-technical users to edit the content.

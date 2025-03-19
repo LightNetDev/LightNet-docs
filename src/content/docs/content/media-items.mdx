@@ -7,9 +7,9 @@ import { Aside } from '@astrojs/starlight/components';
 
 
 Media items are the core of your LightNet site. 
-Each media items show up on the search page and have it's own details page.
+Each media item shows up on the search page and has its own details page.
 Use media items to describe your sermons, music, videos, and other media content.
-Each file in the `src/content/media` folder describes a media item. Every media item references 
+Each file in the `src/content/media` folder describes one media item. Every media item references 
 at least one content url, eg. a MP3 file, a YouTube video or a PDF file.
 
 Here is an example of a media item:
@@ -38,7 +38,7 @@ media item for a specific language.
 
 ## Reference
 
-A media item is a JSON file that describes a media item. 
+A media item is a JSON file describing a media item. 
 We recommend to fill as many properties as possible to provide a good user experience.
 Here is a description of the available properties.
 
@@ -50,7 +50,7 @@ required: `true`
 
 The `commonId` is a unique identifier for a media item. If your media item is available in multiple languages, 
 you should create a media item for each language. In this case you should use the same `commonId` for all languages.
-We use the `commonId` to find translations of a media item. By convention we name our files with the following pattern: `[commonId]--[language].json`.
+LightNet uses the `commonId` to find translations of a media item.
 
 ### title
 
@@ -66,26 +66,9 @@ type: `string`\
 example: `"en"` \
 required: `true`
 
-The language of the media item. The language should be a BCP-47 language code like `en`, `de`, `fr`.
-The language is used to filter media items by language and to display the media item in the correct language.
-For every language used you need to provide a language definition in the `astro.config.mjs` file. The 
-language is referenced by the `code` property in the language definition. Add a new language definition like shown below. 
-Notice that `translations` are not required when adding a language that is only a content language for media items and not a site language.
-
-```javascript title="astro.config.mjs" ins={5-8}
-export default defineConfig({
-  integrations: [
-    lightnet({
-      languages: [
-        {
-          code: "en",
-          label: "English",
-        },
-      ]
-    })
-  ]
-})
-```
+The content language of the media item. The language must be a BCP-47 language code like `en`, `de`, `fr`.
+The language is used to filter media items by language and to display the media item correctly.
+For every content language you need to provide a language definition in the `astro.config.mjs` file.
 
 ### type
 
@@ -105,7 +88,8 @@ required: `true`
 
 The path to the image file that should be used as a cover picture for the media item. The image should be in the `src/content/media/images` folder.
 By convention we name our image files with the following pattern: `[commonId]--[language]`. If the image contains text, it should be in the language of the media item.
-Provided image formats include `jpg`, `png`, `webp`. The image is optimized for performance. We recommend to use a image that is at least 1000px wide to ensure that it looks good on all devices.
+Provided image formats include `jpg`, `png`, `webp`. The image is optimized for performance. 
+We recommend to use a image that is at least 1000px wide to ensure that it looks good on all devices.
 
 ### content
 
@@ -124,16 +108,16 @@ type: `string`\
 example: `"/files/sermon-1.mp3"` \
 required: `true`
 
-Each object should have a `url` property that points to the content. 
-If you want to make a file available for your media item store it inside the `public/files` folder and reference it with the `url` property.
-For example if you have a pdf file `public/files/sermon-1.pdf` you can reference it with the `url` property like this: `url: "/files/sermon-1.pdf"`.
+Each object has a `url` property that points to the content. 
+If you want to make a file available for your media item, store it inside the `public/files` folder and reference it with the `url` property.
+For example if you have a pdf file `public/files/sermon-1.pdf` you can reference it with `url: "/files/sermon-1.pdf"`.
 
 <Aside type="tip">
 For a good user experience make sure to keep your files inside `public/files` as small as possible. They won't be further optimized
 for performance.
 </Aside>
 
-This is urls that are supported:
+These urls are supported:
 
 - YouTube video urls like `"https://www.youtube.com/watch?v=1234"`
 - Vimeo video urls like `"https://vimeo.com/1234"`
@@ -143,8 +127,8 @@ This is urls that are supported:
 
 
 <Aside type="tip">
-Use the `media-type` to configure how the content should be displayed. For example if you have a video you can configure the video player to be used.
-Media types can add support for content urls that are not supported out of the box. Learn more about [media types](/content/media-types).
+Use the [media type](/content/media-types) to configure how the content should be displayed. For example if you have a video you can configure the video player to be used.
+Media types can add support for content urls that are not supported out of the box.
 </Aside>
 
 #### content: label
@@ -155,7 +139,7 @@ required: `false`
 
 The `label` property is optional and can be used to give a name to the content. This label is displayed on the content section of the media item details page.
 If no `label` property is provided the label is derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the label is `sermon-1`.
-If it is `"https://www.youtube.com/watch?v=1234"` the content label is `youtube.com`. You also can pass a translation key to this.
+If it is `"https://www.youtube.com/watch?v=1234"` the content label is `youtube.com`. You also can assign a translation key to the label.
 
 
 ### dateCreated
@@ -177,8 +161,8 @@ type: `string` \
 example: `"A sermon about the Good Samaritan"` \
 required: `false`
 
-A short description of the media item. The description should be in the language of the media item.
-It can use Markdown syntax for formatting the text.
+A short description of the media item. The description must be in the language of the media item.
+Use Markdown syntax for formatting the text. The first 350 characters are included in the search.
 
 ### authors
 
@@ -204,8 +188,8 @@ type: `{ collection: string, index?: number }[]`\
 example: `[{collection: "sermon-series", index: 1}]` \
 required: `false`
 
-An array containing references to collection this media item is contained in.
-This is the properties of each collection reference object:
+An array containing references to collections this media item is contained in.
+These are the properties of each collection reference object:
 
 #### collections: collection
 
@@ -223,6 +207,6 @@ example: `1` \
 required: `false`
 
 The index of the media item in the collection. The index is used to sort the media items in the collection. 
-Entries with a lower index is displayed first. Entries without index are displayed after the entries with an index.
-They are sorted by their identifier.
+Entries with a lower index are sorted first. Entries without index are sorted after the entries with an index.
+Entries with the same index are sorted by their identifier.
 
