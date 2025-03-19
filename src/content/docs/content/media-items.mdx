@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 
 Media items are the core of your LightNet site. 
-Each media items will show up on the search page and have it's own details page.
+Each media items show up on the search page and have it's own details page.
 Use media items to describe your sermons, music, videos, and other media content.
 Each file in the `src/content/media` folder describes a media item. Every media item references 
 at least one content url, eg. a MP3 file, a YouTube video or a PDF file.
@@ -67,9 +67,9 @@ example: `"en"` \
 required: `true`
 
 The language of the media item. The language should be a BCP-47 language code like `en`, `de`, `fr`.
-The language will be used to filter media items by language and to display the media item in the correct language.
+The language is used to filter media items by language and to display the media item in the correct language.
 For every language used you need to provide a language definition in the `astro.config.mjs` file. The 
-language will be referenced by the `code` property in the language definition. Add a new language definition like shown below. 
+language is referenced by the `code` property in the language definition. Add a new language definition like shown below. 
 Notice that `translations` are not required when adding a language that is only a content language for media items and not a site language.
 
 ```javascript title="astro.config.mjs" ins={5-8}
@@ -93,9 +93,9 @@ type: `string`\
 example: `"video"` \
 required: `true`
 
-This property defines the type of the media item. It will reference a file inside the `src/content/media-types` folder.
+This property defines the type of the media item. It references a file inside the `src/content/media-types` folder.
 For example if you have a file `src/content/media-types/book.json` you can set the the `type` property to `book`.
-The media type will be used to determine the layout of the media item details page.
+The media type is used to determine the layout of the media item details page.
 
 ### image
 
@@ -105,7 +105,7 @@ required: `true`
 
 The path to the image file that should be used as a cover picture for the media item. The image should be in the `src/content/media/images` folder.
 By convention we name our image files with the following pattern: `[commonId]--[language]`. If the image contains text, it should be in the language of the media item.
-Provided image formats include `jpg`, `png`, `webp`. The image will be optimized for performance. We recommend to use a image that is at least 1000px wide to ensure that it looks good on all devices.
+Provided image formats include `jpg`, `png`, `webp`. The image is optimized for performance. We recommend to use a image that is at least 1000px wide to ensure that it looks good on all devices.
 
 ### content
 
@@ -116,7 +116,7 @@ required: `true` (at least one content object is required)
 This references the actual content of the media item. For example this references a video on YouTube, or a file served from your server.
 The `content` property is an array of objects. The first object in the array is considered to be the primary content of the media item.
 The primary content is used for example with the embedded video player on the media item details page. All other content objects are considered to be additional content.
-They will be displayed on the content section of the media item details page.
+They are displayed on the content section of the media item details page.
 
 #### content: url
 
@@ -153,9 +153,9 @@ type: `string`\
 example: `"Sermon 1"` \
 required: `false`
 
-The `label` property is optional and can be used to give a name to the content. This label will be displayed on the content section of the media item details page.
-If no `label` property is provided the label will be derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the label will be `sermon-1`.
-If it is `"https://www.youtube.com/watch?v=1234"` the content label will be `youtube.com`. You also can pass a translation key to this.
+The `label` property is optional and can be used to give a name to the content. This label is displayed on the content section of the media item details page.
+If no `label` property is provided the label is derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the label is `sermon-1`.
+If it is `"https://www.youtube.com/watch?v=1234"` the content label is `youtube.com`. You also can pass a translation key to this.
 
 
 ### dateCreated
@@ -165,7 +165,7 @@ example: `"2022-01-01"` \
 required: `true`
 
 The date when the media item was created in this library. The date should be in the format `YYYY-MM-DD`. 
-This date will be used to sort the media items from newest to oldest.
+This date is used to sort the media items from newest to oldest.
 
 <Aside type="note">
 The dateCreated is not the date when the media item was originally published. It is the date when the media item was added to the library.
@@ -223,6 +223,6 @@ example: `1` \
 required: `false`
 
 The index of the media item in the collection. The index is used to sort the media items in the collection. 
-Entries with a lower index will be displayed first. Entries without index will be displayed after the entries with an index.
-They will be sorted by their identifier.
+Entries with a lower index is displayed first. Entries without index are displayed after the entries with an index.
+They are sorted by their identifier.
 

@@ -38,7 +38,7 @@ const { t } = Astro.locals.i18n
 </Page>
 ```
 
-Inside the frontmatter the `someEnglishBooks` variable is prepared. This will be executed only once when the site is built.
+Inside the frontmatter the `someEnglishBooks` variable is prepared. This is executed only once when the site is built.
 The `getMediaItems` function helps to query media items (Alternatively you could also use Astro's `getCollection` function to query media items). 
 It takes a sql-like query object as an argument. 
 The example filters for all media items that have the media-type `book` and the language `en`. 
@@ -141,10 +141,10 @@ type: `"book" | "video" | "portrait" | "landscape"` \
 example: `"book"` \
 required: `true`
 
-The layout of the gallery. The layout will be used to determine the number of columns and
+The layout of the gallery. The layout is used to determine the number of columns and
 to style the cover images. Available layouts are:
 
 - `portrait`: Takes 2 to 5 columns. Use this for cover images that are portrait oriented.
 - `book`: Takes 2 to 5 columns. This equals to `portrait` layout. Additionally a book fold is added to the cover image and corners are less rounded.
 - `landscape`: Takes 1 to 4 columns. Use this for cover images that are landscape oriented.
-- `video`: Takes 1 to 4 columns. This equals to `landscape` layout. Additionally all covers will have a aspect ratio of 16:9 with a black background.
+- `video`: Takes 1 to 4 columns. This equals to `landscape` layout. Additionally all covers have a aspect ratio of 16:9 with a black background.

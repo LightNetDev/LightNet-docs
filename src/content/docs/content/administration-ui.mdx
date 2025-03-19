@@ -7,16 +7,16 @@ import { Steps, Aside, Badge } from '@astrojs/starlight/components';
 
 
 LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical users. That's why LightNet provides a Administration UI to manage your content with a user interface.
-The interface will allow you to create, update, and delete media items and media collections.
+The interface allows you to create, update, and delete media items and media collections.
 We use a tool called [Decap CMS](https://decapcms.org/) to provide the Administration UI. It is a headless CMS that we configure to work with LightNet.
 
-All changes made will be written to your file system or to your git repository if the user interface is used online.
+All changes made are written to your file system or to your git repository if the user interface is used online.
 
 <Aside title="Beta" type="caution">
 The Administration UI is currently in beta.
 
 It enables the content administration for most scenarios. 
-Some scenarios will require manual changes on the JSON files (for example changing the identifier of a media item is not supported by the 
+Some scenarios require manual changes on the JSON files (for example changing the identifier of a media item is not supported by the 
 Administration UI). Implementing a better Administration UI is already on our roadmap.
 </Aside>
 
@@ -55,7 +55,7 @@ This is how you add the Administration UI to your LightNet project:
     });
     ```
     This adds a shared languages configuration to both the LightNet and the Administration UI. 
-    The Administration UI will use the languages configuration to fill the language selection dropdowns for media items.
+    The Administration UI uses the languages configuration to fill the language selection dropdowns for media items.
 
 
 </Steps>
@@ -73,12 +73,12 @@ Run your Administration UI on your local computer using npm scripts.
     ```bash
     npm run dev
     ```
-    This will start the LightNet development server. 
+    This starts the LightNet development server. 
 1. Open a new Terminal at the same location and execute:
     ```bash
     npx decap-server
     ``` 
-    This will start a application that enables Decap CMS to access your file system. 
+    This starts a application that enables Decap CMS to access your file system. 
 1. Navigate your browser to [localhost:4321/admin](localhost:4321/admin). You should see 
     the Administration UI showing you a list of your media items.
 </Steps>
@@ -87,9 +87,9 @@ Run your Administration UI on your local computer using npm scripts.
 ### Accessing a Git Host
 
 The Administration UI also supports connecting to a Git Host like GitLab or GitHub.
-A Administrator can access the UI on your website, all requests will be send to the Git Host's API.
-Every change done on the Administration UI will change files inside your project using Git commits.
-Authentication also will be handled by the Git Host, so only Persons you give access will be able to 
+A Administrator can access the UI on your website, all requests are send to the Git Host's API.
+Every change done on the Administration UI changes files inside your project using Git commits.
+Authentication also are handled by the Git Host, so only Persons you give access are able to 
 edit your page's content.
 
 This architecture brings several advantages:
@@ -121,7 +121,7 @@ To connect your Administration UI to a GitLab repository, follow this steps.
     - **Redirect URI**: Give the final address of your LightNet site followed by `/admin/`. Eg. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
     - **Confidential**: Unselect this option.
     - **Scopes**: Select the `api` scope.
-5. Save the new Application. GitLab will present you with a Application ID. Copy and store this ID to use it later.
+5. Save the new Application. GitLab presents you with a Application ID. Copy and store this ID to use it later.
 6. Go back to your project on your computer and open `astro.config.mjs`. 
 7. Add the GitLab backend config for your repository
     ```js title="astro.config.mjs" ins={7-11}
@@ -146,5 +146,5 @@ To connect your Administration UI to a GitLab repository, follow this steps.
 </Steps>
 
 <Aside>
-Even when you have configured a GitLab backend, your local development server will always try to connect to a local `decap-server`.
+Even when you have configured a GitLab backend, your local development server always tries to connect to a local `decap-server`.
 </Aside>

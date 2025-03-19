@@ -14,7 +14,7 @@ Internationalization is a core feature, essential even if you're supporting just
 
 LightNet sites can have two distinct language layers (which may be identical):
 
-- **Content Language**: The language of a media item. For instance, an English video will have an English title and description.
+- **Content Language**: The language of a media item. For instance, an English video has an English title and description.
 - **Site Language**: The language of the user interface, including button labels, menus, and page text.
 
 Both are configured using the `languages` setting in `astro.config.mjs`.
@@ -91,7 +91,8 @@ Usually, you don't need quotes around translation values.
 - Use periods (`.`) in keys to add context (e.g., `x.homepage.title`).
 
 LightNet uses the same mechanism to translate built-in strings for example the title on the search page (`ln.search.title`).
-All translation keys used by LightNet are defined in the [built-in English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) on GitHub. This file will always be up to date.
+All translation keys used by LightNet are defined in the [built-in English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) on GitHub. 
+This file is always up to date.
 Next to the English translation files you find other translations for LightNet. They are maintained by the community - you are welcome to [contribute your
 translations](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations).
 

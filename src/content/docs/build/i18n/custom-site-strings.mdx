@@ -21,7 +21,7 @@ If you translate a text only page (e.g. [the about page](/build/pages/about-page
     x.hello-world: Hello World
     ```
     Choose a unique key (left side of the colon). By convention prefix your custom keys with `x.`. 
-    The key will be used to referenced your custom translation in your site.
+    The key is used to referenced your custom translation in your site.
 2. **Translate**: Make sure the entry is translated correctly for all translation files. Only 
 3. **Use inside Astro component**: Use the custom translation key in your Astro component. LightNet provides a translation function with `Astro.locals.i18n.t`. 
     You can use this function to get the translation of your custom key.
@@ -33,11 +33,11 @@ If you translate a text only page (e.g. [the about page](/build/pages/about-page
         <h1>{Astro.locals.i18n.t("x.hello-world")}</h1>
     </Page>
     ```
-    The translation function will return the translation of the key `Hello World` in the current language.
-    If the key is not found in the translations file, the function will return the value of the default translations file.
-    If the key is not found in the default translations file, the function will throw an Error.
+    The translation function returns the translation of the key `Hello World` in the current language.
+    If the key is not found in the translations file, the function returns the value of the default translations file.
+    If the key is not found in the default translations file, the function throws an Error.
     <Aside type="tip">
-        We provide internationalization helpers with the `Astro.locals.i18n` object. This object will additionally give you access to all 
+        We provide internationalization helpers with the `Astro.locals.i18n` object. This object additionally gives you access to all 
         locales the defaultLocale and more. You can access the `i18n` object inside all your `.astro` files.
     </Aside>
     Some config options require you to pass the translation key instead of the translated string. For example the `title` property in the `astro.config.mjs` file.

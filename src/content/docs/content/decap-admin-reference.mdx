@@ -30,7 +30,7 @@ type: `array` \
 example: `[{ code: "en", label: "English", translations: {}, isDefaultSiteLanguage: true }]` \
 required: `true`
 
-The languages of your site. This will be used to support multiple locales and content languages.
+The languages of your site. This is used to support multiple locales and content languages.
 You should use the same languages as in the `lightnet` integration. We recommend creating a shared variable that is used in both integrations.
 See the [lightnet configuration](#languages) for more information on the languages structure.
 
@@ -86,7 +86,7 @@ GitHub backend configuration has this options:
 - **baseUrl**: `string` the URL of your service doing the authentication request.
 
 <Aside>
-GitHub does not support the PKCE authentication type. This means that you will need an authentication server to handle the authentication request.
+GitHub does not support the PKCE authentication type. This means that you need an authentication server to handle the authentication request.
 This is why we recommend using the GitLab backend for LightNet sites.
 
 See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy)

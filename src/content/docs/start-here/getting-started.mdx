@@ -7,7 +7,7 @@ import { Steps, Aside } from "@astrojs/starlight/components";
 
 Welcome to the LightNet Developer Documentation site! 
 LightNet enables you to build customizable media distribution websites. 
-This guide will walk you through setting up your environment and creating your first project. 
+This guide walks you through setting up your environment and creating your first project. 
 Not sure what LightNet is all about? [Visit the LightNet homepage](https://lightnet.community).
 
 ## Requirements
@@ -40,7 +40,7 @@ npm create astro@latest -- --template LightNetDev/LightNet/examples/sk8-ministri
 This starts [Astro's](https://astro.build) `create astro` command - which lets you:
 
 
-- Choose a location for your project. This will create the folder for your project and also set its name.
+- Choose a location for your project. This creates the folder for your project and also set its name.
 - Install its dependencies (`Yes`).
 - Initialize a Git repository (`Yes`).
 
@@ -59,7 +59,7 @@ The development server is an application that lets you preview your media site i
 npm run dev
 ```
 
-Your site will be available at [localhost:4321](http://localhost:4321). Open your browser to preview the example site.
+Your site is available at [localhost:4321](http://localhost:4321). Open your browser to preview the example site.
 As you will need the development server for the next steps, please keep it running.
 
 ## 3. Make Your First Modification
@@ -70,8 +70,8 @@ As your first modification, let's change the site title:
   1. Open the project folder in VS Code (or your preferred text editor).
   1. Inside VS-Code open `src/translations/en.yml`. 
   1. Modify the value of the `x.site.title`-key by changing "Sk8 Ministries" to your desired site name.
-  1. Save the file. Still running `npm run dev`, your browser will automatically
-  refresh to show the updated title. It will be visible in front of the big picture and inside the header bar.
+  1. Save the file. Still running `npm run dev`, your browser automatically
+  refreshes to show the updated title. It is visible in front of the big picture and inside the header bar.
 </Steps>
 
 ### Optional: Make another Modification using the Administration UI
@@ -83,14 +83,14 @@ accessing the source code. Follow these steps to run the Administration UI:
 <Steps>
   1. Ensure that `npm run dev` is still running in your terminal. 
   2. Open a new terminal window in your project's folder and execute the following command. This
-     command will download and start a backend for Decap CMS, which is used for the
+     command downloads and starts a backend for Decap CMS, which is used for the
      content Administration UI.
       ```bash
       npx decap-server
       ```
   3. Once you see the message `info: Decap CMS Proxy Server listening on port 8081` in your terminal, open your browser and
      navigate to the Administration UI on [localhost:4321/admin](http://localhost:4321/admin). 
-  4. Click the "Login" button. You will be presented with a list of all available media
+  4. Click the "Login" button. You are presented with a list of all available media
      items. 
   5. Open `how-to-360-flip--en` by clicking it. Change the title to "How to
   Do a 360 Flip". 
@@ -100,7 +100,7 @@ accessing the source code. Follow these steps to run the Administration UI:
 
 {/* todo: link json content file to explanation, link admin ui to guide  */}
 
-This action will update the a JSON content file stored on inside your project folder.
+This action updates the a JSON content file stored on inside your project folder.
 
 Inspect the changes you have just made:
 
