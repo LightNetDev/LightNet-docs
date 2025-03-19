@@ -3,13 +3,21 @@ title: Set a Primary Color
 description: How to set the primary color for your LightNet Site.
 ---
 
-LightNet allows you to customize the primary color to align with your site's branding.  
-This color is used in some UI elements, such as the hover effect on the search magnifier icon in the header bar.
+LightNet allows to customize the primary color to align with your site's branding.  
+This color is used in some UI elements, such as the hover effect on the search magnifier icon in the header bar
+or for the colored button on the highlight section.
 
-![primary color example1](./images/color1.webp) ![primary color example2](./images/color2.webp)
+![primary color button](./images/primary-color-button.webp)
 
-{/*todo: document how to set the primary color once we have decided how to move on with tailwind*/}
-{/* also add tailwind.config.mjs to project structure*/}
+To change the primary color open the `tailwind.config.mjs` file.
+
+```js title="/tailwind.config.mjs"
+import { lightnetStyles } from "lightnet/tailwind.config.ts"
+
+export default {
+  presets: [lightnetStyles({ primaryColor: "#14004B" })],
+}
+```
 
 Replace `#14004B` with the hex color code of your choice.  
 Ensure that the chosen color contrasts well against white backgrounds.
