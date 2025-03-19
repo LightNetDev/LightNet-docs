@@ -58,6 +58,7 @@ export default defineConfig({
 							{slug: "build/pages/categories-overview"},
 							{slug: "build/pages/highlight-section"},
 							{slug: "build/pages/custom-components"},
+							{slug: "build/pages/create-internal-links"}
 						]}
 					],
 				},
