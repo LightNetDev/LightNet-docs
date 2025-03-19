@@ -8,9 +8,9 @@ import { FileTree, Aside } from "@astrojs/starlight/components";
 This chapter introduces how pages are created with LightNet. Most of the concepts presented are Astro concepts, 
 use the [Astro documentation](https://docs.astro.build) for deeper insights.
 
-## Routing
+## Defining Routes with the Pages Folder
 
-Routes on your LightNet site are determined by the files in the `src/pages` directory. 
+Routes on your LightNet site are determined by the files in the `src/pages` folder. 
 The file path directly maps to the page route. 
 For instance, a file at `src/pages/en/about.astro` corresponds to `https://your.site/en/about`.
 
@@ -21,25 +21,8 @@ LightNet also automatically adds:
 - **Details Pages**: Displays details of a media item at `[locale]/media/[id]`.
 - **404 Page**: Shown when a non-existent page is accessed, at `/404`.
 
-## Creating Internal Links
-
-If you want to create an internal link to a LightNet page. Make sure you always add the locale in front of the link.
-For example this is how you can create a link to the about page inside a Astro component using JavaScript template strings:
-
-```ts
-`/${Astro.currentLocale}/about`
-```
-
-Additionally LightNet offers utility functions inside `lightnet/utils` to create paths:
-
-- `detailsPagePath`: To build the localized path to a media item's details page
-- `searchPagePath`: To build the localized path to the search page including preset filters.
-
-## Page Folder Structure
-
 All pages (except `404` and `/`) 
 reside in folders defining their [locale](/build/i18n/fundamentals). 
-For example, the English "About" page would be in `src/pages/en/about.astro`.
 
 There are two different types of locale folders: **static** and **dynamic**. You can use both inside the same project.
 
