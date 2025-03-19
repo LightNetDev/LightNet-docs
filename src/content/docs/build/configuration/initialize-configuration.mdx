@@ -31,7 +31,8 @@ export default defineConfig({
 });
 ```
 
-This configuration highlights the essential settings for every site built with LightNet. Customize them to match your ministry's needs.
+This configuration highlights the essential settings for every site built with LightNet. Customize them to match your 
+ministry's needs.
 
 <Steps>
 1. **Site** -
@@ -42,7 +43,7 @@ This configuration highlights the essential settings for every site built with L
 
 2. **Title** -
    The `title` property sets the site title, which appears in the browser tab and header bar. 
-   You can use a fixed string or a [translation key](/build/i18n/todo). 
+   You can use a fixed string or a [translation key](/build/i18n/fundamentals#translating-pages-in-lightnet). 
    Using a translation key like `"x.site.title"` allows the title to adapt based on the current site language.
    ```js
    title: "x.site.title"
@@ -51,9 +52,11 @@ This configuration highlights the essential settings for every site built with L
 
 3. **Languages** -
    This section defines the available languages for your site. 
-   It includes both site and content languages. Refer to the [Internationalization Guide](/build/i18n) for more details on managing languages.
+   It includes both site and content languages. Refer to the [Internationalization Guide](/build/i18n/fundamentals) for more 
+   details on managing languages.
    
-   In the Sk8-Ministry example, languages are declared as a variable to also pass them to the [Administration UI config](/content/todo). 
+   In the Sk8-Ministry example, languages are declared as a variable to also pass them to the 
+   [Administration UI config](/content/administration-ui). {/* ToDo: link to admin-UI or to admin-UI config?*/}
    This approach ensures consistency between both integrations.
 </Steps>
 
