@@ -3,9 +3,13 @@ title: Categories
 description: Learn how to group your media items by different topics.
 ---
 
+import { Aside } from "@astrojs/starlight/components";
+
 Organize your media items by using categories to group them by topic. For example, you can create categories like "Theology", 
-"Christian Living," and "Kids." Users can filter search results by these categories, making it easier to find relevant content. 
-Categories are also essential for generating a gallery of media items on the homepage.
+"Christian Living," and "Kids."
+
+Users can filter search results by these categories, making it easier to find relevant content. 
+Categories can also be used for generating a gallery of media items on the homepage.
 Categories show up on the search result items.
 
 Here is an example of a category:
@@ -16,10 +20,13 @@ Here is an example of a category:
 }
 ```
 
+<Aside type="tip">
+Adding a media item to a category is done by referencing the category in the media item file.
+</Aside>
+
 ## Reference
 
 A category is a JSON file that describes a category. The category identifier is its filename without the `.json` suffix. 
-Here is the available properties.
 
 ### label
 

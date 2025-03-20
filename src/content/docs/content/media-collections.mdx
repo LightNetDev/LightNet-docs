@@ -3,9 +3,14 @@ title: Media Collections
 description: Learn how to group media items that belong together in media collections.
 ---
 
-Use media collections to group media items that belong together. For example a video playlist, a series of sermons, a music album or a book series could be modeled as a media collection.
+import { Aside } from "@astrojs/starlight/components";
 
-Media Collections show up on the details page of a media item. Allowing your user to quickly navigate to other media items of the collection.
+
+Use media collections to group media items that belong together. For example a video playlist, a series of sermons, 
+a music album or a book series could be modeled as a media collection.
+
+Media Collections show up on the details page of a media item. Allowing your user to quickly navigate to other media items 
+of the collection. They can also be used for generating a gallery of media items on the homepage.
 
 Here is an example of a media collection:
 
@@ -15,9 +20,15 @@ Here is an example of a media collection:
 }
 ```
 
+<Aside type="tip">
+Media items can be part of several collections and can be ordered within a collection by setting an index for the collection 
+in the media item file. 
+</Aside>
+
 ## Reference
 
-A media collection is a JSON file that describes a media collection. The collection identifier is its filename without the `.json` suffix. Here is the available properties.
+A media collection is a JSON file that describes a media collection. The collection identifier is its filename without 
+the `.json` suffix.
 
 ### label
 
@@ -25,5 +36,4 @@ type: `string` \
 example: `"Sermon Series 1"` \
 required: `true`
 
-The name of the media collection. The label can either be a fixed string or a translation key to support multiple locales. LightNet tries to lookup the translation with the key. 
-If it does not find a translation with this key, it returns the key itself (this is how fixed strings work).
+The name of the media collection. The label can either be a fixed string or a translation key to support multiple locales. 
