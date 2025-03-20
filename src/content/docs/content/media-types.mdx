@@ -5,7 +5,8 @@ description: Learn how to group media items by their type.
 
 Media types are used to group media items that are of the same kind. For example you could have a media type for
 books, sermons, music, videos, etc.
-Media types control how the details page of a media item is rendered. They can also be used to filter media items on the search 
+Media types control how the details page of a media item is rendered. This affects how the media item is presented, for example 
+wether a cover image or a video player is shown om top of the page. They can also be used to filter media items on the search 
 page. The icon of a media type hints the user what kind of media item it is.
 
 Here is an example of a media type:
@@ -20,11 +21,9 @@ Here is an example of a media type:
 }
 ```
 
-We now go into detail what each property does.
-
 ## Reference
 
-A media type is a JSON file that describes a media type. The media type identifier is its filename without the `.json` suffix. Here is the available properties.
+A media type is a JSON file that describes a media type. The media type identifier is its filename without the `.json` suffix. 
 
 ### label
 
@@ -33,7 +32,6 @@ example: `"type.video"` \
 required: `true`
 
 The label is either a fixed string or a translation key to support multiple locales. 
-LightNet tries to lookup the translation with the key. If it does not find a translation with this key, it returns the key itself (this is how fixed strings work).
 
 ### icon
 
@@ -41,15 +39,15 @@ type: `string` \
 example: `"mdi--video-outline"` \
 required: `true`
 
-The icon is a Material Design Icon that shows up on the UI. You can find a list of all available icons on the [Material Design Icons](https://pictogrammers.com/library/mdi/) website. The icon should be in the format `mdi--[icon-name]`. With
-`[icon-name]` being the name of the icon from the website.
+The icon is a [Material Design Icon](https://pictogrammers.com/library/mdi/) that shows up on the UI. 
+It has to be in the format `mdi--[icon-name]`. With `[icon-name]` being the name of the icon from the website.
 
 ### detailsPage
 
 type: `object` \
 required: `false`
 
-The details page configuration. If not object is supplied, the default layout is shown.
+The details page configuration. If no object is supplied, the default layout is shown.
 This object can have the following properties:
 
 #### layout
