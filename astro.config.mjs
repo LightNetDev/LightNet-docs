@@ -62,7 +62,7 @@ export default defineConfig({
 						]}
 					],
 				},
-				{label:"Content", items: [
+				{label:"Add Content", items: [
 					{slug: "content/fundamentals"},
 					{slug: "content/media-items"},
 					{slug: "content/media-types"},
