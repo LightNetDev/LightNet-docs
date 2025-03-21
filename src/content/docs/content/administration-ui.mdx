@@ -6,9 +6,11 @@ description: Learn how to add a Administration UI to your site.
 import { Steps, Aside, Badge } from '@astrojs/starlight/components';
 
 
-LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical users. That's why LightNet provides a Administration UI to manage your content with a user interface.
+LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical 
+users. That's why LightNet provides a Administration UI to manage your content with a graphical user interface.
 The interface allows you to create, update, and delete media items and media collections.
-We use a tool called [Decap CMS](https://decapcms.org/) to provide the Administration UI. It is a headless CMS that we configure to work with LightNet.
+We use a tool called [Decap CMS](https://decapcms.org/) to provide the Administration UI. It is a headless CMS that we 
+configure to work with LightNet. {/*what is a headless cms? what is a cms at all? is it important to know that?*/}
 
 All changes made are written to your file system or to your git repository if the user interface is used online.
 
@@ -16,13 +18,13 @@ All changes made are written to your file system or to your git repository if th
 The Administration UI is currently in beta.
 
 It enables the content administration for most scenarios. 
-Some scenarios require manual changes on the JSON files (for example changing the identifier of a media item is not supported by the 
-Administration UI). Implementing a better Administration UI is already on our roadmap.
+Some scenarios require manual changes on the JSON files (for example changing the identifier of a media item is not 
+supported by the Administration UI). Implementing a better Administration UI is already on our roadmap.
 </Aside>
 
 ## Add the Administration UI to your project
 
-This is how you add the Administration UI to your LightNet project:
+This is how you add the Administration UI to your LightNet project: {/*isn`t it installed with the sk8-ministries example automatically?*/}
 
 <Steps>
 1. **Add Integration**: Add the LightNet Decap CMS integration using Astro's add command:
@@ -46,7 +48,7 @@ This is how you add the Administration UI to your LightNet project:
       integrations: [
         lightnet({
             languages: languages,
-            //...
+            //... {/*shouldn`t here be an example of one integrated language to show the syntax?*/}
         }),
         lightnetDecapAdmin({
             languages: languages,
@@ -63,6 +65,7 @@ This is how you add the Administration UI to your LightNet project:
 ## Run the Administration UI
 
 The Administration UI can write its changes to your local file system or to a Git Host like (GitLab or GitHub).
+{/*isn't GitLab the only supported platform?*/}
 
 ### Accessing your Local File System
 
