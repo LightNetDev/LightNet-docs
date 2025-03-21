@@ -3,7 +3,7 @@ title: Add a Site Language
 description: How to add a new site language to your LightNet media site.
 ---
 
-import { Steps, Aside } from "@astrojs/starlight/components";
+import { Steps } from "@astrojs/starlight/components";
 
 Follow this steps to add a new site language:
 
@@ -18,19 +18,6 @@ Follow this steps to add a new site language:
 1. **Add LightNet translations to your project**: If your language is not yet built-in, or if the built-in translation file is missing keys you need to add these keys to your
     translation file. To do so, copy all missing entries from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) 
     to your newly created translation file (from step 2). Translate the values to your language.
-    <Aside>
-    LightNet enables languages with multiple plural forms (using [i18next](https://www.i18next.com/translation-function/plurals)). Keys are suffixed with:
-    - `_one` : for a singular item (e.g., "1 item")
-    - `_other`: for an plural item.
-    
-    If your translated language has more plural forms, add the same keys suffixed with,
-    
-    - `_two` : for exactly two items
-    - `_few` : for a few items (language-specific rules)
-    - `_many` : for many items (language-specific rules)
-    
-    For guidance on the correct plural forms for your language, [use this tool](https://jsfiddle.net/6bpxsgd4).
-    </Aside>
 1. **Add your custom translation keys**: If you already have other translation files that define custom translation keys (keys starting with `x.`), add them to your new translation file.
 1. **Add language to config**: Add the new language to the `languages` array in your `astro.config.mjs` file.
     ```js title="astro.config.mjs" ins={5-12}
