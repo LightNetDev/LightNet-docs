@@ -5,7 +5,11 @@ description: Learn how to manage the content of your LightNet site.
 
 import { Aside } from "@astrojs/starlight/components"
 
-All the media items of your LightNet site are described in JSON files in the `src/content` folder containing:
+A LightNet site generates pages based on content metadata, structured using [Astro's content collections](https://docs.astro.build/en/guides/content-collections/) feature. 
+Content collections organize different types of metadata into separate folders, each containing JSON files. 
+The filename  - excluding the `.json` suffix - serves as the item's unique identifier.
+
+All content folders are located in `src/content`. LightNet uses the following content folders:
 
 - [media](/content/media-items): Each file in this folder describes a media item. This is the core of your LightNet site. Media Items
   reference other content files like categories, collections.
@@ -15,10 +19,6 @@ All the media items of your LightNet site are described in JSON files in the `sr
   categories that are referenced by media items.
 - [media-collections](/content/media-collections): Media collections group media items that belong together. For example a video playlist
   could be modeled as a media collection. Other collection items show up on the details page on a media item.
-
-<Aside>
-This content folder is using [Astro's content collections](https://docs.astro.build/en/guides/content-collections/) feature.
-</Aside>
 
 ## Content Editing
 
