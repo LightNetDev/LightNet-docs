@@ -11,5 +11,9 @@
         "pkce",
         "deutsch",
         "seti"
+    ],
+    "ignorePaths": [
+        ".vscode",
+        ".github"
     ]
 }
