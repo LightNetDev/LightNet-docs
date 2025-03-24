@@ -69,7 +69,6 @@ export default defineConfig({
 					{slug: "content/media-collections"},
 					{slug: "content/categories"},
 					{slug: "content/administration-ui", badge: "Beta"},
-					{slug: "content/decap-admin-reference"}
 				]},
 				{
 					label: "Deploy",

@@ -6,28 +6,32 @@ description: Learn how to add a Administration UI to your site.
 import { Steps, Aside, Badge } from '@astrojs/starlight/components';
 
 
-LightNet enables you to manage your content using JSON files. This is great for developers, but not so much for non-technical 
+LightNet enables you to manage your content using JSON files. This is great for developers, but not for non-technical 
 users. That's why LightNet provides a Administration UI to manage your content with a graphical user interface.
 The interface allows you to create, update, and delete media items and media collections.
-We use a tool called [Decap CMS](https://decapcms.org/) to provide the Administration UI. It is a headless CMS that we 
-configure to work with LightNet. {/*what is a headless cms? what is a cms at all? is it important to know that?*/}
+To implement the interface, LightNet uses a tool called [Decap CMS](https://decapcms.org/).
 
-All changes made are written to your file system or to your git repository if the user interface is used online.
+All changes made in Administration UI are written to the file system or to a git repository.
 
 <Aside title="Beta" type="caution">
 The Administration UI is currently in beta.
 
 It enables the content administration for most scenarios. 
 Some scenarios require manual changes on the JSON files (for example changing the identifier of a media item is not 
-supported by the Administration UI). Implementing a better Administration UI is already on our roadmap.
+supported by the Administration UI). Implementing a better Administration UI is on our roadmap.
 </Aside>
 
 ## Add the Administration UI to your project
 
-This is how you add the Administration UI to your LightNet project: {/*isn`t it installed with the sk8-ministries example automatically?*/}
+This is how you add the Administration UI to your LightNet project:
+
+<Aside>
+Eventually the Administration UI is already installed by your template (e.g. Sk8 Ministries includes it).
+Nevertheless you can follow this guide from the beginning.
+</Aside>
 
 <Steps>
-1. **Add Integration**: Add the LightNet Decap CMS integration using Astro's add command:
+1. **Add Integration**: Add the LightNet Decap CMS integration using Astro's add command. From your project folder execute:
     ```bash
     npm run astro add @lightnet/decap-admin
     ```
@@ -35,20 +39,22 @@ This is how you add the Administration UI to your LightNet project: {/*isn`t it 
 1. **Adjust Configuration**: Add your Administration UI configuration to Astro's `astro.config.mjs` file. This is a minimal 
     example:
 
-    ```js title="astro.config.mjs" ins={1-7,12,16}
+    ```js title="astro.config.mjs" ins={5-9,14,18}
+    import lightnetDecapAdmin from "@lightnet/decap-admin"
+    import { defineConfig } from "astro/config"
+    import lightnet from "lightnet"
+
     const languages = [{
       code: "en",
       label: "English",
-      translations: {
-        //...
-      }
+      isDefaultSiteLanguage: true
     }];
 
     export default defineConfig({ 
       integrations: [
         lightnet({
             languages: languages,
-            //... {/*shouldn`t here be an example of one integrated language to show the syntax?*/}
+            //...
         }),
         lightnetDecapAdmin({
             languages: languages,
@@ -56,23 +62,25 @@ This is how you add the Administration UI to your LightNet project: {/*isn`t it 
       ]    
     });
     ```
-    This adds a shared languages configuration to both the LightNet and the Administration UI. 
+    This adds a shared languages configuration to both the LightNet and the Administration UI integration. 
     The Administration UI uses the languages configuration to fill the language selection dropdowns for media items.
-
-
 </Steps>
+
+<Aside type="caution">
+We recommend changing the `path` setting of the decap admin integration, to hide it from attackers.
+Choose a random string with at least 16 characters.
+</Aside>
 
 ## Run the Administration UI
 
 The Administration UI can write its changes to your local file system or to a Git Host like (GitLab or GitHub).
-{/*isn't GitLab the only supported platform?*/}
 
 ### Accessing your Local File System
 
 Run your Administration UI on your local computer using npm scripts. 
 
 <Steps>
-1. In your Terminal execute this command from your project's root folder.
+1. In your Terminal execute this command from your project folder.
     ```bash
     npm run dev
     ```
@@ -83,30 +91,30 @@ Run your Administration UI on your local computer using npm scripts.
     ``` 
     This starts a application that enables Decap CMS to access your file system. 
 1. Navigate your browser to [localhost:4321/admin](localhost:4321/admin). You should see 
-    the Administration UI showing you a list of your media items.
+    the Administration UI showing a list of media items.
 </Steps>
 
 
 ### Accessing a Git Host
 
-The Administration UI also supports connecting to a Git Host like GitLab or GitHub.
-A Administrator can access the UI on your website, all requests are send to the Git Host's API.
-Every change done on the Administration UI changes files inside your project using Git commits.
-Authentication also are handled by the Git Host, so only Persons you give access are able to 
-edit your page's content.
+The Administration UI also supports online editing of a site's content. 
+This is implemented by connecting it to a git host like GitLab or GitHub.
+From the online Administration UI all changes will be applied using git commits. 
+These commits will be sent to the git host's web API.
+Authentication also is handled by the git host. You can use the git host to manage permissions.
 
 This architecture brings several advantages:
-- No need for you to deploy and maintain a running server backend API.
-- Security is handled by Git Host (with support for 2FA and more).
-- Git History enables rollback and gives overview what has changed.
+- No need to deploy and maintain a running server backend API.
+- Security is handled by the git host (with support for 2-Factor-Authentication and more).
+- Git history enables rollbacks and gives overview what has changed.
 - Git repositories can be free of charge.
 
-LightNet supports different Git Hosts. We highly recommend using GitLab as it supports Authentication
+LightNet supports different git hosts. We highly recommend using GitLab as it supports Authentication
 from the user's browser.
 
 <Aside>
-We recommend using GitLab, if you need to use GitHub:
-GitHub repositories only support Server Side Authentication. This means you need to configure a backend
+We highly recommend using GitLab. If you need to use GitHub, please notice:
+GitHub repositories only support server side authentication. This means you will need to configure a backend
 that forwards the authentication request. See the [Decap CMS instructions](https://decapcms.org/docs/github-backend/) on how to connect GitHub repositories. 
 </Aside>
 
@@ -115,18 +123,18 @@ that forwards the authentication request. See the [Decap CMS instructions](https
 To connect your Administration UI to a GitLab repository, follow this steps.
 
 <Steps>
-1. Make sure your LightNet site is hosted on GitLab. If this is not the case, check the [guide on hosting](/deploy/hosting) on how to setup a GitLab repository
+1. **Host repository on GitLab**: Make sure your LightNet site is hosted on GitLab. If this is not the case, check the [guide on hosting](/deploy/hosting) on how to setup a GitLab repository
    for your project.
-2. On [GitLab.com](https://gitlab.com) navigate to `Groups` and select the group that hosts the repository. Open the `Settings` of this group.
-3. Open the `Application` settings and select to `Add a new Application`.
-4. In the Add new Application dialog:
-    - **Name**: Choose any name for your website
-    - **Redirect URI**: Give the final address of your LightNet site followed by `/admin/`. Eg. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
+2. **Open group settings**: On [GitLab.com](https://gitlab.com) navigate to `Groups` and select the group that hosts the repository. Open the `Settings` of this group.
+3. **Add new Application**: Open the `Application` settings and select to `Add a new Application`.
+4. **Configure Application**: In the Add new Application dialog:
+    - **Name**: Choose a name for the Application e.g. your website name. This is used to name the new application on the GitLab interface. It has no further effect.
+    - **Redirect URI**: Give the final address of your LightNet site followed by your admin path (the default is `/admin/`) e.g. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
     - **Confidential**: Unselect this option.
     - **Scopes**: Select the `api` scope.
-5. Save the new Application. GitLab presents you with a Application ID. Copy and store this ID to use it later.
-6. Go back to your project on your computer and open `astro.config.mjs`. 
-7. Add the GitLab backend config for your repository
+5. **Save Application ID**: Save the new Application. GitLab presents you with an Application ID. Copy and store this ID for later usage.
+6. **Open project configuration**: Go back to your text editor with the project folder and open `astro.config.mjs`. 
+7. **Adjust decapAdmin integration**: Add the `backend` config for your repository
     ```js title="astro.config.mjs" ins={7-11}
     // ...
     export default defineConfig({ 
@@ -144,10 +152,99 @@ To connect your Administration UI to a GitLab repository, follow this steps.
     });
     ```
     Make sure to set `repo` with the GitLab path of your repository. Set the `appId` to the Application ID you have copied in step 5.
-8. Deploy your changes, then open your website on `/admin`. Press the Login Button and allow LightNet to access your GitLab account. You now can edit your 
-    media items online. 🎉 If Content Administrators need access, add their accounts to the GitLab repository.
+8. **Use the Administration UI**: After [hosting your site](/deploy/hosting) online, open your website on `/admin`. Press the Login Button and allow LightNet to access your GitLab account. 
+    You now can edit your media items online 🎉. If another person needs access to the Administration UI, add their account to the GitLab group.
 </Steps>
 
 <Aside>
-Even when you have configured a GitLab backend, your local development server always tries to connect to a local `decap-server`.
+Even when you have configured a GitLab backend, your local development server always connects to a local decap server (started by `npx decap-server`).
+</Aside>
+
+## Reference
+
+You can pass the following options to the `lightnetDecapAdmin` integration inside `astro.config.mjs`:
+
+```js title="astro.config.mjs" {9}
+import lightnet from "lightnet";
+import lightnetDecapAdmin from "@lightnet/decap-admin";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  integrations: [
+    lightnet({...})
+    lightnetDecapAdmin({
+      /* add config here */
+    }),
+  ],
+});
+```
+
+### `languages`
+
+type: `array` \
+example: `[{ code: "en", label: "English", isDefaultSiteLanguage: true }]` \
+required: `true`
+
+The content languages of the site. Use the same languages as in the `lightnet` integration. 
+We recommend creating a shared variable that is used for both integrations.
+See the [global configuration reference](/build/configuration/reference#languages) for more information on the languages structure.
+
+### `path`
+
+type: `string` \
+example: `"admin"` \
+required: `false` \
+default: `"admin"`
+
+The path on which the Administration UI is available on your site. Change this path for obfuscation of your git host.
+
+### `imagesFolder`
+
+type: `string` \
+example: `"images"` \
+required: `false` \
+default: `"images"`
+
+The name of the cover images folder next to your media item files. Change this if you want to use a different name for the images folder.
+For example if your images are stored inside a folder `src/content/media/covers`, you can set this to `"covers"`.
+
+### `backend`
+
+type: `object` \
+example: `{ name: "gitlab", repo: "your-org/your-site", appId: "12345abcd" }` \
+required: `false`
+
+This configures the git host that your Administration UI is connected to. Currently we support GitLab and GitHub backends.
+The configuration directly maps (replacing camelCase with snake_case) to the Decap CMS [GitHub](https://decapcms.org/docs/github-backend) or [GitLab](https://decapcms.org/docs/gitlab-backend) backend configuration.
+
+<Aside type="caution">
+  We highly recommend using the GitLab backend for LightNet sites.
+</Aside>
+
+#### `backend: "gitlab"`
+
+GitLab backend configuration has this options:
+
+- **name**: `"gitlab"` (required) selecting GitLab as backend.
+- **repo**: `string` (required) the GitLab repository path of your site.
+- **appId**: `string` Application ID from the site's GitLab settings.
+- **branch**: `string` the branch that is used for the Administration UI. Default is `"main"`.
+- **authType**: `"pkce"` the authentication type to use. Default and only supported option is `"pkce"`.
+
+#### `backend: "github"`
+
+GitHub backend configuration has this options:
+
+- **name**: `"github"` (required) selecting GitHub as backend.
+- **repo**: `string` (required) the GitHub repository path of your site.
+- **branch**: `string` the branch that is used for the Administration UI. Default is `"main"`.
+- **baseUrl**: `string` the URL of your service doing the authentication request.
+
+<Aside>
+GitHub does not support the PKCE authentication type. This means that you need an authentication server to handle the authentication request.
+This is why we recommend using the GitLab backend for LightNet sites.
+
+See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy)
+for more information on how to create an authentication server for GitHub.
+
 </Aside>
