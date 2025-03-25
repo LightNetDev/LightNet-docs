@@ -1,0 +1,24 @@
+---
+title: Search Engines
+description: How to configure your site for search engines.
+---
+
+import { Aside } from "@astrojs/starlight/components"
+
+## Remove your site from search engines
+
+If you do not want to appear on Google or other search engines,
+you can ask them not to index your site. 
+
+Do this by adding a `/public/robots.txt` file to your project folder,
+containing this content:
+
+```txt title="/public/robots.txt"
+User-agent: *
+Disallow: /
+```
+
+<Aside>
+Search engines and other bots on the internet 
+are not forced to respect this file.
+</Aside>

@@ -74,6 +74,7 @@ export default defineConfig({
 					label: "Deploy",
 					items: [
 						{slug: "deploy/hosting"},
+						{slug: "deploy/search-engines"},
 						{slug: "deploy/file-storage"}
 					]
 				},
