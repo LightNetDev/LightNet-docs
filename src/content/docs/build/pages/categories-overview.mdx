@@ -1,0 +1,34 @@
+---
+title: Add a Categories Overview
+description: How to add a display of a grid of all available categories to your LightNet page.
+---
+
+The `CategoriesOverview` component is used to display a grid of all available categories. It already includes a `Section` 
+component to handle the layout. Clicking on a category navigates to the search page filtered by the category.
+
+![Image Categories Overview](./images/categories.webp)
+
+Here is an example on how to use it:
+
+```astro
+---
+import { Page, CategoriesOverview } from "lightnet/components"
+---
+<Page>
+    <CategoriesOverview />
+</Page>
+```
+
+## Reference
+
+The `CategoriesOverview` component has the following properties:
+
+### `title`
+
+type: `string` \
+example: `"Categories"` \
+required: `false` \
+default: `Astro.locals.i18n.t("ln.common.categories")`
+
+The title of the categories overview section. By default the title is translated from the `ln.common.categories` key (this is "Categories" in English).
+In case you want to use a different title, you can set the `title` property. Make sure to translate the title.

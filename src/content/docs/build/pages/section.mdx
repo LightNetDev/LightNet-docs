@@ -1,0 +1,69 @@
+---
+title: Add a Section
+description: >
+  How to add a section to your LightNet page. The `Section` component is used to create a section with a optional title.
+  It takes care of the spacing and the layout of its content.
+---
+
+The `Section` component is used to create a section with a optional title. It takes care of the spacing
+and the layout of its content. You can use a section to easily fit your custom component into the 
+structure and design of your LightNet site. Its title is displayed above the section content in a well visible
+font size.
+
+You can add a section to your page by adding the following code:
+
+```astro
+---
+import { Page, Section } from "lightnet/components"
+
+const { t } = Astro.locals.i18n
+---
+<Page>
+  <Section title={t("x.section.title")}>
+    {/* Add components and HTML here */}
+  </Section>
+</Page>
+```
+
+## Reference
+
+The `Section` component has the following properties:
+
+### `title`
+
+type: `string` \
+example: `"My section title"` \
+required: `false`
+
+The title of the section. Is displayed above the section content.
+
+### `maxWidth`
+
+type: `"full" | "prose"` \
+example: `"prose"` \
+required: `false` \
+default: `"full"`
+
+A `Section` grows its width with the screen size. It stops growing according to the `maxWidth` property.
+After this it is centered on the screen. The `maxWidth` property can be set to `full` or `prose`.
+
+- `full` (1280 px): The section stops growing with the full width of the LightNet container. This aligns
+  the section to the left and right side of the header bar's content. The `full` width should be used on the homepage.
+- `prose` (768 px): The section stops growing so that contained text is still well readable. This is the width used on the
+  details page.
+
+### `id`
+
+type: `string` \
+example: `"my-section"` \
+required: `false`
+
+The id of the section. This can be used to link to the section e.g. `/en/about#my-section`.
+
+### `className`
+
+type: `string` \
+example: `"py-4 bg-gray-100"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the section. The classes are applied to the section's container element.

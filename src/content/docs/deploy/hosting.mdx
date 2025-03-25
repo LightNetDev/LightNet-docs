@@ -7,27 +7,28 @@ import { Aside, Steps, Badge } from '@astrojs/starlight/components';
 
 ## Hosting Your LightNet site
 
-Your LightNet site can be hosted on any file server of your choice. To create a folder that can be deployed, run the following command from your project's root folder:
+Your LightNet site can be hosted on any file server of your choice. To create a folder that can be deployed, run the following command from your project folder:
 
 ```bash
 npm run build
 ```
 
-This will create a folder named `dist`. This folder contains static HTML, CSS, JS, and assets to be put on a web server. Copy it to the file server of your choice.
+This command creates a folder named `dist`. This folder contains static HTML, CSS, JS, and assets. Copy it to the file server of your choice.
 
-If you do not have preferences on hosting, you can choose our recommended setup (GitLab & Cloudflare Pages).
+If you do not have preferences on hosting, we recommend using GitLab & Cloudflare Pages.
 
 ## Setup Hosting on GitLab and Cloudflare Pages
 
-We recommend using GitLab as the Git repository host. This enables you to collaborate with others, and Cloudflare will use GitLab to read your source code and automatically release when there are new commits.
+Using GitLab enables you to collaborate with others also Cloudflare uses GitLab to read your source code and automatically release when there are new commits.
 
 <Aside>
-We prefer GitLab as a Git Host because it integrates well with the [Administration UI](/content/administration-ui).
+We prefer GitLab because it integrates well with the [Administration UI](/content/administration-ui).
 </Aside>
 
-Cloudflare Pages is recommended to deliver your website to your audience. It takes care of building your website on Cloudflare's servers, caching, distributing your page around the globe (using Cloudflare's CDN), and more.
+Cloudflare Pages delivers your website to your audience. It takes care of building your website on Cloudflare's servers, caching, 
+distributing your page around the globe (using Cloudflare's CDN), and more.
 
-Both GitLab and Cloudflare Pages should be free of charge if your website does not turn into the next YouTube:
+Both GitLab and Cloudflare Pages should be free of charge as long as your website does not turn into the next YouTube:
 
 - Cloudflare's free plan includes unlimited requests to static pages.
 - GitLab's free plan allows you to collaborate with up to 5 people inside a group.
@@ -35,27 +36,36 @@ Both GitLab and Cloudflare Pages should be free of charge if your website does n
 ### Setup GitLab
 
 <Steps>
-1. **Create a GitLab Account**: If you don't have one, sign up at [GitLab](https://gitlab.com).
-2. **Add a New Repository**: In GitLab, create a new repository for your project.
-3. **Push Repository to GitLab**: Push your local repository to the newly created GitLab repository.
+1. **Create a GitLab Account**: If you don't have one, sign up at [GitLab](https://gitlab.com). Make sure not to create an enterprise account.
+1. **Create a new group**: For easier permission control when working together with others create a private group.
+1. **Create a new project**: In your new GitLab group, create a new blank private project without a README. This is the git repository where you upload your project folder.
+1. **Push repository to GitLab**: Push your project folder to the newly created GitLab project by running the following commands from your project folder. 
+    ```bash
+    git remote add origin https://gitlab.com/your-group/your-project.git
+    git push --set-upstream origin --all
+    ```
+    Make sure to replace `your-group` and `your-project`.
 </Steps>
 
 ### Setup Cloudflare Pages
 
 <Steps>
 1. **Create a Cloudflare Account**: Sign up at [Cloudflare](https://cloudflare.com) if you don't have an account.
-2. **Create Cloudflare Pages**: In the Cloudflare dashboard, create a new Cloudflare Pages project.
-3. **Grant Access to GitLab Repository**: Allow Cloudflare to access your GitLab repository.
-4. **Configure Pages Settings**: Set up the build and deployment settings for your Cloudflare Pages project.
+1. **Create Cloudflare Application**: In the Cloudflare menu open **Workers & Pages**. Press the **CREATE** button to start the initialization.
+1. **Select Pages Application**: Choose to create a **Pages** Application.
+1. **Import from Git**: Choose the option to **connect to a git** repository to start importing your project.
+1. **Grant Access to GitLab Project**: Choose GitLab and add your account. Begin the setup for your project.
+1. **Configure Pages Settings**: Set up the build and deployment settings for your Cloudflare Pages project. After choosing the **Astro framework preset**, you are ready to deploy.
+1. **View your site**: Cloudflare Pages provides you with a `.pages.dev` domain to view your site online.
 </Steps>
 
 <Aside type="tip">
-Cloudflare will automatically create preview deployments when you are working with branches. It will put a link on your merge request.
+When working with git branches, Cloudflare automatically creates preview deployments. In GitLab it adds a pipeline with the link to the preview deployment on your merge request's overview.
 </Aside>
 
 ### Configure a Cloudflare Domain
 
-Cloudflare Pages will provide you with a `.pages.dev` domain for free. If you need a custom domain, you can use Cloudflare Domains to purchase a domain registration.
+You can use Cloudflare Domains to purchase a domain registration.
 
 To configure a custom domain:
 

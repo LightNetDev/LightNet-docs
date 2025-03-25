@@ -1,0 +1,117 @@
+---
+title: Add a Highlight Section
+description: >
+    How to add a highlight section to your LightNet page. This component displays a large image with a title, 
+    a description and a optional link to another page.
+---
+
+import { Aside } from "@astrojs/starlight/components"
+
+If you have some content to highlight you can use the `HighlightSection` component. This component displays a large 
+image with a title, a description and a optional link to another page. 
+
+![Highlight Image](./images/highlight.webp)
+
+It already includes a `Section` component to handle the layout. Here is an example on how to use it:
+
+```astro
+---
+import { Page, HighlightSection } from "lightnet/components"
+import highlightImage from "../../assets/highlightImage.jpg"
+
+const { t } = Astro.locals.i18n
+---
+<Page>
+    <HighlightSection
+        image={highlightImage}
+        title={t("x.highlight.title")}
+        text={t("x.highlight.text")}
+        link={{
+            href: {`/${Astro.currentLocale}/some-page`},
+            text: {t("x.highlight.link")},
+        }}
+    />
+</Page>
+```
+
+Make sure you add your image to the `src/assets` folder and import it at the top of the file. 
+We recommend to use a image that is at least 1500 pixels wide to ensure that it looks good on all devices. The 
+image is optimized for performance. Supported Image formats are `jpg`, `png`, `webp`.
+
+<Aside type="caution">
+Test how the component is displayed on different screen widths.
+</Aside>
+
+For multilingual sites make sure to pass a translated string for the `title`, `text` properties.
+
+## Reference
+
+The `HighlightSection` component has the following properties. Additionally is can also enclose any component or HTML. The enclosed content shows
+below the text:
+
+### `image`
+
+type: `ImageMetadata` \
+example: `import highlightImage from "../../assets/highlightImage.jpg"` \
+required: `true`
+
+The image of the highlight section. It is optimized for performance.
+We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
+
+### `id`
+
+type: `string` \
+example: `"my-section"` \
+required: `false`
+
+The id of the section. This can be used to link to the section e.g. `/about#my-section`.
+
+### `title`
+
+type: `string` \
+example: `t("x.highlight.title")` \
+required: `false`
+
+The title to show above the text.
+
+### `text`
+
+type: `string` \
+example: `t("x.highlight.text")` \
+required: `true`
+
+The text to be displayed.
+
+### `link`
+
+type: `{ href: string, text: string }` \
+example: `{ href: "/en/some-page", text: t("x.highlight.link") }` \
+required: `false`
+
+The link to show as a button below the text.
+The `href` property is not automatically prefixed with the current locale.
+The `text` is shown on the button.
+
+### `className`
+
+type: `string` \
+example: `"bg-blue-600 text-white"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the highlight section.
+
+### `titleClass`
+
+type: `string` \
+example: `"text-2xl font-bold"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the title.
+
+### `textClass`
+
+type: `string` \
+example: `"text-lg"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the text.

@@ -3,19 +3,21 @@ title: Getting Started
 description: Learn the basics of how to use LightNet
 ---
 
-import { Aside, Steps } from "@astrojs/starlight/components";
+import { Steps, Aside } from "@astrojs/starlight/components";
 
-Welcome to the LightNet Developer Documentation! LightNet allows you to build customizable media distribution websites. This guide will walk you through setting up your environment and creating your first project.
+Welcome to the LightNet Developer Documentation site! 
+This guide will walk you through creating your first LightNet project. 
+Not sure what LightNet is all about? [Visit the LightNet homepage](https://lightnet.community).
 
-## Prerequisites
+## Requirements
 
 Before starting, ensure the following are installed on your machine:
 
-1. **Node.js** (version 22 or higher) – [Download Node.js](https://nodejs.org)
-2. **Git** – [Download Git](https://git-scm.com)
-3. **Text Editor** – We recommend [Visual Studio Code](https://code.visualstudio.com/) with the official [Astro extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode).
+- **Node.js** (version 22 or higher) - [Download Node.js](https://nodejs.org)
+- **Git** - [Download Git](https://git-scm.com)
+- **Text Editor** - We recommend [Visual Studio Code](https://code.visualstudio.com/) with the official [Astro extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode).
 
-To verify your installations, run the following commands:
+To verify your installations, run the following commands in your terminal:
 
 ```bash
 node -v
@@ -26,73 +28,78 @@ If these commands return version numbers, you're ready to go!
 
 ## 1. Set Up the Sk8 Ministries Example
 
-We recommend starting with the [Sk8 Ministries example](https://sk8-ministries.pages.dev/), a prebuilt template that showcases LightNet´s features. It’s a great starting point for learning how to structure your media site.
+We recommend starting with the [Sk8 Ministries example](https://sk8-ministries.pages.dev/), a prebuilt template that showcases LightNet's features. It's a great starting point for learning how to structure your media site.
 
-To create a local copy of the project, run:
+To create a local copy of the project -  navigate your terminal to a folder where you would like to create the copy and run:
 
 ```bash
-npm create astro@latest -- --template LightNetDev/lightnet/examples/sk8-ministries
+npm create astro@latest -- --template LightNetDev/LightNet/examples/sk8-ministries
 ```
 
-Follow the setup wizard to:
+This starts [Astro's](https://docs.astro.build/) `create astro` command - which lets you:
 
-- Choose a name for your project.
-- Install dependencies.
-- Optionally, initialize a Git repository.
+
+- Choose a location for your project. This creates the folder for your project and also set its name.
+- Install its dependencies (`Yes`).
+- Initialize a Git repository (`Yes`).
 
 Once finished, navigate into your project folder:
 
 ```bash
-cd your-project-name
+cd your-project-folder
 ```
 
 ## 2. Run the Development Server
 
-Now that your project is set up, start the development server to see your site in action:
+Now that your project is set up, start the development server to see your site in action.
+The development server is an application that lets you preview your media site in your browser without putting it online.
 
 ```bash
 npm run dev
 ```
 
-Your site will be available at [localhost:4321](http://localhost:4321). Open your browser to preview the example site.
+Your site is available at [localhost:4321](http://localhost:4321). Open your browser to preview the example site.
+As you will need the development server for the next steps, please keep it running.
 
 ## 3. Make Your First Modification
 
-As your first modification, let’s change the site title:
+As your first modification, let's change the site title:
 
 <Steps>
-  1. Open `src/translations/en.yml` in a text editor. 
-  2. Modify the value of the `x.site.title` key by changing "Sk8 Ministry" to your desired site name.
-  3. Save the file. Still running `npm run dev`, your browser will automatically
-  refresh to show the updated title.
+  1. Open the project folder in VS Code (or your preferred text editor).
+  1. Inside VS-Code open `src/translations/en.yml`. 
+  1. Modify the value of the `x.site.title`-key by changing "Sk8 Ministries" to your desired site name.
+  1. Save the file. Still running `npm run dev`, your browser automatically
+  refreshes to show the updated title. It is visible in front of the big picture and inside the header bar.
 </Steps>
 
 ### Optional: Make another Modification using the Administration UI
 
-You can easily update content using the Administration UI. Follow these steps:
+You can easily update content using the [Administration UI](/content/administration-ui). The 
+Administration UI is a graphical user interface that enables a content manager to update the media site's content without
+accessing the source code. Follow these steps to run the Administration UI:
 
 <Steps>
   1. Ensure that `npm run dev` is still running in your terminal. 
-  2. Open a new terminal window in your project root and execute `npx decap-server`. This
-  command will download and start a backend for Decap CMS, which is used for the
-  content Administration UI. 
+  2. Open a new terminal window in your project's folder and execute the following command. This
+     command downloads and starts a backend for Decap CMS, which is used for the
+     content Administration UI.
+      ```bash
+      npx decap-server
+      ```
   3. Once you see the message `info: Decap CMS Proxy Server listening on port 8081` in your terminal, open your browser and
-  navigate to [localhost:4321/admin](http://localhost:4321/admin). 
-  4. Click the "Login" button. You will be presented with a list of all available media
-  items. 
-  5. Locate and select `how-to-360-flip--en`. Change the title to "How to
+     navigate to the Administration UI on [localhost:4321/admin](http://localhost:4321/admin). 
+  4. Click the "Login" button. You are presented with a list of all available media
+     items. 
+  5. Open `how-to-360-flip--en` by clicking it. Change the title to "How to
   Do a 360 Flip". 
   6. Click the "Publish" button in the header bar, then select
   "Publish Now".
 </Steps>
 
-<Aside>
-  This action will update the JSON content file stored on your computer.
-  Additionally, the Administration UI can integrate with a git host like
-  [gitlab.com](https://gitlab.com) for internet access.
-</Aside>
+This action updates the a [JSON content file](/content/fundamentals) stored on inside your project folder.
 
-#### Inspect changes
+Inspect the changes you have just made:
 
 <Steps>
   1. **Check the Updated Content File**: Open the file located at
@@ -105,18 +112,12 @@ You can easily update content using the Administration UI. Follow these steps:
 
 Feel free to experiment further by adding new media items through the Administration UI or by creating additional JSON files.
 
-## 4. Build and Deploy Your Site
+<Aside type="tip">
+Stop a running terminal application with the keyboard combination `Control` - `C`.
+</Aside>
 
-When you're ready to deploy your site, run:
-
-```bash
-npm run build
-```
-
-This command generates a `dist` folder with static HTML files that are ready to be deployed to any server.
-
-For detailed deployment instructions, check out our [Deployment Guide](/deploy/hosting).
 
 ## What's Next?
 
-Great job! 🎉 Your site is up and running. Now, let’s dive deeper into how LightNet works and explore more advanced customization options. Head over to the next chapters for a tour of your new website.
+Great job! 🎉 You've successfully created, run and modified a local copy of the SK8 Ministries media site. 
+Now, let's dive deeper into how LightNet works and explore more advanced customization options.

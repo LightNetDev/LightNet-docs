@@ -5,18 +5,20 @@ description: Learn how to handle media files larger than Cloudflare Pages' 25MB 
 
 import { Steps, Aside } from "@astrojs/starlight/components"
 
-Cloudflare Pages puts a limit of 25 MB on your file sizes. If you need to store larger files, we recommend using Backblaze.
+Cloudflare Pages puts a limit of 25 MB on the size of each file.
+This is our recommended way to handle large content files:
 
-Here is how to use it:
+1. Try to optimize them if possible. Big files have a negative impact on the time to open your content.
+1. Use video hosts like YouTube or Vimeo to upload your videos (if they are safe to use in your context).
+1. Use audio hosts like SoundCloud to upload your audio files (if this is safe to use in your context).
+1. Use Backblaze for large files that cannot be uploaded elsewhere.
 
-<Aside type="caution">
-We recommend keeping your file sizes as small as possible to provide a good user experience.
-</Aside>
+## How to use Backblaze
 
 <Steps>
 1. **Create a Backblaze Account**: Sign up at [Backblaze](https://www.backblaze.com).
 2. **Create a Backblaze Bucket**: In the Backblaze dashboard, create a new bucket and upload your files.
-3. **Reference Your Backblaze URL**: Use the URL of the uploaded file as the media item's content URL in your LightNet site.
+3. **Reference Your Backblaze URL**: Use the URL of the uploaded file as the media item's content URL in your media item JSON files.
 4. **Configure Internal Domains**: Add your Backblaze domain to the internal domains configuration in `astro.config.mjs` to ensure proper handling of the files.
     ```js title="astro.config.mjs" ins={3}
     export default defineConfig({
@@ -27,7 +29,8 @@ We recommend keeping your file sizes as small as possible to provide a good user
 </Steps>
 
 
-<Aside type="tip" title="Pro Tip">
-You can also use Cloudflare to proxy requests to your Backblaze bucket. By doing so, you can 
+<Aside type="tip" title="Expert Tip">
+You can also use Cloudflare
+to proxy requests to your Backblaze bucket. By doing so, you can 
 use a custom subdomain on your file urls e.g. `https://files.your-ministry.com/a-book-about-love.pdf`.
 </Aside>

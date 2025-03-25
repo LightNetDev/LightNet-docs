@@ -8,7 +8,7 @@ on:
     branches: [main]
 
 jobs:
-  check-project:
+  linkcheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,3 +17,8 @@ jobs:
           node-version-file: ".nvmrc"
       - run: npm i
       - run: npm run linkcheck
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: streetsidesoftware/cspell-action@v6

@@ -1,0 +1,63 @@
+---
+title: Initialize Configuration
+description: How to configure your LightNet site with the `astro.config.mjs` file.
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+The primary configuration file for your LightNet project is `astro.config.mjs`. 
+This file defines global configurations for your site, such as the title, languages, base URL, and more.
+
+Here is a minimal version of an `astro.config.mjs` file for a LightNet site:
+
+```js title="astro.config.mjs"
+import lightnet from "lightnet";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  site: "https://yourdomain.com",
+  integrations: [
+    lightnet({
+      title: "x.site.title",
+      languages: [
+        {
+          code: "en",
+          label: "English",
+          isDefaultSiteLanguage: true,
+        },
+      ],
+    }),
+  ],
+});
+```
+
+This configuration highlights the essential settings for every site built with LightNet. Customize them to match your 
+ministry's needs.
+
+<Steps>
+1. **Site** -
+   The `site` property defines the base URL for your website. Update this to reflect your deployment URL.
+   ```js
+   site: "https://yourdomain.com"
+   ```
+
+2. **Title** -
+   The `title` property sets the site title, which appears in the browser tab and header bar. 
+   You can use a fixed string or a [translation key](/build/i18n/fundamentals#translating-pages-in-lightnet). 
+   Using a translation key like `"x.site.title"` allows the title to adapt based on the current site language.
+   ```js
+   title: "x.site.title"
+   ```
+   To modify the translation key's value, use the files located in `src/translation/`.
+
+3. **Languages** -
+   This section defines the available languages for your site. 
+   It includes both site and content languages. Refer to the [Internationalization Guide](/build/i18n/fundamentals) for more 
+   details on managing languages.
+   
+   In the Sk8-Ministry example, languages are declared as a variable to also pass them to the 
+   [Administration UI config](/content/administration-ui).
+   This approach ensures consistency between both integrations.
+</Steps>
+
+There is more configuration available. Use the other guides of this chapter to customize your site even further.

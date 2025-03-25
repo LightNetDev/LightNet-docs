@@ -1,0 +1,259 @@
+---
+title: Configuration Reference
+description: Reference for LightNet Astro Integration in the `astro.config.mjs` file.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+You configure the LightNet Astro integration in the `astro.config.mjs` file.
+
+```js title="astro.config.mjs"
+import lightnet from "lightnet";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  site: "https://yourdomain.com",
+  integrations: [
+    lightnet({
+      /* Your config here */
+    }),
+  ],
+});
+```
+
+These are the available options:
+
+### `title`
+
+type: `string` \
+example: `"x.site.title"` \
+required: `true`
+
+The title of your site. For example shown on the the header bar.
+It can be a fixed string or a translation key to support multiple locales.
+
+### `languages`
+
+type: `array` \
+example: `[{ code: "en", label: "English", isDefaultSiteLanguage: true }]` \
+required: `true`
+
+The site and content languages of your site.
+
+#### languages: `code`
+
+type: `string` \
+example: `"en"` \
+required: `true`
+
+The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code is used as the language's identifier.
+
+#### languages: `label`
+
+type: `string` \
+example: `"English"` \
+required: `true`
+
+The name of the language. This is used as the language name in the language picker. It can be a fixed string or a translation key to support multiple locales.
+
+#### languages: `isSiteLanguage`
+
+type: `boolean` \
+example: `true` \
+required: `false`
+
+Configure this language to be available as a site language. It shows up in the language picker in the menu bar.
+You do not need to set this, if you set `isDefaultSiteLanguage` to true.
+
+#### languages: `isDefaultSiteLanguage`
+
+type: `boolean` \
+example: `true` \
+required: `false`
+
+If you set this to `true`, the language is used as the default site language.
+You must set exactly one language to be the default language. The default site language is used:
+
+- As the fallback language if a translation is not available for the current locale.
+- As the default language when the user navigates to the root URL path (`/`).
+
+### `logo`
+
+type: `object` \
+example: `{ src: "./src/assets/logo.png" }` \
+required: `false`
+
+The logo of your site to be shown in the header bar next to the site title.
+
+#### logo: `src`
+
+type: `string` \
+example: `"./src/assets/logo.png"` \
+required: `true`
+
+The path to the logo image. Provide a path to an image inside `src/assets`. Supported formats include `jpg`, `png`, `svg` and `webp`.  
+LightNet optimizes the image size for better performance (except for SVGs). We recommend providing a image file with a width and height of 150 pixels.
+
+#### logo: `alt`
+
+type: `string` \
+example: `"x.logo.alt"` \
+required: `false`
+
+The alt text of the logo. This is used if the logo image is not available or if the user has disabled images. For example when using a screen reader.
+The value of the `alt` attribute can either be a fixed string or a translation key to support multiple locales.
+
+#### logo: `size`
+
+type: `number` \
+example: `30` \
+required: `false`
+
+The size of the logo in the header bar in pixels. This is applied to the shorter side of the logo image.
+
+### `favicon`
+
+type: `array` \
+example: `[{ rel: "icon", href: "favicon.ico" }]` \
+required: `false`
+
+The favicon of your site. Favicon is a small icon displayed in the browser tab and bookmarks.
+
+LightNet's API supports multiple favicon formats. Each entry in the `favicon` array maps to an HTML `<link>` element. For example:
+
+Input:
+
+```js title="astro.config.mjs" {2-8}
+lightnet({
+  favicon: [
+    {
+      rel: "icon",
+      href: "favicon.ico",
+      sizes: "32x32",
+    },
+  ],
+});
+```
+
+Maps to the following HTML:
+
+```html {2}
+<head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="32x32" />
+</head>
+```
+
+<Aside>
+  LightNet automatically determines the `type` attribute based on the file
+  extension in the `href`.
+</Aside>
+
+#### favicon: `href`
+
+type: `string` \
+example: `"/favicon.svg"` \
+required: `true`
+
+Reference the favicon. This must be a path to an image inside the `public/` directory.
+
+#### favicon: `rel`
+
+type: `"icon" | "apple-touch-icon"` \
+example: `"icon"` \
+required: `false` \
+default: `"icon"`
+
+This sets the rel attribute of the favicon.
+Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-rel) for more information.
+
+#### favicon: `sizes`
+
+type: `string` \
+example: `"32x32"` \
+required: `false`
+
+This sets the sizes attribute of the favicon.
+Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-sizes) for more information.
+
+### `manifest`
+
+type: `string` \
+example: `"/manifest.json"` \
+required: `false`
+
+This sets the manifest of the site. The file must be inside the `public/` directory.
+
+<Aside>
+  The manifest is a standardized JSON file that describes a web application. More
+  information can be found in the [MDN
+  documentation](https://developer.mozilla.org/en-US/docs/Web/Manifest).
+</Aside>
+
+### `mainMenu`
+
+type: `array` \
+example: `[{ href: "/about", label: "x.navigation.about" }]` \
+required: `false`
+
+This sets the main menu of the site. It is expected to be an array with at least one entry.
+Each entry is an object with the following properties:
+
+#### mainMenu: `href`
+
+type: `string` \
+example: `"/about"` \
+required: `true`
+
+The link attribute of the main menu entry. The value can be an internal or an external link.
+Internal links are automatically prefixed with the current locale.
+
+#### mainMenu: `label`
+
+type: `string` \
+example: `"x.navigation.about"` \
+required: `true`
+
+The label of the main menu entry. The value can be a fixed string or a translation key to support multiple locales.
+
+#### mainMenu: `requiresLocale`
+
+type: `boolean` \
+example: `false` \
+required: `false` \
+default: `true`
+
+Internal links are by default prefixed with the current locale (e.g., `/media` becomes `/en/media` for English).  
+To disable this, set `requiresLocale` property to `false`.
+
+You don't need to set this option for external links (e.g. https://wikipedia.org) since they won't be prefixed anyway.
+
+### `internalDomains`
+
+type: `array` \
+example: `[ "files.your-domain.com" ]` \
+required: `false`
+
+The internal domains of the site. This is used to determine if a URL is internal or external.
+
+For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
+A link to `https://files.your-domain.com/file.pdf` won't be treated as an external link.
+
+### `searchPage`
+
+type: `object` \
+example: `{ filterByLocale: true }` \
+required: `false`
+
+Search page related settings.
+
+#### searchPage: `filterByLocale`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+If you set this to `true`, the search results are initially filtered by the current site language.
+The filter is applied when at least one media item is associated with that language. Users are still able to change
+the language filter's value. By default the language filter is initially set to "All languages".
+

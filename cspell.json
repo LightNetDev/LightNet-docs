@@ -1,0 +1,19 @@
+{
+    "words": [
+        "backblaze",
+        "checkly",
+        "eigener",
+        "español",
+        "linkcheck",
+        "nvmrc",
+        "lightnet",
+        "decap",
+        "pkce",
+        "deutsch",
+        "seti"
+    ],
+    "ignorePaths": [
+        ".vscode",
+        ".github"
+    ]
+}

@@ -1,0 +1,68 @@
+---
+title: Create an About Page
+description: >
+  How to create an about-page for your LightNet media site. The about page is a common page that provides information about your ministry or community.
+  Can also be used for other plainly text based pages.
+---
+
+import { FileTree, Steps, Aside } from "@astrojs/starlight/components";
+
+
+The about page is a common page that provides information about your ministry or community.
+This chapter guides you in creating the about page but can also be used to create any text-based pages.
+
+<Steps>
+    1. **Create Files**: Start by creating a markdown file for each locale.
+        For example, if your site supports English and German, you would create the following files:
+        <FileTree>
+        - src
+          - pages
+            - en
+              - about.md
+            - de
+              - about.md
+        </FileTree>
+
+    1. **Add File Content**: The [Markdown](https://learnxinyminutes.com/markdown/) content of the `/en/about.md` file could look like this:
+
+        ```markdown title="src/pages/en/about.md"
+        ---
+        layout: "lightnet/layouts/MarkdownPage.astro"
+        ---
+
+        # About
+
+        Some text about your ministry or community.
+
+        ![Community Picture](../../assets/my-community-picture.jpg)
+        ```
+
+        Set the layout to be  `lightnet/layouts/MarkdownPage.astro`. This makes sure your page includes the header and looks good on all screen sizes.
+        You can also create your own layout if you want to customize the look of the page.
+        Astro takes care of optimizing your images that are referenced in the markdown file.
+        <Aside type="tip">
+          To add a contact email address to the about page, use this Markdown syntax `[your@email.com](mailto:your@email.com)`.
+          This creates a link that automatically opens the mail application when clicked.
+        </Aside>
+        
+    1. **Add About to Main Menu**: Add the following code to the `astro.config.mjs` file:
+        ```js title="astro.config.mjs" ins={5-8}
+        export default defineConfig({
+          integrations: [
+            lightnet({
+              mainMenu: [
+                {
+                  href: "/about",
+                  label: "x.navigation.about",
+                },
+              ],
+            }),
+          ],
+        });
+        ```
+    1. **Add translations for Menu Entry**: For each locale add a translation for the translation key (`x.navigation.about`) that has been used in the step before.
+        For example add this to the English translation file:
+        ```yml title="src/translations/en.yml" ins={1}
+        x.navigation.about: About
+        ```
+    </Steps>

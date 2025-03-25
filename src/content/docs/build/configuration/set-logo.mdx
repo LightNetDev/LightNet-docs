@@ -1,0 +1,31 @@
+---
+title: Set a Logo
+description: How to add a logo to your LightNet site's header bar.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+
+The logo appears next to your site name in the header bar. It is optional, but recommended.
+
+![logo](./images/logo.webp)
+
+Set the path to an image inside the `./src/assets` folder (or a subfolder). Supported formats include `svg`, `jpg`, `png`, and `webp`.  
+LightNet optimizes the image size for better performance. We recommend providing a image file with a width and height of 150px.
+
+```js title="astro.config.mjs" ins={5}
+export default defineConfig({
+  integrations: [
+    lightnet({
+      // ...
+      logo: { src: "./src/assets/logo.png" },
+    }),
+  ],
+})
+```
+
+<Aside>
+  The logo is scaled down to approximately 28x28 pixels, 
+  so please ensure it doesn't include any text or intricate details. 
+  Additionally, use a design with strong contrast against a white background for optimal visibility.
+</Aside>
