@@ -13,16 +13,26 @@ Keep your LightNet site up to date by following these steps:
     ```bash
     npm outdated
     ```
-2. Read the release notes on [GitHub](https://github.com/lightnetdev/lightnet/releases) {/*there are hardly any notes on the page...*/}
+2. Read the [release notes on GitHub](https://github.com/lightnetdev/lightnet/releases)
 3. Update your dependencies by running
     ```bash
     npm update
     ```
     This updates your dependencies to the latest version according to the [version specifiers](https://docs.npmjs.com/cli/v8/commands/npm-update) 
     inside `package.json`.
-4. If there are any breaking changes, you need to update your code to match the new API. Also update the dependencies to the 
-    latest version inside `package.json`. When you are done, run `npm install` to install the new dependencies. 
-    {/*will there be any notes or help on doing so? - where?*/}
+4.  There are changes that are not updated automatically, so called major releases (first position of the version number is increased). 
+    Major releases might **break their compatibility** with your project. LightNet depends on other packages e.g. Astro and Tailwind CSS. 
+    You must not major update these dependencies unless the LightNet release notes tell you to do so. The LightNet project will follow their 
+    release and introduce major updates from time to time. If there is a new major LightNet release do the following:
+    1. Update your project to latest LightNet major release: Inside `package.json` change the version numbers to match the latest LightNet version. Keep the `^` suffix 
+        to support minor and patch updates with `npm update`.
+    1. Install the updated LightNet dependencies:
+        ```bash
+        npm install
+        ```
+    1. Check the [LightNet release notes](https://github.com/lightnetdev/lightnet/releases) to see what additional changes are needed for your project.
+        This might include updating major version numbers of other packages. In this case update their version numbers in `package.json` and execute `npm install` again.
+    1. Follow the release notes to adjust your project to API changes.
 </Steps>
 
 <Aside>
