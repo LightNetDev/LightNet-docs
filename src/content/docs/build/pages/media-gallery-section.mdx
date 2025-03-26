@@ -2,7 +2,7 @@
 title: Add a Media Gallery Section
 description: >
   How to add a gallery of media items to your LightNet page. This is a great way to showcase your content.
-  We provide a `GallerySection` component that you can use to display your media items. Also we offer a 
+  We provide a `MediaGallerySection` component that you can use to display your media items. Also we offer a 
   `getMediaItems` function that you can use to query your media items.
 ---
 
@@ -10,7 +10,7 @@ import { Aside } from "@astrojs/starlight/components";
 
 
 You can add a gallery of media items to your page. This is a great way to showcase your content.
-LightNet provides a `GallerySection` component that displays a grid of media items. Also it offers a 
+LightNet provides a `MediaGallerySection` component that displays a grid of media items. Also it offers a 
 `getMediaItems` function that you can use to query your media items. 
 
 ![Image Media Item Gallery](./images/gallery.webp)
@@ -19,7 +19,7 @@ Here is an example on how to use both:
 
 ```astro
 ---
-import { Page, Section, Gallery } from "lightnet/components"
+import { Page, MediaGallerySection } from "lightnet/components"
 import { getMediaItems } from "lightnet/content"
 
 const someEnglishBooks = await getMediaItems({
@@ -32,15 +32,17 @@ const { t } = Astro.locals.i18n
 ---
 
 <Page>
-    <Section title={t("x.english-books.title")}>
-        <Gallery items={someEnglishBooks} layout="book"/>
-    </Section>
+    <MediaGallerySection 
+        title={t("x.english-books.title")} 
+        items={someEnglishBooks} 
+        layout="book"
+    />
 </Page>
 ```
 
 Inside the frontmatter the `someEnglishBooks` variable is prepared. This is executed only once when the site is built.
-The `getMediaItems` function helps to query media items (Alternatively you could also use Astro's `getCollection` function to query media items). 
-It takes a sql-like query object as an argument. 
+The `getMediaItems` function helps to query media items (Alternatively you could also use Astro's `getCollection` function 
+to query media items). It takes a sql-like query object as an argument. 
 The example filters for all media items that have the media-type `book` and the language `en`. 
 It orders them by the date they were created (newest first) and limits the result to 10 items.
 
@@ -48,10 +50,8 @@ It orders them by the date they were created (newest first) and limits the resul
 You can use Astro's `Astro.currentLocale` to query media items matching the current site language.
 </Aside>
 
-Use the `Section` component to layout your content. It adds spacing around your content, makes sure it is centered horizontally
-and adds a title.
-
-The `Gallery` component displays your media items in a grid. It shows the title and image of each media item. The number of grid columns depends on the screen width.
+The `MediaGallerySection` component displays your media items in a grid. It shows the title and image of each media item. 
+The number of grid columns depends on the screen width.
 Pass your media items to the `items` property. Also choose a layout to define the appearance of the gallery.
 
 
@@ -123,9 +123,17 @@ required: `false`
 Sets the maximum amount of media items to be returned.
 
 
-## Gallery Reference
+## MediaGallerySection Reference
 
-The `Gallery` component has the following properties:
+The `MediaGallerySection` component has the following properties:
+
+### `title`
+
+type: `string` \
+example: `"My Media Gallery Title"` \
+required: `false`
+
+Sets a title over the gallery.
 
 ### `items`
 
@@ -148,3 +156,7 @@ to style the cover images. Available layouts are:
 - `book`: Takes 2 to 5 columns. This equals to `portrait` layout. Additionally a book fold is added to the cover image and corners are less rounded.
 - `landscape`: Takes 1 to 4 columns. Use this for cover images that are landscape oriented.
 - `video`: Takes 1 to 4 columns. This equals to `landscape` layout. Additionally all cover images have a aspect ratio of 16:9 with a black background.
+
+<Aside>
+Up to now, the `MediaGallerySection` is only available in `maxwidth: "wide"`.
+</Aside>
