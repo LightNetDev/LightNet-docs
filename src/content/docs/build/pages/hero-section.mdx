@@ -17,14 +17,14 @@ You can add a hero image to your page by adding the following code:
 
 ```astro
 ---
-import { Page, Hero } from "lightnet/components"
+import { Page, HeroSection } from "lightnet/components"
 import heroImage from "../../assets/hero.jpg"
 
 const { t } = Astro.locals.i18n
 ---
 
 <Page>
-    <Hero
+    <HeroSection
         image={heroImage}
         title={t("x.hero.title")}
         subtitle={t("x.hero.subtitle")}
@@ -50,7 +50,7 @@ The default for both sizes is `md`.
 
 ## Reference
 
-The Hero component has the following properties:
+The HeroSection component has the following properties:
 
 ### `image`
 
