@@ -54,6 +54,7 @@ export default defineConfig({
 							{slug: "build/pages/initialize-homepage"},
 							{slug: "build/pages/about-page"},
 							{slug: "build/pages/section"},
+							{slug: "build/pages/video-player"},
 							{slug: "build/pages/hero-section"},
 							{slug: "build/pages/media-gallery-section"},
 							{slug: "build/pages/categories-section"},

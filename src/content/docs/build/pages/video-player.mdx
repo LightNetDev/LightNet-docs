@@ -1,0 +1,62 @@
+---
+title: Video Player
+description: How to add a video player to your LightNet page. 
+---
+import { Aside } from "@astrojs/starlight/components"
+
+The `VideoPlayer` component is used to display a video on your page. To implement it, use the section component to fit 
+the video player into your page structure like this:
+
+```astro
+---
+import { Page, Section, VideoPlayer } from "lightnet/components"
+import VideoImage from "../../assets/video-image.webp"
+
+const { t } = Astro.locals.i18n
+---
+<Page>
+  <Section title={t("x.video.title")}>
+    <VideoPlayer 
+        url="https://www.youtube.com/watch?v=jy4JA5uStB0"
+        title={"UnusedTitleOnlyNeededByTheInterface?"}
+        image={}
+        />
+  </Section>
+</Page>
+```
+{/*todo: is title needed twice? why is always an image needed even when it is not used?*/}
+
+<Aside type="tip">
+We highly recommend using a video hosting platform like youtube or vimeo. Nevertheless it is also possible to host 
+.mp4 videos yourself but be aware you might need an additional file server and it might slow down your site.
+</Aside>
+
+##VideoPlayer Reference
+
+The `VideoPlayer` component has the following properties:
+
+### `url`
+
+type: `string` \
+example: `"https://www.youtube.com/watch?v=jy4JA5uStB0"` \
+required: `true`
+
+The source of the video that is shown. This can either be an external link to youtube or vimeo or a link to an 
+mp4 file hosted on your server.
+
+### `title`
+
+type: `string`
+example: `"Your Great Video"`
+required: `true`
+
+This title is only needed for the interface - if you want to set a title on top of the video use the `title` of the section.
+{/*todo: is it possible to set the title optional? Or remove it completely when not used?*/}
+
+### `image`
+
+type: {/*where do i find this info?*/}
+example: `import VideoImage from "../../assets/video-image.jpg"`
+required: `true`
+
+The image is used as a preview in case you use an mp4 video. {/*todo: is it possible to make the image optional?*/}
