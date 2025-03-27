@@ -59,6 +59,7 @@ export default defineConfig({
 							{slug: "build/pages/categories-section"},
 							{slug: "build/pages/highlight-section"},
 							{slug: "build/pages/video-player"},
+							{slug: "build/pages/media-list"},
 							{slug: "build/pages/custom-components"},
 							{slug: "build/pages/create-internal-links"}
 						]}
