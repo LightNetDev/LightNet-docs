@@ -47,10 +47,9 @@ default: `"wide"`
 A `Section` grows its width with the screen size. It stops growing according to the `maxWidth` property.
 After this it is centered on the screen. The `maxWidth` property can be set to `wide` or `narrow`.
 
-- `wide` (1280 px): The section stops growing with the full width of the LightNet container. This aligns
-  the section to the left and right side of the header bar's content. The `wide` width should be used on the homepage.
-- `narrow` (768 px): The section stops growing so that contained text is still well readable. This is the width used on the
-  details page.
+- `wide` (1280 px): this is used as the maximum width of the **homepage**. This section aligns
+  to the left and right side of the header bar's content.
+- `narrow` (768 px): this is used as the maximum width of the **details pages**.
 
 ### `id`
 
@@ -68,9 +67,10 @@ required: `false`\
 default: `"lg"`
 
 Sets the spacing between the section and the element above it. Possible are the following margins:
-- sm: between 10 and 14 pixels
-- large: between 24 and 28 pixels
-- none: no spacing
+
+- `sm`: small spacing. Used on the details page.
+- `lg`: large spacing. Used on the homepage.
+- `none`: no spacing.
 
 ### `className`
 

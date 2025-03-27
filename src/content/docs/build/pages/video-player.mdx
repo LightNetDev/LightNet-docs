@@ -16,14 +16,14 @@ const { t } = Astro.locals.i18n
 ---
 <Page>
   <Section title={t("x.video.title")}>
-    <VideoPlayer url="https://www.youtube.com/watch?v=jy4JA5uStB0" />
+    <VideoPlayer url="https://www.youtube.com/watch?v=1234" />
   </Section>
 </Page>
 ```
 
 <Aside type="tip">
-We highly recommend using a video hosting platform like youtube or vimeo. Nevertheless it is also possible to host 
-.mp4 videos yourself but be aware you might need an additional file server and it might slow down your site.
+We highly recommend using a video hosting platform like YouTube or Vimeo because they have the better performance. 
+Nevertheless it is also possible to host mp4 videos yourself but be aware you need an [additional file storage](/deploy/file-storage).
 </Aside>
 
 ## Reference
@@ -33,10 +33,10 @@ The `VideoPlayer` component has the following properties:
 ### `url`
 
 type: `string` \
-example: `"https://www.youtube.com/watch?v=jy4JA5uStB0"` \
+example: `"https://www.youtube.com/watch?v=1234"` \
 required: `true`
 
-The source of the video that is shown. This can either be an external link to youtube or vimeo or a link to an 
+The source of the video that is shown. This can either be an external link to YouTube or Vimeo or a link to an 
 mp4 file hosted on your server.
 
 ### `title`
@@ -54,4 +54,4 @@ type: `ImageMetadata` \
 example: `import VideoImage from "../../assets/video-image.jpg"` \
 required: `false`
 
-The image is used as a preview in case you use an mp4 video. Supported formats include `jpg`, `png`, `svg` and `webp`.
+The image is used as a preview. In case you use a mp4 video. Supported formats include `jpg`, `png` and `webp`.
