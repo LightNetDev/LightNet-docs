@@ -10,7 +10,6 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'LightNet',
-			lastUpdated: true,
 			social: {
 				github: 'https://github.com/LightNetDev/lightnet',
 			},
