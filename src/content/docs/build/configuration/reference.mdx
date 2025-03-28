@@ -238,6 +238,23 @@ The internal domains of the site. This is used to determine if a URL is internal
 For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
 A link to `https://files.your-domain.com/file.pdf` won't be treated as an external link.
 
+### `headComponent`
+
+type: `string` \
+example: `"./src/components/MyHeadTag.astro"` \
+required: `false`
+
+Path to an Astro component to be added to the HTML head element of all pages. 
+
+For example this component would add a script to every page:
+
+
+```astro title="/src/components/MyHeadTag.astro"
+---
+---
+<script src="my-js-file.js" defer></script>
+```
+
 ### `searchPage`
 
 type: `object` \
