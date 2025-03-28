@@ -89,6 +89,9 @@ export default defineConfig({
 						{slug: "run/update"},
 						{slug: "run/monitor"}
 					]
+				},
+				{
+					slug: "versions"
 				}
 			],
 			plugins: process.env.CHECK_LINKS
