@@ -5,11 +5,11 @@ description: How to add a list of media items to your LightNet page.
 
 import { Aside } from "@astrojs/starlight/components"
 
-You can add a List of media items to your page. This is a way to showcase your content.
-LightNet provides a `MediaList` component that displays a List of media items. Also it offers a 
-`getMediaItems` function that you can use to query your media items. 
+LightNet provides a `MediaList` component that displays a list of media items.
+This component is meant to be used inside a `Section` with maximum width set to `narrow`. 
+Prefer the [MediaGallerySection](/build/pages/media-gallery-section) on the homepage.
 
-Here is an example on how to use both:
+Here is an example on how to use the `MediaList` component:
 
 ```astro
 ---
@@ -32,15 +32,8 @@ const { t } = Astro.locals.i18n
 </Page>
 ```
 
-Inside the frontmatter the `someEnglishBooks` variable is prepared. This is executed only once when the site is built.
-The `getMediaItems` function helps to query media items (Alternatively you could also use Astro's `getCollection` function 
-to query media items). It takes a sql-like query object as an argument. 
-The example filters for all media items that have the media-type `book` and the language `en`. 
-It orders them by the date they were created (newest first) and limits the result to 10 items.
-
-<Aside type="tip">
-You can use Astro's `Astro.currentLocale` to query media items matching the current site language.
-</Aside>
+Inside the frontmatter the `someEnglishBooks` variable is prepared using LightNet's [getMediaItems function](/build/pages/query-media-items). 
+The items are displayed in a vertical list.
 
 ## Reference
 
@@ -53,24 +46,3 @@ example: `const books = await getMediaItems({/*...*/})` \
 required: `true`
 
 The array of media items to display.
-
-{/**
- * todo:
-
-- improve mediaList to doku
-- extract getMediaItem from mediaList and mediaCollectionSection
-
-
-- add "title" to "where" in getMediaItems?!
-- add AND and OR to getMediaItem?!
-- abstand zu überschrift über listen
-
-
-???
-- how can i directly adress a media item?/
-- how can i add handselected mediaitems to a mediagallery/medialist without adding them to a new collection?/
-- MediaItem als Typ zwar verlangt, wird aber nicht exportiert => nur über getMediaItems erreichbar?!
-
-(- handeln von images in galleries -> MediaWorksLibrary)
- * 
-*/}

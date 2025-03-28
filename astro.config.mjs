@@ -61,6 +61,7 @@ export default defineConfig({
 							{slug: "build/pages/video-player"},
 							{slug: "build/pages/media-list"},
 							{slug: "build/pages/custom-components"},
+							{slug: "build/pages/query-media-items"},
 							{slug: "build/pages/create-internal-links"}
 						]}
 					],

@@ -2,16 +2,14 @@
 title: Add a Media Gallery Section
 description: >
   How to add a gallery of media items to your LightNet page. This is a great way to showcase your content.
-  We provide a `MediaGallerySection` component that you can use to display your media items. Also we offer a 
-  `getMediaItems` function that you can use to query your media items.
+  We provide a `MediaGallerySection` component that you can use to display your media items.
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
 
 You can add a gallery of media items to your page. This is a great way to showcase your content.
-LightNet provides a `MediaGallerySection` component that displays a grid of media items. Also it offers a 
-`getMediaItems` function that you can use to query your media items. 
+LightNet provides a `MediaGallerySection` component that displays a grid of media items.
 
 ![Image Media Item Gallery](./images/gallery.webp)
 
@@ -40,90 +38,12 @@ const { t } = Astro.locals.i18n
 </Page>
 ```
 
-Inside the frontmatter the `someEnglishBooks` variable is prepared. This is executed only once when the site is built.
-The `getMediaItems` function helps to query media items (Alternatively you could also use Astro's `getCollection` function 
-to query media items). It takes a sql-like query object as an argument. 
-The example filters for all media items that have the media-type `book` and the language `en`. 
-It orders them by the date they were created (newest first) and limits the result to 10 items.
-
-<Aside type="tip">
-You can use Astro's `Astro.currentLocale` to query media items matching the current site language.
-</Aside>
-
-The `MediaGallerySection` component displays your media items in a grid. It shows the title and image of each media item. 
+Inside the frontmatter the `someEnglishBooks` variable is prepared using LightNet's [getMediaItems function](/build/pages/query-media-items). 
+The `MediaGallerySection` component displays them in a grid. It shows the title and image of each media item. 
 The number of grid columns depends on the screen width.
 Pass your media items to the `items` property. Also choose a layout to define the appearance of the gallery.
 
-
-## getMediaItems Reference
-
-The `getMediaItems` function accepts this parameters:
-
-### `where`
-
-type: `Object` \
-example: `{ type: "book" }` \
-required: `false`
-
-Defines the attributes of the media items to be returned. Only media items with 
-all matching attributes are returned.
-
-#### where: `type`
-
-type: `string` \
-example: `"book"` \
-required: `false`
-
-Sets the media item type to be returned.
-
-#### where: `language`
-
-type: `string` \
-example: `"en"` \
-required: `false`
-
-Sets the media item content language (as BCP-47 code) to be returned.
-
-#### where: `category`
-
-type: `string` \
-example: `"family"` \
-required: `false`
-
-Sets the media item category to be returned.
-
-#### where: `collection`
-
-type: `string` \
-example: `"my-collection"` \
-required: `false`
-
-Sets the media item collection to be returned.
-
-
-### `orderBy`
-
-type: `"dateCreated" | "title"`  \
-example: `"dateCreated"` \
-required: `false`
-
-Sets the sort order of the returned media items:
-
-- `dateCreated` - sorts based on the `dateCreated` attribute from newest to oldest.
-- `title` -  sorts based on the media item title
-- none - sorts based on the media item identifier (as defined by the file system), the order of collection items is taking precedence.
-
-
-### `limit`
-
-type: `number` \
-example: `42` \
-required: `false`
-
-Sets the maximum amount of media items to be returned.
-
-
-## MediaGallerySection Reference
+## Reference
 
 The `MediaGallerySection` component has the following properties:
 
