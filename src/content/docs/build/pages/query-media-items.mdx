@@ -1,0 +1,127 @@
+---
+title: Query Media Items
+---
+
+import { Aside } from "@astrojs/starlight/components"
+
+For components like the `MediaGallerySection` or the `MediaList` you need a selection
+of media items. There are three different ways how to build a selection. 
+
+- **getEntry**: Astro function to load a single item of a Astro content collection.
+- **getCollection**: Astro function to filter items of a Astro content collection.
+- **getMediaItems**: LightNet function to simplify filtering media items.
+
+Here are some examples for creating a selection of media items.
+
+## Create a Selection by Media Item Ids
+
+```astro
+---
+import { getEntry } from "astro:content"
+
+const items = [
+  await getEntry("media", "faithful-freestyle--en"),
+  await getEntry("media", "ollie-with-integrity--en"),
+]
+---
+```
+
+This example creates a selection of two media items by their identifiers using Astro's `getEntry`.
+Find more information on `getEntry` and `getCollection` 
+on the [Astro docs on content collections](https://docs.astro.build/en/guides/content-collections/#querying-collections).
+
+## Create a Selection using `getMediaItems`
+
+```astro
+---
+import { getMediaItems } from "lightnet/content"
+
+const items = await getMediaItems({
+  where: { type: "book", language: "en" },
+  orderBy: "dateCreated",
+  limit: 10
+})
+---
+```
+
+The `getMediaItems` function helps to query media items. It takes a sql-like query object as an argument. 
+The example filters for all media items that have the media-type `book` and the language `en`. 
+It orders them by the date they were created (newest first) and limits the result to 10 items.
+
+<Aside type="tip">
+You can use Astro's `Astro.currentLocale` to query media items matching the current site language.
+</Aside>
+
+
+## Reference
+
+The `getMediaItems` function accepts this parameters:
+
+### `where`
+
+type: `Object` \
+example: `{ type: "book" }` \
+required: `false`
+
+Defines the attributes of the media items to be returned. Only media items with 
+all matching attributes are returned.
+
+#### where: `type`
+
+type: `string` \
+example: `"book"` \
+required: `false`
+
+Sets the media item type to be returned.
+
+#### where: `language`
+
+type: `string` \
+example: `"en"` \
+required: `false`
+
+Sets the media item content language (as BCP-47 code) to be returned.
+
+#### where: `category`
+
+type: `string` \
+example: `"family"` \
+required: `false`
+
+Sets the media item category to be returned.
+
+#### where: `collection`
+
+type: `string` \
+example: `"my-collection"` \
+required: `false`
+
+Sets the media item collection to be returned.
+
+
+### `orderBy`
+
+type: `"dateCreated" | "title"`  \
+example: `"dateCreated"` \
+required: `false`
+
+Sets the sort order of the returned media items:
+
+- `dateCreated` - sorts based on the `dateCreated` attribute from newest to oldest.
+- `title` -  sorts based on the media item title
+- none - sorts based on the media item identifier (as defined by the file system), the order of collection items is taking precedence.
+
+
+### `limit`
+
+type: `number` \
+example: `42` \
+required: `false`
+
+Sets the maximum amount of media items to be returned.
+
+
+
+
+
+To display a selection of media items, there are three different ways of r

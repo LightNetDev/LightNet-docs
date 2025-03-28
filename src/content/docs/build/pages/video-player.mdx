@@ -1,0 +1,57 @@
+---
+title: Video Player
+description: How to add a video player to your LightNet page. 
+---
+import { Aside } from "@astrojs/starlight/components"
+
+The `VideoPlayer` component is used to display a video on your page. To implement it, use the section component to fit 
+the video player into your page structure like this:
+
+```astro
+---
+import { Page, Section, VideoPlayer } from "lightnet/components"
+import VideoImage from "../../assets/video-image.webp"
+
+const { t } = Astro.locals.i18n
+---
+<Page>
+  <Section title={t("x.video.title")}>
+    <VideoPlayer url="https://www.youtube.com/watch?v=1234" />
+  </Section>
+</Page>
+```
+
+<Aside type="tip">
+We highly recommend using a video hosting platform like YouTube or Vimeo because they have the better performance. 
+Nevertheless it is also possible to host mp4 videos yourself but be aware you need an [additional file storage](/deploy/file-storage).
+</Aside>
+
+## Reference
+
+The `VideoPlayer` component has the following properties:
+
+### `url`
+
+type: `string` \
+example: `"https://www.youtube.com/watch?v=1234"` \
+required: `true`
+
+The source of the video that is shown. This can either be an external link to YouTube or Vimeo or a link to an 
+mp4 file hosted on your server.
+
+### `title`
+
+type: `string` \
+example: `"Your Great Video"` \
+required: `false`
+
+This title is only used for screen readers. For setting a title on top of the video use the `title` of the section.
+
+
+### `image`
+
+type: `ImageMetadata` \
+example: `import VideoImage from "../../assets/video-image.jpg"` \
+required: `false`
+
+The image is used as a preview. In case you use a mp4 video. Supported formats include `jpg`, `png` and `webp`.

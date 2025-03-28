@@ -54,11 +54,14 @@ export default defineConfig({
 							{slug: "build/pages/initialize-homepage"},
 							{slug: "build/pages/about-page"},
 							{slug: "build/pages/section"},
-							{slug: "build/pages/hero"},
-							{slug: "build/pages/media-gallery"},
-							{slug: "build/pages/categories-overview"},
+							{slug: "build/pages/hero-section"},
+							{slug: "build/pages/media-gallery-section"},
+							{slug: "build/pages/categories-section"},
 							{slug: "build/pages/highlight-section"},
+							{slug: "build/pages/video-player"},
+							{slug: "build/pages/media-list"},
 							{slug: "build/pages/custom-components"},
+							{slug: "build/pages/query-media-items"},
 							{slug: "build/pages/create-internal-links"}
 						]}
 					],
@@ -85,6 +88,9 @@ export default defineConfig({
 						{slug: "run/update"},
 						{slug: "run/monitor"}
 					]
+				},
+				{
+					slug: "versions"
 				}
 			],
 			plugins: process.env.CHECK_LINKS

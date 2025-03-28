@@ -1,19 +1,20 @@
 ---
 title: Initialize Homepage
 description: >
-    How to add a homepage to your LightNet media site. The homepage is the first page that users see when they visit your site. You can customize the homepage
-    to include a hero image, a call to action, a media item gallery or add your own components...
+    How to add a homepage to your LightNet media site. The homepage is the first page that users see when they visit your site. 
+    You can customize the homepage to include a hero image, a media item gallery or add your own components...
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
 
 The homepage is the first page that users see when they visit your site. You can customize the homepage
-to include a hero image, a call to action, a media item gallery or add your own components...
+to include a hero image, a media item gallery or add your own components...
 
 You have [two different options](/build/pages/fundamentals/#defining-routes-with-the-pages-folder) on how to create the homepage:
 
-- **static locale**: Use this if you plan to have a different layout for each locale. Layout means different components or different order of components.
+- **static locale**: Use this if you plan to have a different layout for each locale. Layout means different components or 
+    different order of components.
 - **dynamic locale**: Use this if you plan to have the same layout for each locale but different translations and content.
 
 This differentiation is only about page layout not about the content inside the components. 
@@ -64,13 +65,19 @@ import { Page } from "lightnet/components"
 Use `Astro.currentLocale` to change the content based on the locale.
 </Aside>
 
+
 ## Add Components
 
 Add components to your homepage. These components are available.
 
-- [Section](/build/pages/section): used to structure the page and take care of the layout of other components
-- [Hero Section](/build/pages/hero): a big Image, optional with a Title inside, that serves as an eye-catcher, normally at the top of a page.
-- [Media Item Gallery](/build/pages/media-gallery): shows a selection of Media Items in a gallery view.
-- [Categories Overview](/build/pages/categories-overview): displays a grid of all available categories leading to a search page filtered by category.
+- [Section](/build/pages/section): used to structure the page and take care of the layout of other components or any HTML.
+    Components that include the suffix `Section` in their title, already include this.
+- [Hero Section](/build/pages/hero-section): a big Image, optional with a Title inside, that serves as an eye-catcher, normally at 
+    the top of a page.
+- [Media Gallery Section](/build/pages/media-gallery-section): shows a selection of Media Items in a gallery view.
+- [Categories Section](/build/pages/categories-section): displays a grid of all available categories leading to a search 
+    page filtered by category.
 - [Highlight Section](/build/pages/highlight-section): combination of a large Image, headline, text and optional a link button.
-- [Custom Components](/build/pages/custom-components): your own Astro components. You are very welcome to share them with the community. Start a conversation with us by opening a [feature proposal](https://github.com/LightNetDev/LightNet/issues/new?template=---02-feature-proposal.yml).
+- [Video Player](/build/pages/video-player): a video player for YouTube, Vimeo links or mp4 files.
+- [Custom Components](/build/pages/custom-components): your own Astro components. You are very welcome to share them with the 
+    community. Start a conversation with us by opening a [feature proposal](https://github.com/LightNetDev/LightNet/issues/new?template=---02-feature-proposal.yml).

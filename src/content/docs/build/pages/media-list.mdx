@@ -1,0 +1,48 @@
+---
+title: "Media List"
+description: How to add a list of media items to your LightNet page. 
+---
+
+import { Aside } from "@astrojs/starlight/components"
+
+LightNet provides a `MediaList` component that displays a list of media items.
+This component is meant to be used inside a `Section` with maximum width set to `narrow`. 
+Prefer the [MediaGallerySection](/build/pages/media-gallery-section) on the homepage.
+
+Here is an example on how to use the `MediaList` component:
+
+```astro
+---
+import { Page, MediaList, Section } from "lightnet/components"
+import { getMediaItems } from "lightnet/content"
+
+const someEnglishBooks = await getMediaItems({
+  where: { type: "book", language: "en" },
+  orderBy: "dateCreated",
+  limit: 10
+})
+
+const { t } = Astro.locals.i18n
+---
+
+<Page>
+    <Section title={t("x.english-books.title")} maxWidth="narrow" >
+        <MediaList items={someEnglishBooks} />
+    </Section>
+</Page>
+```
+
+Inside the frontmatter the `someEnglishBooks` variable is prepared using LightNet's [getMediaItems function](/build/pages/query-media-items). 
+The items are displayed in a vertical list.
+
+## Reference
+
+The `MediaList` component has the following properties:
+
+### `items`
+
+type: `MediaItem[]` \
+example: `const books = await getMediaItems({/*...*/})` \
+required: `true`
+
+The array of media items to display.
