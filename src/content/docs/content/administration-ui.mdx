@@ -208,6 +208,16 @@ default: `"images"`
 The name of the cover images folder next to your media item files. Change this if you want to use a different name for the images folder.
 For example if your images are stored inside a folder `src/content/media/covers`, you can set this to `"covers"`.
 
+### `maxFileSize`
+
+type: `number` \
+example: `15` \
+required: `false` \
+default: `25`
+
+The maximum file size in megabytes allowed to be uploaded. Default is 25 MB, this aligns with Cloudflare's 
+maximum file size.
+
 ### `backend`
 
 type: `object` \

@@ -53,7 +53,7 @@ This object can have the following properties:
 
 #### layout
 
-type: `"default" | "video" | "custom"` \
+type: `"default" | "video" | "audio" | "custom"` \
 example: `"video"` \
 required: `true`
 
@@ -113,6 +113,23 @@ All other content urls are shown as additional content below the video player. A
 
 Currently there are no additional configuration options for the video layout. 
 The video layout supports YouTube and Vimeo video urls. Also it supports video files that are stored on your server.
+
+##### layout: "audio"
+
+The audio layout shows a details page with an embedded audio player. The audio player uses the primary content url (first item in the media item `content` array). 
+All other content urls are shown as additional content below the audio player. An example of a audio layout configuration is:
+
+```json
+{
+  // ...
+  "detailsPage": {
+    "layout": "audio"
+  }
+}
+```
+
+Currently there are no additional configuration options for the audio layout. 
+Mp3 is the currently the only supported file format for the audio layout.
 
 ##### layout: "custom"
 
