@@ -2,13 +2,13 @@
 title: Add a Highlight Section
 description: >
     How to add a highlight section to your LightNet page. This component displays a large image with a title, 
-    a description and a optional link to another page.
+    a description and an optional link to another page.
 ---
 
 import { Aside } from "@astrojs/starlight/components"
 
 If you have some content to highlight you can use the `HighlightSection` component. This component displays a large 
-image with a title, a description and a optional link to another page. 
+image with a title, a description and an optional link to another page. 
 
 ![Highlight Image](./images/highlight.webp)
 
@@ -35,7 +35,7 @@ const { t } = Astro.locals.i18n
 ```
 
 Make sure you add your image to the `src/assets` folder and import it at the top of the file. 
-We recommend to use a image that is at least 1500 pixels wide to ensure that it looks good on all devices. The 
+We recommend to use an image that is at least 1500 pixels wide to ensure that it looks good on all devices. The 
 image is optimized for performance. Supported Image formats are `jpg`, `png`, `webp`.
 
 <Aside type="caution">
@@ -56,7 +56,7 @@ example: `import highlightImage from "../../assets/highlightImage.jpg"` \
 required: `true`
 
 The image of the highlight section. It is optimized for performance.
-We recommend to use a image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
+We recommend to use an image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
 
 ### `id`
 

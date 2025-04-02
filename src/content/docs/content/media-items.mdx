@@ -10,7 +10,7 @@ Media items are the core of your LightNet site.
 Each media item shows up on the search page and has its own details page.
 Use media items to describe your sermons, music, videos, and other media content.
 Each file in the `src/content/media` folder describes one media item. Every media item references 
-at least one content url, eg. a MP3 file, a YouTube video or a PDF file.
+at least one content URL, eg. a MP3 file, a YouTube video or a PDF file.
 
 Here is an example of a media item:
 
@@ -49,7 +49,7 @@ example: `"sermon-1"` \
 required: `true`
 
 The `commonId` is a unique identifier for a media item. If your media item is available in multiple languages, 
-you should create a media item for each language. In this case you should use the same `commonId` for all languages.
+you should create a media item for each language. In this case use the same `commonId` for all languages.
 LightNet uses the `commonId` to find translations of a media item.
 
 ### title
@@ -76,7 +76,7 @@ type: `string`\
 example: `"video"` \
 required: `true`
 
-This property defines the type of the media item. It references a file inside the `src/content/media-types` folder.
+This property defines the media type of the media item. It references a file inside the `src/content/media-types` folder.
 For example if you have a file `src/content/media-types/book.json` you can set the the `type` property to `book`.
 The media type is used to determine the layout of the media item details page.
 
@@ -97,7 +97,7 @@ type: `{ url: string, label?: string }[]`\
 example: `[{url: "https://www.youtube.com/watch?v=1234"}]` \
 required: `true` (at least one content object is required)
 
-This references the actual content of the media item. For example this references a video on YouTube, or a file served from your server.
+This references the actual content of the media item. For example this references a video on YouTube or a file served from your server.
 The `content` property is an array of objects. The first object in the array is considered to be the primary content of the media item.
 The primary content is used for example with the embedded video player on the media item details page. All other content objects are considered to be additional content.
 They are displayed on the content section of the media item details page.
@@ -117,13 +117,15 @@ For a good user experience make sure to keep your files inside `public/files` as
 for performance.
 </Aside>
 
-These urls are supported:
+These URL types are supported:
 
-- YouTube video urls like `"https://www.youtube.com/watch?v=1234"`
-- Vimeo video urls like `"https://vimeo.com/1234"`
-- Files served from your server like `"/files/sermon-1.pdf"`, LightNet supports all file types like pdf, mp3, mp4, etc.
-- External files eg. from a CDN like `"https://cdn.example.com/sermon-1.mp3"`
-- External websites like `"https://example.com/sermon-1"`
+| URL type  | Example                               |
+|-----------|---------------------------------------|
+| YouTube video  | `"https://www.youtube.com/watch?v=1234"`  |
+| Vimeo video   | `"https://vimeo.com/1234"`                     |
+| Internal file  | `"/files/sermon-1.pdf"` |
+| External file | `"https://cdn.example.com/sermon-1.mp3"`    |
+| External website | `"https://example.com/sermon-1"`    |
 
 
 <Aside type="tip">
@@ -138,7 +140,7 @@ required: `false`
 
 The `label` property is optional and can be used to give a name to the content. This label is displayed on the content section of the media item details page.
 If no `label` property is provided the label is derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the label is `sermon-1`.
-If it is `"https://www.youtube.com/watch?v=1234"` the content label is `youtube.com`. You also can assign a translation key to the label.
+If it is `"https://www.youtube.com/watch?v=1234"` the content label is `youtube.com`. You can also use a translation key for the label.
 
 
 ### dateCreated
@@ -151,7 +153,7 @@ The date when the media item was created in this library. The date should be in 
 This date is used to sort the media items from newest to oldest.
 
 <Aside type="note">
-The dateCreated is not the date when the media item was originally published. It is the date when the media item was added to the library.
+The dateCreated is when the media item was added to your LightNet site not when it was originally published.
 </Aside>
 
 ### description
@@ -161,7 +163,7 @@ example: `"A sermon about the Good Samaritan"` \
 required: `false`
 
 A short description of the media item. The description must be in the language of the media item.
-Use Markdown syntax for formatting the text. The first 350 characters are included in the search.
+Use Markdown syntax for formatting the text. The first 350 characters are included on the search page.
 
 ### authors
 
@@ -169,7 +171,7 @@ type: `string[]` \
 example: `["John Doe", "Jane Doe"]` \
 required: `false`
 
-A array containing the Author names of the media item.
+An array containing the Author names of the media item.
 
 
 ### categories

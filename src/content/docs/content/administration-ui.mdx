@@ -1,17 +1,17 @@
 ---
 title: Administration UI
-description: Learn how to add a Administration UI to your site.
+description: Learn how to add an Administration UI to your site.
 ---
 
 import { Steps, Aside } from '@astrojs/starlight/components';
 
 
-LightNet enables you to manage your content using JSON files. This is great for developers, but not for non-technical 
-users. That's why LightNet provides a Administration UI to manage your content with a graphical user interface.
+LightNet enables you to manage your content using JSON files. This is great for developers, but might be challenging for non-technical 
+users. That's why LightNet provides an Administration UI to manage your content with a graphical user interface.
 The interface allows you to create, update, and delete media items and media collections.
 To implement the interface, LightNet uses a tool called [Decap CMS](https://decapcms.org/).
 
-All changes made in Administration UI are written to the file system or to a git repository.
+All changes made in Administration UI are either written to the local file system or to a git host.
 
 <Aside title="Experimental" type="caution">
 The Administration UI is an experimental feature.
@@ -31,7 +31,7 @@ Nevertheless you can follow this guide from the beginning.
 </Aside>
 
 <Steps>
-1. **Add Integration**: Add the LightNet Decap CMS integration using Astro's add command. From your project folder execute:
+1. **Add the Integration**: Add the LightNet Decap CMS integration using Astro's add command. From your project folder execute:
     ```bash
     npm run astro add @lightnet/decap-admin
     ```
@@ -67,13 +67,13 @@ Nevertheless you can follow this guide from the beginning.
 </Steps>
 
 <Aside type="caution">
-We recommend changing the `path` setting of the decap admin integration, to hide it from attackers.
+We recommend setting the `path` option of the decap admin integration, to hide it from attackers.
 Choose a random string with at least 16 characters.
 </Aside>
 
 ## Run the Administration UI
 
-The Administration UI can write its changes to your local file system or to a Git Host like (GitLab or GitHub).
+The Administration UI can write its changes to your local file system or to a git host (GitLab or GitHub).
 
 ### Accessing your Local File System
 
@@ -89,7 +89,7 @@ Run your Administration UI on your local computer using npm scripts.
     ```bash
     npx decap-server
     ``` 
-    This starts a application that enables Decap CMS to access your file system. 
+    This starts an application that enables Decap CMS to access your file system. 
 1. Navigate your browser to [localhost:4321/admin](localhost:4321/admin). You should see 
     the Administration UI showing a list of media items.
 </Steps>
