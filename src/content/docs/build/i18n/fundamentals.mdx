@@ -8,16 +8,18 @@ description: >
 import {Aside} from "@astrojs/starlight/components"
 
 LightNet enables building websites in your community's language, supporting multiple languages, including right-to-left languages.
-Internationalization is a core feature, essential even if you're supporting just one language.
+It is highly recommended to understand LightNet's implementation of internationalization, even if you're supporting just one language.
 
 ## Two Layers of Language
 
-LightNet sites can have two distinct language layers (which may be identical):
+LightNet sites have two layers of language (which may be identical):
 
-- **Content Language**: The language of a media item. For instance, an English video has an English title and description.
+- **Content Language**: The language of media items. For instance, an English video has an English title and description.
 - **Site Language**: The language of the user interface, including button labels, menus, and page text.
 
-Both are configured using the `languages` setting in `astro.config.mjs`.
+Both are configured using the `languages` setting in `astro.config.mjs`. All listed languages are available as content languages. 
+For site languages, explicitly set either `isDefaultSiteLanguage` or `isSiteLanguage` to `true`.
+
 
 ```js title="astro.config.mjs"
 import lightnet from "lightnet";
@@ -47,10 +49,7 @@ export default defineConfig({
 - **`code`**: The language identifier using [IETF BCP-47 tags](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish). 
   [This tool](https://r12a.github.io/app-subtags/), google or chat-gpt might be helping you with this.
 - **`label`**: The display name for the language selector. This can be a static string (e.g., `Español`) or a translation key (e.g., `x.languages.es`).
-
-All listed languages are available as content languages. For site languages, explicitly set either `isDefaultSiteLanguage` or `isSiteLanguage` to `true`.
-
-- The **default site language** is the primary language for visitors and the fallback for translations. Exactly one language must be set as default.
+- The **`isDefaultSiteLanguage`** is the primary site language for visitors and the fallback for translations. Exactly one language must be set as default.
 - Additional site languages can be defined by setting `isSiteLanguage` to `true`.
 
 ## Route Localization
@@ -61,7 +60,8 @@ an English About page could be available on `https://your.site/en/about`.
 
 ## Translating Pages in LightNet
 
-To enable translations LightNet uses translation keys. A translation key is used inside an Astro component like this:
+To implement translations, LightNet uses translation keys that are mapped to translation values based on the current locale. 
+A translation key is used inside an Astro component like this:
 
 ```astro title="MyComponent.astro"
 <h1>{Astro.locals.i18n.t("x.homepage.title")}</h1>

@@ -46,8 +46,8 @@ export default defineConfig({
 						]},
 						{label: "Internationalization", items:[
 							{slug: "build/i18n/fundamentals"},
+							{slug: "build/i18n/add-language"},
 							{slug: "build/i18n/custom-site-strings"},
-							{slug: "build/i18n/add-language"}
 						]},
 						{label: "Pages", items: [
 							{slug: "build/pages/fundamentals"},

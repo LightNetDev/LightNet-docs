@@ -6,7 +6,7 @@ description: How to add customized translations to your LightNet media site.
 import { Steps, Aside } from "@astrojs/starlight/components";
 
 
-LightNet allows you to add custom translation key to your site, for example to add a custom text 
+LightNet allows you to add custom translation keys to your site, for example to add a custom text 
 for the navigation or for the homepage.
 Follow this steps to create and use a custom translation key for your media site:
 
@@ -22,9 +22,9 @@ If you translate a text only page (e.g. [the about page](/build/pages/about-page
     ```
     Choose a unique key (left side of the colon). By convention prefix your custom keys with `x.`. 
     The key is used to referenced your custom translation in your site.
-2. **Translate**: Make sure the entry is translated correctly for all translation files. Only 
-3. **Use inside Astro component**: Use the custom translation key in your Astro component. LightNet provides a translation function with `Astro.locals.i18n.t`. 
-    You can use this function to get the translation of your custom key.
+2. **Translate**: Make sure the entry is translated correctly for all translation files. 
+3. **Use inside an Astro component**: Use the custom translation key in your Astro component. LightNet provides a translation function with `Astro.locals.i18n.t`. 
+    You can use this function to get the translation of your custom key based on the current locale.
     ```astro title="src/pages/[locale]/index.astro" {5}
     ---
     import { Page } from "lightnet/components"
@@ -34,12 +34,13 @@ If you translate a text only page (e.g. [the about page](/build/pages/about-page
     </Page>
     ```
     The translation function returns the translation of the key `Hello World` in the current language.
-    If the key is not found in the translations file, the function returns the value of the default translations file.
-    If the key is not found in the default translations file, the function throws an Error.
+    If the key is not found in the translations file, the function returns the value of the default site language's translations file.
+    If the key is not found, the function throws an Error.
     <Aside type="tip">
         We provide internationalization helpers with the `Astro.locals.i18n` object. This object additionally gives you access to all 
         locales the defaultLocale and more. You can access the `i18n` object inside all your `.astro` files.
     </Aside>
-    Some config options require you to pass the translation key instead of the translated string. For example the `title` property in the `astro.config.mjs` file.
-    Check the [config reference](/build/configuration/reference) to see where a translation key is required.
+ 4. **Use inside configuration or content file**: Config options require you to pass the translation key instead of the translated string. For example the `title` property in the `astro.config.mjs` file.
+    Check the [config reference](/build/configuration/reference) to see where a translation key is required. Also some content file properties accept translation keys, 
+    for example the name of a category can be set to a translation key. 
 </Steps>
