@@ -5,13 +5,13 @@ title: Query Media Items
 import { Aside } from "@astrojs/starlight/components"
 
 For components like the `MediaGallerySection` or the `MediaList` you need a selection
-of media items. There are three different ways how to build a selection. 
+of media items. There are three different ways how to create a selection. 
 
-- **getEntry**: Astro function to load a single item of a Astro content collection.
-- **getCollection**: Astro function to filter items of a Astro content collection.
+- **getEntry**: Astro function to load a single item of an Astro content collection.
+- **getCollection**: Astro function to filter items of an Astro content collection.
 - **getMediaItems**: LightNet function to simplify filtering media items.
 
-Here are some examples for creating a selection of media items.
+Here are examples for creating a selection of media items.
 
 ## Create a Selection by Media Item Ids
 
@@ -109,7 +109,7 @@ Sets the sort order of the returned media items:
 
 - `dateCreated` - sorts based on the `dateCreated` attribute from newest to oldest.
 - `title` -  sorts based on the media item title
-- none - sorts based on the media item identifier (as defined by the file system), the order of collection items is taking precedence.
+- none - sorts based on the media item identifier (as defined by the content JSON file name), the order of collection items is taking precedence.
 
 
 ### `limit`
@@ -119,9 +119,3 @@ example: `42` \
 required: `false`
 
 Sets the maximum amount of media items to be returned.
-
-
-
-
-
-To display a selection of media items, there are three different ways of r

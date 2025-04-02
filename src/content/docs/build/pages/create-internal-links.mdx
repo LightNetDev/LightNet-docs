@@ -3,9 +3,10 @@ title: Create Internal Links
 description: How to use internal links on your LightNet site.
 ---
 
+This chapter guides you on how to create internal links to your pages.
 
-If you want to create an internal link to a LightNet page. Make sure you always add the locale in front of the link.
-For example this is how you can create a link to the about page inside a Astro component using JavaScript template strings:
+When creating internal links, make sure you always add the locale in front of the link.
+For example this is how you can create a link to the about page inside an Astro component using JavaScript template strings:
 
 ```ts
 `/${Astro.currentLocale}/about`
@@ -26,7 +27,7 @@ Returns the localized path to a media item's details page.
 - `mediaItem`: A media item as provided by [Astro's getEntry, getCollection](https://docs.astro.build/en/guides/content-collections/#querying-collections) 
     or LightNet's [getMediaItems](/build/pages/query-media-items).
 
-Example code, that create a anchor link to a media item's details page:
+Example code, that creates a anchor link to a media item's details page:
 
 ```astro
 ---

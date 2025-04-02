@@ -12,32 +12,31 @@ Refer to the [Astro](https://docs.astro.build/en/basics/astro-components/) and [
 
 <Aside>
 LightNet might not be using the latest major version of Tailwind CSS, Astro, React... We follow those projects with some delay to 
-make sure we do not break things. We advise when to update the dependencies in our release notes. To identify the dependency versions used by LightNet,
-inspect the `package.json` file.
+make sure we do not break things. Watch the LightNet release notes on when to update them.
 </Aside>
 
-Here is an example on create a custom html section:
+Here is an example on adding custom html styled by Tailwind CSS:
 
 
 ```astro
 ---
-import { Page } from "lightnet/components"
+import { Page, Section } from "lightnet/components"
 
 const { t } = Astro.locals.i18n
 ---
 <Page>
-    <section class="bg-gray-800 py-12 mt-24 md:mt-28 text-gray-100">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center">{t("x.some.title")}</h2>
-            <p class="text-lg text-center">{t("x.some.description")}</p>
-        </div>
-    </section>
+    <Section className="flex flex-col items-center bg-gray-900 py-10 text-gray-50">
+        <h2 class="text-3xl font-bold">{t("x.some.title")}</h2>
+        <p class="text-lg">{t("x.some.description")}</p>
+    </Section>
 </Page>
 ```
 
+This example adds a section with a dark background and a white text color. It centers the text horizontally.
+
 ## Share with the Community
 
-You are very welcome to share your custom components with the community. 
+You are welcome to share your custom components with the community. 
 Start a conversation with us by opening a [feature proposal](https://github.com/LightNetDev/LightNet/issues/new?template=---02-feature-proposal.yml).
 
 
