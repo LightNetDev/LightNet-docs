@@ -31,12 +31,12 @@ Nevertheless you can follow this guide from the beginning.
 </Aside>
 
 <Steps>
-1. **Add the Integration**: Add the LightNet Decap CMS integration using Astro's add command. From your project folder execute:
+1. **Add the Integration**: Add the LightNet Administration UI integration (`@lightnet/decap-admin`) using Astro's add command. From your project folder execute:
     ```bash
     npm run astro add @lightnet/decap-admin
     ```
     Confirm the questions with `y` to install required dependencies and add the integration to your `astro.config.mjs` file.
-1. **Adjust Configuration**: Add your Administration UI configuration to Astro's `astro.config.mjs` file. This is a minimal 
+1. **Adjust Configuration**: Add your configuration to Astro's `astro.config.mjs` file. This is a minimal 
     example:
 
     ```js title="astro.config.mjs" ins={5-9,14,18}
@@ -67,7 +67,7 @@ Nevertheless you can follow this guide from the beginning.
 </Steps>
 
 <Aside type="caution">
-We recommend setting the `path` option of the decap admin integration, to hide it from attackers.
+We recommend setting the `path` option of the Administration UI integration, to hide it from attackers.
 Choose a random string with at least 16 characters.
 </Aside>
 
@@ -99,34 +99,33 @@ Run your Administration UI on your local computer using npm scripts.
 
 The Administration UI also supports online editing of a site's content. 
 This is implemented by connecting it to a git host like GitLab or GitHub.
-From the online Administration UI all changes will be applied using git commits. 
-These commits will be sent to the git host's web API.
+From the online Administration UI all changes will be applied using git commits over the git host's web API. 
 Authentication also is handled by the git host. You can use the git host to manage permissions.
 
 This architecture brings several advantages:
 - No need to deploy and maintain a running server backend API.
-- Security is handled by the git host (with support for 2-Factor-Authentication and more).
+- Security is handled by the git host (with support for 2-Factor-Authentication).
 - Git history enables rollbacks and gives overview what has changed.
 - Git repositories can be free of charge.
 
-LightNet supports different git hosts. We highly recommend using GitLab as it supports Authentication
+LightNet supports GitHub and GitLab as git hosts. We highly recommend using GitLab as it supports Authentication
 from the user's browser.
 
 <Aside>
-We highly recommend using GitLab. If you need to use GitHub, please notice:
+ If you need to use GitHub as your git host, please notice:
 GitHub repositories only support server side authentication. This means you will need to configure a backend
 that forwards the authentication request. See the [Decap CMS instructions](https://decapcms.org/docs/github-backend/) on how to connect GitHub repositories. 
 </Aside>
 
 #### Connect to GitLab
 
-To connect your Administration UI to a GitLab repository, follow this steps.
+To connect your Administration UI to a GitLab repository, follow these steps.
 
 <Steps>
 1. **Host repository on GitLab**: Make sure your LightNet site is hosted on GitLab. If this is not the case, check the [guide on hosting](/deploy/hosting) on how to setup a GitLab repository
    for your project.
 2. **Open group settings**: On [GitLab.com](https://gitlab.com) navigate to `Groups` and select the group that hosts the repository. Open the `Settings` of this group.
-3. **Add new Application**: Open the `Application` settings and select to `Add a new Application`.
+3. **Add new Application**: Open the `Application` settings and start to `Add a new Application`.
 4. **Configure Application**: In the Add new Application dialog:
     - **Name**: Choose a name for the Application e.g. your website name. This is used to name the new application on the GitLab interface. It has no further effect.
     - **Redirect URI**: Give the final address of your LightNet site followed by your admin path (the default is `/admin/`) e.g. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
@@ -196,7 +195,7 @@ example: `"admin"` \
 required: `false` \
 default: `"admin"`
 
-The path on which the Administration UI is available on your site. Change this path for obfuscation of your git host.
+The path on which the Administration UI is available on your site. Change this path for obfuscation of your git host connection.
 
 ### `imagesFolder`
 
@@ -233,7 +232,7 @@ The configuration directly maps (replacing camelCase with snake_case) to the Dec
 
 #### `backend: "gitlab"`
 
-GitLab backend configuration has this options:
+GitLab backend configuration has these options:
 
 - **name**: `"gitlab"` (required) selecting GitLab as backend.
 - **repo**: `string` (required) the GitLab repository path of your site.
@@ -256,5 +255,4 @@ This is why we recommend using the GitLab backend for LightNet sites.
 
 See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy)
 for more information on how to create an authentication server for GitHub.
-
 </Aside>
