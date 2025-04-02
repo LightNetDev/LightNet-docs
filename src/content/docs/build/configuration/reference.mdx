@@ -92,7 +92,7 @@ example: `"./src/assets/logo.png"` \
 required: `true`
 
 The path to the logo image. Provide a path to an image inside `src/assets`. Supported formats include `jpg`, `png`, `svg` and `webp`.  
-LightNet optimizes the image size for better performance (except for SVGs). We recommend providing a image file with a width and height of 150 pixels.
+LightNet optimizes the image size for better performance (except for SVGs). We recommend providing an image file with a width and height of 150 pixels.
 
 #### logo: `alt`
 
@@ -100,7 +100,7 @@ type: `string` \
 example: `"x.logo.alt"` \
 required: `false`
 
-The alt text of the logo. This is used if the logo image is not available or if the user has disabled images. For example when using a screen reader.
+The alt text of the logo. This is used if the logo image is not available or if the user has disabled images, for example when using a screen reader.
 The value of the `alt` attribute can either be a fixed string or a translation key to support multiple locales.
 
 #### logo: `size`
@@ -225,7 +225,7 @@ default: `true`
 Internal links are by default prefixed with the current locale (e.g., `/media` becomes `/en/media` for English).  
 To disable this, set `requiresLocale` property to `false`.
 
-You don't need to set this option for external links (e.g. https://wikipedia.org) since they won't be prefixed anyway.
+You don't need to set this option for external links (e.g. https://wikipedia.org) since they won't be prefixed anyways.
 
 ### `internalDomains`
 
@@ -233,7 +233,7 @@ type: `array` \
 example: `[ "files.your-domain.com" ]` \
 required: `false`
 
-The internal domains of the site. This is used to determine if a URL is internal or external.
+The internal domains of the site. This is used to determine if an URL is internal or external.
 
 For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
 A link to `https://files.your-domain.com/file.pdf` won't be treated as an external link.

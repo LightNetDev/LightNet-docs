@@ -8,9 +8,8 @@ import { Steps, Aside } from "@astrojs/starlight/components"
 Cloudflare Pages puts a limit of 25 MB on the size of each file.
 This is our recommended way to handle large content files:
 
-1. Try to optimize them if possible. Big files have a negative impact on the time to open your content.
+1. Try to optimize them if possible. Big files have a negative impact on the time to open them.
 1. Use video hosts like YouTube or Vimeo to upload your videos (if they are safe to use in your context).
-1. Use audio hosts like SoundCloud to upload your audio files (if this is safe to use in your context).
 1. Use Backblaze for large files that cannot be uploaded elsewhere.
 
 ## How to use Backblaze
@@ -32,5 +31,5 @@ This is our recommended way to handle large content files:
 <Aside type="tip" title="Expert Tip">
 You can also use Cloudflare
 to proxy requests to your Backblaze bucket. By doing so, you can 
-use a custom subdomain on your file urls e.g. `https://files.your-ministry.com/a-book-about-love.pdf`.
+use a custom subdomain on your file URLs e.g. `https://files.your-ministry.com/a-book-about-love.pdf`.
 </Aside>

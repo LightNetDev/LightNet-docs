@@ -14,12 +14,12 @@ Routes on your LightNet site are determined by the files in the `src/pages` fold
 The file path directly maps to the page route. 
 For instance, a file at `src/pages/en/about.astro` corresponds to `https://your.site/en/about`.
 
-LightNet also automatically adds:
+Next to your pages LightNet also automatically adds:
 
 - **Homepage Redirect**: Visiting the root path (`https://your.site`) redirects to the homepage in the default site language.
 - **Search Page**: Lists all media items at `[locale]/media`.
 - **Details Pages**: Displays details of a media item at `[locale]/media/[id]`.
-- **404 Page**: Shown when a non-existent page is accessed, at `/404`.
+- **404 Page**: Shown by convention when a non-existent page is accessed. Available at `/404`.
 
 All pages (except `404` and `/`) 
 reside in folders defining their [locale](/build/i18n/fundamentals). 
@@ -47,7 +47,7 @@ Create a single folder for all locales, named `src/pages/[locale]/` (use exactly
 The `[locale]` placeholder is resolved by Astro during the build process, 
 using a `getStaticPaths` function exported by each page in this folder.
 
-To provide a `getStaticPaths` function with all locales use our helper function `getLocalePaths`:
+To provide a `getStaticPaths` function with all locales, you can use our helper function `getLocalePaths`:
 
 ```astro title="src/pages/[locale]/some-page.astro"
 ---
