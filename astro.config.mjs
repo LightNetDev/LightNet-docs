@@ -62,7 +62,8 @@ export default defineConfig({
 							{slug: "build/pages/media-list"},
 							{slug: "build/pages/custom-components"},
 							{slug: "build/pages/query-media-items"},
-							{slug: "build/pages/create-internal-links"}
+							{slug: "build/pages/create-internal-links"},
+							{slug: "build/pages/footer"}
 						]}
 					],
 				},
