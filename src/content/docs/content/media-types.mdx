@@ -3,6 +3,8 @@ title: Media Types
 description: Learn how to group media items by their type.
 ---
 
+import { Badge } from "@astrojs/starlight/components"
+
 Media types are used to group media items that are of the same kind. For example you could have a media type for
 books, sermons, music, videos, etc.
 Media types control how the details page of a media item is rendered. This affects how the media item is presented, for example 
@@ -131,9 +133,13 @@ All other content URLs are shown as additional content below the audio player. A
 Currently there are no additional configuration options for the audio layout.
 The audio layout supports links to mp3 files.
 
-##### layout: "custom"
+##### layout: "custom" <Badge text="Experimental"/>
 
-The custom layout shows a details page with your own layout. You can define your own layout with an Astro component. An example of a custom layout configuration is:
+The custom layout shows a details page with your own layout. Custom details pages are still an 
+experimental feature, we might introduce changes to the API without updating the major version number.
+Track changes to this feature on the LightNet release notes.
+
+You can define your own layout with an Astro component. An example of a custom layout configuration is:
 
 ```json
 {
@@ -176,6 +182,4 @@ if (!mediaItem) {
 ```
 
 The details page components used by LightNet are experimentally available for building custom details pages.
-You can import them from `lightnet/experimental-details-page`. Please be aware that using them is still experimental. 
-This means we might change the components without updating the major version number.
-Track changes to this components on the LightNet release notes.
+You can import them from `lightnet/experimental-details-page`. 
