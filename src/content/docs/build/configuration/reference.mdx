@@ -107,9 +107,20 @@ The value of the `alt` attribute can either be a fixed string or a translation k
 
 type: `number` \
 example: `30` \
-required: `false`
+required: `false` \
+default: `28`
 
 The size of the logo in the header bar in pixels. This is applied to the shorter side of the logo image.
+
+#### logo: `replacesTitle`
+
+type: `number` \
+example: `30` \
+required: `false` \
+default: `false`
+
+If set to `true`, no title will show next to the logo on the header bar. Additionally, to support screen readers, the site title
+is set to the logo's `alt` attribute. Use this option if your logo already includes your site title.
 
 ### `favicon`
 
