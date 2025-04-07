@@ -160,13 +160,13 @@ required: `true`
 Custom details pages require you to reference an Astro component to be rendered. 
 The component **must** be stored in the `/src/details-pages` folder. 
 The component receives a `mediaId` property that is the media item's identifier. 
-LightNet wraps your component inside a `<Page>` layout.
+You need to wrap your components inside a `<DetailsPage>` layout.
 This example fetches the media item with the given mediaId and renders the title of the media item: 
 
 ```astro title="src/details-pages/CustomDetailsPage.astro"
 ---
 import { getEntry } from "astro:content";
-import { MediaCollections } from "lightnet/details-page";
+import { DetailsPage } from "lightnet/experimental-details-page";
 
 interface Props {
   mediaId: string;
@@ -178,7 +178,9 @@ if (!mediaItem) {
   throw new Error(`Cannot find media item for id: ${mediaId}`);
 }
 ---
-<h1>{mediaItem.title}</h1>
+<DetailsPage mediaId={mediaId}>
+  <h1>{mediaItem.title}</h1>
+</DetailsPage>
 ```
 
 The details page components used by LightNet are experimentally available for building custom details pages.
