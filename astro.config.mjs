@@ -10,9 +10,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'LightNet',
-			social: {
-				github: 'https://github.com/LightNetDev/lightnet',
-			},
+			social: [
+				{label: "GitHub", icon:"github", href: "https://github.com/LightNetDev/lightnet"}
+			],
 			editLink: {
 				baseUrl: 'https://github.com/LightNetDev/lightnet-docs/edit/main/',
 			  },
