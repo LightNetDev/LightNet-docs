@@ -8,6 +8,5 @@
 
 This is the terms we use throughout our docs:
 
-- **Administration UI**: for the admin ui.
 - **Media site**: to refer to a LightNet website.
 - **Terminal**: to refer to a Command Line Interface.
