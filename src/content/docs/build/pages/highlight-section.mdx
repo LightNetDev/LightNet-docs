@@ -27,8 +27,8 @@ const { t } = Astro.locals.i18n
         title={t("x.highlight.title")}
         text={t("x.highlight.text")}
         link={{
-            href: {`/${Astro.currentLocale}/some-page`},
-            text: {t("x.highlight.link")},
+            href: `/${Astro.currentLocale}/some-page`,
+            text: t("x.highlight.link"),
         }}
     />
 </Page>
