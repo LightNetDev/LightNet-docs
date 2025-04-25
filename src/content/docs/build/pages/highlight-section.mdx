@@ -44,6 +44,24 @@ Test how the component is displayed on different screen widths.
 
 For multilingual sites make sure to pass a translated string for the `title`, `text` properties.
 
+### Add Custom Components
+
+Add your own Components to the HighlightSection by wrapping them inside the HighlightSection.
+Your components will be added below the text.
+
+For example this is how you could add two links (they still need some styling):
+
+```astro {6,7}
+<HighlightSection
+  image={highlightImage}
+  title={t("x.highlight.title")}
+  text={t("x.highlight.text")}
+>
+  <a href="https://bibleproject.com/">{t("x.home.bible-project")}</a>
+  <a href="https://www.jesusfilm.org/">{t("x.home.jesus-film")}</a>
+</HighlightSection>
+```
+
 ## Reference
 
 The `HighlightSection` component has the following properties. Additionally is can also enclose any component or HTML. The enclosed content shows
