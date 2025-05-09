@@ -8,5 +8,5 @@
 
 This is the terms we use throughout our docs:
 
-- **Media site**: to refer to a LightNet website.
+- **Media Library**: to refer to a LightNet website.
 - **Terminal**: to refer to a Command Line Interface.
