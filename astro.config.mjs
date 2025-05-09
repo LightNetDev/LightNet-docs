@@ -10,6 +10,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'LightNet',
+			logo: {alt: "LightNet", light: "./src/assets/logo-light.svg", dark:"./src/assets/logo-dark.svg", replacesTitle: true},
 			social: [
 				{label: "GitHub", icon:"github", href: "https://github.com/LightNetDev/lightnet"}
 			],
