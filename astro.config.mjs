@@ -91,9 +91,14 @@ export default defineConfig({
 						{slug: "run/monitor"}
 					]
 				},
-				{
-					slug: "versions"
-				}
+                {
+                    label: "Appendix",
+                    items: [
+                        {slug: "appendix/versions"},
+                        {slug: "appendix/glossary"},
+						{slug: "appendix/headers"}
+                    ]
+                }
 			],
 			plugins: process.env.CHECK_LINKS
 				? [

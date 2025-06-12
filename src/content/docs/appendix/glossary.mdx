@@ -1,0 +1,90 @@
+---
+title: Glossary
+description: Definitions of important terms used throughout the LightNet documentation.
+---
+
+# Glossary
+
+A reference of key terms used in the LightNet documentation.
+
+---
+
+## Media Item
+
+A JSON file describing a piece of content (e.g., sermon, music, video) in your media library. Each media item has properties such as `commonId`, `title`, `description`, `type`, `image`, `categories`, `language`, and `content`.
+
+---
+
+## Category
+
+A JSON file that groups media items by topic. The category identifier is the filename (without `.json`). Categories help users filter and organize content.
+
+---
+
+## Collection
+
+A way to group media items into a specific sequence or set, such as a sermon series. Defined by a JSON file in `src/content/media-collections`.
+
+---
+
+## CommonId
+
+A unique identifier for a media item, used to link translations of the same content across different languages.
+
+---
+
+## Content
+
+The actual media associated with a media item, such as a video URL, audio file, or document. Defined as an array of objects with at least a `url` property.
+
+---
+
+## Label
+
+A string or translation key that provides the display name for a category, collection, or content label.
+
+---
+
+## Language
+
+The BCP-47 language code (e.g., `en`, `de`, `fr`) indicating the language of a media item.
+
+---
+
+## Media Library
+
+Refers to a LightNet website containing and organizing media items.
+
+---
+
+## Terminal
+
+Refers to a Command Line Interface (CLI) used for running commands.
+
+---
+
+## Type
+
+The media type of a media item (e.g., video, book), referencing a file in `src/content/media-types`.
+
+---
+
+## Description
+
+A short, Markdown-formatted summary of a media item, shown in search results and on detail pages.
+
+---
+
+## Authors
+
+An array of names (people or organizations) who created a media item.
+
+---
+
+## DateCreated
+
+The date a media item was added to the library, in `YYYY-MM-DD` format.
+
+---
+
+Feel free to suggest more terms or request updates!
