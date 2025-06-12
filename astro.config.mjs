@@ -96,6 +96,7 @@ export default defineConfig({
                     items: [
                         {slug: "appendix/versions"},
                         {slug: "appendix/glossary"},
+						{slug: "appendix/original-glossary"},
 						{slug: "appendix/headers"}
                     ]
                 }
