@@ -108,4 +108,7 @@ export default defineConfig({
 				: [],
 		}),
 	],
+	redirects: {
+		"/": "/start-here/getting-started"
+	}
 });
