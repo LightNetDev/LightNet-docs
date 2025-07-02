@@ -92,7 +92,11 @@ export default defineConfig({
 					]
 				},
 				{
-					slug: "versions"
+					label: "Resources",
+					items: [
+						{slug: "resources/error-reference"},
+						{slug: "resources/versions"}
+					]
 				}
 			],
 			plugins: process.env.CHECK_LINKS
