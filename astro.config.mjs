@@ -58,6 +58,7 @@ export default defineConfig({
 							{slug: "build/pages/hero-section"},
 							{slug: "build/pages/media-gallery-section"},
 							{slug: "build/pages/categories-section"},
+							{slug: "build/pages/search-section"},
 							{slug: "build/pages/highlight-section"},
 							{slug: "build/pages/video-player"},
 							{slug: "build/pages/media-list"},
