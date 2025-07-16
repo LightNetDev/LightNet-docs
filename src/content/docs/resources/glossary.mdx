@@ -3,27 +3,28 @@ title: Glossary
 description: Definitions of important terms used throughout the LightNet documentation.
 ---
 
-# Glossary
-
 A reference of key terms used in the LightNet documentation.
 
----
+## Author
 
-## Media Item
+The name of the person/organization that created the Media Item's Content. 
 
-A JSON file describing a piece of content (e.g., sermon, music, video) in your media library. Each media item has properties such as `commonId`, `title`, `description`, `type`, `image`, `categories`, `language`, and `content`.
+Author is used for all Media Types.
+While Author works well for written works, such as a book or article, it is recognized that it works less well for musical compositions ("Composer"), art ("Artist"), photographs ("Photographer") and so on.
 
 ---
 
 ## Category
 
-A JSON file that groups media items by topic. The category identifier is the filename (without `.json`). Categories help users filter and organize content.
+Category is a grouping of related Media Items. Categories help users filter and organize content.
+
+A video might have a reference to the category "Theology". On the Search page it is possible to show all the media items that reference the category "Theology".
 
 ---
 
 ## Collection
 
-A way to group media items into a specific sequence or set, such as a sermon series. Defined by a JSON file in `src/content/media-collections`.
+A way to group media items into a specific sequence or set, such as a sermon series.
 
 ---
 
@@ -33,23 +34,33 @@ A unique identifier for a media item, used to link translations of the same cont
 
 ---
 
-## Content
+## Content Language
 
-The actual media associated with a media item, such as a video URL, audio file, or document. Defined as an array of objects with at least a `url` property.
-
----
-
-## Label
-
-A string or translation key that provides the display name for a category, collection, or content label.
+The language of media items.
+For instance, an English video has an English title and description.
+The BCP-47 standard is used for language codes (e.g., `en`, `de`, `fr`) to indicate the language of a media item.
 
 ---
 
-## Language
+## Media
 
-The BCP-47 language code (e.g., `en`, `de`, `fr`) indicating the language of a media item.
+The actual media content associated with a media item, such as a video URL, audio file, or document. Defined as an array of objects with at least a `url` property.
 
 ---
+
+## Media Distribution
+The process of delivering content to Users.
+
+In the context of LightNet, Media Items are distributed by Ministries to Users using a LightNet Site.
+
+---
+
+## Media Item
+A Media Item is the general term to refer to single item of content distributed by a LightNet site; be it a particular book or video or other instance of a Media Type.
+
+The book named “More Drops: Mystery, Mercy, Messiology” could be a Media item. The “Genesis” video by the BibleProject could be a media item.
+
+--- 
 
 ## Media Library
 
@@ -57,34 +68,31 @@ Refers to a LightNet website containing and organizing media items.
 
 ---
 
-## Terminal
+## Media Type
 
-Refers to a Command Line Interface (CLI) used for running commands.
+The media type of a media item (e.g., video, book). Media types include video, audio, document, image, and application package.
 
----
-
-## Type
-
-The media type of a media item (e.g., video, book), referencing a file in `src/content/media-types`.
+Site Administrators may declare additional Media Types specific to their ministry. For example, written content may come in multiple forms in addition to books. It could take the form of flyers, quotes, bible verses, sermons, articles, and so on.
 
 ---
 
-## Description
+## MediaWorks
 
-A short, Markdown-formatted summary of a media item, shown in search results and on detail pages.
+The OM Ministry that is a sponsor of LightNet.
 
----
-
-## Authors
-
-An array of names (people or organizations) who created a media item.
+[MediaWorks](https://www.om.org/eng/mediaworks) equips local ministries around the globe with relevant print and digital media that helps them share the gospel and strengthen believers in their communities.
 
 ---
 
-## DateCreated
+## Ministry
 
-The date a media item was added to the library, in `YYYY-MM-DD` format.
+A Ministry is a Christian organisation that is serving a local community.
+E.g. Organisation, Partner, Church, Ministry.
 
 ---
 
-Feel free to suggest more terms or request updates!
+## Site Language
+
+The language of the user interface, including button labels, menus, and page text.
+
+The BCP-47 standard is used for language codes (e.g., `en`, `de`, `fr`) to indicate the language of the user interface.
