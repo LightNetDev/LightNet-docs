@@ -98,8 +98,8 @@ export default defineConfig({
 						{slug: "resources/error-reference"},
 						{slug: "resources/versions"},
                         {slug: "resources/glossary"},
-						{slug: "resources/original-glossary"},
-						{slug: "resources/headers"}
+						// {slug: "resources/original-glossary"},
+						// {slug: "resources/headers"}
                     ]
                 }
 			],
