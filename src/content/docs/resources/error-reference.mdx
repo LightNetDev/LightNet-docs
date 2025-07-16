@@ -1,0 +1,40 @@
+---
+title: Error Reference
+---
+
+This page lists common warnings and error messages you may encounter when using LightNet, along with explanations and suggested fixes.
+
+## ⚠️ Missing or Empty Content Directory
+
+You might see warnings like these in your terminal:
+
+```
+[WARN] [glob-loader] The base directory "/src/content/categories/" does not exist.
+```
+
+```
+[WARN] [glob-loader] No files found matching "*.json" in directory "src/content/media-collections"
+```
+
+```
+[glob-loader] Reloaded data from media-item-xyz.json
+The collection "categories" does not exist or is empty. Please check your content config file for errors.
+```
+
+**What it means**
+
+LightNet expects certain directories to exist in your project, such as:
+
+- `src/content/categories/`
+- `src/content/media-collections/`
+
+These are used for loading structured content like categories and media collections. 
+The warning means that Astro (via LightNet) tried to load content from one of these paths, but the directory was missing or empty.
+
+**How to fix it**
+
+- **If you don’t need this content**\
+    You can safely ignore the warning. LightNet will continue working without that data.
+- **If you do want to use categories or media collections**\
+    Make sure the directories exist and are correctly named.
+

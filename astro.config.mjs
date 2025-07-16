@@ -58,6 +58,7 @@ export default defineConfig({
 							{slug: "build/pages/hero-section"},
 							{slug: "build/pages/media-gallery-section"},
 							{slug: "build/pages/categories-section"},
+							{slug: "build/pages/search-section"},
 							{slug: "build/pages/highlight-section"},
 							{slug: "build/pages/video-player"},
 							{slug: "build/pages/media-list"},
@@ -92,12 +93,13 @@ export default defineConfig({
 					]
 				},
                 {
-                    label: "Appendix",
-                    items: [
-                        {slug: "appendix/versions"},
-                        {slug: "appendix/glossary"},
-						{slug: "appendix/original-glossary"},
-						{slug: "appendix/headers"}
+                    label: "Resources",
+					items: [
+						{slug: "resources/error-reference"},
+						{slug: "resources/versions"},
+                        {slug: "resources/glossary"},
+						{slug: "resources/original-glossary"},
+						{slug: "resources/headers"}
                     ]
                 }
 			],
@@ -110,4 +112,7 @@ export default defineConfig({
 				: [],
 		}),
 	],
+	redirects: {
+		"/": "/start-here/getting-started"
+	}
 });
