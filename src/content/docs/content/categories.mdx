@@ -5,12 +5,13 @@ description: Learn how to group your media items by different topics.
 
 import { Aside } from "@astrojs/starlight/components";
 
-Organize your media items by using categories to group them by topic. For example, you can create categories like "Theology", 
-"Christian Living," and "Kids."
+Organize your media items by using categories to group them by topic. For example, you can create categories like "Theology",
+"Christian Living," and "Kids." Categories can optionally reference an `image` that represents the category visually.
 
 Users can filter search results by these categories, making it easier to find relevant content. 
 Categories can also be used for generating a gallery of media items on the homepage.
-Categories show up on the search result items.
+Categories show up on the search result items and, when an image is present, the image is displayed in layouts such as
+`image-grid`.
 
 Here is an example of a category:
 
@@ -34,5 +35,13 @@ type: `string` \
 example: `"x.category.theology"` \
 required: `true`
 
-The label is a the name of the category that shows up on the UI. The label can either be a fixed string or a translation key 
+The label is the name of the category that shows up on the UI. The label can either be a fixed string or a translation key
 to support multiple locales.
+
+### image
+
+type: `string` \
+required: `false`
+
+Path to an image representing the category. When present the `CategoriesSection` component can render the categories in an
+`image-grid` layout to showcase these images.
