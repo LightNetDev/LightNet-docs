@@ -118,8 +118,8 @@ The video layout supports YouTube URLs, Vimeo URLs and links to mp4 files.
 
 ##### layout: "audio"
 
-The audio layout shows a details page with an embedded audio player. The audio player uses the primary content URL (first item in the media item `content` array). 
-All other content URLs are shown as additional content below the audio player. An example of an audio layout configuration is:
+The audio layout shows a details page with one audio player for each mp3 found in the media item's `content` array.
+Starting a new player stops any other playing audio and playback automatically resumes with the next mp3 when one ends. An example of an audio layout configuration is:
 
 ```json
 {
