@@ -92,13 +92,16 @@ export default defineConfig({
 						{slug: "run/monitor"}
 					]
 				},
-				{
-					label: "Resources",
+                {
+                    label: "Resources",
 					items: [
 						{slug: "resources/error-reference"},
-						{slug: "resources/versions"}
-					]
-				}
+						{slug: "resources/versions"},
+                        {slug: "resources/glossary"},
+						// {slug: "resources/original-glossary"},
+						// {slug: "resources/headers"}
+                    ]
+                }
 			],
 			plugins: process.env.CHECK_LINKS
 				? [
