@@ -8,7 +8,7 @@ import { FileTree, Aside } from "@astrojs/starlight/components";
 This chapter introduces how pages are created with LightNet. Most of the concepts presented are Astro concepts, 
 use the [Astro documentation](https://docs.astro.build/en/basics/astro-pages/) for deeper insights.
 
-## Defining Routes with the Pages Folder
+## Defining routes with the pages folder
 
 Routes on your site are determined by the files in the `src/pages` folder. 
 The file path directly maps to the page route. 
@@ -30,7 +30,7 @@ There are two different types of locale folders: **static** and **dynamic**. You
 Static and dynamic routes are based on [Astro's routing concept](https://docs.astro.build/en/guides/routing/).
 </Aside>
 
-### Static Locale Folder
+### Static locale folder
 
 Create separate folders for each locale, like `src/pages/en/` and `src/pages/de/`. 
 This approach allows for completely unique page structures per language.
@@ -41,7 +41,7 @@ Use static locale folders when:
 - Customizing page layouts for each locale.
 - You only need to support one language.
 
-### Dynamic Locale Folder
+### Dynamic locale folder
 
 Create a single folder for all locales, named `src/pages/[locale]/` (use exactly this name for the folder). 
 The `[locale]` placeholder is resolved by Astro during the build process, 
@@ -61,7 +61,7 @@ To access the current locale within a dynamic folder, use `Astro.currentLocale`.
 
 Use dynamic locale folders for pages with the same structure but different translations.
 
-## File Layout
+## File layout
 
 Here's a basic layout for a LightNet page file:
 
@@ -79,7 +79,7 @@ import { Page } from "lightnet/components";
 
 LightNet's `Page` component ensures consistent layout, adding headers, language selection menu, and navigation menus.
 
-### File to URL Mapping
+### File to URL mapping
 
 Each component inside the `src/pages` folder maps to an HTML file in the output directory, based on its filename:
 
