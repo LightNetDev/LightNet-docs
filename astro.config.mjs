@@ -5,7 +5,7 @@ import starlightLinksValidator from "starlight-links-validator";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://lightnet-docs.pages.dev",
+  site: "https://docs.lightnet.community",
   integrations: [
     starlight({
       title: "LightNet",
@@ -19,7 +19,7 @@ export default defineConfig({
         {
           label: "GitHub",
           icon: "github",
-          href: "https://github.com/LightNetDev/lightnet",
+          href: "https://github.com/LightNetDev/LightNet",
         },
       ],
       editLink: {
