@@ -10,7 +10,7 @@ import {Aside} from "@astrojs/starlight/components"
 LightNet enables building websites in your community's language, supporting multiple languages, including right-to-left languages.
 It is highly recommended to understand LightNet's implementation of internationalization, even if you're supporting just one language.
 
-## Two Layers of Language
+## Two layers of language
 
 LightNet sites have two layers of language (which may be identical):
 
@@ -44,7 +44,7 @@ export default defineConfig({
 });
 ```
 
-### Language Configuration Properties
+### Language configuration properties
 
 - **`code`**: The language identifier using [IETF BCP-47 tags](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish). 
   [This tool](https://r12a.github.io/app-subtags/), google or chat-gpt might be helping you with this.
@@ -52,13 +52,13 @@ export default defineConfig({
 - The **`isDefaultSiteLanguage`** is the primary site language for visitors and the fallback for translations. Exactly one language must be set as default.
 - Additional site languages can be defined by setting `isSiteLanguage` to `true`.
 
-## Route Localization
+## Route localization
 
 Every page of a LightNet site is available for all configured site languages. To enable this 
 all page routes start with a `locale`. The locale references the `code` defined in the languages config. For example 
 an English About page could be available on `https://your.site/en/about`.
 
-## Translating Pages in LightNet
+## Translating pages in LightNet
 
 To implement translations, LightNet uses translation keys that are mapped to translation values based on the current locale. 
 A translation key is used inside an Astro component like this:
@@ -73,7 +73,7 @@ It maps the translation key to the value based on the current locale, derived fr
 The translate function is implemented by using the external library i18next. Checkout the [i18next docs](https://www.i18next.com/) to learn 
 how they support plurals, context, interpolation...
 
-### Translation Files
+### Translation files
 
 Translations are stored in `src/translations/`, with one file per site language named `[language-code].yml`.
 This is how the english translation file of our example above could look like:
@@ -98,7 +98,7 @@ translations](https://github.com/LightNetDev/LightNet/tree/main/packages/lightne
 
 By convention all of LightNet's built-in translation keys start with `ln.`. You should start your custom translation keys with `x.`. 
 
-### Translation Resolution Order
+### Translation resolution order
 
 LightNet resolves translation keys in the following order:
 

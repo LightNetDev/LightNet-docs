@@ -27,7 +27,7 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Start Here",
+          label: "Start here",
           items: [
             { slug: "start-here/getting-started" },
             { slug: "start-here/essential-skills" },
@@ -46,7 +46,7 @@ export default defineConfig({
           items: [
             { slug: "build/astro" },
             {
-              label: "Global Configuration",
+              label: "Global configuration",
               items: [
                 { slug: "build/configuration/initialize-configuration" },
                 { slug: "build/configuration/set-logo" },
@@ -87,7 +87,7 @@ export default defineConfig({
           ],
         },
         {
-          label: "Add Content",
+          label: "Add content",
           items: [
             { slug: "content/fundamentals" },
             { slug: "content/media-items" },
