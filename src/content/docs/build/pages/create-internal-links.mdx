@@ -47,9 +47,12 @@ if(!mediaItem) {
 
 Returns the localized path to the search page including preset filters.
 
-- `locale`: The current locale as provided by `Astro.currentLocale`
-- `query` (optional): Sets filters for the search page. Supported options are:
-    - `category` (optional): Filter for a category identifier.
+ - `locale`: The current locale as provided by `Astro.currentLocale`
+ - `query` (optional): Sets filters for the search page. Supported options are:
+     - `category` (optional): Filter for a category identifier.
+     - `type` (optional): Filter for a media type identifier.
+     - `language` (optional): Filter for a content language.
+     - `search` (optional): Prefill the search input with a search term.
 
 Example code that creates an anchor link to the search page filtered by the category `kids`.
 
