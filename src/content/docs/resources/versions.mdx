@@ -1,8 +1,37 @@
 ---
 title: Versions
+description: Current LightNet package versions that these docs are verified against, plus tips to check and update your project.
 ---
 
-The docs are up to date with the following versions:
+import { Aside } from "@astrojs/starlight/components"
 
-- `lightnet:3.9.0`
-- `@lightnet/decap-admin:3.1.2` 
+These docs are verified against the following package versions:
+
+| Package | Version |
+| --- | --- |
+| `lightnet` | `3.9.0` |
+| `@lightnet/decap-admin` | `3.1.2` |
+
+## Check your project
+
+Run the following command in your project directory to see your installed versions:
+
+```bash
+npm ls lightnet @lightnet/decap-admin
+```
+
+If a package is missing from the tree, check `package.json` to see whether it is listed as a dependency.
+
+## If your versions differ
+
+- Minor and patch updates are generally safe. For guidance, see [Update your site](/run/update/).
+- Major updates may include breaking changes. Review the [LightNet release notes](https://github.com/lightnetdev/lightnet/releases) before upgrading.
+
+<Aside>
+LightNet follows Semantic Versioning. You can usually update to the latest minor and patch release without breaking your site, 
+but major releases may require changes to your project.
+</Aside>
+
+## When reporting issues
+
+Include your `lightnet` and `@lightnet/decap-admin` versions (from `npm ls`) so we can help more quickly.
