@@ -30,7 +30,7 @@ export default defineConfig({
           label: "Start here",
           items: [
             { slug: "start-here/getting-started" },
-            { slug: "start-here/helpful-skills" },
+            { slug: "start-here/recommended-skills" },
           ],
         },
         {
