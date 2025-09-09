@@ -8,17 +8,16 @@ import { Aside } from "@astrojs/starlight/components"
 Use `SearchInput` when you want a simple, single-field search anywhere on a page. 
 When a user submits a term, they are redirected to the search page with the query applied.
 
-<Aside>
-Submitting the form navigates to the localized search page and pre-fills the query. 
-To build links to the search page with preset filters from code, use `searchPagePath` from `lightnet/utils`. See
-"Create internal links".
-</Aside>
-
 ## Behavior
 
 - Submitting a term navigates to the search page with that term applied.
 - Honors the current locale so results open at the localized search route.
 - Can be placed anywhere in a page layout (e.g., hero, or within a section).
+
+<Aside type="tip">
+ To build links to the search page with preset filters from code, use `searchPagePath` from `lightnet/utils`. See
+[Create internal links](/build/pages/create-internal-links).
+</Aside>
 
 ## Reference
 
