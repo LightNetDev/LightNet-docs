@@ -54,11 +54,11 @@ Returns the localized path to the search page including preset filters.
      - `language` (optional): Filter for a content language.
      - `search` (optional): Prefill the search input with a search term.
 
-Example code that creates an anchor link to the search page filtered by the category `kids`.
+Example code that creates an anchor link to the search page filtered by the category `children`.
 
 ```astro
 ---
 import { searchPagePath } from "lightnet/utils"
 ---
-<a href={searchPagePath(Astro.currentLocale, {category: "kids"})}>Search page</a>
+<a href={searchPagePath(Astro.currentLocale, {category: "children"})}>Search page</a>
 ```
