@@ -36,6 +36,14 @@ required: `false`
 
 The title of the section. Is displayed above the section content.
 
+### `titleHref`
+
+type: `string` \
+example: `"/en/books"` \
+required: `false`
+
+Makes the section title a link to the provided URL. Useful for linking to pages with more content.
+
 ### `maxWidth`
 
 type: `"wide" | "narrow"` \
@@ -70,16 +78,6 @@ Sets the spacing between the section and the element above. Possible are the fol
 - `sm`: small spacing. Used on the details page.
 - `lg`: large spacing. Used on the homepage.
 - `none`: no spacing.
-
-### `disableHorizontalPadding`
-
-type: `boolean`\
-example: `true`\
-required: `false`\
-default: `false`
-
-Set to `true`, to remove padding from the left and right side of the section content.
-This setting will not apply to the section title.
 
 ### `className`
 

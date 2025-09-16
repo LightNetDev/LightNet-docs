@@ -1,0 +1,34 @@
+---
+title: Add a SearchInput
+description: Add a simple search field that redirects to the search page on submit.
+---
+
+import { Aside } from "@astrojs/starlight/components"
+
+Use `SearchInput` when you want a simple, single-field search anywhere on a page. 
+When a user submits a term, they are redirected to the search page with the query applied.
+
+## Behavior
+
+- Submitting a term navigates to the search page with that term applied.
+- Honors the current locale so results open at the localized search route.
+- Can be placed anywhere in a page layout (e.g., hero, or within a section).
+
+<Aside type="tip">
+ To build links to the search page with preset filters from code, use `searchPagePath` from `lightnet/utils`. See
+[Create internal links](/build/pages/create-internal-links).
+</Aside>
+
+## Reference
+
+The `SearchInput` component focuses on behavior rather than configuration and works without props.
+These optional props cover common needs:
+
+### `className`
+
+type: `string` \
+example: `"mt-4"` \
+required: `false`
+
+Additional css classes, separated by spaces, to style the input For example set this to `"max-w-md"` if you want to 
+constraint the maximum width.

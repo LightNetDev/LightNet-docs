@@ -30,7 +30,7 @@ export default defineConfig({
           label: "Start here",
           items: [
             { slug: "start-here/getting-started" },
-            { slug: "start-here/essential-skills" },
+            { slug: "start-here/recommended-skills" },
           ],
         },
         {
@@ -78,6 +78,7 @@ export default defineConfig({
                 { slug: "build/pages/highlight-section" },
                 { slug: "build/pages/video-player" },
                 { slug: "build/pages/media-list" },
+                { slug: "build/pages/search-input" },
                 { slug: "build/pages/custom-components" },
                 { slug: "build/pages/query-media-items" },
                 { slug: "build/pages/create-internal-links" },
