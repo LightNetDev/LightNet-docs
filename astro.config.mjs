@@ -9,6 +9,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "LightNet",
+      credits: true,
       logo: {
         alt: "LightNet",
         light: "./src/assets/logo-light.svg",
