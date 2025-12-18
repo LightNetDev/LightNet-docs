@@ -44,16 +44,26 @@ Use the HTML underline tag.
 Use two newlines `\n\n` to create a new paragraph.
 
 ``` markdown
-And so it begins\n\nIn How to: Ollie with Integrity, learn...
+It begins.\n\nIt goes on and on.\n\nThen it ends.
 ```
 
 Do not use double space at the end of line. This is not supported.
+
+### Quotation marks
+
+Double quotes must be escaped with backslash.
+
+``` markdown
+God said \"Let there be light\".
+```
+
+Single quote and smart quotes do not need to be escaped.
 
 ### Block quotes
 Use greater-than sign.
 
 ``` markdown
-Some text\n\n> This is a famous quotation.\n\nSome more text.
+Some text.\n\n> This is a famous quotation.\n\nSome more text.
 ```
 
 ### Headings
@@ -89,18 +99,8 @@ Steps:\n\n1. Start\n   1. Continue\n2. More to do\n\nDone.
 
 ### Hyperlinks
 ``` markdown
-Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16 "John 3:16")
+Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16 \"John 3:16\")
 ```
-
-### Quotation marks
-
-Double quotes must be escaped with backslash.
-
-``` markdown
-God said \"Let there be light\".
-```
-
-Single quote and smart quotes do not need to be escaped.
 
 ### Other Markdown is not supported
 Do not use other Markdown in the description text such as HTML tags (except for underline), soft line breaks, images, horizontal rules, code blocks, tables, task lists and so on.
