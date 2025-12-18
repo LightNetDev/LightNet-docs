@@ -1,0 +1,107 @@
+---
+title: Markdown support
+---
+
+This page specifies Markdown support in LightNet.
+
+## Text based pages
+
+Text based pages may generally use any Markdown feature. See [Create an about page](/build/pages/about-page).
+
+## Media item description text
+
+The [description](/content/media-items/#description) text in Media Items supports only the Markdown features listed below. 
+- Bold
+- Italics
+- Underline
+- Paragraphs
+- Block quotes
+- Headings
+- Unordered lists
+- Numbered lists
+- Hyperlinks
+- Quotation marks
+
+### Bold
+Use two asterisks.
+
+``` markdown
+In **How to: Ollie with Integrity**, learn...
+```
+
+Do not use underscores `__text__`. This is not supported.
+
+### Italics
+Use one asterisk.
+
+``` markdown
+In *How to: Ollie with Integrity*, learn...
+```
+
+### Underline
+Use the HTML underline tag
+``` markdown
+In <u>How to: Ollie with Integrity</u>, learn...
+```
+
+### Paragraphs
+Use two newlines `\n\n` to create a new paragraph.
+
+``` markdown
+And so it begins\n\nIn How to: Ollie with Integrity, learn...
+```
+
+Do not use double space at the end of line. This is not supported.
+
+### Block quotes
+Use greater-than sign.
+
+``` markdown
+Maintain your Christian \n\n> values while pursuing your skateboarding passion.\n\nThis book offers:\n\n
+```
+
+### Headings
+
+Use hash for Headers H1 through H6.
+Example for Header 3 using three hashes:
+``` markdown
+### Christian values
+```
+
+### Unordered lists
+
+``` markdown
+This book offers:\n\n* Tips\n* Advice\n* Encouragement\n\nIt's great.
+```
+
+#### Nested unordered lists
+Use two spaces to indent nested items.
+
+``` markdown
+This book offers:\n\n* Tips\n  * Advice\n* Encouragement\n\nIt's great.
+```
+
+### Numbered lists
+``` markdown
+This book offers:\n\n1. Tips\n2. Advice\n3. Encouragement\n\nIt's great.
+```
+#### Nested numbered lists
+``` markdown
+Steps:\n\n1. Start\n   1. Continue\n2. More to do\n\nDone."
+
+### Hyperlinks
+``` markdown
+Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16 "John 3:16")
+```
+
+### Quotation marks
+
+Double quotes must be escaped with backslash.
+
+``` markdown
+He said \"Let there be light\".
+```
+
+Single quote and smart quotes do not need to be escaped.
+
+

@@ -115,6 +115,7 @@ export default defineConfig({
           label: "Resources",
           items: [
             { slug: "resources/error-reference" },
+            { slug: "resources/supported-markdown" },
             { slug: "resources/versions" },
           ],
         },
