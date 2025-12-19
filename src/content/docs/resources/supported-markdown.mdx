@@ -4,13 +4,13 @@ title: Markdown support
 
 This page specifies Markdown support in LightNet.
 
-## Text based pages
+## Text-based pages
 
-Text based pages may generally use any Markdown feature. See [Create an about page](/build/pages/about-page).
+Text-based pages may use any Markdown feature. See [Create an about page](/build/pages/about-page).
 
 ## Media item description text
 
-The [description](/content/media-items/#description) text in Media Items supports only the Markdown features listed below. 
+The [description](/content/media-items/#description) text in Media Items supports only these Markdown features: 
 - Bold
 - Italics
 - Underline
@@ -22,30 +22,38 @@ The [description](/content/media-items/#description) text in Media Items support
 - Hyperlinks
 - Quotation marks 
 
-### No Markdown
-It is not a requirement that the description text contain anything beyond basic text.
-The sample code demonstrates how to declare a description in the Media Item JSON file.
+The example code below demonstrates how to declare a description.
+Inside a the Media Item JSON file the Markdown must be on a single line enclosed in double quotes.
 
 ``` markdown
-"description": "This is a plain text sample."
+"description": "This is a paragraph.\n\nThis is a second paragraph."
+```
+
+The examples below show the syntax for each supported Markdown feature.
+
+### No Markdown
+It is not a requirement that the description text contain anything other than basic text.
+
+``` markdown
+This is a plain text example.
 ```
 
 ### Bold
 ``` markdown
-**double asterisks**
+This is **bold** text.
 ```
 
 Do not use underscores `__text__`. This is not supported.
 
 ### Italics
 ``` markdown
-*single asterisks*
+This is *italicized* text.
 ```
 
 ### Underline
 Use the HTML underline tag.
 ``` markdown
-<u>underlined text</u>
+This is <u>underlined</u> text.
 ```
 
 ### Paragraphs
@@ -58,26 +66,25 @@ It begins.\n\nIt goes on and on.\n\nThen it ends.
 Do not use double space at the end of line. This is not supported.
 
 ### Quotation marks
-
-Double quotes must be escaped with backslash.
+The description text is enclosed in double quotes within the Media Item JSON file.
+Double quotes to be displayed to the user must be escaped with backslash.
 
 ``` markdown
-God said \"Let there be light\".
+God said, \"Let there be light\".
 ```
 
-Single quote and smart quotes do not need to be escaped.
+Single quotes and smart quotes do not need to be escaped.
 
 ### Block quotes
-Use greater-than sign.
+Use greater-than sign to start a block quote.
 
 ``` markdown
 Some text.\n\n> This is a famous quotation.\n\nSome more text.
 ```
 
 ### Headings
-
-Use hash for Headers H1 through H6.
-Example for Header 3 using three hashes:
+Use hash for Heading 1 through Heading 6.
+Example for Heading 3 using three hashes:
 ``` markdown
 ### Christian values
 ```
@@ -95,20 +102,39 @@ Use two spaces to indent nested items.
 This book offers:\n\n* Tips\n  * Advice\n* Encouragement\n\nIt's great.
 ```
 
+Do not use four spaces to indent nested items. This is not supported.
+
 ### Numbered lists
 ``` markdown
 This book offers:\n\n1. Tips\n2. Advice\n3. Encouragement\n\nIt's great.
 ```
 
 #### Nested numbered lists
+Use two spaces to indent nested items.
+
 ``` markdown
 Steps:\n\n1. Start\n   1. Continue\n2. More to do\n\nDone.
 ```
 
+Do not use four spaces to indent nested items. This is not supported.
+
 ### Hyperlinks
+Hyperlinks are composed of a URL and Anchor text.
+The URL is enclosed in parentheses.
+The Anchor text, which is displayed to the user, is enclosed in square brackets.
+
 ``` markdown
-Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16 \"John 3:16\")
+Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16)
+```
+
+Optionally provide a Link title to provide supplemental information to the user about the URL.
+This is displayed to the user as a tooltip for users on personal computers. 
+It is not visible to users on mobile phones.
+The Link title is enclosed in escaped double quotes within the parenthesis after the URL and a space character. 
+
+``` markdown
+Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16 \"Opens the NIV translation on Bible.com\")
 ```
 
 ### Other Markdown is not supported
-Do not use other Markdown in the description text such as HTML tags (except for underline), soft line breaks, images, horizontal rules, code blocks, tables, task lists and so on.
+Do not use other Markdown in the description text such as HTML tags (except for underline), soft line breaks, images, horizontal rules, code blocks, tables, or task lists.
