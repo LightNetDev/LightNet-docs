@@ -20,10 +20,11 @@ The [description](/content/media-items/#description) text in Media Items support
 - Unordered lists
 - Numbered lists
 - Hyperlinks
-- Quotation marks 
+- Quotation marks
+- Special characters 
 
 The example code below demonstrates how to declare a description.
-Inside a the Media Item JSON file the Markdown must be on a single line enclosed in double quotes.
+Inside the Media Item JSON file the Markdown must be on a single line enclosed in double quotes.
 
 ``` markdown
 "description": "This is a paragraph.\n\nThis is a second paragraph."
@@ -64,16 +65,6 @@ It begins.\n\nIt goes on and on.\n\nThen it ends.
 ```
 
 Do not use double space at the end of line. This is not supported.
-
-### Quotation marks
-The description text is enclosed in double quotes within the Media Item JSON file.
-Double quotes to be displayed to the user must be escaped with backslash.
-
-``` markdown
-God said, \"Let there be light\".
-```
-
-Single quotes and smart quotes do not need to be escaped.
 
 ### Block quotes
 Use greater-than sign to start a block quote.
@@ -134,6 +125,29 @@ The Link title is enclosed in escaped double quotes within the parenthesis after
 
 ``` markdown
 Read: [John 3:16](https://www.bible.com/bible/111/jhn.3.16 \"Opens the NIV translation on Bible.com\")
+```
+
+### Quotation marks
+Because the description text is enclosed in double quotes within the Media Item JSON file, double quotes to be displayed to the user must be escaped with backslash.
+
+``` markdown
+God said, \"Let there be light\".
+```
+
+Single quotes and smart quotes do not need to be escaped.
+
+### Special characters
+These following special characters must be escaped with two backslashes in description text in the Media Item JSON file:
+- ampersand followed by a letter or number `&`
+- asterisk `*`
+- backslash `\`
+- backtick `` ` ``
+- less-than sign `<`
+- opening square bracket `[`
+- opening round bracket `(`
+
+``` markdown
+To make a smiley, type a round bracket \\( followed by a colon :
 ```
 
 ### Other Markdown is not supported
