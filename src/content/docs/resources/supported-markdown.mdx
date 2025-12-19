@@ -137,10 +137,15 @@ God said, \"Let there be light\".
 Single quotes and smart quotes do not need to be escaped.
 
 ### Special characters
+The backslash character must be escaped with another backslash in the description text in the Media Item JSON file.
+
+``` markdown
+This is a backslash \\ in the text.
+```
+
 These following special characters must be escaped with two backslashes in description text in the Media Item JSON file:
 - ampersand followed by a letter or number `&`
 - asterisk `*`
-- backslash `\`
 - backtick `` ` ``
 - less-than sign `<`
 - opening square bracket `[`
