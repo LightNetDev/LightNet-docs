@@ -57,6 +57,8 @@ Use the HTML underline tag.
 This is <u>underlined</u> text.
 ```
 
+This is the only supported HTML tag. See also [Other Markdown is not supported](#other-markdown-is-not-supported) below.
+
 ### Paragraphs
 Use two newlines `\n\n` to create a new paragraph.
 
@@ -64,7 +66,7 @@ Use two newlines `\n\n` to create a new paragraph.
 It begins.\n\nIt goes on and on.\n\nThen it ends.
 ```
 
-Do not use double space at the end of line. This is not supported.
+Soft line breaks are not supported. Do not use two spaces followed by a newline. Do not use three backslashes followed by the character n. This is not supported.
 
 ### Block quotes
 Use greater-than sign to start a block quote.
@@ -75,9 +77,9 @@ Some text.\n\n> This is a famous quotation.\n\nSome more text.
 
 ### Headings
 Use hash for Heading 1 through Heading 6.
-Example for Heading 3 using three hashes:
+Example for Heading 2 using two hashes:
 ``` markdown
-### Christian values
+## A Sub-heading
 ```
 
 ### Unordered lists
@@ -152,7 +154,7 @@ These following special characters must be escaped with two backslashes in descr
 - opening round bracket `(`
 
 ``` markdown
-To make a smiley, type a round bracket \\( followed by a colon :
+To make a sad face, type a round bracket \\( followed by a colon :
 ```
 
 ### Other Markdown is not supported
