@@ -66,7 +66,7 @@ Use two newlines `\n\n` to create a new paragraph.
 It begins.\n\nIt goes on and on.\n\nThen it ends.
 ```
 
-Soft line breaks are not supported. Do not use two spaces followed by a newline. Do not use three backslashes followed by the character n. This is not supported.
+Soft line breaks are not supported. Do not use three backslashes followed by the character n. This is not supported.
 
 ### Block quotes
 Use greater-than sign to start a block quote.
@@ -146,16 +146,23 @@ This is a backslash \\ in the text.
 ```
 
 These following special characters must be escaped with two backslashes in description text in the Media Item JSON file:
-- ampersand followed by a letter or number `&`
+- ampersand followed by a letter or number, such as the letter p `&p`
 - asterisk `*`
 - backtick `` ` ``
 - less-than sign `<`
 - opening square bracket `[`
-- opening round bracket `(`
 
 ``` markdown
-To make a sad face, type a round bracket \\( followed by a colon :
+This is an asterisk \\* in the text.
 ```
+
+Some people familiar with Markdown in JSON might expect otherwise, but these are special characters that do **not** need to be escaped:
+- ampersand followed by a space `& `
+- exclamation mark `!`
+- hash `#`
+- opening round bracket `(`)
+- underscore `_`
+
 
 ### Other Markdown is not supported
 Do not use other Markdown in the description text such as HTML tags (except for underline), soft line breaks, images, horizontal rules, code blocks, tables, or task lists.
