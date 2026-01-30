@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
+import starlightLlmsTxt from "starlight-llms-txt";
 
 // https://astro.build/config
 export default defineConfig({
@@ -119,13 +120,101 @@ export default defineConfig({
           ],
         },
       ],
-      plugins: process.env.CHECK_LINKS
-        ? [
-            starlightLinksValidator({
-              errorOnLocalLinks: false,
-            }),
-          ]
-        : [],
+      plugins: [
+        starlightLlmsTxt({
+          projectName: "LightNet Developer Docs",
+          description:
+            "Developer documentation for LightNet, an Astro-based integration for building static media library sites.",
+          details: `LightNet uses static site generation (SSG) to turn structured content into a fast, secure media library. It is built on Astro and provides prebuilt layouts, components, and tooling for media sites.
+
+Use these docs to learn how to set up a project, configure the LightNet integration, build pages and components, structure content collections (JSON files under src/content), add i18n, and deploy and operate a site.
+
+Recommended reading order:
+- Start with “Getting started”.
+- Review architecture and Astro foundations.
+- Use the configuration reference for exact option shapes.
+- Follow the pages and content sections for building your media library.`,
+          optionalLinks: [
+            {
+              label: "LightNet homepage",
+              url: "https://lightnet.community",
+              description: "High-level overview and community entry point.",
+            },
+            {
+              label: "LightNet GitHub repository",
+              url: "https://github.com/LightNetDev/LightNet",
+              description: "Core LightNet source code and issues.",
+            },
+            {
+              label: "Example template",
+              url: "https://github.com/LightNetDev/example-template",
+              description: "Starter project used in the Getting started guide.",
+            },
+          ],
+          customSets: [
+            {
+              label: "Start here",
+              description: "Project setup and onboarding for new users.",
+              paths: ["start-here/**"],
+            },
+            {
+              label: "Concepts",
+              description: "Architecture, structure, and collaboration concepts.",
+              paths: ["concepts/**"],
+            },
+            {
+              label: "Build",
+              description:
+                "Astro foundations, configuration, pages, and i18n.",
+              paths: ["build/**"],
+            },
+            {
+              label: "Content",
+              description:
+                "Content collections, media metadata, and admin UI.",
+              paths: ["content/**"],
+            },
+            {
+              label: "Deploy",
+              description: "Hosting, search engines, and file storage.",
+              paths: ["deploy/**"],
+            },
+            {
+              label: "Run",
+              description: "Updates and monitoring.",
+              paths: ["run/**"],
+            },
+            {
+              label: "Resources",
+              description: "Error reference and version information.",
+              paths: ["resources/**"],
+            },
+          ],
+          promote: [
+            "start-here/getting-started",
+            "concepts/architecture",
+            "build/astro",
+            "build/configuration/initialize-configuration",
+            "build/configuration/reference",
+            "content/fundamentals",
+          ],
+          demote: ["resources/versions", "resources/error-reference"],
+          exclude: ["resources/versions", "resources/error-reference"],
+          minify: {
+            note: false,
+            tip: false,
+            details: true,
+            whitespace: true,
+          },
+        }),
+        ...(process.env.CHECK_LINKS
+          ? [
+              starlightLinksValidator({
+                errorOnLocalLinks: false,
+              }),
+            ]
+          : []),
+      ],
     }),
   ],
   redirects: {
