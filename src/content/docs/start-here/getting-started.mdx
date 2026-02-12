@@ -7,20 +7,30 @@ import { Steps, Aside } from "@astrojs/starlight/components";
 
 Welcome to the LightNet Developer Documentation! 
 This guide will walk you through creating your first LightNet project. 
-Not sure what LightNet is all about? [Visit the LightNet homepage](https://lightnet.community).
+
+Not sure what LightNet is all about? Visit the [LightNet homepage](https://lightnet.community).
 
 ## Requirements
 
 Before starting, ensure the following are installed on your machine:
 
-- **Node.js** (version 22 or higher) - [Download Node.js](https://nodejs.org)
+- **Node.js** (version 22 or higher) - [Download Node.js](https://nodejs.org/en/download)
+- **npm** (comes bundled with Node)
 - **Git** - [Download Git](https://git-scm.com)
 - **Text Editor** - We recommend [Visual Studio Code](https://code.visualstudio.com/) with the official [Astro extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode).
 
-To verify your installations, run the following commands in your terminal:
+<Aside type="note">
+The commands on this page should be run in a terminal.
+- On **macOS** or **Linux**, you can use the built-in **Terminal** app.
+- On **Windows**, use **PowerShell** (or **Windows Terminal**, if you prefer).
+- If you are working inside **Visual Studio Code**, you may use its built-in terminal.
+</Aside>
+
+To verify your installations, run the following commands:
 
 ```bash
 node --version
+npm --version
 git --version
 ```
 
@@ -31,23 +41,23 @@ If these commands return version numbers, you're ready to go!
 We recommend starting with the [example-template](https://github.com/LightNetDev/example-template), a prebuilt template that showcases LightNet's 
 features for a fictional skateboard ministry. It's a great starting point for learning how to structure your media library.
 
-To create a local copy of the project -  navigate your terminal to a folder where you would like to create the copy and run:
+To create a local copy of the project in a folder named **my-project** - navigate your terminal to a folder where you would like to create the copy. 
+You may replace **my-project** in the command below with whatever name you want for your project directory. 
+Run the command:
 
 ```bash
-npm create astro@latest -- --template LightNetDev/example-template
+npm create astro@latest my-project -- --template LightNetDev/example-template
 ```
 
-This starts [Astro's](https://docs.astro.build/) `create astro` command - which lets you:
-
-
-- Choose a location for your project. This creates the folder for your project and also set its name.
-- Install its dependencies (`Yes`).
-- Initialize a Git repository (`Yes`).
+This starts [Astro's](https://docs.astro.build/) `create astro` command which:
+- Creates the folder for your project using the name you chose (`my-project`).
+- Installs its dependencies (`Yes`).
+- Initializes a Git repository (`Yes`).
 
 Once finished, navigate into your project folder:
 
 ```bash
-cd your-project-folder
+cd my-project
 ```
 
 ## 2. Run the development server
