@@ -15,7 +15,8 @@
     "pkce",
     "seti",
     "Subtag",
-    "Über"
+    "Über",
+    "sveltia"
   ],
   "ignorePaths": [
     ".vscode",
