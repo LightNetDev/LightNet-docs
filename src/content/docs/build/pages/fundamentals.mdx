@@ -56,7 +56,7 @@ export { getLocalePaths as getStaticPaths } from "lightnet/i18n";
 ```
 
 <Aside type="tip">
-To access the current locale within a dynamic folder, use `Astro.currentLocale`.
+To access the current locale within a dynamic folder, use `Astro.locals.i18n.currentLocale`.
 </Aside>
 
 Use dynamic locale folders for pages with the same structure but different translations.
@@ -91,4 +91,3 @@ Each component inside the `src/pages` folder maps to an HTML file in the output 
 Notice how Astro generates `index.html` files. Browsers serve `index.html` when accessing a folder path. 
 This simplifies URLs (e.g., `https://your.site/en/about` instead of `https://your.site/en/about.html`).
 </Aside>
-
