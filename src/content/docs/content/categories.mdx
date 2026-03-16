@@ -16,7 +16,9 @@ Here is an example of a category:
 
 ```json title="src/content/categories/theology.json"
 {
-  "label": "x.category.theology",
+  "label": {
+    "en": "Theology"
+  },
   "image": "./images/theology.png"
 }
 ```
@@ -31,12 +33,11 @@ A category is a JSON file that describes a category. The category identifier is 
 
 ### label
 
-type: `string` \
-example: `"x.category.theology"` \
+type: `object` \
+example: `{ "en": "Theology" }` \
 required: `true`
 
-The label is the name of the category that shows up on the UI. The label can either be a fixed string or a translation key
-to support multiple locales.
+The label is the name of the category that shows up on the UI. Provide a locale map keyed by your configured site languages.
 
 ### image
 
