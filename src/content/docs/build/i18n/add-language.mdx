@@ -22,10 +22,10 @@ Follow these steps to add a new site language to your LightNet project:
     ```
     See the [Languages content reference](/content/languages) for more details on this collection.
 1. **Create a translations file**: Add a file in `src/translations` named after your language code, for example `src/translations/de.yml`.
-1. **Check built-in LightNet translations**: Inspect LightNet's [built-in translations on GitHub](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations) and look for a file named `[your language code].yml`.
+1. **Check built-in LightNet translations**: Inspect LightNet's [built-in translations on GitHub](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations) and look for a file named `[your-language-code].yml`.
    - If no such file exists, LightNet does not yet provide built-in translations for that language.
    - If the file exists, check the [translation status](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/TRANSLATION-STATUS.md) to see whether any keys are still missing.
-1. **Add missing built-in translations to your project**: If your language is not built in yet, or if the built-in translation file is incomplete, copy the missing keys from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) into your project translation file and translate the values.
+1. **Add missing built-in translations to your project**: If your language is not built in yet, or if the built-in translation file is incomplete, copy the missing keys from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) into your project translation file and translate those values.
 1. **Add your custom translation keys**: If your project already uses custom translation keys in other locale files, add translated values for those keys to the new file as well.
 1. **Add the language to your config**: Add the new language to the `siteLanguages` array in `astro.config.mjs`.
     ```js title="astro.config.mjs" ins={5-8}

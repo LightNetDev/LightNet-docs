@@ -29,7 +29,7 @@ type: `object` \
 example: `{ en: "My Library" }` \
 required: `true`
 
-The title of your site. For example shown on the the header bar.
+The title of your site. For example, it is shown in the header bar.
 Provide a locale map keyed by your configured site languages. The default site locale is required.
 
 ### `siteLanguages`
@@ -47,7 +47,7 @@ example: `"en"` \
 required: `true`
 
 The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code is used as the language's identifier.
-It must reference an existing language file from `src/content/languages/{bcp47}.json` (without .json)
+It must reference an existing language file from `src/content/languages/{bcp47}.json` without the `.json` extension.
 
 #### siteLanguages: `isDefault`
 
@@ -76,7 +76,7 @@ type: `object` \
 example: `{ src: "./src/assets/logo.png" }` \
 required: `false`
 
-The logo of your site to be shown in the header bar next to the site title.
+The logo of your site, shown in the header bar next to the site title.
 
 #### logo: `src`
 
@@ -85,7 +85,7 @@ example: `"./src/assets/logo.png"` \
 required: `true`
 
 The path to the logo image. Provide a path to an image inside `src/assets`. Supported formats include `jpg`, `png`, `svg` and `webp`.  
-LightNet optimizes the image size for better performance (except for SVGs). We recommend providing an image file with a width and height of 150 pixels.
+LightNet optimizes the image size for better performance, except for SVGs. We recommend providing an image file with a width and height of 150 pixels.
 
 #### logo: `alt`
 
@@ -93,7 +93,7 @@ type: `object` \
 example: `{ en: "My Library logo" }` \
 required: `false`
 
-The alt text of the logo. This is used if the logo image is not available or if the user has disabled images, for example when using a screen reader.
+The alt text of the logo. This is used if the logo image is not available or if the user has disabled images, for example while using a screen reader.
 Provide a locale map keyed by your configured site languages.
 
 #### logo: `size`
@@ -121,7 +121,7 @@ type: `array` \
 example: `[{ rel: "icon", href: "favicon.ico" }]` \
 required: `false`
 
-The favicon of your site. Favicon is a small icon displayed in the browser tab and bookmarks.
+The favicon of your site. A favicon is a small icon displayed in the browser tab and bookmarks.
 
 LightNet's API supports multiple favicon formats. Each entry in the `favicon` array maps to an HTML `<link>` element. For example:
 
@@ -158,7 +158,7 @@ type: `string` \
 example: `"/favicon.svg"` \
 required: `true`
 
-Reference the favicon. This must be a path to an image inside the `public/` directory.
+The path to the favicon. This must point to an image inside the `public/` directory.
 
 #### favicon: `rel`
 
@@ -167,7 +167,7 @@ example: `"icon"` \
 required: `false` \
 default: `"icon"`
 
-This sets the rel attribute of the favicon.
+This sets the `rel` attribute of the favicon.
 Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-rel) for more information.
 
 #### favicon: `sizes`
@@ -176,7 +176,7 @@ type: `string` \
 example: `"32x32"` \
 required: `false`
 
-This sets the sizes attribute of the favicon.
+This sets the `sizes` attribute of the favicon.
 Refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-sizes) for more information.
 
 ### `manifest`
@@ -208,7 +208,7 @@ type: `string` \
 example: `"/about"` \
 required: `true`
 
-The link attribute of the main menu entry. The value can be an internal or an external link.
+The link target of the main menu entry. The value can be an internal or an external link.
 Internal links are automatically prefixed with the current locale.
 
 #### mainMenu: `label`
@@ -229,7 +229,7 @@ default: `true`
 Internal links are by default prefixed with the current locale (e.g., `/media` becomes `/en/media` for English).  
 To disable this, set `requiresLocale` property to `false`.
 
-You don't need to set this option for external links (e.g. https://wikipedia.org) since they won't be prefixed anyways.
+You do not need to set this option for external links such as `https://wikipedia.org`, since they will not be prefixed anyway.
 
 ### `internalDomains`
 
@@ -237,7 +237,7 @@ type: `array` \
 example: `[ "files.your-domain.com" ]` \
 required: `false`
 
-The internal domains of the site. This is used to determine if an URL is internal or external.
+The internal domains of the site. This is used to determine whether a URL is internal or external.
 
 For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
 A link to `https://files.your-domain.com/file.pdf` won't be treated as an external link.

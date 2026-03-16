@@ -3,7 +3,7 @@ title: Create internal links
 description: How to use internal links on your media library.
 ---
 
-This chapter guides you on how to create internal links to your pages.
+This chapter explains how to create internal links to your pages.
 
 When creating internal links, make sure you always add the locale in front of the link.
 For example this is how you can create a link to the about page inside an Astro component using JavaScript template strings:
@@ -12,7 +12,7 @@ For example this is how you can create a link to the about page inside an Astro 
 `/${Astro.locals.i18n.currentLocale}/about`
 ```
 
-Additionally LightNet offers utility functions inside `lightnet/utils` to create paths:
+LightNet also provides utility functions in `lightnet/utils` for creating paths:
 
 - `detailsPagePath`: To build the localized path to a media item's details page
 - `searchPagePath`: To build the localized path to the search page including preset filters.
@@ -27,7 +27,7 @@ Returns the localized path to a media item's details page.
 - `mediaItem`: A media item as provided by [Astro's getEntry, getCollection](https://docs.astro.build/en/guides/content-collections/#querying-collections) 
     or LightNet's [getMediaItems](/build/pages/query-media-items).
 
-Example code, that creates an anchor link to a media item's details page:
+Example code that creates an anchor link to a media item's details page:
 
 ```astro
 ---
@@ -55,7 +55,7 @@ Returns the localized path to the search page including preset filters.
      - `language` (optional): Filter for a content language.
      - `search` (optional): Prefill the search input with a search term.
 
-Example code that creates an anchor link to the search page filtered by the category `children`.
+Example code that creates an anchor link to the search page filtered by the category `children`:
 
 ```astro
 ---

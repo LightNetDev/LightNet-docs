@@ -4,14 +4,14 @@ title: Query media items
 
 import { Aside } from "@astrojs/starlight/components"
 
-For components like the `MediaGallerySection` or the `MediaList` you need a selection
-of media items. There are three different ways how to create a selection. 
+For components like `MediaGallerySection` or `MediaList`, you need a selection
+of media items. There are three different ways to create that selection.
 
 - **getEntry**: Astro function to load a single item of an Astro content collection.
 - **getCollection**: Astro function to filter items of an Astro content collection.
 - **getMediaItems**: LightNet function to simplify filtering media items.
 
-Here are examples for creating a selection of media items.
+Here are examples of how to create a selection of media items.
 
 ## Create a selection by media item IDs
 
@@ -27,8 +27,8 @@ const items = [
 ```
 
 This example creates a selection of two media items by their identifiers using Astro's `getEntry`.
-Find more information on `getEntry` and `getCollection` 
-on the [Astro docs on content collections](https://docs.astro.build/en/guides/content-collections/#querying-collections).
+Find more information about `getEntry` and `getCollection`
+in the [Astro docs on content collections](https://docs.astro.build/en/guides/content-collections/#querying-collections).
 
 ## Create a selection using `getMediaItems`
 
@@ -44,8 +44,8 @@ const items = await getMediaItems({
 ---
 ```
 
-The `getMediaItems` function helps to query media items. It takes a sql-like query object as an argument. 
-The example filters for all media items that have the media-type `book` and the language `en`. 
+The `getMediaItems` function makes it easier to query media items. It takes an SQL-like query object as an argument.
+The example filters for all media items that have the media type `book` and the language `en`.
 It orders them by the date they were created (newest first) and limits the result to 10 items.
 
 <Aside type="tip">
@@ -55,7 +55,7 @@ You can use Astro's `Astro.locals.i18n.currentLocale` to query media items match
 
 ## Reference
 
-The `getMediaItems` function accepts this parameters:
+The `getMediaItems` function accepts these parameters:
 
 ### `where`
 
@@ -63,7 +63,7 @@ type: `Object` \
 example: `{ type: "book" }` \
 required: `false`
 
-Defines the attributes of the media items to be returned. Only media items with 
+Defines the attributes of the media items to be returned. Only media items with
 all matching attributes are returned.
 
 #### where: `type`
@@ -108,8 +108,8 @@ required: `false`
 Sets the sort order of the returned media items:
 
 - `dateCreated` - sorts based on the `dateCreated` attribute from newest to oldest.
-- `title` -  sorts based on the media item title
-- none - sorts based on the media item identifier (as defined by the content JSON file name), the order of collection items is taking precedence.
+- `title` - sorts based on the media item title.
+- none - sorts based on the media item identifier, as defined by the content JSON file name. The order of collection items takes precedence.
 
 
 ### `limit`
@@ -118,4 +118,4 @@ type: `number` \
 example: `42` \
 required: `false`
 
-Sets the maximum amount of media items to be returned.
+Sets the maximum number of media items to return.

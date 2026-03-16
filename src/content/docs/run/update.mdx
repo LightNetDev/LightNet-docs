@@ -20,11 +20,10 @@ Keep your media library up to date by following these steps:
     ```
     This updates your dependencies to the latest version according to the [version specifiers](https://docs.npmjs.com/cli/v8/commands/npm-update) 
     inside `package.json`.
-4.  There are changes that are not updated automatically, so called major releases (first position of the version number is increased). 
-    Major releases might **break their compatibility** with your project. LightNet depends on other packages e.g. Astro and Tailwind CSS. 
-    You must not major update these dependencies unless the LightNet release notes tell you to do so. The LightNet project will follow their 
-    release and introduce major updates from time to time. If there is a new major LightNet release do the following:
-    1. Update your project to latest LightNet major release: Inside `package.json` change the version numbers to match the latest LightNet version. Keep the `^` suffix 
+4. There are changes that are not updated automatically, namely major releases, where the first part of the version number increases.
+    Major releases might **break compatibility** with your project. LightNet depends on other packages such as Astro and Tailwind CSS.
+    You should not update these dependencies to a new major version unless the LightNet release notes tell you to do so. The LightNet project follows those upstream releases and introduces major updates from time to time. If there is a new major LightNet release, do the following:
+    1. Update your project to the latest LightNet major release: inside `package.json`, change the version numbers to match the latest LightNet version. Keep the `^` suffix
         to support minor and patch updates with `npm update`.
     1. Install the updated LightNet dependencies:
         ```bash
@@ -36,6 +35,6 @@ Keep your media library up to date by following these steps:
 </Steps>
 
 <Aside>
-LightNet follows [Semantic Versioning](https://semver.org/). This means you can update your dependencies to the latest minor 
+LightNet follows [Semantic Versioning](https://semver.org/). This means you can update your dependencies to the latest minor
 version without breaking your site.
 </Aside>

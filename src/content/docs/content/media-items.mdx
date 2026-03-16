@@ -1,16 +1,16 @@
 ---
 title: Media items
-description: Learn how to manage the media items of your media library
+description: Learn how to manage the media items in your media library.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
 
-Media items are the core of your media library. 
+Media items are the core of your media library.
 Each media item shows up on the search page and has its own details page.
 Use media items to describe your sermons, music, videos, and other media content.
-Each file in the `src/content/media` folder describes one media item. Every media item references 
-at least one content URL, eg. a MP3 file, a YouTube video or a PDF file.
+Each file in the `src/content/media` folder describes one media item. Every media item references
+at least one content URL, such as an MP3 file, a YouTube video, or a PDF file.
 
 Here is an example of a media item:
 
@@ -33,14 +33,14 @@ Here is an example of a media item:
 ```
 
 <Aside>
-By convention we name our files with the following pattern: `commonId--language.json`. This makes it easy to find the 
+By convention, file names follow this pattern: `commonId--language.json`. This makes it easy to find the
 media item for a specific language.
 </Aside>
 
 ## Reference
 
-A media item is a JSON file describing a media item. 
-We recommend to fill as many properties as possible to provide a good user experience.
+A media item is a JSON file that describes one media item.
+We recommend filling in as many properties as possible to provide a good user experience.
 Here is a description of the available properties.
 
 ### commonId
@@ -49,7 +49,7 @@ type: `string` \
 example: `"sermon-1"` \
 required: `false`
 
-LightNet uses the `commonId` to find translations of a media item. If your media item is available in multiple languages, 
+LightNet uses `commonId` to find translations of a media item. If your media item is available in multiple languages,
 you should create a media item for each language. In this case use the same `commonId` for all languages.
 
 ### title
@@ -66,7 +66,7 @@ type: `string`\
 example: `"en"` \
 required: `true`
 
-The content language of the media item. The language must be a BCP-47 language code like `en`, `de`, `fr`.
+The content language of the media item. The language must be a BCP-47 language code such as `en`, `de`, or `fr`.
 The language is used to filter media items by language and to display the media item correctly.
 Provide a matching language entry in `src/content/languages`.
 
@@ -77,7 +77,7 @@ example: `"video"` \
 required: `true`
 
 This property defines the media type of the media item. It references a file inside the `src/content/media-types` folder.
-For example if you have a file `src/content/media-types/book.json` you can set the the `type` property to `book`.
+For example, if you have a file `src/content/media-types/book.json`, you can set the `type` property to `book`.
 The media type is used to determine the layout of the media item details page.
 
 ### image
@@ -86,10 +86,10 @@ type: `string`\
 example: `"./images/sermon-1-en.jpg"` \
 required: `true`
 
-The path to the image file that should be used as a cover image for the media item. The image should be in the `src/content/media/images` folder.
-By convention we name our image files with the following pattern: `[commonId]--[language]`. If the image contains text, it should be in the language of the media item.
-Provided image formats include `jpg`, `png`, `webp`. The image is optimized for performance. 
-We recommend to use a image that is at least 1000px wide to ensure that it looks good on all devices.
+The path to the image file used as the cover image for the media item. The image should be in the `src/content/media/images` folder.
+By convention, image files use this pattern: `[commonId]--[language]`. If the image contains text, it should be in the media item's language.
+Supported image formats include `jpg`, `png`, and `webp`. The image is optimized for performance.
+We recommend using an image that is at least 1000px wide so it looks good on all devices.
 
 ### content
 
@@ -97,10 +97,10 @@ type: `{ type: "upload" | "link", url: string, label?: object }[]`\
 example: `[{type: "link", url: "https://www.youtube.com/watch?v=1234"}]` \
 required: `true` (at least one content object is required)
 
-This references the actual content of the media item. For example this references a video on YouTube or a file served from your server.
+This references the actual content of the media item. For example, it can point to a YouTube video or a file served from your server.
 The `content` property is an array of objects. The first object in the array is considered to be the primary content of the media item.
-The primary content is used for example with the embedded video player on the media item details page. All other content objects are considered to be additional content.
-They are displayed on the content section of the media item details page.
+The primary content is used, for example, by the embedded video player on the media item details page. All other content objects are treated as additional content.
+They are displayed in the content section of the media item details page.
 
 #### content: type
 
@@ -119,10 +119,10 @@ required: `true`
 
 Each object has a `url` property that points to the content. 
 If you want to make a file available for your media item, store it inside the `public/files` folder and reference it with the `url` property.
-For example if you have a pdf file `public/files/sermon-1.pdf` you can reference it with `url: "/files/sermon-1.pdf"`.
+For example, if you have a PDF file at `public/files/sermon-1.pdf`, you can reference it with `url: "/files/sermon-1.pdf"`.
 
 <Aside type="tip">
-For a good user experience make sure to keep your files inside `public/files` as small as possible. They won't be further optimized
+For a good user experience, keep files inside `public/files` as small as possible. They will not be further optimized
 for performance.
 </Aside>
 
@@ -147,9 +147,9 @@ type: `object`\
 example: `{ "en": "Sermon 1" }` \
 required: `false`
 
-The `label` property is optional and can be used to give a name to the content. This label is displayed on the content section of the media item details page.
-If no `label` property is provided the label is derived from the `url` property. For example if the `url` property is `"/files/sermon-1.pdf"` the label is `sermon-1`.
-If it is `"https://www.youtube.com/watch?v=1234"` the content label is `youtube.com`. When provided, use a locale map keyed by your configured site languages.
+The `label` property is optional and can be used to give the content a display name. This label appears in the content section of the media item details page.
+If no `label` property is provided, the label is derived from the `url` property. For example, if the `url` property is `"/files/sermon-1.pdf"`, the label becomes `sermon-1`.
+If it is `"https://www.youtube.com/watch?v=1234"`, the content label becomes `youtube.com`. When provided, use a locale map keyed by your configured site languages.
 
 
 ### dateCreated
@@ -158,11 +158,11 @@ type: `string`\
 example: `"2022-01-01"` \
 required: `true`
 
-The date when the media item was created in this library. The date should be in the format `YYYY-MM-DD`. 
+The date when the media item was created in this library. The date should be in the format `YYYY-MM-DD`.
 This date is used to sort the media items from newest to oldest.
 
 <Aside type="note">
-The dateCreated is when the media item was added to your LightNet media library not when it was originally published.
+`dateCreated` is the date when the media item was added to your LightNet media library, not when it was originally published.
 </Aside>
 
 ### description
@@ -180,7 +180,7 @@ type: `string[]` \
 example: `["John Doe", "Jane Doe"]` \
 required: `false`
 
-An array containing the names of the person(s)/organizations(s) that created the media item.
+An array containing the names of the people or organizations that created the media item.
 
 
 ### categories
@@ -189,5 +189,5 @@ type: `string[]`\
 example: `["sermons"]` \
 required: `false`
 
-An array containing the identifiers of the categories this media item belongs to. The category ids should match files 
-in the `src/content/categories` folder. For example if you have a file `src/content/categories/sermons.json` you can set the the `categories` property to `["sermons"]`.
+An array containing the identifiers of the categories this media item belongs to. The category IDs should match files
+in the `src/content/categories` folder. For example, if you have a file `src/content/categories/sermons.json`, you can set the `categories` property to `["sermons"]`.

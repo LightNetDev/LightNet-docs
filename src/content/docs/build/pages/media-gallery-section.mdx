@@ -13,7 +13,7 @@ LightNet provides a `MediaGallerySection` component that displays a grid of medi
 
 ![Image Media Item Gallery](./images/gallery.webp)
 
-Here is an example on how to use it:
+Here is an example of how to use it:
 
 ```astro
 ---
@@ -39,7 +39,7 @@ const { t } = Astro.locals.i18n
 </Page>
 ```
 
-Inside the frontmatter the `someEnglishBooks` variable is prepared using LightNet's [getMediaItems function](/build/pages/query-media-items). 
+Inside the frontmatter, the `someEnglishBooks` variable is prepared using LightNet's [getMediaItems function](/build/pages/query-media-items).
 By default the `MediaGallerySection` component displays items in a carousel and shows the title and image of each media item.
 Set `layout="grid"` to render the items in a responsive grid.
 The number of grid columns depends on the screen width.
@@ -52,9 +52,9 @@ Mixing portrait and landscape covers in the same gallery can lead to uneven rows
 
 ## Reference
 
-The `MediaGallerySection` component extends the functionality of the [Section Component](/build/pages/section). 
-This means you can use props supported by `Section`, in addition to the ones listed here. The Section's `maxWidth`
-option is not yet supported. `MediaGallerySection` only implements maxWidth=wide.
+The `MediaGallerySection` component extends the functionality of the [Section component](/build/pages/section).
+This means you can use props supported by `Section`, in addition to the ones listed here. The `Section` component's `maxWidth`
+option is not yet supported. `MediaGallerySection` only implements `maxWidth="wide"`.
 
 ### `items`
 

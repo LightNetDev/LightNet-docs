@@ -15,7 +15,7 @@ Changes made in the Administration UI are written either to your local file syst
 
 <Aside title="Experimental" type="caution">
 The Administration UI is an experimental feature.
-It is safe to try in real projects, but it still lacks some quality-of-life features such as more extensive validation for invalid content changes.
+It is safe to try in real projects, but it still lacks some quality-of-life features, such as more extensive validation for invalid content changes.
 </Aside>
 
 ## Add the Administration UI to your project
@@ -89,12 +89,12 @@ The online admin workflow works in all major browsers.
 
 ### Accessing a Git host
 
-The Administration UI also supports online editing of a site's content. 
+The Administration UI also supports online editing of a site's content.
 This works by connecting the Administration UI to a Git host such as GitLab or GitHub.
 When used online, content changes are written as Git commits through the Git host's web API.
 Authentication is also handled by the Git host, so you can manage editor access through your repository permissions.
 
-This architecture brings several advantages:
+This architecture has several advantages:
 - No need to deploy and maintain a custom backend API.
 - Security is handled by the Git host, including support for two-factor authentication.
 - Git history makes it easy to review changes and roll back when needed.
@@ -174,7 +174,7 @@ example: `"admin"` \
 required: `false` \
 default: `"admin"`
 
-The path on which the Administration UI is available on your site. Change this path for obfuscation of your git host connection.
+The path where the Administration UI is available on your site. Change this path to make your Git host connection less guessable.
 
 ### `maxFileSize`
 
@@ -183,7 +183,7 @@ example: `15` \
 required: `false` \
 default: `25`
 
-The maximum file size in megabytes allowed to be uploaded. Default is 25 MB, this aligns with Cloudflare's 
+The maximum file size, in megabytes, that can be uploaded. The default is 25 MB, which aligns with Cloudflare's
 maximum file size.
 
 ### `backend`
@@ -192,7 +192,7 @@ type: `object` \
 example: `{ name: "gitlab", repo: "your-org/your-site", appId: "12345abcd" }` \
 required: `false`
 
-This configures the git host that your Administration UI is connected to. Currently we support GitLab and GitHub backends.
+This configures the Git host your Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
 The configuration maps to the Administration UI backend settings for GitHub or GitLab.
 
 <Aside>
@@ -207,22 +207,22 @@ The configuration maps to the Administration UI backend settings for GitHub or G
 
 GitLab backend configuration has these options:
 
-- **name**: `"gitlab"` (required) selecting GitLab as backend.
+- **name**: `"gitlab"` (required) selects GitLab as the backend.
 - **repo**: `string` (required) the GitLab repository path of your site.
 - **appId**: `string` Application ID from the site's GitLab settings.
-- **branch**: `string` the branch that is used for the Administration UI. Default is `"main"`.
-- **authType**: `"pkce"` the authentication type to use. Default and only supported option is `"pkce"`.
+- **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
+- **authType**: `"pkce"` the authentication type to use. The default, and currently the only supported option, is `"pkce"`.
 
 #### `backend: "github"`
 
 GitHub backend configuration has these options:
 
-- **name**: `"github"` (required) selecting GitHub as backend.
+- **name**: `"github"` (required) selects GitHub as the backend.
 - **repo**: `string` (required) the GitHub repository path of your site.
-- **branch**: `string` the branch that is used for the Administration UI. Default is `"main"`.
+- **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
 - **baseUrl**: `string` the URL of your service doing the authentication request.
 
 <Aside>
-GitHub does not support the PKCE authentication type. This means that you need an authentication server to handle the authentication request.
+GitHub does not support the PKCE authentication type. This means you need an authentication server to handle the authentication request.
 This is why we recommend using the GitLab backend for LightNet sites.
 </Aside>
