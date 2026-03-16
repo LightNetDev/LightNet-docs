@@ -9,16 +9,13 @@ import { Steps, Aside } from '@astrojs/starlight/components';
 LightNet enables you to manage your content using JSON files. This is great for developers, but might be challenging for non-technical 
 users. That's why LightNet provides an Administration User Interface (Administration UI) to manage your content with a graphical user interface.
 The interface allows you to create, update, and delete media items and media collections.
-To implement the interface, LightNet uses a tool called [Decap CMS](https://decapcms.org/).
+To implement the interface, LightNet uses [Sveltia CMS](https://github.com/sveltia/sveltia-cms).
 
 All changes made in Administration UI are either written to the local file system or to a git host.
 
 <Aside title="Experimental" type="caution">
-The Administration UI is an experimental feature.
-
-It enables the content administration for most scenarios. 
-Some scenarios require manual changes on the JSON files (for example changing the identifier of a media item is not 
-yet supported by the Administration UI). Implementing a better Administration UI is on our roadmap.
+The Administration UI is an experimental feature. It should be save to use but it is still missing features like 
+extensive validation that make sure a user cannot make invalid changes.
 </Aside>
 
 ## Add the Administration UI to your project
@@ -30,43 +27,36 @@ Your template may already include the Administration UI (e.g., the `example-temp
 </Aside>
 
 <Steps>
-1. **Add the Integration**: Add the LightNet Administration UI integration (`@lightnet/decap-admin`) using Astro's add command. From your project folder execute:
+1. **Add the Integration**: Install the LightNet Administration UI integration (`@lightnet/sveltia-admin`). From your project folder execute:
     ```bash
-    npm run astro add @lightnet/decap-admin
+    npm install @lightnet/sveltia-admin
     ```
-    Confirm the questions with `y` to install required dependencies and add the integration to your `astro.config.mjs` file.
+    Then add the integration to your `astro.config.mjs` file.
 1. **Adjust Configuration**: Add your configuration to Astro's `astro.config.mjs` file. This is a minimal 
     example:
 
-    ```js title="astro.config.mjs" ins={5-9,14,18}
-    import lightnetDecapAdmin from "@lightnet/decap-admin"
+    ```js title="astro.config.mjs" ins={1,14}
+    import lightnetSveltiaAdmin from "@lightnet/sveltia-admin"
     import { defineConfig } from "astro/config"
     import lightnet from "lightnet"
-
-    const languages = [{
-      code: "en",
-      label: "English",
-      isDefaultSiteLanguage: true
-    }];
 
     export default defineConfig({ 
       integrations: [
         lightnet({
-            languages: languages,
+            title: {
+              en: "My Library",
+            },
+            siteLanguages: [{ code: "en", isDefault: true }],
             //...
         }),
-        lightnetDecapAdmin({
-            languages: languages,
-        })
+        lightnetSveltiaAdmin({})
       ]    
     });
     ```
-    This adds a shared languages configuration to both the LightNet and the Administration UI integration. 
-    The Administration UI uses the languages configuration to fill the language selection dropdowns for media items.
 </Steps>
 
 <Aside type="caution">
-We recommend modifying the path of the Administration UI to obscure it from potential attackers, 
+For sites with security concerns we recommend modifying the path of the Administration UI to obscure it from potential attackers, 
 thereby adding an extra layer of security. You can achieve this by configuring the [path](#path) option to a non-guessable string.
 </Aside>
 
@@ -84,14 +74,17 @@ Run your Administration UI on your local computer using npm scripts.
     npm run dev
     ```
     This starts the LightNet development server. 
-1. Open a new Terminal at the same location and execute:
-    ```bash
-    npx decap-server
-    ``` 
-    This starts an application that enables Decap CMS to access your file system. 
-1. Navigate your browser to [localhost:4321/admin](localhost:4321/admin). You should see 
-    the Administration UI showing a list of media items.
+2. Open Chrome or another Chromium-based browser and navigate to [localhost:4321/admin](http://localhost:4321/admin). 
+3. Click the "Work with Local Repository" button. 
+4. When your browser prompts you, select the local folder of your new project and grant access.
 </Steps>
+
+<Aside type="note">
+The local admin workflow requires the File System Access API, which is currently available only in Chrome and Chromium-based browsers.
+Brave disables this API by default; you can enable it at `brave://flags/#file-system-access-api`.
+
+The online admin workflow works in all major browsers.
+</Aside>
 
 
 ### Accessing a Git host
@@ -113,7 +106,7 @@ from the user's browser.
 <Aside>
  If you need to use GitHub as your git host, please notice:
 GitHub repositories only support server side authentication. This means you will need to configure a backend
-that forwards the authentication request. See the [Decap CMS instructions](https://decapcms.org/docs/github-backend/) on how to connect GitHub repositories. 
+that forwards the authentication request. 
 </Aside>
 
 #### Connect to GitLab
@@ -132,14 +125,13 @@ To connect your Administration UI to a GitLab repository, follow these steps.
     - **Scopes**: Select the `api` scope.
 5. **Save Application ID**: Save the new Application. GitLab presents you with an Application ID. Copy and store this ID for later usage.
 6. **Open project configuration**: Go back to your text editor with the project folder and open `astro.config.mjs`. 
-7. **Adjust decapAdmin integration**: Add the `backend` config for your repository
+7. **Adjust the Administration UI integration**: Add the `backend` config for your repository
     ```js title="astro.config.mjs" ins={7-11}
     // ...
     export default defineConfig({ 
       integrations: [
         // ...
-        lightnetDecapAdmin({
-            languages: languages,
+        lightnetSveltiaAdmin({
             backend: {
                 name: "gitlab",
                 repo: "<Group>/<Repository Name>",
@@ -155,37 +147,27 @@ To connect your Administration UI to a GitLab repository, follow these steps.
 </Steps>
 
 <Aside>
-Even when you have configured a GitLab backend, your local development server always connects to a local decap server (started by `npx decap-server`).
+Even when you have configured a GitLab backend, you can still use a locally configured Administration UI workflow during development.
 </Aside>
 
 ## Reference
 
-You can pass the following options to the `lightnetDecapAdmin` integration inside `astro.config.mjs`:
+You can pass the following options to the `lightnetSveltiaAdmin` integration inside `astro.config.mjs`:
 
 ```js title="astro.config.mjs" {9}
 import lightnet from "lightnet";
-import lightnetDecapAdmin from "@lightnet/decap-admin";
+import lightnetSveltiaAdmin from "@lightnet/sveltia-admin";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
   integrations: [
-    lightnet({...})
-    lightnetDecapAdmin({
+    lightnet({...}),
+    lightnetSveltiaAdmin({
       /* add config here */
     }),
   ],
 });
 ```
-
-### `languages`
-
-type: `array` \
-example: `[{ code: "en", label: "English", isDefaultSiteLanguage: true }]` \
-required: `true`
-
-The content languages of the site. Use the same languages as in the `lightnet` integration. 
-We recommend creating a shared variable that is used for both integrations.
-See the [global configuration reference](/build/configuration/reference#languages) for more information on the languages structure.
 
 ### `path`
 
@@ -195,16 +177,6 @@ required: `false` \
 default: `"admin"`
 
 The path on which the Administration UI is available on your site. Change this path for obfuscation of your git host connection.
-
-### `imagesFolder`
-
-type: `string` \
-example: `"images"` \
-required: `false` \
-default: `"images"`
-
-The name of the cover images folder next to your media item files. Change this if you want to use a different name for the images folder.
-For example if your images are stored inside a folder `src/content/media/covers`, you can set this to `"covers"`.
 
 ### `maxFileSize`
 
@@ -223,7 +195,11 @@ example: `{ name: "gitlab", repo: "your-org/your-site", appId: "12345abcd" }` \
 required: `false`
 
 This configures the git host that your Administration UI is connected to. Currently we support GitLab and GitHub backends.
-The configuration directly maps (replacing camelCase with snake_case) to the Decap CMS [GitHub](https://decapcms.org/docs/github-backend) or [GitLab](https://decapcms.org/docs/gitlab-backend) backend configuration.
+The configuration maps to the Administration UI backend settings for GitHub or GitLab.
+
+<Aside>
+  Image uploads always use the content-adjacent `images` directory in LightNet v4.
+</Aside>
 
 <Aside type="caution">
   We highly recommend using the GitLab backend for LightNet sites.
@@ -251,7 +227,4 @@ GitHub backend configuration has this options:
 <Aside>
 GitHub does not support the PKCE authentication type. This means that you need an authentication server to handle the authentication request.
 This is why we recommend using the GitLab backend for LightNet sites.
-
-See the [Decap CMS documentation](https://decapcms.org/docs/backends-overview#using-github-with-an-oauth-proxy)
-for more information on how to create an authentication server for GitHub.
 </Aside>
