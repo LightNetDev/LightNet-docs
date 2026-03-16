@@ -1,17 +1,22 @@
 {
   "words": [
     "backblaze",
+    "Bücher",
     "checkly",
-    "eigener",
-    "español",
-    "linkcheck",
-    "nvmrc",
-    "lightnet",
     "decap",
-    "pkce",
     "deutsch",
-    "seti",
-    "llms"
+    "eigener",
+    "Englisch",
+    "español",
+    "lightnet",
+    "linkcheck",
+    "llms",
+    "nvmrc",
+    "pkce",
+    "seti"
   ],
-  "ignorePaths": [".vscode", ".github"]
+  "ignorePaths": [
+    ".vscode",
+    ".github"
+  ]
 }
