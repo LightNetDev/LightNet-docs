@@ -19,16 +19,16 @@ It already includes a `Section` component to handle the layout. Here is an examp
 import { Page, HighlightSection } from "lightnet/components"
 import highlightImage from "../../assets/highlightImage.jpg"
 
-const { t } = Astro.locals.i18n
+const { t, currentLocale } = Astro.locals.i18n
 ---
 <Page>
     <HighlightSection
         image={highlightImage}
-        title={t("x.highlight.title")}
-        text={t("x.highlight.text")}
+        title={t("highlight.title")}
+        text={t("highlight.text")}
         link={{
-            href: `/${Astro.currentLocale}/some-page`,
-            text: t("x.highlight.link"),
+            href: `/${currentLocale}/some-page`,
+            text: t("highlight.link"),
         }}
     />
 </Page>
@@ -54,11 +54,11 @@ For example this is how you could add two links (they still need some styling):
 ```astro {6,7}
 <HighlightSection
   image={highlightImage}
-  title={t("x.highlight.title")}
-  text={t("x.highlight.text")}
+  title={t("highlight.title")}
+  text={t("highlight.text")}
 >
-  <a href="https://bibleproject.com/">{t("x.home.bible-project")}</a>
-  <a href="https://www.jesusfilm.org/">{t("x.home.jesus-film")}</a>
+  <a href="https://bibleproject.com/">{t("home.bible-project")}</a>
+  <a href="https://www.jesusfilm.org/">{t("home.jesus-film")}</a>
 </HighlightSection>
 ```
 
@@ -87,7 +87,7 @@ The id of the section. This can be used to link to the section e.g. `/about#my-s
 ### `title`
 
 type: `string` \
-example: `t("x.highlight.title")` \
+example: `t("highlight.title")` \
 required: `false`
 
 The title to show above the text.
@@ -95,7 +95,7 @@ The title to show above the text.
 ### `text`
 
 type: `string` \
-example: `t("x.highlight.text")` \
+example: `t("highlight.text")` \
 required: `true`
 
 The text to be displayed.
@@ -103,7 +103,7 @@ The text to be displayed.
 ### `link`
 
 type: `{ href: string, text: string }` \
-example: `{ href: "/en/some-page", text: t("x.highlight.link") }` \
+example: `{ href: "/en/some-page", text: t("highlight.link") }` \
 required: `false`
 
 The link to show as a button below the text.
