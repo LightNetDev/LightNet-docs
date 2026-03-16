@@ -9,7 +9,7 @@ When creating internal links, make sure you always add the locale in front of th
 For example this is how you can create a link to the about page inside an Astro component using JavaScript template strings:
 
 ```ts
-`/${Astro.currentLocale}/about`
+`/${Astro.locals.i18n.currentLocale}/about`
 ```
 
 Additionally LightNet offers utility functions inside `lightnet/utils` to create paths:
@@ -23,7 +23,7 @@ Additionally LightNet offers utility functions inside `lightnet/utils` to create
 
 Returns the localized path to a media item's details page.
 
-- `locale`: The current locale as provided by `Astro.currentLocale`
+- `locale`: The current locale as provided by `Astro.locals.i18n.currentLocale`
 - `mediaItem`: A media item as provided by [Astro's getEntry, getCollection](https://docs.astro.build/en/guides/content-collections/#querying-collections) 
     or LightNet's [getMediaItems](/build/pages/query-media-items).
 
@@ -34,12 +34,13 @@ Example code, that creates an anchor link to a media item's details page:
 import { getEntry } from "astro:content"
 import { detailsPagePath } from "lightnet/utils"
 
+const { currentLocale } = Astro.locals.i18n
 const mediaItem = await getEntry("media", "your-media-item-id")
 if(!mediaItem) {
     throw new Error("No media item found")
 }
 ---
-<a href={detailsPagePath(Astro.currentLocale, mediaItem)}>Link</a>
+<a href={detailsPagePath(currentLocale, mediaItem)}>Link</a>
 ```
 
 
@@ -47,7 +48,7 @@ if(!mediaItem) {
 
 Returns the localized path to the search page including preset filters.
 
-- `locale`: The current locale as provided by `Astro.currentLocale`
+- `locale`: The current locale as provided by `Astro.locals.i18n.currentLocale`
  - `query` (optional): Sets filters for the search page. Supported options are:
      - `category` (optional): Filter for a category identifier.
      - `type` (optional): Filter for a media type identifier.
@@ -59,6 +60,8 @@ Example code that creates an anchor link to the search page filtered by the cate
 ```astro
 ---
 import { searchPagePath } from "lightnet/utils"
+
+const { currentLocale } = Astro.locals.i18n
 ---
-<a href={searchPagePath(Astro.currentLocale, {category: "children"})}>Search page</a>
+<a href={searchPagePath(locale, {category: "children"})}>Search page</a>
 ```
