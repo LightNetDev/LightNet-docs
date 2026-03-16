@@ -1,5 +1,6 @@
 {
   "words": [
+    "astrojs",
     "backblaze",
     "Bücher",
     "checkly",
@@ -11,12 +12,13 @@
     "lightnet",
     "linkcheck",
     "llms",
+    "Lucide",
     "nvmrc",
     "pkce",
     "seti",
     "Subtag",
-    "Über",
-    "sveltia"
+    "sveltia",
+    "Über"
   ],
   "ignorePaths": [
     ".vscode",
