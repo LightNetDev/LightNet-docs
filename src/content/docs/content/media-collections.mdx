@@ -3,9 +3,6 @@ title: Media collections
 description: Learn how to group media items that belong together in media collections.
 ---
 
-import { Aside } from "@astrojs/starlight/components";
-
-
 Use media collections to group media items that belong together. For example a video playlist, a series of sermons, 
 a music album or a book series can be modeled as a media collection.
 
@@ -16,23 +13,30 @@ Here is an example of a media collection:
 
 ```json title="src/content/media-collections/sermon-series-1.json"
 {
-  "label": "Sermon Series 1"
+  "label": {
+    "en": "Sermon Series 1"
+  },
+  "mediaItems": ["sermon-1--en", "sermon-2--en"]
 }
 ```
 
-<Aside type="tip">
-Media items can be part of several collections and can be ordered within a collection by setting an index for the collection 
-in the media item file. 
-</Aside>
-
 ## Reference
 
-Media collections have this property:
+Media collections have these properties:
 
 ### label
 
-type: `string` \
-example: `"Sermon Series 1"` \
+type: `object` \
+example: `{ "en": "Sermon Series 1" }` \
 required: `true`
 
-The name of the media collection. The label can either be a fixed string or a translation key to support multiple locales. 
+The name of the media collection. Provide a locale map keyed by your configured site languages.
+
+### mediaItems
+
+type: `string[]` \
+example: `["sermon-1--en", "sermon-2--en"]` \
+required: `false`
+
+The identifiers of the media items contained in the collection.
+The order of this array defines the order shown on media item details pages and collection-based queries.
