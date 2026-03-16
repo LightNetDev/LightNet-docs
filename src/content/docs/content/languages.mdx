@@ -6,8 +6,6 @@ description: Learn how to manage language metadata for your site languages.
 import { Aside } from "@astrojs/starlight/components";
 
 Use language entries to define metadata for the languages available on your LightNet site.
-Each file in `src/content/languages` describes one site language and is referenced from the `siteLanguages` configuration in `astro.config.mjs`.
-Language entries are used for display information such as the names shown in language selectors.
 
 Here is an example of a language entry:
 
@@ -23,12 +21,12 @@ Here is an example of a language entry:
 
 <Aside>
 Language entries complement the `siteLanguages` configuration in `astro.config.mjs`.
-Use `siteLanguages` to configure which locales your site supports, and `src/content/languages` to define how those languages are displayed.
+Use `siteLanguages` to configure which locales your site supports.
 </Aside>
 
 ## Reference
 
-A language entry is a JSON file that describes one site language.
+A language entry is a JSON file that describes one site or content language.
 The identifier is the filename without the `.json` suffix and should be a BCP-47 language code such as `en`, `de`, or `ar`.
 The `code` value must match that filename.
 
