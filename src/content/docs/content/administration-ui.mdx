@@ -3,37 +3,37 @@ title: Administration user interface
 description: Learn how to add an Administration User Interface to your site.
 ---
 
-import { Steps, Aside } from '@astrojs/starlight/components';
+import { Steps, Aside } from "@astrojs/starlight/components";
 
 
-LightNet enables you to manage your content using JSON files. This is great for developers, but might be challenging for non-technical 
-users. That's why LightNet provides an Administration User Interface (Administration UI) to manage your content with a graphical user interface.
-The interface allows you to create, update, and delete media items and media collections.
+LightNet stores site content in JSON files. This works well for developers, but it can be harder for non-technical editors.
+To make content editing easier, LightNet provides an Administration User Interface (Administration UI).
+The Administration UI lets you create, update, and delete media items and media collections through a graphical editor.
 To implement the interface, LightNet uses [Sveltia CMS](https://github.com/sveltia/sveltia-cms).
 
-All changes made in Administration UI are either written to the local file system or to a git host.
+Changes made in the Administration UI are written either to your local file system or to a Git host.
 
 <Aside title="Experimental" type="caution">
-The Administration UI is an experimental feature. It should be save to use but it is still missing features like 
-extensive validation that make sure a user cannot make invalid changes.
+The Administration UI is an experimental feature.
+It is safe to try in real projects, but it still lacks some quality-of-life features such as more extensive validation for invalid content changes.
 </Aside>
 
 ## Add the Administration UI to your project
 
-This is how you add the Administration UI to your LightNet project:
+Follow these steps to add the Administration UI to your LightNet project:
 
 <Aside>
-Your template may already include the Administration UI (e.g., the `example-template` comes with it pre-installed). You can still follow this guide from the start if needed.
+Your template may already include the Administration UI. For example, the `example-template` ships with it preinstalled.
+You can still follow this guide from the beginning if you want to verify the setup.
 </Aside>
 
 <Steps>
-1. **Add the Integration**: Install the LightNet Administration UI integration (`@lightnet/sveltia-admin`). From your project folder execute:
+1. **Add the integration**: Install the LightNet Administration UI integration (`@lightnet/sveltia-admin`) from your project folder:
     ```bash
     npm install @lightnet/sveltia-admin
     ```
     Then add the integration to your `astro.config.mjs` file.
-1. **Adjust Configuration**: Add your configuration to Astro's `astro.config.mjs` file. This is a minimal 
-    example:
+1. **Add minimal configuration**: Update `astro.config.mjs` with both the LightNet integration and the Administration UI integration. This is a minimal example:
 
     ```js title="astro.config.mjs" ins={1,14}
     import lightnetSveltiaAdmin from "@lightnet/sveltia-admin"
@@ -56,27 +56,27 @@ Your template may already include the Administration UI (e.g., the `example-temp
 </Steps>
 
 <Aside type="caution">
-For sites with security concerns we recommend modifying the path of the Administration UI to obscure it from potential attackers, 
-thereby adding an extra layer of security. You can achieve this by configuring the [path](#path) option to a non-guessable string.
+For sites with higher security requirements, we recommend changing the default admin path to something less guessable.
+You can do this with the [path](#path) option.
 </Aside>
 
 ## Run the Administration UI
 
-The Administration UI can write its changes to your local file system or to a git host (GitLab or GitHub).
+The Administration UI can save changes either to your local file system or to a Git host such as GitLab or GitHub.
 
 ### Accessing your local file system
 
-Run your Administration UI on your local computer using npm scripts. 
+Use this workflow while developing locally on your own computer.
 
 <Steps>
-1. In your Terminal execute this command from your project folder.
+1. **Start the development server**: Run this command from your project folder:
     ```bash
     npm run dev
     ```
-    This starts the LightNet development server. 
-2. Open Chrome or another Chromium-based browser and navigate to [localhost:4321/admin](http://localhost:4321/admin). 
-3. Click the "Work with Local Repository" button. 
-4. When your browser prompts you, select the local folder of your new project and grant access.
+    This starts the LightNet development server.
+2. **Open the Administration UI**: Open Chrome or another Chromium-based browser and go to [localhost:4321/admin](http://localhost:4321/admin).
+3. **Choose the local workflow**: Click the "Work with Local Repository" button.
+4. **Grant folder access**: When your browser prompts you, select your project folder and allow access.
 </Steps>
 
 <Aside type="note">
@@ -90,23 +90,22 @@ The online admin workflow works in all major browsers.
 ### Accessing a Git host
 
 The Administration UI also supports online editing of a site's content. 
-This is implemented by connecting it to a git host like GitLab or GitHub.
-From the online Administration UI all changes will be applied using git commits over the git host's web API. 
-Authentication also is handled by the git host. You can use the git host to manage permissions.
+This works by connecting the Administration UI to a Git host such as GitLab or GitHub.
+When used online, content changes are written as Git commits through the Git host's web API.
+Authentication is also handled by the Git host, so you can manage editor access through your repository permissions.
 
 This architecture brings several advantages:
-- No need to deploy and maintain a running server backend API.
-- Security is handled by the git host (with support for 2-Factor-Authentication).
-- Git history enables rollbacks and gives overview what has changed.
-- Git repositories can be free of charge.
+- No need to deploy and maintain a custom backend API.
+- Security is handled by the Git host, including support for two-factor authentication.
+- Git history makes it easy to review changes and roll back when needed.
+- Git repositories can often be hosted at low or no cost.
 
-LightNet supports GitHub and GitLab as git hosts. We highly recommend using GitLab as it supports Authentication
-from the user's browser.
+LightNet supports both GitHub and GitLab as Git hosts.
+We strongly recommend GitLab because it supports browser-based authentication for this workflow.
 
 <Aside>
- If you need to use GitHub as your git host, please notice:
-GitHub repositories only support server side authentication. This means you will need to configure a backend
-that forwards the authentication request. 
+If you need to use GitHub as your Git host, note that GitHub only supports server-side authentication for this flow.
+That means you need an additional backend service to forward the authentication request.
 </Aside>
 
 #### Connect to GitLab
@@ -114,18 +113,17 @@ that forwards the authentication request.
 To connect your Administration UI to a GitLab repository, follow these steps.
 
 <Steps>
-1. **Host repository on GitLab**: Make sure your LightNet site is hosted on GitLab. If this is not the case, check the [guide on hosting](/deploy/hosting) on how to setup a GitLab repository
-   for your project.
-2. **Open group settings**: On [GitLab.com](https://gitlab.com) navigate to `Groups` and select the group that hosts the repository. Open the `Settings` of this group.
-3. **Add new Application**: Open the `Application` settings and start to `Add a new Application`.
-4. **Configure Application**: In the Add new Application dialog:
-    - **Name**: Choose a name for the Application e.g. your website name. This is used to name the new application on the GitLab interface. It has no further effect.
-    - **Redirect URI**: Give the final address of your LightNet site followed by your admin path (the default is `/admin/`) e.g. `https://your-library.com/admin/`. ⚠️ Don't forget the trailing slash! ⚠️ 
-    - **Confidential**: Unselect this option.
+1. **Host your repository on GitLab**: Make sure your LightNet project is hosted on GitLab. If you still need to move or create the repository there, follow the [hosting guide](/deploy/hosting).
+2. **Open the GitLab group settings**: On [GitLab.com](https://gitlab.com), open the group that owns the repository and go to its `Settings`.
+3. **Create an application**: Open the `Applications` settings and choose `Add new application`.
+4. **Configure the application**: In the form, use these settings:
+    - **Name**: Choose a descriptive name, for example your site name.
+    - **Redirect URI**: Enter the final URL of your LightNet site followed by the admin path, for example `https://your-library.com/admin/`. Do not forget the trailing slash.
+    - **Confidential**: Disable this option.
     - **Scopes**: Select the `api` scope.
-5. **Save Application ID**: Save the new Application. GitLab presents you with an Application ID. Copy and store this ID for later usage.
-6. **Open project configuration**: Go back to your text editor with the project folder and open `astro.config.mjs`. 
-7. **Adjust the Administration UI integration**: Add the `backend` config for your repository
+5. **Copy the Application ID**: After saving, GitLab shows the new Application ID. Copy it for the next step.
+6. **Open your project configuration**: Return to your project and open `astro.config.mjs`.
+7. **Configure the backend**: Add the `backend` configuration for your GitLab repository:
     ```js title="astro.config.mjs" ins={7-11}
     // ...
     export default defineConfig({ 
@@ -141,9 +139,9 @@ To connect your Administration UI to a GitLab repository, follow these steps.
       ]    
     });
     ```
-    Make sure to set `repo` with the GitLab path of your repository. Set the `appId` to the Application ID you have copied in step 5.
-8. **Use the Administration UI**: After [hosting your site](/deploy/hosting) online, open your website on `/admin`. Press the Login Button and allow LightNet to access your GitLab account. 
-    You now can edit your media items online 🎉. If another person needs access to the Administration UI, add their account to the GitLab group.
+    Set `repo` to the GitLab repository path, and set `appId` to the Application ID you copied in step 5.
+8. **Use the Administration UI**: After your site is deployed, open `/admin` on your website, click the login button, and authorize access with GitLab.
+    You can now edit media items online. If someone else also needs access, add their account to the GitLab group.
 </Steps>
 
 <Aside>
@@ -217,7 +215,7 @@ GitLab backend configuration has these options:
 
 #### `backend: "github"`
 
-GitHub backend configuration has this options:
+GitHub backend configuration has these options:
 
 - **name**: `"github"` (required) selecting GitHub as backend.
 - **repo**: `string` (required) the GitHub repository path of your site.
