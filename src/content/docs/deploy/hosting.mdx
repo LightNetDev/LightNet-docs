@@ -5,7 +5,7 @@ description: Learn how to host your media library on GitLab and Cloudflare Pages
 
 import { Aside, Steps, Badge } from '@astrojs/starlight/components';
 
-## Hosting Your Media Library
+## Hosting your media library
 
 Your media library can be hosted on any file server of your choice. To create a folder that can be deployed, run the following command from your project folder:
 
@@ -17,7 +17,7 @@ This command creates a folder named `dist`. This folder contains static HTML, CS
 
 If you do not have preferences on hosting, we recommend using GitLab & Cloudflare Pages.
 
-## Setup Hosting on GitLab and Cloudflare Pages
+## Set up hosting on GitLab and Cloudflare Pages
 
 Cloudflare Pages delivers your website to your audience. It takes care of building your website on Cloudflare's servers, caching, 
 distributing your page around the globe (using Cloudflare's CDN), and more.
@@ -27,13 +27,17 @@ Using GitLab enables you to collaborate with others. Also Cloudflare uses GitLab
 <Aside>
 We prefer GitLab because it integrates well with the [Administration User Interface](/content/administration-ui).
 </Aside>
+<Aside>
+Cloudflare recommends transitioning from Cloudflare Pages to Cloudflare Workers. We’re waiting for more stability before updating our guidance.
+Feel free to use Workers today — setup is similar to the current Pages steps.
+</Aside>
 
 Both GitLab and Cloudflare Pages offer generous free tiers:
 
 - Cloudflare Pages: The free plan supports unlimited requests and up to 20,000 static files.
 - GitLab: The free plan includes collaboration for up to 5 users within a group.
 
-### Setup GitLab
+### Set up GitLab
 
 <Steps>
 1. **Create a GitLab Account**: If you don't have one, sign up at [GitLab](https://gitlab.com). Do **not** create an enterprise account.
@@ -47,11 +51,11 @@ Both GitLab and Cloudflare Pages offer generous free tiers:
     Replace `your-group` and `your-project`.
 </Steps>
 
-### Setup Cloudflare Pages
+### Set up Cloudflare Pages
 
 <Steps>
 1. **Create a Cloudflare Account**: Sign up at [Cloudflare](https://cloudflare.com) if you don't have an account.
-1. **Create Cloudflare Application**: In the Cloudflare menu open **Workers & Pages**. Press the **CREATE** button to start the initialization.
+1. **Create Cloudflare Application**: In the Cloudflare menu open **Compute (Workers)**.
 1. **Select Pages Application**: Choose to create a **Pages** Application.
 1. **Import from Git**: Choose the option to **connect to a git** repository to start importing your project.
 1. **Grant Access to GitLab Project**: Choose GitLab and add your account. Begin the setup for your project.
@@ -63,7 +67,7 @@ Both GitLab and Cloudflare Pages offer generous free tiers:
 When working with git branches, Cloudflare automatically creates preview deployments. In GitLab it adds a pipeline with the link to the preview deployment on your merge request's overview.
 </Aside>
 
-### Configure a Cloudflare Domain
+### Configure a Cloudflare domain
 
 You can use Cloudflare Domains to purchase a domain registration.
 

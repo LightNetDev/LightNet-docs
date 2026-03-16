@@ -1,34 +1,42 @@
 ---
-title: Add a Categories Section
-description: How to add a display of a grid of all available categories to your LightNet page.
+title: Add a CategoriesSection
+description: Learn how to add a display of all available categories to your LightNet page.
 ---
 
-The `CategoriesSection` component is used to display a grid of all available categories. It already includes a `Section` 
-component to handle the layout. Clicking on a category navigates to the search page filtered by the category.
 
-![Image Categories Section](./images/categories.webp)
+The `CategoriesSection` component displays all available categories on a page. It already wraps content in a `Section` component, which handles layout and styling.
 
-Here is an example on how to use it:
+When a user clicks on a category, they are automatically redirected to the search page filtered by that category.
+
+![Image of Categories Section](./images/categories.webp)
+
+## Usage
+
+Here’s a minimal example of how to use `CategoriesSection`:
 
 ```astro
 ---
 import { Page, CategoriesSection } from "lightnet/components"
 ---
 <Page>
-    <CategoriesSection />
+  <CategoriesSection />
 </Page>
 ```
 
+
 ## Reference
 
-The `CategoriesSection` component has the following properties:
+The `CategoriesSection` component extends the functionality of the [Section Component](/build/pages/section). 
+This means you can use all the same props supported by `Section`, in addition to the ones listed here. The Section's `maxWidth`
+option is not yet supported. `CategoriesSection` only implements maxWidth=wide.
 
-### `title`
+### `layout`
 
-type: `string` \
-example: `"Categories"` \
+type: `"grid"` | `"carousel"` \
 required: `false` \
-default: `Astro.locals.i18n.t("ln.common.categories")`
+default: `"carousel"`
 
-The title of the categories section. By default the title is translated from the `ln.common.categories` key (this is "Categories" in English).
-In case you want to use a different title, you can set the `title` property.
+Controls how categories are displayed:
+
+* `"grid"` — Shows category cards in a static grid layout.
+* `"carousel"` — Displays categories in a horizontally scrollable carousel.

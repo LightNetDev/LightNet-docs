@@ -1,10 +1,11 @@
 ---
-title: Add a Video Player
-description: How to add a video player to your LightNet page. 
+title: Add a VideoPlayer
+description: How to add a VideoPlayer to your LightNet page.
 ---
-import { Aside } from "@astrojs/starlight/components"
 
-The `VideoPlayer` component is used to display a video on your page. To implement it, use the section component to fit 
+import { Aside } from "@astrojs/starlight/components";
+
+The `VideoPlayer` component is used to display a video on your page. To implement it, use the section component to fit
 the video player into your page structure like this:
 
 ```astro
@@ -22,8 +23,10 @@ const { t } = Astro.locals.i18n
 ```
 
 <Aside type="tip">
-We highly recommend using a video hosting platform like YouTube or Vimeo because they have the better performance. 
-Nevertheless it is also possible to host mp4 videos yourself but be aware you need an [additional file storage](/deploy/file-storage).
+  We highly recommend using a video hosting platform like YouTube or Vimeo
+  because they have the better performance. Nevertheless it is also possible to
+  host mp4 videos yourself but be aware you need an [additional file
+  storage](/deploy/file-storage).
 </Aside>
 
 ## Reference
@@ -36,8 +39,8 @@ type: `string` \
 example: `"https://www.youtube.com/watch?v=1234"` \
 required: `true`
 
-The source of the video that is shown. This can either be an external link to YouTube or Vimeo or a link to an 
-mp4 file hosted on your server.
+The source of the video that is shown. This can either be an external link to YouTube or Vimeo or a link to an
+mp4 file hosted on your server. Other links will show a fallback to open the video in an external browser tab.
 
 ### `title`
 
@@ -46,7 +49,6 @@ example: `"Your Great Video"` \
 required: `false`
 
 This title is only used for screen readers. For setting a title on top of the video use the `title` of the section.
-
 
 ### `image`
 

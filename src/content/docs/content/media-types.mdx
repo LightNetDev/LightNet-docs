@@ -1,14 +1,14 @@
 ---
-title: Media Types
+title: Media types
 description: Learn how to group media items by their type.
 ---
 
-import { Badge } from "@astrojs/starlight/components"
+import { Badge } from "@astrojs/starlight/components";
 
 Media types are used to group media items that are of the same kind. For example you could have a media type for
 books, sermons, music, videos, etc.
-Media types control how the details page of a media item is rendered. This affects how the media item is presented, for example 
-wether a cover image or a video player is shown on top of the page. Types can also be used to filter media items on the search 
+Media types control how the details page of a media item is rendered. This affects how the media item is presented, for example
+wether a cover image or a video player is shown on top of the page. Types can also be used to filter media items on the search
 page. The icon of a media type hints the user what kind of media item to expect.
 
 Here is an example of a media type:
@@ -17,6 +17,7 @@ Here is an example of a media type:
 {
   "label": "x.type.video",
   "icon": "mdi--video-outline",
+  "coverImageStyle": "video",
   "detailsPage": {
     "layout": "video"
   }
@@ -25,7 +26,7 @@ Here is an example of a media type:
 
 ## Reference
 
-A media type is a JSON file that describes a media type. The media type identifier is its filename without the `.json` suffix. 
+A media type is a JSON file that describes a media type. The media type identifier is its filename without the `.json` suffix.
 
 ### label
 
@@ -42,8 +43,19 @@ example: `"mdi--video-outline"` \
 required: `true`
 
 The icon that indicates this type. For example this could be a "play"-icon for a video.
-It has to be in the format `mdi--[icon-name]`. With `[icon-name]` being the name of the icon from 
+It has to be in the format `mdi--[icon-name]`. With `[icon-name]` being the name of the icon from
 the [Material Design Icon](https://pictogrammers.com/library/mdi/) site.
+
+### coverImageStyle
+
+type: `"default" | "book" | "video"` \
+example: `"book"` \
+required: `false` \
+default: `"default"`
+
+Controls how cover images are rendered for media items. Use `"book"` for a book-like appearance with a fold and sharper edges.
+The `"video"` style forces a 16:9 aspect ratio and scales the image to cover the whole area.
+The existing `detailsPage.coverStyle` option is deprecated; use `coverImageStyle` instead.
 
 ### detailsPage
 
@@ -65,10 +77,9 @@ on the detailsPage object. Here is a description of each available layout:
 ##### layout: "default"
 
 The default layout shows the media item cover image, title and authors next to a visible button that links to the primary content URL (first item
-in the media item `content` array). For URLs that can be opened by the browser, 
-the button text is "Open" for all other URLs it is "Download". For example if the URL links to a PDF file, the button opens the file inside the browser. 
+in the media item `content` array). For URLs that can be opened by the browser,
+the button text is "Open" for all other URLs it is "Download". For example if the URL links to a PDF file, the button opens the file inside the browser.
 An example of a default layout configuration is:
-
 
 ```json
 {
@@ -90,18 +101,9 @@ required: `false`
 
 The label of the button that opens the primary content URL. This needs to be a translation key. The default translates to "Open" in English.
 
-###### coverStyle
-
-type: `"default" | "book"` \
-example: `"book"` \
-required: `false` \
-default: `"default"`
-
-This sets the style of the cover image. The `book` style makes the cover image look like a book cover with sharp corners and a book fold. The default style shows the cover image as is.
-
 ##### layout: "video"
 
-The video layout shows a details page with an embedded video player. The video player uses the primary content URL (first item in the media item `content` array). 
+The video layout shows a details page with an embedded video player. The video player uses the primary content URL (first item in the media item `content` array).
 All other content URLs are shown as additional content below the video player. An example of a video layout configuration is:
 
 ```json
@@ -113,13 +115,14 @@ All other content URLs are shown as additional content below the video player. A
 }
 ```
 
-Currently there are no additional configuration options for the video layout. 
-The video layout supports YouTube URLs, Vimeo URLs and links to mp4 files.
+Currently there are no additional configuration options for the video layout.
+The video layout supports embedding YouTube URLs, Vimeo URLs and links to mp4 files, other links will show a fallback to open the video link in a new browser tab.
 
 ##### layout: "audio"
 
-The audio layout shows a details page with an embedded audio player. The audio player uses the primary content URL (first item in the media item `content` array). 
-All other content URLs are shown as additional content below the audio player. An example of an audio layout configuration is:
+The audio layout shows a details page with one audio player for each mp3 found in the media item's `content` array.
+Starting a new player stops any other playing audio and playback automatically resumes with the next mp3 when one ends.
+An example of an audio layout configuration is:
 
 ```json
 {
@@ -131,11 +134,11 @@ All other content URLs are shown as additional content below the audio player. A
 ```
 
 Currently there are no additional configuration options for the audio layout.
-The audio layout supports links to mp3 files.
+The audio layout supports embedding links to mp3 files, other links will show a fallback to open the audio link in a new browser tab.
 
 ##### layout: "custom" <Badge text="Experimental"/>
 
-The custom layout shows a details page with your own layout. Custom details pages are still an 
+The custom layout shows a details page with your own layout. Custom details pages are still an
 experimental feature, we might introduce changes to the API without updating the major version number.
 Track changes to this feature on the LightNet release notes.
 
@@ -157,11 +160,11 @@ type: `string` \
 example: `"CustomDetailsPage.astro"` \
 required: `true`
 
-Custom details pages require you to reference an Astro component to be rendered. 
-The component **must** be stored in the `/src/details-pages` folder. 
-The component receives a `mediaId` property that is the media item's identifier. 
+Custom details pages require you to reference an Astro component to be rendered.
+The component **must** be stored in the `/src/details-pages` folder.
+The component receives a `mediaId` property that is the media item's identifier.
 You need to wrap your components inside a `<DetailsPage>` layout.
-This example fetches the media item with the given mediaId and renders the title of the media item: 
+This example fetches the media item with the given mediaId and renders the title of the media item:
 
 ```astro title="src/details-pages/CustomDetailsPage.astro"
 ---
@@ -184,4 +187,4 @@ if (!mediaItem) {
 ```
 
 The details page components used by LightNet are experimentally available for building custom details pages.
-You can import them from `lightnet/experimental-details-page`. 
+You can import them from `lightnet/experimental-details-page`.
