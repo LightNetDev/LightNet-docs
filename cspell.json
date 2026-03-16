@@ -13,7 +13,8 @@
     "llms",
     "nvmrc",
     "pkce",
-    "seti"
+    "seti",
+    "Über"
   ],
   "ignorePaths": [
     ".vscode",

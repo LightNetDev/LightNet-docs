@@ -19,19 +19,27 @@ export default defineConfig({
       mainMenu: [
         {
           href: "/",
-          label: "ln.home.title",
+          label: {
+            en: "Home",
+          },
         },
         {
           href: "/media",
-          label: "ln.search.title",
+          label: {
+            en: "Media",
+          },
         },
         {
           href: "/about",
-          label: "x.navigation.about",
+          label: {
+            en: "About",
+          },
         },
         {
           href: "https://lightnet.community",
-          label: "LightNet",
+          label: {
+            en: "LightNet",
+          },
         },
       ],
     }),
@@ -56,6 +64,5 @@ Notice how the links do not include a locale. The locale is automatically added 
     LightNet automatically adds the locales. You can disable this behavior by setting  
     `requiresLocale: false` on the menu item.
   </Aside> 
-- **`label`**: The text displayed on the menu item. Use a [translation key](/build/i18n/fundamentals) for localized or a fixed string for non-localized labels.  
-
+- **`label`**: The text displayed on the menu item. Provide a locale map keyed by your configured site languages, for example `{ en: "About", de: "Über uns" }`.  
 

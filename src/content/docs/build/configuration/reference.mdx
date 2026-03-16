@@ -25,47 +25,31 @@ These are the available options:
 
 ### `title`
 
-type: `string` \
-example: `"x.site.title"` \
+type: `object` \
+example: `{ en: "My Library" }` \
 required: `true`
 
 The title of your site. For example shown on the the header bar.
-It can be a fixed string or a translation key to support multiple locales.
+Provide a locale map keyed by your configured site languages. The default site locale is required.
 
-### `languages`
+### `siteLanguages`
 
 type: `array` \
-example: `[{ code: "en", label: "English", isDefaultSiteLanguage: true }]` \
+example: `[{ code: "en", isDefault: true }]` \
 required: `true`
 
-The site and content languages of your site.
+The site languages of your site. Language metadata such as display labels is stored in `src/content/languages/{bcp47}.json`.
 
-#### languages: `code`
+#### siteLanguages: `code`
 
 type: `string` \
 example: `"en"` \
 required: `true`
 
 The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code is used as the language's identifier.
+It must reference an existing language file from `src/content/languages/{bcp47}.json` (without .json)
 
-#### languages: `label`
-
-type: `string` \
-example: `"English"` \
-required: `true`
-
-The name of the language. This is used as the language name in the language picker. It can be a fixed string or a translation key to support multiple locales.
-
-#### languages: `isSiteLanguage`
-
-type: `boolean` \
-example: `true` \
-required: `false`
-
-Configure this language to be available as a site language. It shows up in the language picker in the menu bar.
-You do not need to set this, if you set `isDefaultSiteLanguage` to true.
-
-#### languages: `isDefaultSiteLanguage`
+#### siteLanguages: `isDefault`
 
 type: `boolean` \
 example: `true` \
@@ -76,6 +60,15 @@ You must set exactly one language to be the default language. The default site l
 
 - As the fallback language if a translation is not available for the current locale.
 - As the default language when the user navigates to the root URL path (`/`).
+
+#### siteLanguages: `fallback`
+
+type: `string[]` \
+example: `["en"]` \
+required: `false`
+
+An ordered list of fallback locales used when translations are not available for the current locale.
+If omitted, LightNet uses no additional locale-specific fallbacks before trying the default site language.
 
 ### `logo`
 
@@ -96,12 +89,12 @@ LightNet optimizes the image size for better performance (except for SVGs). We r
 
 #### logo: `alt`
 
-type: `string` \
-example: `"x.logo.alt"` \
+type: `object` \
+example: `{ en: "My Library logo" }` \
 required: `false`
 
 The alt text of the logo. This is used if the logo image is not available or if the user has disabled images, for example when using a screen reader.
-The value of the `alt` attribute can either be a fixed string or a translation key to support multiple locales.
+Provide a locale map keyed by your configured site languages.
 
 #### logo: `size`
 
@@ -203,7 +196,7 @@ This sets the manifest of the site. The file must be inside the `public/` direct
 ### `mainMenu`
 
 type: `array` \
-example: `[{ href: "/about", label: "x.navigation.about" }]` \
+example: `[{ href: "/about", label: { en: "About" } }]` \
 required: `false`
 
 This sets the main menu of the site. It is expected to be an array with at least one entry.
@@ -220,11 +213,11 @@ Internal links are automatically prefixed with the current locale.
 
 #### mainMenu: `label`
 
-type: `string` \
-example: `"x.navigation.about"` \
+type: `object` \
+example: `{ en: "About" }` \
 required: `true`
 
-The label of the main menu entry. The value can be a fixed string or a translation key to support multiple locales.
+The label of the main menu entry. Provide a locale map keyed by your configured site languages.
 
 #### mainMenu: `requiresLocale`
 
