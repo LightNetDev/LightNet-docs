@@ -93,6 +93,7 @@ export default defineConfig({
           label: "Add content",
           items: [
             { slug: "content/fundamentals" },
+            { slug: "content/languages" },
             { slug: "content/media-items" },
             { slug: "content/media-types" },
             { slug: "content/categories" },
