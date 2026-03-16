@@ -150,19 +150,17 @@ lightnetSveltiaAdmin({
 lightnetSveltiaAdmin({});
 ```
 
-2. Rename media item image folder to `src/content/media/images` if needed.
+2. Rename the media image folder to `src/content/media/images` if needed.
 
 ```text
 # before
 src/content/media/_images/
-src/content/categories/_images/
 
 # after
 src/content/media/images/
-src/content/categories/images/
 ```
 
-3. Update image paths in media item content entries.
+3. Update image paths in media content entries.
 
 ```json
 // before
@@ -179,12 +177,12 @@ src/content/categories/images/
 
 ### Replace `languages` with `siteLanguages` and language content entries
 
-Language configuration is now split into two explicit sources:
+Language configuration is now split into two clear sources:
 
 - Site locales are configured in LightNet config in `astro.config.*` via `siteLanguages`.
 - Language metadata is stored as content entries in `src/content/languages/{bcp47}.json`.
 
-This removes duplicated language metadata from config and makes locale behavior easier to understand.
+This removes duplicated metadata from config and makes locale behavior easier to reason about.
 
 Example `siteLanguages` config:
 
@@ -197,7 +195,6 @@ Example `siteLanguages` config:
     },
     {
       "code": "de",
-      "fallback": ["en"]
     }
   ]
 }
@@ -268,10 +265,6 @@ Example language content entry (`src/content/languages/en.json`):
 }
 ```
 
-- `fallback` is optional and defaults to an empty array.
-- `code` values should be valid BCP-47 tags.
-- `fallback` values may reference locales not listed in `siteLanguages`.
-
 ### Move locale access to `Astro.locals.i18n.currentLocale`
 
 LightNet no longer injects Astro `i18n` routing config during integration setup. Locale-aware code should now read the active locale from `Astro.locals.i18n.currentLocale`.
@@ -283,19 +276,21 @@ LightNet no longer injects Astro `i18n` routing config during integration setup.
 
 #### Migration
 
-1. Update locale access in pages and components.
+1. Update locale access in pages and components to read from `Astro.locals.i18n`.
 
 ```astro
 ---
 // before
-const locale = Astro.currentLocale
+const currentLocale = Astro.currentLocale
 
 // after
-const locale = Astro.locals.i18n.currentLocale
+const { currentLocale } = Astro.locals.i18n
 ---
 ```
 
-2. If your project relies on Astro `i18n` routing for non LightNet routes, define it explicitly in `astro.config.*`.
+2. If your project relies on Astro `i18n` routing for routes outside LightNet, define it explicitly in `astro.config.*`.
+
+LightNet still rewrites `/` to `/{defaultLocale}`.
 
 This is the Astro `i18n` config LightNet used to generate:
 
@@ -520,7 +515,7 @@ Move cover style values to top-level `coverImageStyle` in each media type file.
 
 ### `commonId` is now optional for media items
 
-Make `commonId` optional for media items.
+Media items no longer require `commonId`.
 
 - In `lightnet`, media item schema validation now accepts entries without `commonId`.
 - Translation lookup now treats missing `commonId` as standalone and returns no translations for that item.
