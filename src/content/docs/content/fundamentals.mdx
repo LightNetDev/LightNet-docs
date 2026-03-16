@@ -11,6 +11,8 @@ The filename  - excluding the `.json` suffix - serves as the item's unique ident
 
 All content folders are located in `src/content`. LightNet uses the following content folders:
 
+- [languages](/content/languages): Each file in this folder defines display metadata for a configured language.
+  These entries are referenced by your `siteLanguages` configuration and by media item `language`.
 - [media](/content/media-items): Each file in this folder describes a media item. This is the core of your media library. Media Items
   reference other content files like categories, collections.
 - [media-types](/content/media-types): are used to group media items by their type. Eg. "Video" and "Audio" could be media types that are
