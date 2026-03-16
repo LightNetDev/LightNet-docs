@@ -42,23 +42,28 @@ This chapter guides you in creating the about page but can also be used to creat
         Astro takes care of optimizing your images that are referenced in the markdown file.
         
     1. **Add About to Main Menu**: Add the following code to the `astro.config.mjs` file:
-        ```js title="astro.config.mjs" ins={5-8}
+        ```js title="astro.config.mjs" ins={5-9}
         export default defineConfig({
           integrations: [
             lightnet({
               mainMenu: [
                 {
                   href: "/about",
-                  label: "x.navigation.about",
+                  label: {
+                    en: "About",
+                  },
                 },
               ],
             }),
           ],
         });
         ```
-    1. **Add translations for Menu Entry**: For each locale add a translation for the translation key (`x.navigation.about`) that has been used in the step before.
-        For example add this to the English translation file:
-        ```yml title="src/translations/en.yml" ins={1}
-        x.navigation.about: About
+    1. **Translate the menu label directly in config**: For each site language add the translated label to the locale map used in the step before.
+        For example:
+        ```js title="astro.config.mjs"
+        label: {
+          en: "About",
+          de: "Über uns",
+        }
         ```
     </Steps>
