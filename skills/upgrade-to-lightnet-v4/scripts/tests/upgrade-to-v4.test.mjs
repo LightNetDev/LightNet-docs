@@ -14,7 +14,7 @@ import { scanProject } from "../scan-project.mjs";
 import { updatePackageJson } from "../update-package-json.mjs";
 
 async function createProject() {
-  const root = await mkdtemp(path.join(os.tmpdir(), "upgrade-to-v4-"));
+  const root = await mkdtemp(path.join(os.tmpdir(), "upgrade-to-lightnet-v4-"));
 
   await writeJson(root, "package.json", {
     dependencies: {

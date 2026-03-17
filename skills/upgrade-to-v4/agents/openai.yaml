@@ -1,4 +1,0 @@
-interface:
-  display_name: "Upgrade To V4"
-  short_description: "Upgrade downstream LightNet sites"
-  default_prompt: "Use $upgrade-to-v4 to audit a downstream LightNet site repo, run the safe v4 migration scripts, complete the manual changes, and verify the upgrade."

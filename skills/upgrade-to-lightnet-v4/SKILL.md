@@ -1,9 +1,9 @@
 ---
-name: upgrade-to-v4
+name: upgrade-to-lightnet-v4
 description: Upgrade an existing downstream LightNet site repository to LightNet v4 and `@lightnet/sveltia-admin` v4. Use when a coding agent needs to audit a consumer LightNet site repo, run safe migration scripts against that target project, complete the remaining manual Astro/config/code changes, and verify the upgrade. This skill is distributed from the docs repo but should be used on a separate LightNet site repository, not on the docs repo itself.
 ---
 
-# Upgrade To V4
+# Upgrade to LightNet v4
 
 Upgrade a downstream LightNet site repo to LightNet v4 in two passes: run the safe deterministic scripts first, then finish the project-specific source and config edits manually.
 
