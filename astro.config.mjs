@@ -93,6 +93,7 @@ export default defineConfig({
           label: "Add content",
           items: [
             { slug: "content/fundamentals" },
+            { slug: "content/languages" },
             { slug: "content/media-items" },
             { slug: "content/media-types" },
             { slug: "content/categories" },
@@ -110,7 +111,14 @@ export default defineConfig({
         },
         {
           label: "Run",
-          items: [{ slug: "run/update" }, { slug: "run/monitor" }],
+          items: [
+            { slug: "run/update" },
+            { slug: "run/monitor" },
+            {
+              label: "Major upgrade guides",
+              items: [{ slug: "run/upgrade-to/v4", label: "v4.0" }],
+            },
+          ],
         },
         {
           label: "Resources",
@@ -159,19 +167,18 @@ Recommended reading order:
             },
             {
               label: "Concepts",
-              description: "Architecture, structure, and collaboration concepts.",
+              description:
+                "Architecture, structure, and collaboration concepts.",
               paths: ["concepts/**"],
             },
             {
               label: "Build",
-              description:
-                "Astro foundations, configuration, pages, and i18n.",
+              description: "Astro foundations, configuration, pages, and i18n.",
               paths: ["build/**"],
             },
             {
               label: "Content",
-              description:
-                "Content collections, media metadata, and admin UI.",
+              description: "Content collections, media metadata, and admin UI.",
               paths: ["content/**"],
             },
             {

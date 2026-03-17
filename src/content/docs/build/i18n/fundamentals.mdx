@@ -5,21 +5,24 @@ description: >
   Internationalization is a core feature, essential even if you're supporting just one language.
 ---
 
-import {Aside} from "@astrojs/starlight/components"
+import { Aside } from "@astrojs/starlight/components";
 
-LightNet enables building websites in your community's language, supporting multiple languages, including right-to-left languages.
-It is highly recommended to understand LightNet's implementation of internationalization, even if you're supporting just one language.
+LightNet lets you build websites in your community's language and supports multiple languages, including right-to-left languages.
+Understanding LightNet's internationalization model is useful even if your site supports only one language.
 
-## Two layers of language
+## Two language layers
 
-LightNet sites have two layers of language (which may be identical):
+LightNet sites distinguish between two kinds of language. In many projects they are the same, but they serve different purposes:
 
-- **Content Language**: The language of media items. For instance, an English video has an English title and description.
-- **Site Language**: The language of the user interface, including button labels, menus, and page text.
+- **Site language**: The language of the website interface, including button labels, menus, and page text.
+- **Content language**: The language of a media item itself. For example, an English video has an English title and description.
 
-Both are configured using the `languages` setting in `astro.config.mjs`. All listed languages are available as content languages. 
-For site languages, explicitly set either `isDefaultSiteLanguage` or `isSiteLanguage` to `true`.
+Site languages are configured with `siteLanguages` in `astro.config.mjs`.
+Language metadata such as display labels is stored separately in `src/content/languages/{bcp47}.json`.
 
+## Configure site languages
+
+This example configures English as the default site language and German as an additional locale:
 
 ```js title="astro.config.mjs"
 import lightnet from "lightnet";
@@ -28,15 +31,13 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   integrations: [
     lightnet({
-      languages: [
+      siteLanguages: [
         {
           code: "en",
-          label: "English",
-          isDefaultSiteLanguage: true
+          isDefault: true
         },
         {
-          code: "de",
-          label: "German"
+          code: "de"
         }
       ],
     }),
@@ -44,69 +45,81 @@ export default defineConfig({
 });
 ```
 
-### Language configuration properties
+Each configured site language should also have a matching language entry in `src/content/languages`.
 
-- **`code`**: The language identifier using [IETF BCP-47 tags](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g., `es` for Spanish). 
-  [This tool](https://r12a.github.io/app-subtags/), google or chat-gpt might be helping you with this.
-- **`label`**: The display name for the language selector. This can be a static string (e.g., `Español`) or a translation key (e.g., `x.languages.es`).
-- The **`isDefaultSiteLanguage`** is the primary site language for visitors and the fallback for translations. Exactly one language must be set as default.
-- Additional site languages can be defined by setting `isSiteLanguage` to `true`.
+For example, a corresponding English entry could look like this:
+
+
+```json title="src/content/languages/en.json"
+{
+  "code": "en",
+  "label": {
+    "en": "English",
+    "de": "Englisch"
+  }
+}
+```
+
+For step-by-step and reference details, see:
+
+- [Add a site language](/build/i18n/add-language)
+- [Languages reference](/content/languages)
 
 ## Route localization
 
-Every page of a LightNet site is available for all configured site languages. To enable this 
-all page routes start with a `locale`. The locale references the `code` defined in the languages config. For example 
-an English About page could be available on `https://your.site/en/about`.
+Every page of a LightNet site is available in all configured site languages.
+Routes are localized by prefixing the path with the configured locale code.
 
-## Translating pages in LightNet
+For example:
 
-To implement translations, LightNet uses translation keys that are mapped to translation values based on the current locale. 
-A translation key is used inside an Astro component like this:
+- `https://your.site/en/about`
+- `https://your.site/de/about`
 
-```astro title="MyComponent.astro"
-<h1>{Astro.locals.i18n.t("x.homepage.title")}</h1>
-```
+## Translation files and keys
 
-The translate function `Astro.locals.i18n.t` is available in all Astro files. 
-It maps the translation key to the value based on the current locale, derived from the page's URL path.
+LightNet uses translation keys that resolve to translated values based on the current locale.
+Translation files live in `src/translations/`, with one file per site language named `[language-code].yml`.
 
-The translate function is implemented by using the external library i18next. Checkout the [i18next docs](https://www.i18next.com/) to learn 
-how they support plurals, context, interpolation...
-
-### Translation files
-
-Translations are stored in `src/translations/`, with one file per site language named `[language-code].yml`.
-This is how the english translation file of our example above could look like:
+For example:
 
 ```yml title="src/translations/en.yml"
 # Optional description...
-x.homepage.title: Welcome to my page!
+homepage.title: Welcome to my page!
 ```
 
-<Aside type="tip">
-Enclose the translation values in quotes if they contain special characters, such as `:`, `#` or `-`. 
+You can use a translation key inside an Astro component like this:
+
+```astro title="MyComponent.astro"
+<h1>{Astro.locals.i18n.t("homepage.title")}</h1>
+```
+
+The `Astro.locals.i18n.t(...)` helper is available in all Astro files.
+It resolves the key using the current locale derived from the page URL.
+
+LightNet uses [i18next](https://www.i18next.com/) internally, so features such as plurals, interpolation, and context follow i18next conventions.
+
+<Aside type="caution">
+Enclose translation values in quotes if they contain special characters, such as `:`, `#`, or `-`.
 </Aside>
 
 - The translation key is on the left, and the translation value is on the right.
-- Use periods (`.`) in keys to add context (e.g., `x.homepage.title`).
+- Use periods (`.`) in keys to add context (e.g., `homepage.title`).
 
-LightNet uses the same mechanism to translate built-in strings for example the title on the search page (`ln.search.title`).
-All translation keys used by LightNet are defined in the [built-in English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) on GitHub. 
-This file is always up to date.
-Next to the English translation files you find other translations for LightNet. They are maintained by the community - you are welcome to [contribute your
-translations](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations).
+LightNet uses the same mechanism for built-in strings, for example the search page title (`ln.search.title`).
+All built-in keys are defined in the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) on GitHub.
+Additional locale files in that folder are maintained by the community, and contributions are welcome.
 
-By convention all of LightNet's built-in translation keys start with `ln.`. You should start your custom translation keys with `x.`. 
+By convention, LightNet's built-in translation keys start with `ln.`.
+Your own project keys can use any other prefix, or no prefix at all, for example `homepage.title`.
 
 ### Translation resolution order
 
 LightNet resolves translation keys in the following order:
 
-1. Merge custom and built-in translations, with custom values taking precedence.
+1. Merge custom and built-in translations, with project translations taking precedence.
 2. Check the translation file for the exact current locale.
 3. Fallback to the base language (e.g., `en` for `en_US`).
-4. Use any `fallbackLanguages` defined for the current language.
+4. Use any `fallback` locales defined for the current language in `siteLanguages`.
 5. Fallback to the default site language.
 6. Lastly, fallback to English translations.
-7. If unresolved, return the key. If the key starts with `ln.` or `x.`, an error is thrown.
-
+7. If unresolved, `t(...)` throws an error because string inputs are treated strictly as translation keys.

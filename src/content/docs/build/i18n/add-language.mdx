@@ -3,45 +3,53 @@ title: Add a site language
 description: How to add a new site language to your LightNet media site.
 ---
 
-import { Steps } from "@astrojs/starlight/components";
+import { Aside, Steps } from "@astrojs/starlight/components";
 
-Follow this steps to add a new site language:
+Follow these steps to add a new site language to your LightNet project:
 
 <Steps>
-1. **Identify the language's BCP-47 code**: [Wikipedia](https://en.wikipedia.org/wiki/IETF_language_tag), [this tool](https://r12a.github.io/app-subtags/), google or chat-gpt might be helping you with this. E.g. `en` for English.
-1. **Create a translations file**: Create an empty file in the `src/translations` folder. The file must be named with the language code ending with `.yml` (e.g. `en.yml` for English).
-1. **Find out if LightNet already offers your language**: Inspect LightNet's [built-in translations on GitHub](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations).
-    See if there is a file named `[your language code].yml`.
-        - If there is no such file, LightNet does not yet offer built-in translations for your language. In this case you must add translations inside your project (see explanation below).
-        - If there is a translation file for your language, checkout the [Translation-Status](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/TRANSLATION-STATUS.md) 
-          to see if there are missing keys for your language.  
-1. **Add LightNet translations to your project**: If your language is not yet built-in, or if the built-in translation file is missing keys, you need to add these keys to your
-    translation file. To do so, copy all missing entries from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) 
-    to your newly created translation file (from step 2). Translate the values to your language.
-1. **Add your custom translation keys**: If you already have other translation files that define custom translation keys (keys starting with `x.`), 
-    add them to your new translation file including their translated values.
-1. **Add language to config**: Add the new language to the `languages` array in your `astro.config.mjs` file.
-    ```js title="astro.config.mjs" ins={5-12}
+1. **Identify the language code**: Find the correct [BCP-47 language code](https://en.wikipedia.org/wiki/IETF_language_tag) for your language, for example `en` for English or `de` for German.
+   Tools like [r12a Language Subtag Lookup](https://r12a.github.io/app-subtags/) can help you find the right code.
+1. **Create a language content entry**: Add a file in `src/content/languages` named after your language code. For example `src/content/languages/de.json`:
+    ```json title="src/content/languages/de.json"
+    {
+      "code": "de",
+      "label": {
+        "en": "German",
+        "de": "Deutsch"
+      }
+    }
+    ```
+    See the [Languages content reference](/content/languages) for more details on this collection.
+1. **Create a translations file**: Add a file in `src/translations` named after your language code, for example `src/translations/de.yml`.
+1. **Check built-in LightNet translations**: Inspect LightNet's [built-in translations on GitHub](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations) and look for a file named `[your-language-code].yml`.
+   - If no such file exists, LightNet does not yet provide built-in translations for that language.
+   - If the file exists, check the [translation status](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/TRANSLATION-STATUS.md) to see whether any keys are still missing.
+1. **Add missing built-in translations to your project**: If your language is not built in yet, or if the built-in translation file is incomplete, copy the missing keys from the [English translation file](https://github.com/LightNetDev/LightNet/blob/main/packages/lightnet/src/i18n/translations/en.yml) into your project translation file and translate those values.
+1. **Add your custom translation keys**: If your project already uses custom translation keys in other locale files, add translated values for those keys to the new file as well.
+1. **Add the language to your config**: Add the new language to the `siteLanguages` array in `astro.config.mjs`.
+    ```js title="astro.config.mjs" ins={5-8}
     export default defineConfig({
         integrations: [
             lightnet({
-                languages: [
+                siteLanguages: [
                     {
                         // BCP-47 code from step 1
-                        code: "de",
-                        // Display name for the language selector.
-                        label: "Deutsch",
-                        // Use this as a site language
-                        isSiteLanguage: true
+                        code: "de"
                     },
                 ],
             }),
         ],
     })
     ```
-1. **Set default language**: Your pages needs exactly one default site language. 
-    If you want to use the new language as the default site language, replace `isSiteLanguage: true` with `isDefaultSiteLanguage: true`.
-1. **Validate**: Run the development server with `npm run dev` and check if the new language is available in the language selector. 
-    Select the new language and check if the translations are working as expected.
-1. **Contribute**: If you have translated missing LightNet's built-in translations. Please consider sharing them by using this [simple form](https://github.com/LightNetDev/LightNet/issues/new?template=---03-translations-update.yml).
+1. **Set the default language if needed**: Your site must have exactly one default site language.
+   If the new language should become the default, add `isDefault: true` to that entry and remove `isDefault` from the current default language.
+1. **Validate the new locale**: Run `npm run dev` and check that the new language appears in the language selector.
+   Switch to the new locale and verify that built-in strings, your custom translations, and language labels display correctly.
+1. **Contribute upstream**: If you translated missing LightNet built-in strings, consider sharing them through this [translations update form](https://github.com/LightNetDev/LightNet/issues/new?template=---03-translations-update.yml).
 </Steps>
+
+<Aside type="tip">
+LightNet resolves translations from both built-in locale files and your project's `src/translations` files.
+Project translations take precedence, so you only need to add the keys that are missing or that you want to override.
+</Aside>

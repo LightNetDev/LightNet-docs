@@ -5,7 +5,7 @@ description: How to add a footer to all pages.
 
 import {Steps} from "@astrojs/starlight/components"
 
-This chapter guides you how to add a custom footer to all pages.
+This chapter explains how to add a custom footer to all pages.
 
 <Steps>
 1. **Add footer component**: Add a new Astro component file to your project under `src/components/Footer.astro`.
@@ -16,11 +16,11 @@ This chapter guides you how to add a custom footer to all pages.
     <footer
         class="flex w-full justify-center border-t border-gray-300 px-4 py-4 md:px-8"
     >
-        {Astro.locals.i18n.t("x.footer.text")}
+        {Astro.locals.i18n.t("footer.text")}
     </footer>
     ```
 1. **Add translations**: If your footer uses translation keys like in the example above, add the translations to `src/translations`.
-1. **Set footer in configuration**: Inside `astro.config.mjs` add a `footerComponent` property to the LightNet integration. This needs to reference the component created in step 1:
+1. **Set the footer in configuration**: Inside `astro.config.mjs`, add a `footerComponent` property to the LightNet integration. This should reference the component created in step 1:
     ```js title="astro.config.mjs" ins={5}
     export default defineConfig({
         integrations: [
@@ -32,4 +32,3 @@ This chapter guides you how to add a custom footer to all pages.
     })
     ```
 </Steps>
-

@@ -1,17 +1,29 @@
 {
   "words": [
+    "astrojs",
     "backblaze",
+    "Bücher",
     "checkly",
-    "eigener",
-    "español",
-    "linkcheck",
-    "nvmrc",
-    "lightnet",
     "decap",
-    "pkce",
     "deutsch",
+    "eigener",
+    "Englisch",
+    "español",
+    "lightnet",
+    "linkcheck",
+    "llms",
+    "Lucide",
+    "nvmrc",
+    "pkce",
+    "scriptable",
     "seti",
-    "llms"
+    "Subtag",
+    "sveltia",
+    "Über",
+    "entr"
   ],
-  "ignorePaths": [".vscode", ".github"]
+  "ignorePaths": [
+    ".vscode",
+    ".github"
+  ]
 }

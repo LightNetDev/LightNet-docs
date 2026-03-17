@@ -7,17 +7,17 @@ LightNet allows you to set a favicon — the small icon displayed in browser tab
 
 ![favicon](./images/favicon.webp)
 
-When selecting a favicon, ensure it maintains good contrast on both light and dark backgrounds. 
+When selecting a favicon, make sure it has good contrast on both light and dark backgrounds.
 Additionally, remember that favicons are usually very small, so avoid intricate details that may not render clearly.
 
 #### Basic method (not recommended)
 
-The simplest way to set a favicon is by placing a `favicon.ico` file in your project's `public/` folder.  
-This file is served at `/favicon.ico`, a standard location recognized by all browsers. (Recommended size 32 x 32 pixels)
+The simplest way to set a favicon is by placing a `favicon.ico` file in your project's `public/` folder.
+This file is served at `/favicon.ico`, a standard location recognized by all browsers. The recommended size is 32 x 32 pixels.
 
 #### Recommended method
 
-For a better user experience, 
+For a better user experience,
 use [multiple icon formats tailored to different platforms](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs). 
 This approach ensures optimal display quality across devices. Reference the icons in your `astro.config.mjs` file as follows:
 
@@ -51,7 +51,6 @@ export default defineConfig({
 Place these files in your `public/` folder:
 
 - **`favicon.ico`**: A fallback icon for all browsers. Recommended size: 32x32 pixels.
-- **`icon.svg`**: A vector graphic for high-resolution displays. 
+- **`icon.svg`**: A vector graphic for high-resolution displays.
 - **`apple-touch-icon.png`**: Used for home screen shortcuts on iPhones/iPads. Recommended size: 180x180 pixels.
-
 

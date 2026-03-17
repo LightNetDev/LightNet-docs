@@ -1,3 +1,6 @@
 {
-    "cSpell.diagnosticLevel": "Warning"
+    "cSpell.diagnosticLevel": "Warning",
+    "[mdx]": {
+        "editor.defaultFormatter": "unifiedjs.vscode-mdx"
+    }
 }
