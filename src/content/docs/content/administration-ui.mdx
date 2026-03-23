@@ -68,6 +68,94 @@ For sites with higher security requirements, we recommend changing the default a
 You can do this with the [path](#path) option.
 </Aside>
 
+## Edit languages through `languages.json`
+
+The Administration UI can also edit LightNet languages through a root-level `languages.json` file.
+This is controlled by the experimental `useLanguagesCollection` option in `lightnetSveltiaAdmin(...)`.
+
+Enable the experimental option in `astro.config.mjs`:
+
+```ts title="astro.config.mjs"
+lightnetSveltiaAdmin({
+  experimental: {
+    useLanguagesCollection: true,
+  },
+})
+```
+
+When enabled, the Administration UI expects a `languages.json` file at the root of your LightNet site.
+
+<Aside type="caution" title="Experimental option">
+This workflow is optional and experimental.
+The option name and behavior may still change before the feature is stabilized.
+</Aside>
+
+### Extract `languages.json`
+
+If your site currently defines `languages` inline inside `lightnet(...)`, move that array into a dedicated `languages.json` file and import it back into `astro.config.mjs`.
+
+Before:
+
+```ts title="astro.config.mjs"
+lightnet({
+  languages: [
+    {
+      code: "en",
+      label: {
+        en: "English",
+      },
+      isDefaultSiteLanguage: true,
+    },
+    {
+      code: "de",
+      label: {
+        en: "Deutsch",
+        de: "Deutsch",
+      },
+      isSiteLanguage: true,
+    },
+  ],
+})
+```
+
+After:
+
+```ts title="astro.config.mjs"
+import languages from "./languages.json"
+
+lightnet({
+  languages,
+})
+
+lightnetSveltiaAdmin({
+  experimental: {
+    useLanguagesCollection: true,
+  },
+})
+```
+
+Create `languages.json` at the site root with the same array:
+
+```json title="languages.json"
+[
+  {
+    "code": "en",
+    "label": {
+      "en": "English"
+    },
+    "isDefaultSiteLanguage": true
+  },
+  {
+    "code": "de",
+    "label": {
+      "en": "Deutsch",
+      "de": "Deutsch"
+    },
+    "isSiteLanguage": true
+  }
+]
+```
+
 ## Run the Administration UI
 
 The Administration UI can save changes either to your local file system or to a Git host such as GitLab or GitHub.
@@ -203,10 +291,6 @@ required: `false`
 This configures the Git host your Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
 The configuration maps to the Administration UI backend settings for GitHub or GitLab.
 
-<Aside type="caution">
-  We highly recommend using the GitLab backend for LightNet sites.
-</Aside>
-
 #### `backend: "gitlab"`
 
 GitLab backend configuration has these options:
@@ -230,3 +314,23 @@ GitHub backend configuration has these options:
 GitHub does not support the PKCE authentication type. This means you need an authentication server to handle the authentication request.
 This is why we recommend using the GitLab backend for LightNet sites.
 </Aside>
+
+### `experimental`
+
+type: `object` \
+example: `{ useLanguagesCollection: true }` \
+required: `false`
+
+Optional experimental features for the Administration UI.
+If omitted, experimental features stay disabled.
+
+#### `experimental.useLanguagesCollection`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Enables Administration UI editing for LightNet languages through a root-level `languages.json` file.
+When this option is enabled, keep your `lightnet({ languages })` config and import the array from `./languages.json` in `astro.config.mjs`.
+The `languages.json` file must live at the root of the site repository.
