@@ -158,8 +158,8 @@ test("migrate-cover-image-style moves detailsPage.coverStyle to coverImageStyle"
 
 test("migrate-content-labels converts strings and skips translation-key labels", async () => {
   const projectDir = await createProject();
-  await writeJson(projectDir, "src/content/languages/en.json", {
-    label: "English",
+  await writeJson(projectDir, "src/content/categories/teaching.json", {
+    label: "Teaching",
   });
   await writeJson(projectDir, "src/content/media-types/video.json", {
     detailsPage: {
@@ -175,12 +175,12 @@ test("migrate-content-labels converts strings and skips translation-key labels",
   });
 
   const result = await migrateContentLabels(projectDir, { defaultLocale: "en" });
-  const language = await readJson(projectDir, "src/content/languages/en.json");
+  const category = await readJson(projectDir, "src/content/categories/teaching.json");
   const mediaType = await readJson(projectDir, "src/content/media-types/video.json");
   const media = await readJson(projectDir, "src/content/media/book--en.json");
 
   assert.equal(result.exitCode, 0);
-  assert.deepEqual(language.label, { en: "English" });
+  assert.deepEqual(category.label, { en: "Teaching" });
   assert.deepEqual(mediaType.label, { en: "Video" });
   assert.deepEqual(mediaType.detailsPage.openActionLabel, { en: "Watch now" });
   assert.deepEqual(media.content[0].label, { en: "Read PDF" });
@@ -228,7 +228,7 @@ test("scan-project reports scriptable and manual v4 migration work for downstrea
     `import decapAdmin from "@lightnet/decap-admin";
 
 export default {
-  languages: [{ code: "en", isDefaultSiteLanguage: true }],
+  languages: [{ code: "en", label: "English", isDefaultSiteLanguage: true }],
   integrations: [decapAdmin({ imagesFolder: "_images" })],
 };
 `,
@@ -273,6 +273,10 @@ const currentLocale = Astro.currentLocale;
   assert.ok(
     result.manual.some((item) => item.id === "manual-current-locale"),
     "expected Astro.currentLocale migration to be detected",
+  );
+  assert.ok(
+    result.manual.some((item) => item.id === "manual-config-language-labels"),
+    "expected config language label migration to be detected",
   );
   assert.ok(
     result.manual.some((item) => item.id === "manual-media-gallery-section"),

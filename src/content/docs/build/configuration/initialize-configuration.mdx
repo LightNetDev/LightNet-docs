@@ -21,10 +21,13 @@ export default defineConfig({
       title: {
         en: "My Library",
       },
-      siteLanguages: [
+      languages: [
         {
           code: "en",
-          isDefault: true,
+          label: {
+            en: "English",
+          },
+          isDefaultSiteLanguage: true,
         },
       ],
     }),
@@ -48,17 +51,18 @@ The `title` property sets the site title, which appears in the browser tab and h
    title: { en: "My Library" }
    ```
 
-3. **Site languages** -
-   The `siteLanguages` section defines the locales available for your site UI. Refer to the [Internationalization Guide](/build/i18n/fundamentals) for more 
+3. **Languages** -
+   The `languages` section defines the languages known to your site. Use `isDefaultSiteLanguage` and `isSiteLanguage` to control which locales are available in the site UI. Refer to the [Internationalization Guide](/build/i18n/fundamentals) for more 
    details on managing locales and fallbacks.
 
-   Language labels are stored separately as content entries in `src/content/languages/{bcp47}.json`. For example:
+   Each language also includes its display label as a locale map. For example:
    ```json
    {
      "code": "en",
      "label": {
        "en": "English"
-     }
+     },
+     "isDefaultSiteLanguage": true
    }
    ```
 </Steps>

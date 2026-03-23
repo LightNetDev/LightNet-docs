@@ -45,11 +45,6 @@ export async function inspectContentLabels(projectDir) {
 
   const collectionSpecs = [
     {
-      dir: path.join(projectDir, "src", "content", "languages"),
-      transform: (data, state, fileLabel) =>
-        convertStringLabel(data, "label", defaultLocale, state, `${fileLabel}:label`),
-    },
-    {
       dir: path.join(projectDir, "src", "content", "categories"),
       transform: (data, state, fileLabel) =>
         convertStringLabel(data, "label", defaultLocale, state, `${fileLabel}:label`),
@@ -174,11 +169,6 @@ export async function migrateContentLabels(projectDir, options = {}) {
   }
 
   const collectionSpecs = [
-    {
-      dir: path.join(projectDir, "src", "content", "languages"),
-      transform: (data, state, fileLabel) =>
-        convertStringLabel(data, "label", options.defaultLocale, state, `${fileLabel}:label`),
-    },
     {
       dir: path.join(projectDir, "src", "content", "categories"),
       transform: (data, state, fileLabel) =>

@@ -59,21 +59,22 @@ async function inspectManualMigrations(projectDir, astroConfigFiles, iconInspect
     return files;
   };
 
-  const legacyLanguagesFiles = await matchedFiles(
-    (content) =>
-      content.includes("languages:") ||
-      content.includes("isDefaultSiteLanguage") ||
-      content.includes("fallbackLanguages"),
-  );
-  if (legacyLanguagesFiles.length > 0) {
+  const configLanguageLabelFiles = [];
+  for (const filePath of astroConfigFiles) {
+    const content = await readText(filePath);
+    if (content.includes("languages:") && /label\s*:\s*["'`]/.test(content)) {
+      configLanguageLabelFiles.push(relativePath(projectDir, filePath));
+    }
+  }
+  if (configLanguageLabelFiles.length > 0) {
     results.push(
       createManualFinding(
-        "manual-site-languages",
-        "Replace legacy `languages` config with `siteLanguages` and create `src/content/languages/*.json` entries.",
-        legacyLanguagesFiles,
+        "manual-config-language-labels",
+        "Convert `languages[].label` values in `astro.config.*` to locale maps.",
+        configLanguageLabelFiles,
         [
-          "Update `astro.config.*` manually because project config shapes vary.",
-          "Create or update language content entries for every configured site locale.",
+          "Keep the `languages` config structure in place.",
+          "Replace plain-string or translation-key labels with inline locale maps manually in `astro.config.*`.",
         ],
       ),
     );
@@ -83,8 +84,7 @@ async function inspectManualMigrations(projectDir, astroConfigFiles, iconInspect
     (content) =>
       content.includes("@lightnet/decap-admin") ||
       content.includes("decapAdmin(") ||
-      content.includes("imagesFolder") ||
-      content.includes("languages:"),
+      content.includes("imagesFolder"),
   );
   if (decapFiles.length > 0) {
     results.push(

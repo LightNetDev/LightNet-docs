@@ -9,10 +9,9 @@ Use this matrix after running `scripts/scan-project.mjs` against the target Ligh
 | Reconfigure DaisyUI | manual | Agent-led edit | Only needed when the target repo still uses DaisyUI classes or plugin config. |
 | Replace Decap admin with Sveltia admin | manual | Agent-led config rewrite plus `scripts/update-package-json.mjs` | Package updates are scriptable; Astro integration rewrites are not. |
 | Remove `imagesFolder` option | mixed | Agent-led config rewrite plus `scripts/migrate-images-folder.mjs` | The script handles folder and JSON-path changes. Remove the obsolete option manually in `astro.config.*`. |
-| Replace `languages` with `siteLanguages` and language entries | manual | Agent-led config and content edits | Create `src/content/languages/*.json` entries manually for the target site. |
+| Convert config language labels to locale maps | manual | Agent-led config edits | Keep `languages` in `astro.config.*` and update `languages[].label` to inline locale maps. |
 | Move locale access to `Astro.locals.i18n.currentLocale` | manual | Agent-led source edits | The correct rewrite depends on the surrounding code. |
 | Convert content label strings to locale maps | auto | `scripts/migrate-content-labels.mjs --default-locale <code>` | The script only touches supported JSON content collections and skips `x.*` and `ln.*` strings. |
-| Convert config label strings to locale maps | manual | Agent-led config edits | `astro.config.*` is too variable to rewrite safely with a generic script. |
 | Drop the `x.` prefix from custom translation keys | verify | Manual review | Only update keys when the target site still depends on the old prefix. |
 | Add `type` to media `content` entries | auto | `scripts/migrate-media-content-types.mjs` | The script infers `link` for `http/https` URLs and `upload` otherwise. |
 | Move collection membership into `media-collections[].mediaItems` | auto | `scripts/migrate-media-collections.mjs` | The script stops if a referenced collection file is missing. |

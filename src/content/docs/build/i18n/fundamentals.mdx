@@ -17,8 +17,8 @@ LightNet sites distinguish between two kinds of language. In many projects they 
 - **Site language**: The language of the website interface, including button labels, menus, and page text.
 - **Content language**: The language of a media item itself. For example, an English video has an English title and description.
 
-Site languages are configured with `siteLanguages` in `astro.config.mjs`.
-Language metadata such as display labels is stored separately in `src/content/languages/{bcp47}.json`.
+Languages are configured with `languages` in `astro.config.mjs`.
+Each language entry includes the language code, its display label, and optional site-language flags.
 
 ## Configure site languages
 
@@ -31,13 +31,22 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   integrations: [
     lightnet({
-      siteLanguages: [
+      languages: [
         {
           code: "en",
-          isDefault: true
+          label: {
+            en: "English",
+            de: "Englisch"
+          },
+          isDefaultSiteLanguage: true
         },
         {
-          code: "de"
+          code: "de",
+          label: {
+            en: "German",
+            de: "Deutsch"
+          },
+          isSiteLanguage: true
         }
       ],
     }),
@@ -45,25 +54,10 @@ export default defineConfig({
 });
 ```
 
-Each configured site language should also have a matching language entry in `src/content/languages`.
-
-For example, a corresponding English entry could look like this:
-
-
-```json title="src/content/languages/en.json"
-{
-  "code": "en",
-  "label": {
-    "en": "English",
-    "de": "Englisch"
-  }
-}
-```
-
 For step-by-step and reference details, see:
 
 - [Add a site language](/build/i18n/add-language)
-- [Languages reference](/content/languages)
+- [Configuration reference](/build/configuration/reference)
 
 ## Route localization
 
@@ -119,7 +113,7 @@ LightNet resolves translation keys in the following order:
 1. Merge custom and built-in translations, with project translations taking precedence.
 2. Check the translation file for the exact current locale.
 3. Fallback to the base language (e.g., `en` for `en_US`).
-4. Use any `fallback` locales defined for the current language in `siteLanguages`.
+4. Use any `fallbackLanguages` defined for the current language in `languages`.
 5. Fallback to the default site language.
 6. Lastly, fallback to English translations.
 7. If unresolved, `t(...)` throws an error because string inputs are treated strictly as translation keys.

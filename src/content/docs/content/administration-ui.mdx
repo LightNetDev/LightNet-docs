@@ -46,7 +46,15 @@ You can still follow this guide from the beginning if you want to verify the set
             title: {
               en: "My Library",
             },
-            siteLanguages: [{ code: "en", isDefault: true }],
+            languages: [
+              {
+                code: "en",
+                label: {
+                  en: "English",
+                },
+                isDefaultSiteLanguage: true,
+              },
+            ],
             //...
         }),
         lightnetSveltiaAdmin({})

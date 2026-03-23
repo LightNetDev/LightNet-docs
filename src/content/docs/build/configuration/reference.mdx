@@ -30,26 +30,34 @@ example: `{ en: "My Library" }` \
 required: `true`
 
 The title of your site. For example, it is shown in the header bar.
-Provide a locale map keyed by your configured site languages. The default site locale is required.
+Provide a locale map keyed by your configured site languages. The default site language is required.
 
-### `siteLanguages`
+### `languages`
 
 type: `array` \
-example: `[{ code: "en", isDefault: true }]` \
+example: `[{ code: "en", label: { en: "English" }, isDefaultSiteLanguage: true }]` \
 required: `true`
 
-The site languages of your site. Language metadata such as display labels is stored in `src/content/languages/{bcp47}.json`.
+The languages known to your site. Use this list to define language codes, display labels, site locales, and translation fallback behavior.
 
-#### siteLanguages: `code`
+#### languages: `code`
 
 type: `string` \
 example: `"en"` \
 required: `true`
 
 The [IETF BCP-47](https://en.wikipedia.org/wiki/IETF_language_tag) code of the language. This code is used as the language's identifier.
-It must reference an existing language file from `src/content/languages/{bcp47}.json` without the `.json` extension.
 
-#### siteLanguages: `isDefault`
+#### languages: `label`
+
+type: `object` \
+example: `{ en: "English", de: "Englisch" }` \
+required: `true`
+
+The display name of the language used in the UI, for example in language selectors.
+Provide a locale map keyed by your configured site languages. The default site language is required.
+
+#### languages: `isDefaultSiteLanguage`
 
 type: `boolean` \
 example: `true` \
@@ -61,14 +69,25 @@ You must set exactly one language to be the default language. The default site l
 - As the fallback language if a translation is not available for the current locale.
 - As the default language when the user navigates to the root URL path (`/`).
 
-#### siteLanguages: `fallback`
+#### languages: `isSiteLanguage`
+
+type: `boolean` \
+example: `true` \
+required: `false`
+
+Configure this language to be available as a site language.
+It shows up in the language picker in the menu bar.
+You do not need to set this if `isDefaultSiteLanguage` is `true`.
+
+#### languages: `fallbackLanguages`
 
 type: `string[]` \
 example: `["en"]` \
 required: `false`
 
-An ordered list of fallback locales used when translations are not available for the current locale.
-If omitted, LightNet uses no additional locale-specific fallbacks before trying the default site language.
+An array of fallback language codes used when translations are not available for the current locale.
+LightNet iterates over this array in order and uses the first language that provides a matching translation key.
+If no match is found, LightNet falls back to the default site language and finally to English.
 
 ### `logo`
 

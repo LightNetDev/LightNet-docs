@@ -66,7 +66,7 @@ Use `--dry-run` before mutating commands when you want a preview.
 
 Keep these steps agent-led because they vary between site repos:
 
-- Replace legacy `languages` config with `siteLanguages` in `astro.config.*` and create `src/content/languages/*.json` entries.
+- Convert `languages[].label` values in `astro.config.*` from strings or translation keys to locale maps.
 - Rewrite the admin integration from Decap to `lightnetSveltiaAdmin(...)`, then remove obsolete `languages` and `imagesFolder` options.
 - Update locale access from `Astro.currentLocale` to `Astro.locals.i18n.currentLocale`.
 - Reconfigure DaisyUI manually if the target site still uses it.
