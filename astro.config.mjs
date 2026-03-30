@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightLlmsTxt from "starlight-llms-txt";
+import starlightAnnouncement from 'starlight-announcement'
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -129,6 +131,18 @@ export default defineConfig({
         },
       ],
       plugins: [
+        starlightAnnouncement({
+          announcements: [
+            {
+              id: "v4-release",
+              content: "LightNet v4 is here! ",
+              link: {
+                text: 'Learn how to upgrade your site',
+                href: '/run/upgrade-to/v4/',
+              },
+            }
+          ]
+        }),
         starlightLlmsTxt({
           projectName: "LightNet Developer Docs",
           description:
