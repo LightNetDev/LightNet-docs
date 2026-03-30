@@ -89,8 +89,7 @@ You can use a translation key inside an Astro component like this:
 
 The `Astro.locals.i18n.t(...)` helper is available in all Astro files.
 It resolves the key using the current locale derived from the page URL.
-
-LightNet uses [i18next](https://www.i18next.com/) internally, so features such as plurals, interpolation, and context follow i18next conventions.
+For the full API, including locale metadata and `tMap(...)` for inline locale maps, see [Astro.locals.i18n reference](/build/i18n/astro-locals-i18n).
 
 <Aside type="caution">
 Enclose translation values in quotes if they contain special characters, such as `:`, `#`, or `-`.

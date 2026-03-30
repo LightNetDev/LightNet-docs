@@ -38,6 +38,7 @@ If you are translating a text-only page, such as [the about page](/build/pages/a
     <Aside type="tip">
         We provide internationalization helpers through the `Astro.locals.i18n` object. This object also gives you access to all
         locales, the default locale, and more. You can access the `i18n` object in all your `.astro` files.
+        See [Astro.locals.i18n reference](/build/i18n/astro-locals-i18n) for the full API.
     </Aside>
 4. **Use where translation keys are expected**: Translation files are mainly used with `Astro.locals.i18n.t(...)` in Astro components and other APIs that explicitly expect translation keys.
    Configuration labels such as `title`, `mainMenu[].label`, category labels, and media type labels use locale maps directly instead of translation keys.

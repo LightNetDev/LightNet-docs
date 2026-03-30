@@ -64,6 +64,7 @@ export default defineConfig({
                 { slug: "build/i18n/fundamentals" },
                 { slug: "build/i18n/add-language" },
                 { slug: "build/i18n/custom-site-strings" },
+                { slug: "build/i18n/astro-locals-i18n" },
               ],
             },
             {
