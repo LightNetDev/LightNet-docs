@@ -5,7 +5,7 @@ description: How to add a VideoPlayer to your LightNet page.
 
 import { Aside } from "@astrojs/starlight/components";
 
-The `VideoPlayer` component is used to display a video on your page. To implement it, use the section component to fit
+The `VideoPlayer` component is used to display a video on your page. To implement it, use the `Section` component to fit
 the video player into your page structure like this:
 
 ```astro
@@ -16,7 +16,7 @@ import VideoImage from "../../assets/video-image.webp"
 const { t } = Astro.locals.i18n
 ---
 <Page>
-  <Section title={t("x.video.title")}>
+  <Section title={t("video.title")}>
     <VideoPlayer url="https://www.youtube.com/watch?v=1234" />
   </Section>
 </Page>
@@ -24,7 +24,7 @@ const { t } = Astro.locals.i18n
 
 <Aside type="tip">
   We highly recommend using a video hosting platform like YouTube or Vimeo
-  because they have the better performance. Nevertheless it is also possible to
+  because they usually provide better performance. Nevertheless, it is also possible to
   host mp4 videos yourself but be aware you need an [additional file
   storage](/deploy/file-storage).
 </Aside>
@@ -39,8 +39,8 @@ type: `string` \
 example: `"https://www.youtube.com/watch?v=1234"` \
 required: `true`
 
-The source of the video that is shown. This can either be an external link to YouTube or Vimeo or a link to an
-mp4 file hosted on your server. Other links will show a fallback to open the video in an external browser tab.
+The source of the video to display. This can be an external link to YouTube or Vimeo, or a link to an
+MP4 file hosted on your server. Other links show a fallback that opens the video in an external browser tab.
 
 ### `title`
 
@@ -56,4 +56,4 @@ type: `ImageMetadata` \
 example: `import VideoImage from "../../assets/video-image.jpg"` \
 required: `false`
 
-The image is used as a preview. In case you use a mp4 video. Supported formats include `jpg`, `png` and `webp`.
+The image is used as a preview when you use an MP4 video. Supported formats include `jpg`, `png`, and `webp`.

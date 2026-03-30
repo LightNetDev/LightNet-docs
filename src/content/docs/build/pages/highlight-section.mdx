@@ -7,64 +7,64 @@ description: >
 
 import { Aside } from "@astrojs/starlight/components"
 
-If you have some content to highlight you can use the `HighlightSection` component. This component displays a large 
-image with a title, a description and an optional link to another page. 
+If you have content to highlight, you can use the `HighlightSection` component. This component displays a large
+image with a title, a description, and an optional link to another page.
 
 ![Highlight Image](./images/highlight.webp)
 
-It already includes a `Section` component to handle the layout. Here is an example on how to use it:
+It already includes a `Section` component to handle the layout. Here is an example of how to use it:
 
 ```astro
 ---
 import { Page, HighlightSection } from "lightnet/components"
 import highlightImage from "../../assets/highlightImage.jpg"
 
-const { t } = Astro.locals.i18n
+const { t, currentLocale } = Astro.locals.i18n
 ---
 <Page>
     <HighlightSection
         image={highlightImage}
-        title={t("x.highlight.title")}
-        text={t("x.highlight.text")}
+        title={t("highlight.title")}
+        text={t("highlight.text")}
         link={{
-            href: `/${Astro.currentLocale}/some-page`,
-            text: t("x.highlight.link"),
+            href: `/${currentLocale}/some-page`,
+            text: t("highlight.link"),
         }}
     />
 </Page>
 ```
 
 Make sure you add your image to the `src/assets` folder and import it at the top of the file. 
-We recommend to use an image that is at least 1500 pixels wide to ensure that it looks good on all devices. The 
-image is optimized for performance. Supported Image formats are `jpg`, `png`, `webp`.
+We recommend using an image that is at least 1500 pixels wide so it looks good on all devices. The
+image is optimized for performance. Supported image formats are `jpg`, `png`, and `webp`.
 
 <Aside type="caution">
 Test how the component is displayed on different screen widths.
 </Aside>
 
-For multilingual sites make sure to pass a translated string for the `title`, `text` properties.
+For multilingual sites, make sure to pass translated strings for the `title` and `text` properties.
 
 ### Add custom components
 
-Add your own Components to the HighlightSection by wrapping them inside the HighlightSection.
-Your components will be added below the text.
+Add your own components to the `HighlightSection` by wrapping them inside it.
+Your components will be rendered below the text.
 
-For example this is how you could add two links (they still need some styling):
+For example, this is how you could add two links:
 
 ```astro {6,7}
 <HighlightSection
   image={highlightImage}
-  title={t("x.highlight.title")}
-  text={t("x.highlight.text")}
+  title={t("highlight.title")}
+  text={t("highlight.text")}
 >
-  <a href="https://bibleproject.com/">{t("x.home.bible-project")}</a>
-  <a href="https://www.jesusfilm.org/">{t("x.home.jesus-film")}</a>
+  <a href="https://bibleproject.com/">{t("home.bible-project")}</a>
+  <a href="https://www.jesusfilm.org/">{t("home.jesus-film")}</a>
 </HighlightSection>
 ```
 
 ## Reference
 
-The `HighlightSection` component has the following properties. Additionally is can also enclose any component or HTML. The enclosed content shows
+The `HighlightSection` component has the following properties. It can also wrap any component or HTML. Wrapped content appears
 below the text:
 
 ### `image`
@@ -74,7 +74,7 @@ example: `import highlightImage from "../../assets/highlightImage.jpg"` \
 required: `true`
 
 The image of the highlight section. It is optimized for performance.
-We recommend to use an image that is at least 1500px wide to ensure that it looks good on all devices. Supported Image formats are `jpg`, `png`, `webp`.
+We recommend using an image that is at least 1500px wide so it looks good on all devices. Supported image formats are `jpg`, `png`, and `webp`.
 
 ### `id`
 
@@ -82,12 +82,12 @@ type: `string` \
 example: `"my-section"` \
 required: `false`
 
-The id of the section. This can be used to link to the section e.g. `/about#my-section`.
+The ID of the section. This can be used to link to the section, for example `/about#my-section`.
 
 ### `title`
 
 type: `string` \
-example: `t("x.highlight.title")` \
+example: `t("highlight.title")` \
 required: `false`
 
 The title to show above the text.
@@ -95,7 +95,7 @@ The title to show above the text.
 ### `text`
 
 type: `string` \
-example: `t("x.highlight.text")` \
+example: `t("highlight.text")` \
 required: `true`
 
 The text to be displayed.
@@ -103,7 +103,7 @@ The text to be displayed.
 ### `link`
 
 type: `{ href: string, text: string }` \
-example: `{ href: "/en/some-page", text: t("x.highlight.link") }` \
+example: `{ href: "/en/some-page", text: t("highlight.link") }` \
 required: `false`
 
 The link to show as a button below the text.
@@ -116,7 +116,7 @@ type: `string` \
 example: `"bg-blue-600 text-white"` \
 required: `false`
 
-Additional css classes, separated by spaces, to style the highlight section.
+Additional CSS classes, separated by spaces, to style the highlight section.
 
 ### `titleClass`
 
@@ -124,7 +124,7 @@ type: `string` \
 example: `"text-2xl font-bold"` \
 required: `false`
 
-Additional css classes, separated by spaces, to style the title.
+Additional CSS classes, separated by spaces, to style the title.
 
 ### `textClass`
 
@@ -132,4 +132,4 @@ type: `string` \
 example: `"text-lg"` \
 required: `false`
 
-Additional css classes, separated by spaces, to style the text.
+Additional CSS classes, separated by spaces, to style the text.

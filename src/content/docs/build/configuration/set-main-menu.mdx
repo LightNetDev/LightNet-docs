@@ -1,12 +1,12 @@
 ---
 title: Set a main menu
-description: How to add a main Menu (hamburger icon) to your media library's header bar.
+description: How to add a main menu (hamburger icon) to your media library's header bar.
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
 
-LightNet supports adding a main menu in the header bar, displayed as a hamburger icon in the top right corner.  
+LightNet supports adding a main menu to the header bar, displayed as a hamburger icon in the top-right corner.
 The menu can link to internal or external pages.
 
 Here's an example configuration:
@@ -19,19 +19,27 @@ export default defineConfig({
       mainMenu: [
         {
           href: "/",
-          label: "ln.home.title",
+          label: {
+            en: "Home",
+          },
         },
         {
           href: "/media",
-          label: "ln.search.title",
+          label: {
+            en: "Media",
+          },
         },
         {
           href: "/about",
-          label: "x.navigation.about",
+          label: {
+            en: "About",
+          },
         },
         {
           href: "https://lightnet.community",
-          label: "LightNet",
+          label: {
+            en: "LightNet",
+          },
         },
       ],
     }),
@@ -45,17 +53,15 @@ This example menu configuration links to:
 - the about page on `/about`
 - an external website on https://lightnet.community
 
-Notice how the links do not include a locale. The locale is automatically added by LightNet.
+Notice that the links do not include a locale. LightNet adds the locale automatically.
 
 #### Menu item properties
 
-- **`href`**: Defines the link destination. It can be internal (e.g., `/media`) or external links (e.g., https://wikipedia.org). 
+- **`href`**: Defines the link destination. It can be an internal link, such as `/media`, or an external link, such as `https://wikipedia.org`.
   External links open in a new browser tab.
   <Aside>
-    Do not add locales in front of your internal links (use `/media` and not `/en/media`).
-    LightNet automatically adds the locales. You can disable this behavior by setting  
+    Do not add locales in front of your internal links. Use `/media`, not `/en/media`.
+    LightNet automatically adds the locale. You can disable this behavior by setting
     `requiresLocale: false` on the menu item.
   </Aside> 
-- **`label`**: The text displayed on the menu item. Use a [translation key](/build/i18n/fundamentals) for localized or a fixed string for non-localized labels.  
-
-
+- **`label`**: The text displayed on the menu item. Provide a locale map keyed by your configured site languages, for example `{ en: "About", de: "Über uns" }`.  

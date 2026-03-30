@@ -5,18 +5,20 @@ description: Learn how to group your media items by different topics.
 
 import { Aside } from "@astrojs/starlight/components";
 
-Organize your media items by using categories to group them by topic. For example, you can create categories like "Theology",
+Use categories to group your media items by topic. For example, you can create categories like "Theology",
 "Christian Living," and "Children." Categories can optionally reference an `image` that represents the category visually.
 
 Users can filter search results by these categories, making it easier to find relevant content. 
-Categories can also be used for generating a gallery of media items on the homepage.
-Categories show up on the search result items.
+Categories can also be used to generate a gallery of media items on the homepage.
+They also appear on search result items.
 
 Here is an example of a category:
 
 ```json title="src/content/categories/theology.json"
 {
-  "label": "x.category.theology",
+  "label": {
+    "en": "Theology"
+  },
   "image": "./images/theology.png"
 }
 ```
@@ -27,16 +29,15 @@ Adding a media item to a category is done by referencing the category from the m
 
 ## Reference
 
-A category is a JSON file that describes a category. The category identifier is its filename without the `.json` suffix. 
+A category is a JSON file that describes a category. The category identifier is the filename without the `.json` suffix.
 
 ### label
 
-type: `string` \
-example: `"x.category.theology"` \
+type: `object` \
+example: `{ "en": "Theology" }` \
 required: `true`
 
-The label is the name of the category that shows up on the UI. The label can either be a fixed string or a translation key
-to support multiple locales.
+The label is the name of the category shown in the UI. Provide a locale map keyed by your configured site languages.
 
 ### image
 
@@ -44,10 +45,10 @@ Type: `string` \
 Example: `./images/theology.png`\
 Required: `false`
 
-An image representing the category (e.g., a thumbnail, icon, or cover photo).
+An image that represents the category, such as a thumbnail, icon, or cover photo.
 
 When provided, the `CategoriesSection` component can display categories with image previews. 
-This creates a more engaging and visually rich browsing experience.
+This creates a more engaging, visually rich browsing experience.
 
 <Aside type="tip">
 Always set an `image` for each category when possible to enhance usability and provide a more polished look.

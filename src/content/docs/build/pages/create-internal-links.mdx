@@ -3,16 +3,16 @@ title: Create internal links
 description: How to use internal links on your media library.
 ---
 
-This chapter guides you on how to create internal links to your pages.
+This chapter explains how to create internal links to your pages.
 
 When creating internal links, make sure you always add the locale in front of the link.
 For example this is how you can create a link to the about page inside an Astro component using JavaScript template strings:
 
 ```ts
-`/${Astro.currentLocale}/about`
+`/${Astro.locals.i18n.currentLocale}/about`
 ```
 
-Additionally LightNet offers utility functions inside `lightnet/utils` to create paths:
+LightNet also provides utility functions in `lightnet/utils` for creating paths:
 
 - `detailsPagePath`: To build the localized path to a media item's details page
 - `searchPagePath`: To build the localized path to the search page including preset filters.
@@ -23,23 +23,24 @@ Additionally LightNet offers utility functions inside `lightnet/utils` to create
 
 Returns the localized path to a media item's details page.
 
-- `locale`: The current locale as provided by `Astro.currentLocale`
+- `locale`: The current locale as provided by `Astro.locals.i18n.currentLocale`
 - `mediaItem`: A media item as provided by [Astro's getEntry, getCollection](https://docs.astro.build/en/guides/content-collections/#querying-collections) 
     or LightNet's [getMediaItems](/build/pages/query-media-items).
 
-Example code, that creates an anchor link to a media item's details page:
+Example code that creates an anchor link to a media item's details page:
 
 ```astro
 ---
 import { getEntry } from "astro:content"
 import { detailsPagePath } from "lightnet/utils"
 
+const { currentLocale } = Astro.locals.i18n
 const mediaItem = await getEntry("media", "your-media-item-id")
 if(!mediaItem) {
     throw new Error("No media item found")
 }
 ---
-<a href={detailsPagePath(Astro.currentLocale, mediaItem)}>Link</a>
+<a href={detailsPagePath(currentLocale, mediaItem)}>Link</a>
 ```
 
 
@@ -47,18 +48,20 @@ if(!mediaItem) {
 
 Returns the localized path to the search page including preset filters.
 
-- `locale`: The current locale as provided by `Astro.currentLocale`
+- `locale`: The current locale as provided by `Astro.locals.i18n.currentLocale`
  - `query` (optional): Sets filters for the search page. Supported options are:
      - `category` (optional): Filter for a category identifier.
      - `type` (optional): Filter for a media type identifier.
      - `language` (optional): Filter for a content language.
      - `search` (optional): Prefill the search input with a search term.
 
-Example code that creates an anchor link to the search page filtered by the category `children`.
+Example code that creates an anchor link to the search page filtered by the category `children`:
 
 ```astro
 ---
 import { searchPagePath } from "lightnet/utils"
+
+const { currentLocale } = Astro.locals.i18n
 ---
-<a href={searchPagePath(Astro.currentLocale, {category: "children"})}>Search page</a>
+<a href={searchPagePath(locale, {category: "children"})}>Search page</a>
 ```

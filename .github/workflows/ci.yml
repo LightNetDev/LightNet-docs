@@ -14,14 +14,14 @@ jobs:
   linkcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
-      - run: npm i
+      - run: npm ci
       - run: npm run linkcheck
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: streetsidesoftware/cspell-action@v6
+      - uses: actions/checkout@v6
+      - uses: streetsidesoftware/cspell-action@v8

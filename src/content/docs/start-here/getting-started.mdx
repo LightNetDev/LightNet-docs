@@ -5,13 +5,13 @@ description: Learn the basics of how to use LightNet
 
 import { Steps, Aside } from "@astrojs/starlight/components";
 
-Welcome to the LightNet Developer Documentation! 
-This guide will walk you through creating your first LightNet project. 
+Welcome to the LightNet developer documentation.
+This guide walks you through creating your first LightNet project.
 Not sure what LightNet is all about? [Visit the LightNet homepage](https://lightnet.community).
 
 ## Requirements
 
-Before starting, ensure the following are installed on your machine:
+Before you start, make sure the following tools are installed on your machine:
 
 - **Node.js** (version 22 or higher) - [Download Node.js](https://nodejs.org)
 - **Git** - [Download Git](https://git-scm.com)
@@ -28,19 +28,19 @@ If these commands return version numbers, you're ready to go!
 
 ## 1. Set up the example template
 
-We recommend starting with the [example-template](https://github.com/LightNetDev/example-template), a prebuilt template that showcases LightNet's 
-features for a fictional skateboard ministry. It's a great starting point for learning how to structure your media library.
+We recommend starting with the [example-template](https://github.com/LightNetDev/example-template), a prebuilt template that showcases LightNet's
+features for a fictional skateboard ministry. It is a great starting point for learning how to structure your media library.
 
-To create a local copy of the project -  navigate your terminal to a folder where you would like to create the copy and run:
+To create a local copy of the project, navigate to the folder where you want to create it and run:
 
 ```bash
 npm create astro@latest -- --template LightNetDev/example-template
 ```
 
-This starts [Astro's](https://docs.astro.build/) `create astro` command - which lets you:
+This starts [Astro's](https://docs.astro.build/) `create astro` command, which lets you:
 
 
-- Choose a location for your project. This creates the folder for your project and also set its name.
+- Choose a location for your project. This creates the project folder and sets its name.
 - Install its dependencies (`Yes`).
 - Initialize a Git repository (`Yes`).
 
@@ -53,14 +53,14 @@ cd your-project-folder
 ## 2. Run the development server
 
 Now that your project is set up, start the development server to see your site in action.
-The development server is an application that lets you preview your media site in your browser without putting it online.
+The development server lets you preview your media site in your browser without publishing it online.
 
 ```bash
 npm run dev
 ```
 
-Your site is available at [localhost:4321](http://localhost:4321). Open your browser to preview the example site.
-As you will need the development server for the next steps, please keep it running.
+Your site is available at [localhost:4321](http://localhost:4321). Open it in your browser to preview the example site.
+You will need the development server for the next steps, so keep it running.
 
 ## 3. Make your first modification
 
@@ -68,45 +68,45 @@ As your first modification, let's change the site title:
 
 <Steps>
   1. Open the project folder in VS Code (or your preferred text editor).
-  1. Inside VS-Code open `src/translations/en.yml`. 
-  1. Modify the value of the `x.site.title`-key by changing "SkateNet" to your desired site name.
-  1. Save the file. Still running `npm run dev`, your browser automatically
-  refreshes to show the updated title. It is visible in front of the big picture and inside the header bar.
+  1. In VS Code, open `astro.config.mjs`.
+  1. Modify the `title` locale map by changing the English value from "SkateNet" to your desired site name.
+  1. Save the file. While `npm run dev` is still running, your browser automatically
+  refreshes to show the updated title. You can see it in front of the large image and in the header bar.
 </Steps>
 
-### Optional: make another modification using the Administration UI
+### Optional: make another change using the Administration UI
 
-You can easily update content using the [experimental Administration User Interface](/content/administration-ui) (Administration UI). The 
-Administration UI is a graphical user interface that enables a content manager to update the media site's content without
-accessing the source code. Follow these steps to run the Administration UI:
+You can also update content with the [experimental Administration User Interface](/content/administration-ui) (Administration UI).
+The Administration UI is a graphical editor for managing your media site's content without editing the source code directly.
+Follow these steps to open it locally:
 
 <Steps>
-  1. Ensure that `npm run dev` is still running in your terminal. 
-  2. Open a new terminal window in your project's folder and execute the following command. This
-     command downloads and starts a backend for Decap CMS, which is used for the
-     content Administration UI.
-      ```bash
-      npx decap-server
-      ```
-  3. Once you see the message `info: Decap CMS Proxy Server listening on port 8081` in your terminal, open your browser and
-     navigate to the Administration UI on [localhost:4321/admin](http://localhost:4321/admin). 
-  4. Click the "Login" button. You are presented with a list of all available media
-     items. 
-  5. Open `how-to-360-flip--en` by clicking it. Change the title to "How to
+  1. Make sure `npm run dev` is still running in your terminal.
+  2. Open Chrome or another Chromium-based browser and go to [localhost:4321/admin](http://localhost:4321/admin).
+  3. Click the "Work with Local Repository" button.
+  4. When your browser prompts you, select the local folder of your new project and grant access.
+  5. In the Administration UI, open **Media Items** and select `How to 360 flip`. Change the title to "How to
   Do a 360 Flip". 
-  6. Click the "Publish" button in the header bar, then select
-  "Publish Now".
+  6. Click the "Save" button in the header bar.
 </Steps>
 
-This action updates the a [JSON content file](/content/fundamentals) stored on inside your project folder.
+This action updates a [JSON content file](/content/fundamentals) stored inside your project folder.
 
-Inspect the changes you have just made:
+<Aside type="note">
+The local admin workflow requires the File System Access API, which is currently available only in Chrome and Chromium-based browsers.
+Brave disables this API by default; you can enable it at `brave://flags/#file-system-access-api`.
+
+The online admin workflow works in all major browsers.
+</Aside>
+
+
+Inspect the changes you just made:
 
 <Steps>
-  1. **Check the Updated Content File**: Open the file located at
-  `/src/content/media/how-to-360-flip--en.json`. The `title` attribute should
-  reflect your changes. 
-  2. **View the Updated Website**: In your browser, go to
+  1. **Check the updated content file**: Open the file located at
+  `src/content/media/how-to-360-flip--en.json`. The `title` attribute should
+  reflect your changes.
+  2. **View the updated website**: In your browser, go to
   [localhost:4321/en/media/how-to-360-flip--en](http://localhost:4321/en/media/how-to-360-flip--en).
   You should see the updated title displayed below the video.
 </Steps>
@@ -120,5 +120,5 @@ Stop a running terminal application with the keyboard combination `Control` - `C
 
 ## What's next?
 
-Great job! 🎉 You've successfully created, run and modified a local copy of the example template. 
-Now, let's dive deeper into how LightNet works and explore more advanced customization options.
+Great job! 🎉 You've successfully created, run, and modified a local copy of the example template.
+Now you can dive deeper into how LightNet works and explore more advanced customization options.

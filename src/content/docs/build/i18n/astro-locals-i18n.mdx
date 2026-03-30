@@ -1,0 +1,110 @@
+---
+title: Astro.locals.i18n reference
+description: Reference for the locale metadata and translation helpers available on Astro.locals.i18n.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+`Astro.locals.i18n` is added by LightNet middleware. It is available in Astro pages, layouts, and components, so you can read locale metadata and resolve translated text without extra imports.
+
+Use this API when rendering localized UI in `.astro` files.
+
+## `t`
+
+type: ``t(key, options?) => string``
+
+Translates a translation key using the current locale.
+
+- Use `t()` for translation keys from `src/translations/*.yml` and LightNet's built-in translation files.
+- If no supported locale is resolved from the URL pathname, LightNet falls back to the configured default locale before translating.
+- The `options` argument follows i18next conventions, including interpolation, plurals, and context.
+- If a key is truly undefined, `t()` throws an error.
+
+```astro
+---
+const { t } = Astro.locals.i18n
+---
+<h1>{t("ln.404.page-not-found")}</h1>
+```
+
+```astro
+{Astro.locals.i18n.t("some.key", { count: 2 })}
+```
+
+Use `t()` for UI strings such as headings, button labels, and other text defined in translation files.
+
+<Aside type="note">
+LightNet uses [i18next](https://www.i18next.com/) internally, so `t()` supports features such as plurals, interpolation, and context using i18next conventions.
+</Aside>
+
+## `tMap`
+
+type: ``tMap(translationMap, context) => string``
+
+Resolves an inline translation map object for the current locale.
+
+- Use `tMap()` for values that already contain localized text inline, such as config fields or content JSON.
+- `tMap()` does not look up translation keys from translation files.
+- It first tries `currentLocale`.
+- If that value is missing, it falls back to `defaultLocale`.
+- If neither locale has a value, `tMap()` throws an error.
+- `context.path` is required so LightNet can point error messages to the exact config or content field.
+
+Example translation map:
+
+```ts
+{
+  en: "Hello",
+  de: "Hallo"
+}
+```
+
+```astro
+---
+const siteTitle = Astro.locals.i18n.tMap(config.title, {
+  path: ["config", "title"],
+})
+---
+<title>{siteTitle}</title>
+```
+
+Use `tMap()` when the localized values are already present in the object you are reading. Use `t()` when you have a translation key that should be looked up in translation files.
+
+## Locale metadata
+
+### `currentLocale`
+
+type: `string`
+
+The current locale resolved from the URL pathname. LightNet checks the first locale segment in the pathname and falls back to `defaultLocale` when the pathname does not contain a supported locale.
+
+### `defaultLocale`
+
+type: `string`
+
+The configured default locale. This is the code of the language with `isDefaultSiteLanguage: true`.
+
+### `locales`
+
+type: `string[]`
+
+The configured list of supported locales. This is the codes of the languages with `isSiteLanguage: true`.
+
+### `direction`
+
+type: `"ltr" | "rtl"`
+
+The text direction for the current locale. LightNet resolves this from the language settings for `currentLocale`.
+
+### `translationKeys`
+
+type: `string[]`
+
+The list of all available translation keys.
+
+## Best practices
+
+- Use `t()` for translation-file keys.
+- Use `tMap()` for inline localized objects from config or content.
+- Avoid hard-coded UI strings when a translation key should be used instead.
+- Use `currentLocale` and `direction` in markup when building locale-aware or RTL-aware UI.

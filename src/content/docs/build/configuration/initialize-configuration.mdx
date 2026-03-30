@@ -5,8 +5,8 @@ description: How to configure your media library with the `astro.config.mjs` fil
 
 import { Steps } from "@astrojs/starlight/components";
 
-The primary configuration file for your LightNet project is `astro.config.mjs`. 
-This file defines global configurations for your media library, such as the title, languages, base URL, and more.
+The primary configuration file for your LightNet project is `astro.config.mjs`.
+This file defines global configuration for your media library, such as the title, languages, base URL, and more.
 
 Here is a minimal version of an `astro.config.mjs` file for a LightNet site:
 
@@ -18,11 +18,15 @@ export default defineConfig({
   site: "https://yourdomain.com",
   integrations: [
     lightnet({
-      title: "x.site.title",
+      title: {
+        en: "My Library",
+      },
       languages: [
         {
           code: "en",
-          label: "English",
+          label: {
+            en: "English",
+          },
           isDefaultSiteLanguage: true,
         },
       ],
@@ -41,22 +45,26 @@ Customize the settings to match your needs.
    ```
 
 2. **Title** -
-   The `title` property sets the site title, which appears in the browser tab and header bar. 
-   You can use a fixed string or a [translation key](/build/i18n/fundamentals#translating-pages-in-lightnet). 
-   Using a translation key like `"x.site.title"` allows the title to adapt based on the current site language.
+The `title` property sets the site title, which appears in the browser tab and header bar.
+   Provide a locale map keyed by your configured site languages.
    ```js
-   title: "x.site.title"
+   title: { en: "My Library" }
    ```
-   To modify the translation key's value, use the files located in `src/translation/`.
 
 3. **Languages** -
-   This section defines the available languages for your site. 
-   It includes both site and content languages. Refer to the [Internationalization Guide](/build/i18n/fundamentals) for more 
-   details on managing languages.
-   
-   In the [example-template](https://github.com/LightNetDev/example-template/blob/main/astro.config.mjs), languages are declared as a variable to also pass them to the 
-   [Administration User Interface](/content/administration-ui) configuration.
-   This approach ensures consistency between both integrations.
+   The `languages` section defines the languages known to your site. Use `isDefaultSiteLanguage` and `isSiteLanguage` to control which locales are available in the site UI. Refer to the [Internationalization Guide](/build/i18n/fundamentals) for more 
+   details on managing locales and fallbacks.
+
+   Each language also includes its display label as a locale map. For example:
+   ```json
+   {
+     "code": "en",
+     "label": {
+       "en": "English"
+     },
+     "isDefaultSiteLanguage": true
+   }
+   ```
 </Steps>
 
-There is more configuration available. Use the other guides of this chapter to customize your site even further.
+More configuration options are available. Use the other guides in this chapter to customize your site further.

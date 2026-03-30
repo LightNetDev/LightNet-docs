@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightLlmsTxt from "starlight-llms-txt";
+import starlightAnnouncement from 'starlight-announcement'
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -64,6 +66,7 @@ export default defineConfig({
                 { slug: "build/i18n/fundamentals" },
                 { slug: "build/i18n/add-language" },
                 { slug: "build/i18n/custom-site-strings" },
+                { slug: "build/i18n/astro-locals-i18n" },
               ],
             },
             {
@@ -110,7 +113,14 @@ export default defineConfig({
         },
         {
           label: "Run",
-          items: [{ slug: "run/update" }, { slug: "run/monitor" }],
+          items: [
+            { slug: "run/update" },
+            { slug: "run/monitor" },
+            {
+              label: "Major upgrade guides",
+              items: [{ slug: "run/upgrade-to/v4", label: "v4.0" }],
+            },
+          ],
         },
         {
           label: "Resources",
@@ -121,6 +131,18 @@ export default defineConfig({
         },
       ],
       plugins: [
+        starlightAnnouncement({
+          announcements: [
+            {
+              id: "v4-release",
+              content: "LightNet v4 is here! ",
+              link: {
+                text: 'Learn how to upgrade your site',
+                href: '/run/upgrade-to/v4/',
+              },
+            }
+          ]
+        }),
         starlightLlmsTxt({
           projectName: "LightNet Developer Docs",
           description:
@@ -159,19 +181,18 @@ Recommended reading order:
             },
             {
               label: "Concepts",
-              description: "Architecture, structure, and collaboration concepts.",
+              description:
+                "Architecture, structure, and collaboration concepts.",
               paths: ["concepts/**"],
             },
             {
               label: "Build",
-              description:
-                "Astro foundations, configuration, pages, and i18n.",
+              description: "Astro foundations, configuration, pages, and i18n.",
               paths: ["build/**"],
             },
             {
               label: "Content",
-              description:
-                "Content collections, media metadata, and admin UI.",
+              description: "Content collections, media metadata, and admin UI.",
               paths: ["content/**"],
             },
             {
