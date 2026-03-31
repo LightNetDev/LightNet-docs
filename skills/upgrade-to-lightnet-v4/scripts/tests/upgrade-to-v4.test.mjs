@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { migrateContentLabels } from "../migrate-content-labels.mjs";
+import { inspectContentLabels, migrateContentLabels } from "../migrate-content-labels.mjs";
 import { migrateCoverImageStyle } from "../migrate-cover-image-style.mjs";
 import { migrateImagesFolder } from "../migrate-images-folder.mjs";
 import { migrateLucideIcons } from "../migrate-lucide-icons.mjs";
@@ -188,6 +188,56 @@ test("migrate-content-labels converts strings and skips translation-key labels",
   assert.equal(result.skipped.length, 1);
 });
 
+test("inspect-content-labels uses a derived default locale when astro config provides one", async () => {
+  const projectDir = await createProject();
+  await writeText(
+    projectDir,
+    "astro.config.mjs",
+    `import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  i18n: {
+    defaultLocale: "de",
+    locales: ["de", "en"],
+  },
+});
+`,
+  );
+  await writeJson(projectDir, "src/content/categories/teaching.json", {
+    label: "Lehre",
+  });
+
+  const result = await inspectContentLabels(projectDir, {
+    astroConfigFiles: [path.join(projectDir, "astro.config.mjs")],
+  });
+
+  assert.equal(result.defaultLocale, "de");
+  assert.match(result.findings[0], /default locale `de`/);
+  assert.equal(
+    result.warnings.some((warning) => warning.includes("locale-agnostic")),
+    false,
+  );
+});
+
+test("inspect-content-labels warns clearly when the default locale cannot be derived", async () => {
+  const projectDir = await createProject();
+  await writeJson(projectDir, "src/content/categories/teaching.json", {
+    label: "Teaching",
+  });
+
+  const result = await inspectContentLabels(projectDir, {
+    astroConfigFiles: [path.join(projectDir, "astro.config.mjs")],
+  });
+
+  assert.equal(result.defaultLocale, null);
+  assert.match(result.findings[0], /Inspect 1 string label field/);
+  assert.ok(
+    result.warnings.some((warning) =>
+      warning.includes("locale-agnostic until you provide `--default-locale <code>`"),
+    ),
+  );
+});
+
 test("migrate-lucide-icons replaces only known icon mappings and leaves the rest for manual review", async () => {
   const projectDir = await createProject();
   await writeJson(projectDir, "src/content/media-types/book.json", {
@@ -213,12 +263,80 @@ test("migrate-lucide-icons replaces only known icon mappings and leaves the rest
   assert.deepEqual(result.unmappedIcons, ["mdi--book-open-page-variant"]);
 });
 
-test("scan-project reports scriptable and manual v4 migration work for downstream sites", async () => {
+test("migrate-lucide-icons ignores vendored and non-project paths", async () => {
+  const projectDir = await createProject();
+  await writeText(
+    projectDir,
+    "src/components/IconDemo.astro",
+    `<Icon name="mdi--video-outline" />\n`,
+  );
+  await writeText(projectDir, "docs/icon-guide.mdx", `<Icon name="mdi--video-outline" />\n`);
+  await writeText(
+    projectDir,
+    ".codex/cache/example.mdx",
+    `<Icon name="mdi--video-outline" />\n`,
+  );
+  await writeText(
+    projectDir,
+    "fixtures/example/IconDemo.astro",
+    `<Icon name="mdi--video-outline" />\n`,
+  );
+  await writeText(
+    projectDir,
+    "skills/upgrade-to-lightnet-v4/SKILL.md",
+    `mdi--video-outline\n`,
+  );
+
+  const result = await migrateLucideIcons(projectDir);
+  const appFile = await readFile(path.join(projectDir, "src/components/IconDemo.astro"), "utf8");
+  const docsFile = await readFile(path.join(projectDir, "docs/icon-guide.mdx"), "utf8");
+  const codexFile = await readFile(path.join(projectDir, ".codex/cache/example.mdx"), "utf8");
+  const fixtureFile = await readFile(
+    path.join(projectDir, "fixtures/example/IconDemo.astro"),
+    "utf8",
+  );
+  const vendoredSkill = await readFile(
+    path.join(projectDir, "skills/upgrade-to-lightnet-v4/SKILL.md"),
+    "utf8",
+  );
+
+  assert.equal(result.exitCode, 0);
+  assert.match(appFile, /lucide--video/);
+  assert.match(docsFile, /mdi--video-outline/);
+  assert.match(codexFile, /mdi--video-outline/);
+  assert.match(fixtureFile, /mdi--video-outline/);
+  assert.match(vendoredSkill, /mdi--video-outline/);
+  assert.deepEqual(result.changedFiles, ["src/components/IconDemo.astro"]);
+});
+
+test("media JSON rewrites normalize legacy image paths across script order", async () => {
+  const projectDir = await createProject();
+  await writeJson(projectDir, "src/content/media/book--en.json", {
+    collections: [{ collection: "featured" }],
+    content: [{ label: "Read", url: "/files/book.pdf" }],
+    image: "./_images/example.jpg",
+  });
+  await writeJson(projectDir, "src/content/media-collections/featured.json", {
+    label: { en: "Featured" },
+  });
+
+  await migrateMediaContentTypes(projectDir);
+  await migrateContentLabels(projectDir, { defaultLocale: "en" });
+  await migrateMediaCollections(projectDir);
+
+  const media = await readJson(projectDir, "src/content/media/book--en.json");
+
+  assert.equal(media.image, "./images/example.jpg");
+  assert.equal(JSON.stringify(media).includes("./_images/"), false);
+});
+
+test("scan-project reports generic config, translation-map, DaisyUI, gallery, and key cleanup guidance", async () => {
   const projectDir = await createProject();
   await writeJson(projectDir, "package.json", {
     dependencies: {
       "@lightnet/decap-admin": "^3.0.0",
       astro: "^5.0.0",
+      daisyui: "^4.0.0",
       lightnet: "^3.0.0",
     },
   });
@@ -228,8 +346,24 @@ test("scan-project reports scriptable and manual v4 migration work for downstrea
     `import decapAdmin from "@lightnet/decap-admin";
 
 export default {
+  title: "Site title",
+  logo: { alt: "Site logo" },
+  mainMenu: [{ href: "/about", label: "About" }],
   languages: [{ code: "en", label: "English", isDefaultSiteLanguage: true }],
   integrations: [decapAdmin({ imagesFolder: "_images" })],
+};
+`,
+  );
+  await writeText(
+    projectDir,
+    "tailwind.config.mjs",
+    `import daisyui from "daisyui";
+
+export default {
+  plugins: [daisyui],
+  daisyui: {
+    prefix: "dy-",
+  },
 };
 `,
   );
@@ -238,8 +372,10 @@ export default {
     "src/pages/index.astro",
     `---
 const currentLocale = Astro.currentLocale;
+const title = Astro.locals.i18n.tMap(config.title, { fallbackLocale: "en" });
 ---
-<div>{currentLocale}</div>
+<div class="dy-btn">{currentLocale}</div>
+<div>{title}</div>
 `,
   );
   await writeText(
@@ -247,6 +383,16 @@ const currentLocale = Astro.currentLocale;
     "src/components/Gallery.astro",
     `<MediaGallerySection items={items} layout="book" viewLayout="grid" />`,
   );
+  await writeText(
+    projectDir,
+    "src/components/CollectionCard.astro",
+    `---
+const label = collection.data.label;
+---
+<div>{label}</div>
+`,
+  );
+  await writeText(projectDir, "src/i18n/en.yml", `x.site.title: "Welcome"\n`);
   await writeJson(projectDir, "src/content/media/book--en.json", {
     collections: [{ collection: "featured" }],
     content: [{ label: "Read", url: "/files/book.pdf" }],
@@ -261,6 +407,18 @@ const currentLocale = Astro.currentLocale;
   });
 
   const result = await scanProject(projectDir);
+  const configFinding = result.manual.find((item) => item.id === "manual-config-inline-labels");
+  const translationMapFinding = result.manual.find(
+    (item) => item.id === "manual-translation-map-reads",
+  );
+  const daisyConfigFinding = result.manual.find((item) => item.id === "manual-daisyui-config");
+  const daisyMarkupFinding = result.manual.find((item) => item.id === "manual-daisyui-markup");
+  const galleryFinding = result.manual.find(
+    (item) => item.id === "manual-media-gallery-section",
+  );
+  const keyFinding = result.manual.find(
+    (item) => item.id === "manual-legacy-custom-translation-keys",
+  );
 
   assert.ok(
     result.scriptable.some((item) => item.id === "update-package-json"),
@@ -274,14 +432,27 @@ const currentLocale = Astro.currentLocale;
     result.manual.some((item) => item.id === "manual-current-locale"),
     "expected Astro.currentLocale migration to be detected",
   );
+  assert.ok(configFinding, "expected generic config inline label migration to be detected");
+  assert.match(configFinding.details.join("\n"), /`title`/);
+  assert.match(configFinding.details.join("\n"), /`logo\.alt`/);
+  assert.match(configFinding.details.join("\n"), /`mainMenu\[\]\.label`/);
+  assert.match(configFinding.details.join("\n"), /`languages\[\]\.label`/);
   assert.ok(
-    result.manual.some((item) => item.id === "manual-config-language-labels"),
-    "expected config language label migration to be detected",
+    translationMapFinding,
+    "expected direct translation-map read migration to be detected",
   );
+  assert.match(translationMapFinding.title, /tMap/);
+  assert.ok(daisyConfigFinding, "expected DaisyUI config detection");
+  assert.ok(daisyMarkupFinding, "expected DaisyUI markup detection");
+  assert.match(daisyMarkupFinding.details.join("\n"), /manual design-system decision/);
   assert.ok(
-    result.manual.some((item) => item.id === "manual-media-gallery-section"),
+    galleryFinding,
     "expected MediaGallerySection migration to be detected",
   );
+  assert.match(galleryFinding.details.join("\n"), /`layout` values such as `video`, `book`/);
+  assert.match(galleryFinding.details.join("\n"), /old `viewLayout` values/);
+  assert.ok(keyFinding, "expected legacy custom translation-key cleanup to be detected");
+  assert.match(keyFinding.details.join("\n"), /remove obsolete translation entries/);
   assert.ok(
     result.manual.some((item) => item.id === "manual-lucide-icons"),
     "expected icon review to be detected",

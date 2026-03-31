@@ -15,13 +15,20 @@ const ASTRO_CONFIG_NAMES = [
 
 const IGNORED_DIRECTORIES = new Set([
   ".astro",
+  ".codex",
   ".git",
   ".hg",
   ".svn",
   "coverage",
   "dist",
+  "docs",
+  "fixtures",
   "node_modules",
+  "skills",
 ]);
+
+const OLD_MEDIA_IMAGES_SEGMENT = "./_images/";
+const NEW_MEDIA_IMAGES_SEGMENT = "./images/";
 
 export const DEPENDENCY_SECTIONS = [
   "dependencies",
@@ -156,6 +163,10 @@ export async function listJsonFiles(rootDir) {
   return listFiles(rootDir, { extensions: [".json"] });
 }
 
+export async function listProjectFiles(projectDir, { extensions } = {}) {
+  return listFiles(projectDir, { extensions });
+}
+
 export async function detectTargetProject(projectOption) {
   const projectDir = path.resolve(projectOption ?? process.cwd());
   const packageJsonPath = path.join(projectDir, "package.json");
@@ -278,6 +289,93 @@ export async function renamePath(fromPath, toPath, { dryRun = false } = {}) {
 
   await fs.rename(fromPath, toPath);
 }
+
+export function normalizeLegacyMediaImagePaths(value) {
+  if (typeof value === "string") {
+    return value.startsWith(OLD_MEDIA_IMAGES_SEGMENT)
+      ? {
+          value: value.replace(OLD_MEDIA_IMAGES_SEGMENT, NEW_MEDIA_IMAGES_SEGMENT),
+          changed: true,
+        }
+      : { value, changed: false };
+  }
+
+  if (Array.isArray(value)) {
+    let changed = false;
+    const nextValue = value.map((entry) => {
+      const result = normalizeLegacyMediaImagePaths(entry);
+      changed ||= result.changed;
+      return result.value;
+    });
+    return { value: nextValue, changed };
+  }
+
+  if (value && typeof value === "object") {
+    let changed = false;
+    const nextValue = {};
+
+    for (const [key, entry] of Object.entries(value)) {
+      const result = normalizeLegacyMediaImagePaths(entry);
+      changed ||= result.changed;
+      nextValue[key] = result.value;
+    }
+
+    return { value: nextValue, changed };
+  }
+
+  return { value, changed: false };
+}
+
+export async function writeNormalizedJson(filePath, value, options = {}) {
+  const result = normalizeLegacyMediaImagePaths(value);
+  await writeJson(filePath, result.value, options);
+  return result;
+}
+
+function extractDefaultLocaleFromAstroI18n(content) {
+  const match = content.match(/\bdefaultLocale\s*:\s*["'`]([^"'`]+)["'`]/);
+  return match?.[1] ?? null;
+}
+
+function extractDefaultLocaleFromLanguagesConfig(content) {
+  const objectMatches = content.matchAll(/\{[\s\S]*?\}/g);
+
+  for (const match of objectMatches) {
+    const chunk = match[0];
+    if (!/\bisDefaultSiteLanguage\s*:\s*true\b/.test(chunk)) {
+      continue;
+    }
+
+    const codeMatch = chunk.match(/\bcode\s*:\s*["'`]([^"'`]+)["'`]/);
+    if (codeMatch?.[1]) {
+      return codeMatch[1];
+    }
+  }
+
+  return null;
+}
+
+export async function deriveDefaultLocaleFromAstroConfigFiles(astroConfigFiles) {
+  for (const filePath of astroConfigFiles) {
+    const content = await readText(filePath);
+    const astroI18nLocale = extractDefaultLocaleFromAstroI18n(content);
+    if (astroI18nLocale) {
+      return astroI18nLocale;
+    }
+
+    const lightNetLocale = extractDefaultLocaleFromLanguagesConfig(content);
+    if (lightNetLocale) {
+      return lightNetLocale;
+    }
+  }
+
+  return null;
+}
+
+export const MEDIA_IMAGES_SEGMENTS = {
+  old: OLD_MEDIA_IMAGES_SEGMENT,
+  next: NEW_MEDIA_IMAGES_SEGMENT,
+};
 
 export function detectPackageManager(projectDir) {
   const candidates = [

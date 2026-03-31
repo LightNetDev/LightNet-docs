@@ -10,7 +10,7 @@ import {
   readJson,
   relativePath,
   runCli,
-  writeJson,
+  writeNormalizedJson,
 } from "./lib/common.mjs";
 
 function inferContentType(url) {
@@ -109,7 +109,7 @@ export async function migrateMediaContentTypes(projectDir, options = {}) {
       continue;
     }
 
-    await writeJson(filePath, data, { dryRun: options.dryRun });
+    await writeNormalizedJson(filePath, data, { dryRun: options.dryRun });
     changedFiles.push(relativePath(projectDir, filePath));
   }
 

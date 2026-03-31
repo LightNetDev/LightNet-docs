@@ -5,50 +5,19 @@ import {
   ensureTargetProject,
   isDirectExecution,
   listJsonFiles,
+  MEDIA_IMAGES_SEGMENTS,
+  normalizeLegacyMediaImagePaths,
   parseArgs,
   pathExists,
   readJson,
   relativePath,
   renamePath,
   runCli,
-  writeJson,
+  writeNormalizedJson,
 } from "./lib/common.mjs";
 
-const OLD_SEGMENT = "./_images/";
-const NEW_SEGMENT = "./images/";
-
-function replaceLegacyImagePaths(value) {
-  if (typeof value === "string") {
-    return value.startsWith(OLD_SEGMENT)
-      ? { value: value.replace(OLD_SEGMENT, NEW_SEGMENT), changed: true }
-      : { value, changed: false };
-  }
-
-  if (Array.isArray(value)) {
-    let changed = false;
-    const nextValue = value.map((entry) => {
-      const result = replaceLegacyImagePaths(entry);
-      changed ||= result.changed;
-      return result.value;
-    });
-    return { value: nextValue, changed };
-  }
-
-  if (value && typeof value === "object") {
-    let changed = false;
-    const nextValue = {};
-
-    for (const [key, entry] of Object.entries(value)) {
-      const result = replaceLegacyImagePaths(entry);
-      changed ||= result.changed;
-      nextValue[key] = result.value;
-    }
-
-    return { value: nextValue, changed };
-  }
-
-  return { value, changed: false };
-}
+const OLD_SEGMENT = MEDIA_IMAGES_SEGMENTS.old;
+const NEW_SEGMENT = MEDIA_IMAGES_SEGMENTS.next;
 
 export async function inspectImagesFolderMigration(projectDir) {
   const mediaDir = path.join(projectDir, "src", "content", "media");
@@ -73,7 +42,7 @@ export async function inspectImagesFolderMigration(projectDir) {
   }
 
   for (const filePath of jsonFiles) {
-    const result = replaceLegacyImagePaths(await readJson(filePath));
+    const result = normalizeLegacyMediaImagePaths(await readJson(filePath));
     if (!result.changed) {
       continue;
     }
@@ -121,12 +90,12 @@ export async function migrateImagesFolder(projectDir, options = {}) {
 
   for (const filePath of await listJsonFiles(mediaDir)) {
     const data = await readJson(filePath);
-    const result = replaceLegacyImagePaths(data);
+    const result = normalizeLegacyMediaImagePaths(data);
     if (!result.changed) {
       continue;
     }
 
-    await writeJson(filePath, result.value, { dryRun: options.dryRun });
+    await writeNormalizedJson(filePath, result.value, { dryRun: options.dryRun });
     changedFiles.push(relativePath(projectDir, filePath));
   }
 

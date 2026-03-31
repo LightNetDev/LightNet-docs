@@ -34,7 +34,7 @@ The scanner looks for:
 - package dependencies such as `lightnet`, `@lightnet/sveltia-admin`, `@lightnet/decap-admin`, and `@astrojs/tailwind`
 - `astro.config.*`
 - `src/content/**`
-- legacy code patterns such as `Astro.currentLocale`, Decap admin imports, old `MediaGallerySection` props, DaisyUI usage, and `mdi--` icons
+- legacy code patterns such as `Astro.currentLocale`, direct reads of inline locale maps that should move to `Astro.locals.i18n.tMap(...)`, Decap admin imports, old `MediaGallerySection` props, DaisyUI config and markup usage, legacy `x.`-prefixed custom translation keys, and `mdi--` icons
 
 ### 2. Run the safe deterministic scripts
 
@@ -51,9 +51,9 @@ Use these scripts only on the target LightNet site repo:
 - `scripts/migrate-cover-image-style.mjs`
   Move `detailsPage.coverStyle` to top-level `coverImageStyle`.
 - `scripts/migrate-content-labels.mjs --default-locale <code>`
-  Convert string label fields in JSON content collections to inline locale maps for the chosen default locale. The script skips `x.*` and `ln.*` translation-key strings and reports them for manual follow-up.
+  Convert string label fields in JSON content collections to inline locale maps for the chosen default locale. The inspection step derives the default locale from `astro.config.*` when possible. The script skips `x.*` and `ln.*` translation-key strings and reports them for manual follow-up.
 - `scripts/migrate-lucide-icons.mjs`
-  Replace only these known Material Design icon ids with Lucide equivalents, then leave every other `mdi--*` icon untouched for manual mapping:
+  Replace only these known Material Design icon ids with Lucide equivalents in real project files, then leave every other `mdi--*` icon untouched for manual mapping:
   `mdi--book-open-blank-variant` -> `lucide--book-open-text`,
   `mdi--video-outline` -> `lucide--video`,
   `mdi--file-document-box-outline` -> `lucide--file-text`,
@@ -66,11 +66,13 @@ Use `--dry-run` before mutating commands when you want a preview.
 
 Keep these steps agent-led because they vary between site repos:
 
-- Convert `languages[].label` values in `astro.config.*` from strings or translation keys to locale maps.
+- Convert inline translation-capable config fields in `astro.config.*` such as `title`, `logo.alt`, `mainMenu[].label`, and `languages[].label` from strings or translation-key strings to locale maps.
 - Rewrite the admin integration from Decap to `lightnetSveltiaAdmin(...)`, then remove obsolete `languages` and `imagesFolder` options.
 - Update locale access from `Astro.currentLocale` to `Astro.locals.i18n.currentLocale`.
-- Reconfigure DaisyUI manually if the target site still uses it.
-- Update `MediaGallerySection` usage from the old layout props to `itemWidth` and the new `layout` prop.
+- Replace direct reads of migrated inline label maps with `Astro.locals.i18n.tMap(...)`.
+- Review legacy custom translation keys that still use the `x.` prefix, rename them consistently, and remove obsolete translation entries after the migration.
+- Review DaisyUI configuration and DaisyUI-style markup separately. This is a manual design-system decision: keep DaisyUI with explicit config, replace it with site-owned component styles, or replace it with another design-system primitive.
+- Update `MediaGallerySection` usage from the old layout props to `itemWidth` and the new `layout` prop. Old content-like `layout` values such as `video`, `book`, `portrait`, and `landscape` now map to `itemWidth`, while old `viewLayout` values map to `layout`.
 - Review any remaining `mdi--*` icon ids that are not in the known mapping list and map them to appropriate Lucide names yourself.
 
 Use [references/migration-matrix.md](references/migration-matrix.md) while doing this pass.
@@ -83,6 +85,7 @@ After the migration:
 - run the target repo's build and test commands
 - smoke-test the administration UI if the site uses it
 - review any scanner warnings or skipped translation-key labels before closing the task
+- run final grep-style verification for remaining `mdi--`, `viewLayout`, old gallery layout values (`book`, `video`, `portrait`, `landscape`), and `./_images/`
 
 ## Guardrails
 

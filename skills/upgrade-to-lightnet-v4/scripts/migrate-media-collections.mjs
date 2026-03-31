@@ -10,6 +10,7 @@ import {
   relativePath,
   runCli,
   unique,
+  writeNormalizedJson,
   writeJson,
 } from "./lib/common.mjs";
 
@@ -184,7 +185,7 @@ export async function migrateMediaCollections(projectDir, options = {}) {
   }
 
   for (const update of mediaFileUpdates) {
-    await writeJson(update.filePath, update.data, { dryRun: options.dryRun });
+    await writeNormalizedJson(update.filePath, update.data, { dryRun: options.dryRun });
     changedFiles.push(relativePath(projectDir, update.filePath));
   }
 

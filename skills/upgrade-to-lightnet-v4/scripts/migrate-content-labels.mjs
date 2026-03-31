@@ -2,6 +2,7 @@
 
 import path from "node:path";
 import {
+  deriveDefaultLocaleFromAstroConfigFiles,
   ensureTargetProject,
   isDirectExecution,
   listJsonFiles,
@@ -10,7 +11,7 @@ import {
   relativePath,
   runCli,
   unique,
-  writeJson,
+  writeNormalizedJson,
 } from "./lib/common.mjs";
 
 function isTranslationKeyLabel(value) {
@@ -29,13 +30,19 @@ function convertStringLabel(container, key, defaultLocale, state, location) {
     return false;
   }
 
-  container[key] = { [defaultLocale]: value };
   state.converted += 1;
+  if (!defaultLocale || state.inspectOnly) {
+    return true;
+  }
+
+  container[key] = { [defaultLocale]: value };
   return true;
 }
 
-export async function inspectContentLabels(projectDir) {
-  const defaultLocale = "en";
+export async function inspectContentLabels(projectDir, options = {}) {
+  const defaultLocale =
+    options.defaultLocale ??
+    (await deriveDefaultLocaleFromAstroConfigFiles(options.astroConfigFiles ?? []));
   const files = [];
   const blockers = [];
   const warnings = [];
@@ -116,7 +123,7 @@ export async function inspectContentLabels(projectDir) {
   for (const spec of collectionSpecs) {
     for (const filePath of await listJsonFiles(spec.dir)) {
       const data = await readJson(filePath);
-      const state = { converted: 0, skipped: [] };
+      const state = { converted: 0, inspectOnly: true, skipped: [] };
       const fileLabel = relativePath(projectDir, filePath);
       const changed = spec.transform(data, state, fileLabel);
 
@@ -138,9 +145,13 @@ export async function inspectContentLabels(projectDir) {
     }
   }
 
-  if (converted > 0) {
+  if (defaultLocale && converted > 0) {
     findings.push(
-      `Convert ${converted} string label field${converted === 1 ? "" : "s"} in JSON content collections to inline locale maps.`,
+      `Convert ${converted} string label field${converted === 1 ? "" : "s"} in JSON content collections to inline locale maps using default locale \`${defaultLocale}\`.`,
+    );
+  } else if (!defaultLocale && (converted > 0 || skipped.length > 0)) {
+    findings.push(
+      `Inspect ${converted} string label field${converted === 1 ? "" : "s"} in JSON content collections for inline locale-map migration.`,
     );
   } else {
     warnings.push("No string label fields were found in the supported JSON content collections.");
@@ -152,6 +163,12 @@ export async function inspectContentLabels(projectDir) {
     );
   }
 
+  if (!defaultLocale && (converted > 0 || skipped.length > 0)) {
+    warnings.push(
+      "Default locale could not be derived from `astro.config.*`. This inspection is locale-agnostic until you provide `--default-locale <code>`.",
+    );
+  }
+
   return {
     id: "migrate-content-labels",
     applicable: converted > 0 || skipped.length > 0 || blockers.length > 0,
@@ -160,6 +177,7 @@ export async function inspectContentLabels(projectDir) {
     findings,
     skipped,
     warnings,
+    defaultLocale,
   };
 }
 
@@ -256,7 +274,7 @@ export async function migrateContentLabels(projectDir, options = {}) {
         continue;
       }
 
-      await writeJson(filePath, data, { dryRun: options.dryRun });
+      await writeNormalizedJson(filePath, data, { dryRun: options.dryRun });
       changedFiles.push(fileLabel);
     }
   }
@@ -284,6 +302,7 @@ export async function migrateContentLabels(projectDir, options = {}) {
               "No string label fields were found in the supported JSON content collections.",
             ]
           : [],
+    defaultLocale: options.defaultLocale,
     exitCode: 0,
   };
 }

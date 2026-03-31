@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import path from "node:path";
 import {
   detectTargetProject,
   isDirectExecution,
-  listFiles,
+  listProjectFiles,
   parseArgs,
   readText,
   relativePath,
@@ -30,6 +29,15 @@ const CODE_EXTENSIONS = [
   ".tsx",
 ];
 
+const PROJECT_SCAN_EXTENSIONS = [
+  ...CODE_EXTENSIONS,
+  ".json",
+  ".md",
+  ".mdx",
+  ".yaml",
+  ".yml",
+];
+
 function createManualFinding(id, title, files, details) {
   return {
     id,
@@ -39,13 +47,42 @@ function createManualFinding(id, title, files, details) {
   };
 }
 
+function detectConfigLabelFields(content) {
+  const fields = [];
+
+  if (/\btitle\s*:\s*["'`]/.test(content)) {
+    fields.push("title");
+  }
+
+  if (/\blogo\s*:\s*\{[\s\S]*?\balt\s*:\s*["'`]/.test(content)) {
+    fields.push("logo.alt");
+  }
+
+  if (/\bmainMenu\s*:\s*\[[\s\S]*?\blabel\s*:\s*["'`]/.test(content)) {
+    fields.push("mainMenu[].label");
+  }
+
+  if (/\blanguages\s*:\s*\[[\s\S]*?\blabel\s*:\s*["'`]/.test(content)) {
+    fields.push("languages[].label");
+  }
+
+  return fields;
+}
+
+function matchesTranslationMapRead(content) {
+  return (
+    /\b[A-Za-z_$][\w$]*\s*\.\s*data\s*\.\s*label\b/.test(content) ||
+    /\b[A-Za-z_$][\w$]*\s*\.\s*data\s*\[\s*["'`]label["'`]\s*\]/.test(content)
+  );
+}
+
 async function inspectManualMigrations(projectDir, astroConfigFiles, iconInspection) {
-  const srcDir = path.join(projectDir, "src");
-  const codeFiles = await listFiles(srcDir, { extensions: CODE_EXTENSIONS });
-  const contentJsonFiles = await listFiles(path.join(projectDir, "src", "content"), {
-    extensions: [".json"],
+  const projectFiles = await listProjectFiles(projectDir, {
+    extensions: PROJECT_SCAN_EXTENSIONS,
   });
-  const searchableFiles = [...astroConfigFiles, ...codeFiles, ...contentJsonFiles];
+  const searchableFiles = projectFiles.filter(
+    (filePath) => !astroConfigFiles.includes(filePath),
+  );
   const results = [];
 
   const matchedFiles = async (matcher) => {
@@ -59,22 +96,28 @@ async function inspectManualMigrations(projectDir, astroConfigFiles, iconInspect
     return files;
   };
 
-  const configLanguageLabelFiles = [];
+  const configInlineLabelFiles = [];
+  const configFields = new Set();
   for (const filePath of astroConfigFiles) {
     const content = await readText(filePath);
-    if (content.includes("languages:") && /label\s*:\s*["'`]/.test(content)) {
-      configLanguageLabelFiles.push(relativePath(projectDir, filePath));
+    const detectedFields = detectConfigLabelFields(content);
+    if (detectedFields.length > 0) {
+      configInlineLabelFiles.push(relativePath(projectDir, filePath));
+      for (const field of detectedFields) {
+        configFields.add(field);
+      }
     }
   }
-  if (configLanguageLabelFiles.length > 0) {
+  if (configInlineLabelFiles.length > 0) {
     results.push(
       createManualFinding(
-        "manual-config-language-labels",
-        "Convert `languages[].label` values in `astro.config.*` to locale maps.",
-        configLanguageLabelFiles,
+        "manual-config-inline-labels",
+        "Convert inline translation-capable config fields in `astro.config.*` to locale maps.",
+        configInlineLabelFiles,
         [
-          "Keep the `languages` config structure in place.",
-          "Replace plain-string or translation-key labels with inline locale maps manually in `astro.config.*`.",
+          `Review these fields: ${[...configFields].sort().map((field) => `\`${field}\``).join(", ")}.`,
+          "Replace plain-string or translation-key string values with inline locale maps.",
+          "Keep the guidance generic to the target repo's configured locales and existing config structure.",
         ],
       ),
     );
@@ -114,18 +157,51 @@ async function inspectManualMigrations(projectDir, astroConfigFiles, iconInspect
     );
   }
 
-  const daisyUiFiles = await matchedFiles(
-    (content) => content.includes("daisyui") || content.includes("dy-"),
-  );
-  if (daisyUiFiles.length > 0) {
+  const daisyUiConfigFiles = [];
+  for (const filePath of projectFiles) {
+    const content = await readText(filePath);
+    const relPath = relativePath(projectDir, filePath);
+    const looksLikeTailwindConfig = /tailwind\.config\.(c|m)?(j|t)s$/.test(filePath);
+    const mentionsDaisyUiConfig =
+      content.includes("daisyui") ||
+      /prefix\s*:\s*["'`]dy-["'`]/.test(content) ||
+      /plugins\s*:\s*\[[\s\S]*daisyui/.test(content);
+
+    if (
+      looksLikeTailwindConfig ||
+      relPath === "package.json" ||
+      astroConfigFiles.includes(filePath)
+    ) {
+      if (mentionsDaisyUiConfig) {
+        daisyUiConfigFiles.push(relPath);
+      }
+    }
+  }
+  if (daisyUiConfigFiles.length > 0) {
     results.push(
       createManualFinding(
-        "manual-daisyui",
-        "Reconfigure DaisyUI manually if the target site still uses it.",
-        daisyUiFiles,
+        "manual-daisyui-config",
+        "Review explicit DaisyUI configuration that LightNet v4 no longer injects automatically.",
+        daisyUiConfigFiles,
         [
           "LightNet v4 no longer injects DaisyUI config automatically.",
-          "Confirm plugin, theme, and prefix settings in the target repo's Tailwind setup.",
+          "Decide whether to keep DaisyUI with explicit project-owned Tailwind/plugin configuration or remove that dependency from the target repo.",
+        ],
+      ),
+    );
+  }
+
+  const daisyUiMarkupFiles = await matchedFiles((content) => content.includes("dy-"));
+  if (daisyUiMarkupFiles.length > 0) {
+    results.push(
+      createManualFinding(
+        "manual-daisyui-markup",
+        "Review DaisyUI-style markup and class usage as a manual design-system decision.",
+        daisyUiMarkupFiles,
+        [
+          "Treat this as a manual design-system decision rather than a silent cleanup.",
+          "Do not remove DaisyUI-style markup blindly.",
+          "Choose whether to keep DaisyUI with explicit config, replace it with site-owned component styles, or replace it with another design-system primitive.",
         ],
       ),
     );
@@ -146,7 +222,44 @@ async function inspectManualMigrations(projectDir, astroConfigFiles, iconInspect
         "manual-media-gallery-section",
         "Update `MediaGallerySection` props from the old layout API to `itemWidth` and the new `layout` prop.",
         mediaGalleryFiles,
-        ["This is source-code specific, so keep it as an agent-led edit."],
+        [
+          "Map old content-like `layout` values such as `video`, `book`, `portrait`, and `landscape` to the new `itemWidth` prop.",
+          "Map old `viewLayout` values to the new `layout` prop such as `grid` or `carousel`.",
+          "Keep this as a manual, source-aware migration rather than an automatic rewrite.",
+        ],
+      ),
+    );
+  }
+
+  const translationMapReadFiles = await matchedFiles(matchesTranslationMapRead);
+  if (translationMapReadFiles.length > 0) {
+    results.push(
+      createManualFinding(
+        "manual-translation-map-reads",
+        "Update direct reads of migrated label-map fields to use `Astro.locals.i18n.tMap(...)`.",
+        translationMapReadFiles,
+        [
+          "Fields such as `collection.data.label` now hold inline locale maps instead of plain strings.",
+          "Replace direct reads with `Astro.locals.i18n.tMap(...)` where localized labels are rendered.",
+        ],
+      ),
+    );
+  }
+
+  const legacyCustomKeyFiles = await matchedFiles(
+    (content) =>
+      /\bx\.[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)+\b/.test(content),
+  );
+  if (legacyCustomKeyFiles.length > 0) {
+    results.push(
+      createManualFinding(
+        "manual-legacy-custom-translation-keys",
+        "Review legacy custom translation keys that still use the `x.` prefix.",
+        legacyCustomKeyFiles,
+        [
+          "Rename old prefixed custom keys consistently across source, config, content, and translation files.",
+          "Update call sites to the new key names and remove obsolete translation entries after the migration.",
+        ],
       ),
     );
   }
@@ -215,7 +328,9 @@ export async function scanProject(projectDir) {
   const coverImageInspection = await inspectCoverImageStyleMigration(
     detection.projectDir,
   );
-  const labelInspection = await inspectContentLabels(detection.projectDir);
+  const labelInspection = await inspectContentLabels(detection.projectDir, {
+    astroConfigFiles: detection.astroConfigFiles,
+  });
   const iconInspection = await inspectLucideIconMappings(detection.projectDir);
   const manualItems = await inspectManualMigrations(
     detection.projectDir,
@@ -246,6 +361,7 @@ export async function scanProject(projectDir) {
   const nextSteps = [
     "Run the relevant migration scripts with `--dry-run` first.",
     "Apply the manual code and config changes from the v4 migration guide.",
+    "Finish with grep-style verification for remaining `mdi--`, `viewLayout`, old gallery layout values, and `./_images/` references.",
     "Run the target repo's install, build, and test commands after the migration.",
   ];
 

@@ -3,7 +3,7 @@
 import {
   ensureTargetProject,
   isDirectExecution,
-  listFiles,
+  listProjectFiles,
   parseArgs,
   readText,
   relativePath,
@@ -63,7 +63,7 @@ function replaceKnownIcons(content) {
 }
 
 async function listSearchableFiles(projectDir) {
-  return listFiles(projectDir, { extensions: FILE_EXTENSIONS });
+  return listProjectFiles(projectDir, { extensions: FILE_EXTENSIONS });
 }
 
 export async function inspectLucideIconMappings(projectDir) {
