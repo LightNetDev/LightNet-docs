@@ -25,6 +25,7 @@
   "ignorePaths": [
     ".vscode",
     ".github",
-    "skills"
+    "skills",
+    "pnpm-lock.yaml"
   ]
 }
