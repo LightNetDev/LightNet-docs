@@ -2,4 +2,4 @@ allowBuilds:
   esbuild: true
   sharp: true
 blockExoticSubdeps: true
-minimumReleaseAge: 4320
+minimumReleaseAge: 1440
