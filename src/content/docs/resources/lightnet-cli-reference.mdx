@@ -1,0 +1,73 @@
+---
+title: "@lightnet/cli reference"
+description: Reference for the LightNet command-line interface and its available commands.
+---
+import { Aside } from "@astrojs/starlight/components";
+
+
+`@lightnet/cli` provides command-line tools for working with LightNet projects.
+
+This page is a reference for the currently available commands. The CLI will grow over time, and new commands will be added here as they are released.
+
+## Package and binary
+
+Install the package in your project:
+
+```bash
+npm install --save-dev @lightnet/cli
+```
+
+The package exposes the `lightnet` command:
+
+```bash
+lightnet <command> [options]
+```
+
+To see the current command list directly from the CLI, run:
+
+```bash
+lightnet --help
+```
+
+You can also run the CLI without installing it first:
+
+```bash
+npx @lightnet/cli --help
+```
+
+## Available commands
+
+### `check-translations`
+
+```bash
+lightnet check-translations
+```
+
+Checks translation data from the latest LightNet build and reports missing locale values.
+
+What it does:
+
+- reads the cached translation build output
+- verifies that each used translation has values for every configured locale
+- prints missing translations
+- fails with non zero exit code if any translation is missing
+
+Use this command when you want to:
+
+- check translations after building a LightNet site
+- catch incomplete translations in CI before deployment
+- review translation coverage while adding locales or updating inline translation maps
+
+Before running it, build your site so LightNet can generate the translation cache:
+
+```bash
+npm run build
+```
+
+If the cache is missing, the command fails and tells you to run a build first.
+
+<Aside>
+This command only validates translations that were actually used during the last build. 
+For example, if a category label was never referenced while building the site, 
+a missing locale value for that label will not be reported yet.
+</Aside>
