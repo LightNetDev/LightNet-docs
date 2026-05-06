@@ -126,6 +126,7 @@ export default defineConfig({
           label: "Resources",
           items: [
             { slug: "resources/error-reference" },
+            { slug: "resources/lightnet-cli-reference" },
             { slug: "resources/versions" },
           ],
         },

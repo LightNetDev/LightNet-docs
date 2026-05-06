@@ -1,35 +1,88 @@
 ---
-title: Large file storage
-description: Learn how to handle media files larger than Cloudflare Pages' 25MB limit using Backblaze.
+title: Setup large file storage
+description: Learn how to configure Cloudflare R2 for large Administration UI uploads.
 ---
 
 import { Steps, Aside } from "@astrojs/starlight/components"
 
-Cloudflare Pages limits each file to 25 MB.
-This is our recommended way to handle large content files:
+Use external file storage when your Git repository should not act as file storage, or when you need larger uploads.
+For example, Cloudflare Pages and Workers only allow files up to 25 MB.
 
-1. Optimize files whenever possible. Large files take longer to open.
-1. Use video hosts like YouTube or Vimeo to upload your videos (if they are safe to use in your context).
-1. Use Backblaze for large files that cannot be uploaded elsewhere.
+This guide explains how to configure Cloudflare R2 for Administration UI uploads in LightNet.
 
-## How to use Backblaze
+<Aside type="caution" title="Experimental feature">
+The `experimental.fileStorage` option in `@lightnet/sveltia-admin` is still experimental and may change in future releases.
+</Aside>
+
+## Set up Cloudflare R2
 
 <Steps>
-1. **Create a Backblaze Account**: Sign up at [Backblaze](https://www.backblaze.com).
-2. **Create a Backblaze Bucket**: In the Backblaze dashboard, create a new bucket and upload your files.
-3. **Reference Your Backblaze URL**: Use the URL of the uploaded file as the media item's content URL in your media item JSON files.
-4. **Configure internal domains**: Add your Backblaze domain to the `internalDomains` configuration in `astro.config.mjs` to ensure the files are handled correctly.
-    ```js title="astro.config.mjs" ins={3}
-    export default defineConfig({
-      // ...
-      internalDomains: ["your-backblaze-domain.com"],
-    });
+1. **Add an R2 subscription**: Open your Cloudflare account and enable R2 Object Storage if it is not already active.
+1. **Create a bucket**: Create a new R2 bucket for your uploaded files.
+1. **Configure bucket settings**: In the bucket settings, add a custom domain such as `files.your-site.org`.
+    Then add a CORS policy like this:
+    ```json
+    [
+      {
+        "AllowedOrigins": [
+          "http://localhost:4321",
+          "https://your-site.org"
+        ],
+        "AllowedMethods": [
+          "GET", "PUT", "HEAD"
+        ],
+        "ExposeHeaders": ["ETag"],
+        "AllowedHeaders": ["*"],
+        "MaxAgeSeconds": 3000
+      }
+    ]
     ```
+    Replace the sample origins with your real local development URL and your production site URL.
+1. **Create an API token**: In Cloudflare, go to `R2 Object Storage`, click `API tokens` and then `Manage`, then create an account API token.
+    Set `Permissions` to `Object Read & Write`, set `Specify buckets` to `Apply to specific buckets only`, and select your bucket.
+    Save the generated Access Key ID and Secret Access Key somewhere secure.
 </Steps>
 
+The Secret Access Key is an operational credential that you should keep safe. Do not expose it publicly.
 
-<Aside type="tip" title="Expert Tip">
-You can also use Cloudflare
-to proxy requests to your Backblaze bucket. This lets you
-use a custom subdomain for your file URLs, for example `https://files.your-ministry.com/a-book-about-love.pdf`.
+## Configure `astro.config.mjs`
+
+Add the experimental R2 file storage configuration to `lightnetSveltiaAdmin(...)`:
+
+```js title="astro.config.mjs" ins={12-19}
+import lightnet from "lightnet"
+import lightnetSveltiaAdmin from "@lightnet/sveltia-admin"
+import { defineConfig } from "astro/config"
+
+export default defineConfig({
+  integrations: [
+    lightnet({
+      // ...
+    }),
+    lightnetSveltiaAdmin({
+      experimental: {
+        fileStorage: {
+          name: "cloudflare-r2",
+          accessKeyId: "<your-access-key-id>",
+          bucket: "<your-bucket>",
+          accountId: "<your-account-id>",
+          publicUrl: "https://files.your-site.org",
+        },
+      },
+    }),
+  ],
+})
+```
+
+### Configuration fields
+
+- `name`: Must be `"cloudflare-r2"`.
+- `accessKeyId`: The R2 Access Key ID for uploads.
+- `bucket`: The bucket name used to store uploaded files.
+- `accountId`: Your Cloudflare account ID.
+- `publicUrl`: Public base URL used for previews and downloads.
+- `prefix`: Optional path prefix inside the bucket, for example `uploads/`.
+
+<Aside>
+`publicUrl` is required because the R2 S3 API itself requires authentication. LightNet needs a public URL for file previews and downloads.
 </Aside>

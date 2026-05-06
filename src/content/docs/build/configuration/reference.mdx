@@ -278,6 +278,51 @@ For example this component would add a script to every page:
 <script src="my-js-file.js" defer></script>
 ```
 
+### `footerText`
+
+type: `object` \
+example: `{ en: "A media library for our church." }` \
+required: `false`
+
+Optional localized text displayed in the built-in LightNet footer.
+Provide a locale map keyed by your configured site languages.
+Here is a [guide on how to use the footer](/build/pages/footer).
+
+### `footerLinks`
+
+type: `object[]` \
+example: `[{ href: "/about", label: { en: "About" } }]` \
+required: `false`
+
+Optional links displayed in the built-in LightNet footer.
+Here is a [guide on how to use the footer](/build/pages/footer).
+
+#### footerLinks: `href`
+
+type: `string` \
+example: `"/about"` \
+required: `true`
+
+Defines the link destination. It can be an internal path such as `/about` or an external URL such as `https://lightnet.community`.
+
+#### footerLinks: `label`
+
+type: `object` \
+example: `{ en: "About" }` \
+required: `true`
+
+The text shown for the link. Provide a locale map keyed by your configured site languages.
+
+#### footerLinks: `requiresLocale`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `true`
+
+If set to `true`, LightNet automatically adds the current locale to internal footer links.
+This setting is ignored for external URLs.
+
 ### `footerComponent`
 
 type: `string` \

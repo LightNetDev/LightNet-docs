@@ -3,9 +3,65 @@ title: Add a footer
 description: How to add a footer to all pages.
 ---
 
-import {Steps} from "@astrojs/starlight/components"
+import { Steps } from "@astrojs/starlight/components"
 
-This chapter explains how to add a custom footer to all pages.
+LightNet includes a built-in footer that you can configure directly in `astro.config.mjs`.
+
+For most sites, this is the recommended approach. Use a custom footer component only when you need fully custom markup or behavior that the built-in footer does not support.
+
+## Set up the built-in footer
+
+<Steps>
+1. **Add footer text**: Inside `lightnet({...})`, set `footerText` to a localized text map.
+1. **Optionally add footer links**: Add `footerLinks` if you want links such as About, Contact, or external resources.
+1. **Optionally enable credits**: Set `credits: true` if you want a “Powered by LightNet” message to appear in the footer and help other ministries discover LightNet.
+1. **Start or rebuild your site**: Run your site and confirm the footer appears on all pages.
+</Steps>
+
+Here is an example configuration:
+
+```js title="astro.config.mjs" ins={5-25}
+export default defineConfig({
+  integrations: [
+    lightnet({
+      // ...
+      footerText: {
+        en: "A media library for our church.",
+        de: "Eine Mediathek für unsere Gemeinde.",
+      },
+      footerLinks: [
+        {
+          href: "/about",
+          label: {
+            en: "About",
+            de: "Über uns",
+          },
+        },
+        {
+          href: "https://lightnet.community",
+          label: {
+            en: "LightNet",
+            de: "LightNet",
+          },
+        },
+      ],
+      credits: true,
+    }),
+  ],
+})
+```
+
+### Footer link properties
+
+- **`href`**: Defines the link destination. It can be an internal path such as `/about` or an external URL such as `https://lightnet.community`.
+- **`label`**: The text shown for the link. Provide a locale map keyed by your configured site languages.
+- **`requiresLocale`**: Optional. Defaults to `true`. When enabled, LightNet adds the current locale to internal links automatically. External URLs ignore this setting.
+
+Do not add locale prefixes to internal footer links. Use `/about`, not `/en/about`.
+
+## Advanced: custom footer component
+
+Use a custom footer component only if the built-in footer is not enough for your site. This setup is more complex, but it gives you full control over the markup and styling.
 
 <Steps>
 1. **Add footer component**: Add a new Astro component file to your project under `src/components/Footer.astro`.
