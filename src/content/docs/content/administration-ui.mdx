@@ -334,3 +334,60 @@ default: `false`
 Enables Administration UI editing for LightNet languages through a root-level `languages.json` file.
 When this option is enabled, keep your `lightnet({ languages })` config and import the array from `./languages.json` in `astro.config.mjs`.
 The `languages.json` file must live at the root of the site repository.
+
+#### `experimental.fileStorage`
+
+type: `object` \
+example: `{ name: "cloudflare-r2", accessKeyId: "your-access-key-id", ... }` \
+required: `false`
+
+External file storage configuration for Administration UI uploads.
+
+Use this when your Git repository should not act as file storage, or when your hosting setup needs larger uploads. For example, Cloudflare Pages and Workers only allow files up to 25 MB.
+
+LightNet currently supports Cloudflare R2 for this option.
+Because this feature is experimental, the configuration may change in future releases.
+
+#### `experimental.fileStorage.name`
+
+type: `"cloudflare-r2"` \
+required: `true`
+
+Selects Cloudflare R2 as the upload storage backend.
+
+#### `experimental.fileStorage.accessKeyId`
+
+type: `string` \
+required: `true`
+
+The R2 Access Key ID used for uploads.
+
+#### `experimental.fileStorage.bucket`
+
+type: `string` \
+required: `true`
+
+The R2 bucket name used to store uploaded files.
+
+#### `experimental.fileStorage.accountId`
+
+type: `string` \
+required: `true`
+
+Your Cloudflare account ID. LightNet uses this to construct the R2 API endpoint.
+
+#### `experimental.fileStorage.publicUrl`
+
+type: `string` \
+required: `true`
+
+Public base URL used for previews and downloads of uploaded files.
+This is required because the R2 S3 API itself always requires authentication.
+
+#### `experimental.fileStorage.prefix`
+
+type: `string` \
+example: `"uploads/"` \
+required: `false`
+
+Optional path prefix inside the bucket where uploaded files should be stored.
