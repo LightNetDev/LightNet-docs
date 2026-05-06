@@ -7,12 +7,16 @@
     "decap",
     "deutsch",
     "eigener",
+    "Eine",
     "Englisch",
+    "entr",
     "español",
+    "Gemeinde",
     "lightnet",
     "linkcheck",
     "llms",
     "Lucide",
+    "Mediathek",
     "nvmrc",
     "pkce",
     "scriptable",
@@ -20,7 +24,7 @@
     "Subtag",
     "sveltia",
     "Über",
-    "entr"
+    "unsere"
   ],
   "ignorePaths": [
     ".vscode",
