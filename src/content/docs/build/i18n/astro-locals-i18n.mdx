@@ -37,20 +37,9 @@ Use `t()` for UI strings such as headings, button labels, and other text defined
 LightNet uses [i18next](https://www.i18next.com/) internally, so `t()` supports features such as plurals, interpolation, and context using i18next conventions.
 </Aside>
 
-## `tMap`
+## Inline translation maps
 
-type: ``tMap(translationMap, context) => string``
-
-Resolves an inline translation map object for the current locale.
-
-- Use `tMap()` for values that already contain localized text inline, such as config fields or content JSON.
-- `tMap()` does not look up translation keys from translation files.
-- It first tries `currentLocale`.
-- If that value is missing, it falls back to `defaultLocale`.
-- If neither locale has a value, `tMap()` throws an error.
-- `context.path` is required so LightNet can point error messages to the exact config or content field.
-
-Example translation map:
+These helpers resolve values that already contain localized text inline, for example:
 
 ```ts
 {
@@ -59,16 +48,78 @@ Example translation map:
 }
 ```
 
+All inline-map helpers behave the same way once they receive the value:
+
+- They first try `currentLocale`.
+- If that value is missing, they fall back to `defaultLocale`.
+- If neither locale has a value, they throw an error.
+- They do not look up translation keys from translation files. Only `t()` does that.
+
+The difference is how LightNet learns where the field came from:
+
+| Helper | Use it when | What you pass |
+| --- | --- | --- |
+| `tMap()` | You need full manual control | `translationMap` and `{ path }` |
+| `tConfigField()` | The translation map comes from LightNet config | `translationMap` and the resolved `config` object |
+| `tContentField()` | The translation map comes from a content entry | `translationMap` and the owning content entry |
+
+## `tConfigField`
+
+type: ``tConfigField(translationMap, config) => string``
+
+Resolves an inline translation map that belongs to LightNet config.
+
+- Use `tConfigField()` for translated values read from the resolved runtime config, such as `config.title`, `config.footerText`, or configured language labels.
+- `tConfigField()` is the preferred helper for config fields because it can derive the field path automatically.
+- This gives LightNet better missing-translation errors without requiring you to write `path` manually.
+
 ```astro
 ---
-const siteTitle = Astro.locals.i18n.tMap(config.title, {
-  path: ["config", "title"],
+const siteTitle = Astro.locals.i18n.tConfigField(config.title, config)
+---
+<title>{siteTitle}</title>
+```
+
+## `tContentField`
+
+type: ``tContentField(translationMap, contentEntry) => string``
+
+Resolves an inline translation map that belongs to a content entry.
+
+- Use `tContentField()` for translated values stored inside content collections, such as category labels, media-type labels, or media-collection labels.
+- `tContentField()` is the preferred helper for content fields because it can derive the field path from the owning entry.
+- This keeps content code short while preserving precise error reporting.
+
+```astro
+---
+const collectionLabel = Astro.locals.i18n.tContentField(
+  collection.data.label,
+  collection,
+)
+---
+<h2>{collectionLabel}</h2>
+```
+
+## `tMap`
+
+type: ``tMap(translationMap, context) => string``
+
+Resolves an inline translation map when you want to provide the field context manually.
+
+- Use `tMap()` when you already have the translation map but do not have the full config object or content entry available.
+- `context.path` is required so LightNet can point error messages to the exact config or content field.
+- In most app code, prefer `tConfigField()` or `tContentField()` instead of writing `path` by hand.
+
+```astro
+---
+const siteTitle = Astro.locals.i18n.tMap(site.title, {
+  path: ["pages", "index.astro"],
 })
 ---
 <title>{siteTitle}</title>
 ```
 
-Use `tMap()` when the localized values are already present in the object you are reading. Use `t()` when you have a translation key that should be looked up in translation files.
+Use `tMap()` for advanced or manual cases. Use `tConfigField()` and `tContentField()` for everyday config and content reads.
 
 ## Locale metadata
 
@@ -105,6 +156,8 @@ The list of all available translation keys.
 ## Best practices
 
 - Use `t()` for translation-file keys.
-- Use `tMap()` for inline localized objects from config or content.
+- Use `tConfigField()` for inline localized objects from LightNet config.
+- Use `tContentField()` for inline localized objects from content entries.
+- Use `tMap()` only when you need to provide the field path manually.
 - Avoid hard-coded UI strings when a translation key should be used instead.
 - Use `currentLocale` and `direction` in markup when building locale-aware or RTL-aware UI.
