@@ -6,16 +6,16 @@ description: Learn how to add an Administration User Interface to your site.
 import { Steps, Aside } from "@astrojs/starlight/components";
 
 
-LightNet stores site content in JSON files. This works well for developers, but it can be harder for non-technical editors.
-To make content editing easier, LightNet provides an Administration User Interface (Administration UI).
-The Administration UI lets you create, update, and delete media items and media collections through a graphical editor.
-To implement the interface, LightNet uses [Sveltia CMS](https://github.com/sveltia/sveltia-cms).
+LightNet stores site content in JSON files. That works well for developers, but it can be less convenient for non-technical editors.
+To make editing easier, LightNet includes an Administration User Interface (Administration UI).
+The Administration UI provides a graphical editor for creating, updating, and deleting media items and media collections.
+Under the hood, it uses [Sveltia CMS](https://github.com/sveltia/sveltia-cms).
 
 Changes made in the Administration UI are written either to your local file system or to a Git host.
 
 <Aside title="Experimental" type="caution">
-The Administration UI is an experimental feature.
-It is safe to try in real projects, but it still lacks some quality-of-life features, such as more extensive validation for invalid content changes.
+The Administration UI is still experimental.
+It is safe to use in real projects, but it still lacks some quality-of-life improvements, such as more comprehensive validation for invalid content changes.
 </Aside>
 
 ## Add the Administration UI to your project
@@ -23,19 +23,19 @@ It is safe to try in real projects, but it still lacks some quality-of-life feat
 Follow these steps to add the Administration UI to your LightNet project:
 
 <Aside>
-Your template may already include the Administration UI. For example, the `example-template` ships with it preinstalled.
+Your template may already include the Administration UI. For example, `example-template` ships with it preinstalled.
 You can still follow this guide from the beginning if you want to verify the setup.
 </Aside>
 
 <Steps>
-1. **Add the integration**: Install the LightNet Administration UI integration (`@lightnet/sveltia-admin`) from your project folder:
+1. **Install the integration**: From your project folder, install the LightNet Administration UI integration (`@lightnet/sveltia-admin`):
     ```bash
     npm install @lightnet/sveltia-admin
     ```
-    Then add the integration to your `astro.config.mjs` file.
-1. **Add minimal configuration**: Update `astro.config.mjs` with both the LightNet integration and the Administration UI integration. This is a minimal example:
+    Then add the integration to `astro.config.mjs`.
+1. **Add the minimum configuration**: Update `astro.config.mjs` to include both the LightNet integration and the Administration UI integration. Here is a minimal example:
 
-    ```js title="astro.config.mjs" ins={1,14}
+    ```js title="astro.config.mjs" ins={1,10}
     import lightnetSveltiaAdmin from "@lightnet/sveltia-admin"
     import { defineConfig } from "astro/config"
     import lightnet from "lightnet"
@@ -43,18 +43,6 @@ You can still follow this guide from the beginning if you want to verify the set
     export default defineConfig({ 
       integrations: [
         lightnet({
-            title: {
-              en: "My Library",
-            },
-            languages: [
-              {
-                code: "en",
-                label: {
-                  en: "English",
-                },
-                isDefaultSiteLanguage: true,
-              },
-            ],
             //...
         }),
         lightnetSveltiaAdmin({})
@@ -64,13 +52,13 @@ You can still follow this guide from the beginning if you want to verify the set
 </Steps>
 
 <Aside type="caution">
-For sites with higher security requirements, we recommend changing the default admin path to something less guessable.
-You can do this with the [path](#path) option.
+If your site has stricter security requirements, consider changing the default admin path to something less guessable.
+You can do that with the [path](#path) option.
 </Aside>
 
 ## Edit languages through `languages.json`
 
-The Administration UI can also edit LightNet languages through a root-level `languages.json` file.
+The Administration UI can also edit LightNet languages through a `languages.json` file at the root of your site.
 This is controlled by the experimental `useLanguagesCollection` option in `lightnetSveltiaAdmin(...)`.
 
 Enable the experimental option in `astro.config.mjs`:
@@ -87,56 +75,63 @@ When enabled, the Administration UI expects a `languages.json` file at the root 
 
 <Aside type="caution" title="Experimental option">
 This workflow is optional and experimental.
-The option name and behavior may still change before the feature is stabilized.
+The option name and behavior may still change before the feature is finalized.
 </Aside>
 
 ### Extract `languages.json`
 
-If your site currently defines `languages` inline inside `lightnet(...)`, move that array into a dedicated `languages.json` file and import it back into `astro.config.mjs`.
+If your site currently defines `languages` inline inside `lightnet(...)`, move that array into a dedicated `languages.json` file and then import it back into `astro.config.mjs`.
 
 Before:
 
 ```ts title="astro.config.mjs"
-lightnet({
-  languages: [
-    {
-      code: "en",
-      label: {
-        en: "English",
-      },
-      isDefaultSiteLanguage: true,
-    },
-    {
-      code: "de",
-      label: {
-        en: "Deutsch",
-        de: "Deutsch",
-      },
-      isSiteLanguage: true,
-    },
+import { defineConfig } from "astro/config"
+import lightnet from "lightnet"
+
+export default defineConfig({
+  integrations: [
+    lightnet({
+      languages: [
+        {
+          code: "en",
+          label: {
+            en: "English",
+          },
+          isDefaultSiteLanguage: true,
+        },
+        {
+          code: "de",
+          label: {
+            en: "Deutsch",
+            de: "Deutsch",
+          },
+          isSiteLanguage: true,
+        },
+      ],
+    }),
   ],
 })
 ```
 
 After:
 
-```ts title="astro.config.mjs"
+```ts title="astro.config.mjs" {1,8}
 import languages from "./languages.json"
+import { defineConfig } from "astro/config"
+import lightnet from "lightnet"
 
-lightnet({
-  languages,
-})
-
-lightnetSveltiaAdmin({
-  experimental: {
-    useLanguagesCollection: true,
-  },
+export default defineConfig({
+  integrations: [
+    lightnet({
+      languages
+    }),
+  ],
 })
 ```
 
 Create `languages.json` at the site root with the same array:
 
-```json title="languages.json"
+```json title="/languages.json"
 [
   {
     "code": "en",
@@ -162,7 +157,7 @@ The Administration UI can save changes either to your local file system or to a 
 
 ### Accessing your local file system
 
-Use this workflow while developing locally on your own computer.
+Use this workflow when developing locally on your own computer.
 
 <Steps>
 1. **Start the development server**: Run this command from your project folder:
@@ -170,13 +165,13 @@ Use this workflow while developing locally on your own computer.
     npm run dev
     ```
     This starts the LightNet development server.
-2. **Open the Administration UI**: Open Chrome or another Chromium-based browser and go to [localhost:4321/admin](http://localhost:4321/admin).
+2. **Open the Administration UI**: In Chrome or another Chromium-based browser, go to [localhost:4321/admin](http://localhost:4321/admin).
 3. **Choose the local workflow**: Click the "Work with Local Repository" button.
 4. **Grant folder access**: When your browser prompts you, select your project folder and allow access.
 </Steps>
 
 <Aside type="note">
-The local admin workflow requires the File System Access API, which is currently available only in Chrome and Chromium-based browsers.
+The local admin workflow requires the File System Access API, which is currently available only in Chrome and other Chromium-based browsers.
 Brave disables this API by default; you can enable it at `brave://flags/#file-system-access-api`.
 
 The online admin workflow works in all major browsers.
@@ -185,10 +180,10 @@ The online admin workflow works in all major browsers.
 
 ### Accessing a Git host
 
-The Administration UI also supports online editing of a site's content.
-This works by connecting the Administration UI to a Git host such as GitLab or GitHub.
-When used online, content changes are written as Git commits through the Git host's web API.
-Authentication is also handled by the Git host, so you can manage editor access through your repository permissions.
+The Administration UI also supports editing content online.
+It does this by connecting to a Git host such as GitLab or GitHub.
+When used this way, content changes are written as Git commits through the Git host's web API.
+Authentication is handled by the Git host as well, so you can manage editor access through repository permissions.
 
 This architecture has several advantages:
 - No need to deploy and maintain a custom backend API.
@@ -197,51 +192,45 @@ This architecture has several advantages:
 - Git repositories can often be hosted at low or no cost.
 
 LightNet supports both GitHub and GitLab as Git hosts.
-We strongly recommend GitLab because it supports browser-based authentication for this workflow.
+We recommend GitHub for new LightNet projects.
 
 <Aside>
-If you need to use GitHub as your Git host, note that GitHub only supports server-side authentication for this flow.
-That means you need an additional backend service to forward the authentication request.
+GitHub does not yet support client-only PKCE authentication for this workflow.
+For now, use an auth proxy such as [sveltia/sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth).
+GitHub is planning native support for this flow in the future. Track progress in [GitHub roadmap issue #1153](https://github.com/github/roadmap/issues/1153).
 </Aside>
 
-#### Connect to GitLab
+#### Connect to GitHub
 
-To connect your Administration UI to a GitLab repository, follow these steps.
+Follow these steps to connect the Administration UI to a GitHub repository.
 
 <Steps>
-1. **Host your repository on GitLab**: Make sure your LightNet project is hosted on GitLab. If you still need to move or create the repository there, follow the [hosting guide](/deploy/hosting).
-2. **Open the GitLab group settings**: On [GitLab.com](https://gitlab.com), open the group that owns the repository and go to its `Settings`.
-3. **Create an application**: Open the `Applications` settings and choose `Add new application`.
-4. **Configure the application**: In the form, use these settings:
-    - **Name**: Choose a descriptive name, for example your site name.
-    - **Redirect URI**: Enter the final URL of your LightNet site followed by the admin path, for example `https://your-library.com/admin/`. Do not forget the trailing slash.
-    - **Confidential**: Disable this option.
-    - **Scopes**: Select the `api` scope.
-5. **Copy the Application ID**: After saving, GitLab shows the new Application ID. Copy it for the next step.
-6. **Open your project configuration**: Return to your project and open `astro.config.mjs`.
-7. **Configure the backend**: Add the `backend` configuration for your GitLab repository:
-    ```js title="astro.config.mjs" ins={7-11}
+1. **Host your repository on GitHub**: Make sure your LightNet project is hosted on GitHub. If you still need to create or move the repository, follow the [hosting guide](/deploy/hosting).
+1. **Deploy an auth proxy**: Set up [`sveltia/sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) on Cloudflare Workers. Follow the instructions for setting up GitHub authentication in the [sveltia-cms-auth README](https://github.com/sveltia/sveltia-cms-auth/blob/main/README.md). Copy the public base URL of the deployed proxy.
+1. **Open your project configuration**: Return to your project and open `astro.config.mjs`.
+1. **Configure the backend**: Add the `backend` configuration for your GitHub repository:
+    ```js title="astro.config.mjs" ins={6-10}
     // ...
     export default defineConfig({ 
       integrations: [
         // ...
         lightnetSveltiaAdmin({
             backend: {
-                name: "gitlab",
-                repo: "<Group>/<Repository Name>",
-                appId: "<Application ID>",  
+                name: "github",
+                repo: "<Owner>/<Repository Name>",
+                baseUrl: "https://your-auth-proxy.workers.dev",  
             },
         })
       ]    
     });
     ```
-    Set `repo` to the GitLab repository path, and set `appId` to the Application ID you copied in step 5.
-8. **Use the Administration UI**: After your site is deployed, open `/admin` on your website, click the login button, and authorize access with GitLab.
-    You can now edit media items online. If someone else also needs access, add their account to the GitLab group.
+    Set `repo` to the GitHub repository path and `baseUrl` to the public URL of your auth proxy service.
+1. **Use the Administration UI**: After your site is deployed, open `/admin` on your website, click the login button, and authorize access with GitHub.
+    You can now edit media items online. If other people also need access, add them as collaborators or grant access through your GitHub organization.
 </Steps>
 
 <Aside>
-Even when you have configured a GitLab backend, you can still use a locally configured Administration UI workflow during development.
+Even if you configure a GitHub backend, you can still use a local Administration UI workflow during development.
 </Aside>
 
 ## Reference
@@ -285,11 +274,11 @@ maximum file size.
 ### `backend`
 
 type: `object` \
-example: `{ name: "gitlab", repo: "your-org/your-site", appId: "12345abcd" }` \
+example: `{ name: "github", repo: "your-org/your-site", baseUrl: "https://your-auth-proxy.workers.dev" }` \
 required: `false`
 
-This configures the Git host your Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
-The configuration maps to the Administration UI backend settings for GitHub or GitLab.
+This option configures the Git host the Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
+Its fields map directly to the Administration UI backend settings for GitHub or GitLab.
 
 #### `backend: "gitlab"`
 
@@ -297,9 +286,11 @@ GitLab backend configuration has these options:
 
 - **name**: `"gitlab"` (required) selects GitLab as the backend.
 - **repo**: `string` (required) the GitLab repository path of your site.
-- **appId**: `string` Application ID from the site's GitLab settings.
+- **appId**: `string` the Application ID from the site's GitLab settings.
 - **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
-- **authType**: `"pkce"` the authentication type to use. The default, and currently the only supported option, is `"pkce"`.
+- **authType**: `"pkce"` the authentication type to use. This is the default and currently the only supported option.
+
+See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/gitlab) for more details.
 
 #### `backend: "github"`
 
@@ -308,11 +299,13 @@ GitHub backend configuration has these options:
 - **name**: `"github"` (required) selects GitHub as the backend.
 - **repo**: `string` (required) the GitHub repository path of your site.
 - **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
-- **baseUrl**: `string` the URL of your service doing the authentication request.
+- **baseUrl**: `string` the URL of the service that handles the authentication request.
+
+See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/github) for more details.
 
 <Aside>
-GitHub does not support the PKCE authentication type. This means you need an authentication server to handle the authentication request.
-This is why we recommend using the GitLab backend for LightNet sites.
+GitHub does not yet support client-only PKCE for this flow.
+For now, use an auth proxy such as [`sveltia/sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) and point `baseUrl` to that service.
 </Aside>
 
 ### `experimental`
@@ -322,7 +315,7 @@ example: `{ useLanguagesCollection: true }` \
 required: `false`
 
 Optional experimental features for the Administration UI.
-If omitted, experimental features stay disabled.
+If omitted, all experimental features remain disabled.
 
 #### `experimental.useLanguagesCollection`
 
@@ -332,7 +325,7 @@ required: `false` \
 default: `false`
 
 Enables Administration UI editing for LightNet languages through a root-level `languages.json` file.
-When this option is enabled, keep your `lightnet({ languages })` config and import the array from `./languages.json` in `astro.config.mjs`.
+When this option is enabled, keep your `lightnet({ languages })` configuration and import the array from `./languages.json` in `astro.config.mjs`.
 The `languages.json` file must live at the root of the site repository.
 
 #### `experimental.fileStorage`
@@ -343,7 +336,7 @@ required: `false`
 
 External file storage configuration for Administration UI uploads.
 
-Use this when your Git repository should not act as file storage, or when your hosting setup needs larger uploads. For example, Cloudflare Pages and Workers only allow files up to 25 MB.
+Use this when your Git repository should not be used for file storage, or when your hosting setup needs larger uploads. For example, Cloudflare Workers only allows files up to 25 MB.
 
 LightNet currently supports Cloudflare R2 for this option.
 Because this feature is experimental, the configuration may change in future releases.
@@ -375,7 +368,7 @@ The R2 bucket name used to store uploaded files.
 type: `string` \
 required: `true`
 
-Your Cloudflare account ID. LightNet uses this to construct the R2 API endpoint.
+Your Cloudflare account ID. LightNet uses it to construct the R2 API endpoint.
 
 #### `experimental.fileStorage.publicUrl`
 

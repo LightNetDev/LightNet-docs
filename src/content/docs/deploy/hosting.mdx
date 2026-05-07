@@ -1,9 +1,9 @@
 ---
 title: Hosting
-description: Learn how to host your media library on GitLab and Cloudflare Pages.
+description: Learn how to host your media library on GitHub and Cloudflare Workers.
 ---
 
-import { Aside, Steps, Badge } from '@astrojs/starlight/components';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
 ## Hosting your media library
 
@@ -15,57 +15,62 @@ npm run build
 
 This command creates a folder named `dist`. It contains static HTML, CSS, JavaScript, and assets. Upload it to your file server.
 
-If you do not have a hosting preference, we recommend GitLab and Cloudflare Pages.
+If you do not have a hosting preference, we recommend GitHub and Cloudflare Workers.
 
-## Set up hosting on GitLab and Cloudflare Pages
+## Set up hosting on GitHub and Cloudflare Workers
 
-Cloudflare Pages delivers your website to your audience. It takes care of building your website on Cloudflare's servers, caching,
-distributing your page around the globe (using Cloudflare's CDN), and more.
+Cloudflare Workers can build your project and serve the generated `dist` folder directly from Cloudflare's global network.
 
-Using GitLab makes collaboration easier. Cloudflare can also use GitLab to read your source code and automatically update your site when there are new commits.
+Use GitHub as the main home for your LightNet project. It stores your source files, receives content changes from the Administration UI, and triggers Cloudflare Workers deployments whenever you push new commits.
+GitHub is the Git host we recommend for new LightNet projects. You can still use GitLab, but in our experience GitHub has been more reliable when connected to Cloudflare.
 
-<Aside>
-We prefer GitLab because it integrates well with the [Administration User Interface](/content/administration-ui).
-</Aside>
-<Aside>
-Cloudflare recommends transitioning from Cloudflare Pages to Cloudflare Workers. We are waiting for more stability before updating our guidance.
-Feel free to use Workers today; setup is similar to the current Pages steps.
-</Aside>
+GitHub and Cloudflare Workers both offer approachable free-tier starting points for static sites.
 
-Both GitLab and Cloudflare Pages offer generous free tiers:
+- Cloudflare Workers can serve static assets from your generated `dist` folder.
+- GitHub gives you a familiar pull request workflow and acts as the shared backend for both Cloudflare deployments and Administration UI content updates.
 
-- Cloudflare Pages: The free plan supports unlimited requests and up to 20,000 static files.
-- GitLab: The free plan includes collaboration for up to 5 users within a group.
-
-### Set up GitLab
+### Set up GitHub
 
 <Steps>
-1. **Create a GitLab Account**: If you don't have one, sign up at [GitLab](https://gitlab.com). Do **not** create an enterprise account.
-1. **Create a new group**: For easier permission control, when working together with others, create a private group.
-1. **Create a new project**: In your new GitLab group, create a new blank private project without a README. This is the Git repository where you will upload your project folder.
-1. **Push the repository to GitLab**: Push your project folder to the newly created GitLab project by running the following commands from your project folder.
+1. **Create a GitHub account**: If you do not have one yet, sign up at [GitHub](https://github.com).
+1. **Create a GitHub organization**: For collaborating with others, create a GitHub organization to manage access more easily.
+1. **Create a new repository**: Create a new repository for your LightNet project. A private repository is usually the best choice if your project is not meant to be public.
+1. **Push the repository to GitHub**: Push your project folder to the new GitHub repository by running these commands from your project folder:
     ```bash
-    git remote add origin https://gitlab.com/your-group/your-project.git
+    git remote add origin https://github.com/your-org/your-project.git
     git push --set-upstream origin --all
     ```
-    Replace `your-group` and `your-project` with your actual values.
+    Replace `your-org` and `your-project` with your actual values.
 </Steps>
 
-### Set up Cloudflare Pages
+### Set up Cloudflare Workers
 
 <Steps>
 1. **Create a Cloudflare Account**: Sign up at [Cloudflare](https://cloudflare.com) if you don't have an account.
-1. **Create a Cloudflare application**: In the Cloudflare menu, open **Compute (Workers)**.
-1. **Select a Pages application**: Choose to create a **Pages** application.
-1. **Import from Git**: Choose the option to **connect to a Git** repository to start importing your project.
-1. **Grant Access to GitLab Project**: Choose GitLab and add your account. Begin the setup for your project.
-1. **Configure Pages Settings**: Set up the build and deployment settings for your Cloudflare Pages project. After choosing the **Astro framework preset**, you are ready to deploy.
-1. **View your site**: Cloudflare Pages provides you with a `.pages.dev` domain to view your site online.
+1. **Add a Workers config**: Create a `wrangler.jsonc` file in your project root. Use this config to serve the `dist` folder as static assets:
+    ```jsonc title="wrangler.jsonc"
+    {
+      "name": "your-site",
+      "compatibility_date": "2026-03-31",
+      "workers_dev": true,
+      "preview_urls": true,
+      "send_metrics": false,
+      "assets": {
+        "directory": "./dist",
+        "not_found_handling": "404-page"
+      },
+      "routes": [
+        {
+          "pattern": "your-site.org",
+          "custom_domain": true
+        }
+      ]
+    }
+    ```
+1. **Create a Workers application**: In the Cloudflare dashboard, open **Compute (Workers)** and create a new Worker connected to your GitHub repository.
+1. **Configure the build and deploy commands**: Set `npm run build` as the build command and `npx wrangler deploy` as the deploy command.
+1. **View your site**: Cloudflare provides a `workers.dev` preview URL. Each time you push a new commit to GitHub, Cloudflare can rebuild and deploy the site. If `preview_urls` is enabled, you can also use preview deployments while testing changes.
 </Steps>
-
-<Aside type="tip">
-When working with Git branches, Cloudflare automatically creates preview deployments. In GitLab, it adds a pipeline with a link to the preview deployment on your merge request overview.
-</Aside>
 
 ### Configure a Cloudflare domain
 
@@ -75,5 +80,5 @@ To configure a custom domain:
 
 <Steps>
 1. Purchase a domain from [Cloudflare Domains](https://www.cloudflare.com/products/registrar/).
-1. Follow the instructions in the Cloudflare dashboard to link your new domain to your Cloudflare Pages project.
+1. Follow the instructions in the Cloudflare dashboard to attach your custom domain to your Worker route.
 </Steps>
