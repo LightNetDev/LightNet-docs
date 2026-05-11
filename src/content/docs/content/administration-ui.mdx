@@ -51,11 +51,6 @@ You can still follow this guide from the beginning if you want to verify the set
     ```
 </Steps>
 
-<Aside type="caution">
-If your site has stricter security requirements, consider changing the default admin path to something less guessable.
-You can do that with the [path](#path) option.
-</Aside>
-
 ## Edit languages through `languages.json`
 
 The Administration UI can also edit LightNet languages through a `languages.json` file at the root of your site.
@@ -96,13 +91,14 @@ export default defineConfig({
           code: "en",
           label: {
             en: "English",
+            de: "Englisch"
           },
           isDefaultSiteLanguage: true,
         },
         {
           code: "de",
           label: {
-            en: "Deutsch",
+            en: "German",
             de: "Deutsch",
           },
           isSiteLanguage: true,
@@ -136,14 +132,15 @@ Create `languages.json` at the site root with the same array:
   {
     "code": "en",
     "label": {
-      "en": "English"
+      "en": "English",
+      "de": "Englisch"
     },
     "isDefaultSiteLanguage": true
   },
   {
     "code": "de",
     "label": {
-      "en": "Deutsch",
+      "en": "German",
       "de": "Deutsch"
     },
     "isSiteLanguage": true
@@ -153,7 +150,7 @@ Create `languages.json` at the site root with the same array:
 
 ## Run the Administration UI
 
-The Administration UI can save changes either to your local file system or to a Git host such as GitLab or GitHub.
+The Administration UI can save changes either to your local file system or to a Git host such as GitHub.
 
 ### Accessing your local file system
 
@@ -181,7 +178,7 @@ The online admin workflow works in all major browsers.
 ### Accessing a Git host
 
 The Administration UI also supports editing content online.
-It does this by connecting to a Git host such as GitLab or GitHub.
+It does this by connecting to a Git host such as GitHub.
 When used this way, content changes are written as Git commits through the Git host's web API.
 Authentication is handled by the Git host as well, so you can manage editor access through repository permissions.
 
@@ -191,8 +188,7 @@ This architecture has several advantages:
 - Git history makes it easy to review changes and roll back when needed.
 - Git repositories can often be hosted at low or no cost.
 
-LightNet supports both GitHub and GitLab as Git hosts.
-We recommend GitHub for new LightNet projects.
+LightNet works with either GitHub and GitLab as Git hosts. We recommend GitHub for new LightNet projects.
 
 <Aside>
 GitHub does not yet support client-only PKCE authentication for this workflow.
@@ -261,6 +257,10 @@ default: `"admin"`
 
 The path where the Administration UI is available on your site. Change this path to make your Git host connection less guessable.
 
+<Aside type="caution">
+If your site has stricter security requirements, consider changing the default admin path to something less guessable.
+</Aside>
+
 ### `maxFileSize`
 
 type: `number` \
@@ -278,19 +278,7 @@ example: `{ name: "github", repo: "your-org/your-site", baseUrl: "https://your-a
 required: `false`
 
 This option configures the Git host the Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
-Its fields map directly to the Administration UI backend settings for GitHub or GitLab.
-
-#### `backend: "gitlab"`
-
-GitLab backend configuration has these options:
-
-- **name**: `"gitlab"` (required) selects GitLab as the backend.
-- **repo**: `string` (required) the GitLab repository path of your site.
-- **appId**: `string` the Application ID from the site's GitLab settings.
-- **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
-- **authType**: `"pkce"` the authentication type to use. This is the default and currently the only supported option.
-
-See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/gitlab) for more details.
+Its fields map directly to the Sveltia CMS settings for GitHub or GitLab backends.
 
 #### `backend: "github"`
 
@@ -307,6 +295,19 @@ See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/gith
 GitHub does not yet support client-only PKCE for this flow.
 For now, use an auth proxy such as [`sveltia/sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) and point `baseUrl` to that service.
 </Aside>
+
+#### `backend: "gitlab"`
+
+GitLab backend configuration has these options:
+
+- **name**: `"gitlab"` (required) selects GitLab as the backend.
+- **repo**: `string` (required) the GitLab repository path of your site.
+- **appId**: `string` the Application ID from the site's GitLab settings.
+- **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
+- **authType**: `"pkce"` the authentication type to use. This is the default and currently the only supported option.
+
+See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/gitlab) for more details.
+
 
 ### `experimental`
 
