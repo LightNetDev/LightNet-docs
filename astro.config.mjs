@@ -3,8 +3,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightLlmsTxt from "starlight-llms-txt";
-import starlightAnnouncement from 'starlight-announcement'
-
+import starlightAnnouncement from "starlight-announcement";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +12,20 @@ export default defineConfig({
     starlight({
       title: "LightNet",
       credits: true,
+      head: [
+        {
+          tag: "script",
+          attrs: {
+            async: true,
+            src: "https://plausible.io/js/pa-fXd-Zxar2A8V5g75juI8t.js",
+          },
+        },
+        {
+          tag: "script",
+          content:
+            "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
+        },
+      ],
       logo: {
         alt: "LightNet",
         light: "./src/assets/logo-light.svg",
@@ -138,11 +151,11 @@ export default defineConfig({
               id: "v4-release",
               content: "LightNet v4 is here! ",
               link: {
-                text: 'Learn how to upgrade your site',
-                href: '/run/upgrade-to/v4/',
+                text: "Learn how to upgrade your site",
+                href: "/run/upgrade-to/v4/",
               },
-            }
-          ]
+            },
+          ],
         }),
         starlightLlmsTxt({
           projectName: "LightNet Developer Docs",
