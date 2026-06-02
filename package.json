@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro check & astro build",
     "preview": "astro preview",
-    "linkcheck": "CHECK_LINKS=true npm run build",
+    "linkcheck": "CHECK_LINKS=true pnpm build",
     "astro": "astro"
   },
   "dependencies": {
