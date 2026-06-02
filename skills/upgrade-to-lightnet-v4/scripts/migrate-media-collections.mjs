@@ -29,7 +29,12 @@ function compareMembership(left, right) {
 
 export async function inspectMediaCollections(projectDir) {
   const mediaDir = path.join(projectDir, "src", "content", "media");
-  const collectionsDir = path.join(projectDir, "src", "content", "media-collections");
+  const collectionsDir = path.join(
+    projectDir,
+    "src",
+    "content",
+    "media-collections",
+  );
   const findings = [];
   const warnings = [];
   const blockers = [];
@@ -37,12 +42,15 @@ export async function inspectMediaCollections(projectDir) {
   const mediaFiles = await listJsonFiles(mediaDir);
   const collectionFiles = await listJsonFiles(collectionsDir);
   const collectionFileMap = new Map(
-    collectionFiles.map((filePath) => [path.basename(filePath, ".json"), filePath]),
+    collectionFiles.map((filePath) => [
+      path.basename(filePath, ".json"),
+      filePath,
+    ]),
   );
   let membershipCount = 0;
   let legacyFields = 0;
 
-  for (const [order, filePath] of mediaFiles.entries()) {
+  for (const [_, filePath] of mediaFiles.entries()) {
     const data = await readJson(filePath);
     const memberships = data?.collections;
 
@@ -61,14 +69,21 @@ export async function inspectMediaCollections(projectDir) {
     files.push(relativePath(projectDir, filePath));
 
     for (const membership of memberships) {
-      if (!membership || typeof membership !== "object" || Array.isArray(membership)) {
+      if (
+        !membership ||
+        typeof membership !== "object" ||
+        Array.isArray(membership)
+      ) {
         blockers.push(
           `${relativePath(projectDir, filePath)} has an invalid collection membership entry.`,
         );
         continue;
       }
 
-      if (typeof membership.collection !== "string" || membership.collection.length === 0) {
+      if (
+        typeof membership.collection !== "string" ||
+        membership.collection.length === 0
+      ) {
         blockers.push(
           `${relativePath(projectDir, filePath)} has a collection entry without a valid \`collection\` id.`,
         );
@@ -96,7 +111,9 @@ export async function inspectMediaCollections(projectDir) {
       `Move ${membershipCount} media collection membership entr${membershipCount === 1 ? "y" : "ies"} into \`media-collections[].mediaItems\`.`,
     );
   } else {
-    warnings.push("No legacy collection memberships were found to copy into `media-collections[].mediaItems`.");
+    warnings.push(
+      "No legacy collection memberships were found to copy into `media-collections[].mediaItems`.",
+    );
   }
 
   return {
@@ -117,7 +134,12 @@ export async function migrateMediaCollections(projectDir, options = {}) {
   }
 
   const mediaDir = path.join(projectDir, "src", "content", "media");
-  const collectionsDir = path.join(projectDir, "src", "content", "media-collections");
+  const collectionsDir = path.join(
+    projectDir,
+    "src",
+    "content",
+    "media-collections",
+  );
   const mediaFiles = await listJsonFiles(mediaDir);
   const membershipsByCollection = new Map();
   const mediaFileUpdates = [];
@@ -179,13 +201,17 @@ export async function migrateMediaCollections(projectDir, options = {}) {
 
     if (JSON.stringify(existingItems) !== JSON.stringify(dedupedItems)) {
       collectionData.mediaItems = dedupedItems;
-      await writeJson(collectionPath, collectionData, { dryRun: options.dryRun });
+      await writeJson(collectionPath, collectionData, {
+        dryRun: options.dryRun,
+      });
       changedFiles.push(relativePath(projectDir, collectionPath));
     }
   }
 
   for (const update of mediaFileUpdates) {
-    await writeNormalizedJson(update.filePath, update.data, { dryRun: options.dryRun });
+    await writeNormalizedJson(update.filePath, update.data, {
+      dryRun: options.dryRun,
+    });
     changedFiles.push(relativePath(projectDir, update.filePath));
   }
 

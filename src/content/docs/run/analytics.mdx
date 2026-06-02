@@ -1,0 +1,89 @@
+---
+title: Add Analytics
+description: Add privacy-friendly analytics to your LightNet site.
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+Analytics can help you understand how people use your media library, which pages are popular, and whether changes are helping.
+You can collect those insights without using cookies or building visitor profiles.
+
+We recommend [Plausible](https://plausible.io/) for LightNet sites because it is privacy-friendly and easy to add.
+You can also use another analytics provider by adding its script to the document head.
+
+## Set up Plausible
+
+[Plausible](https://plausible.io/) does not use cookies and does not require a cookie banner for standard pageview analytics.
+It is a paid service, which means your visitors do not pay with their personal data.
+
+<Steps>
+1. Create a Plausible account.
+2. In Plausible, add your LightNet site as a new website.
+3. Select the **NPM installation** instructions.
+4. In your LightNet project, add the Plausible integration:
+    ```bash
+    npm astro add @lightnet/plausible-analytics
+    ```
+    Confirm the prompts. Astro installs `@lightnet/plausible-analytics` and adds it to the `integrations` array in `astro.config.mjs`.
+5. Make sure the top-level Astro `site` option in `astro.config.mjs` is set to your production URL:
+    ```js title="astro.config.mjs" {6}
+    import { defineConfig } from "astro/config";
+    import lightnet from "lightnet";
+    import plausibleAnalytics from "@lightnet/plausible-analytics"
+
+    export default defineConfig({
+      site: "https://your-site.com",
+      integrations: [
+        lightnet({
+          /* Your LightNet configuration */
+        }),
+        plausibleAnalytics()
+      ],
+    });
+    ```
+6. Deploy your site.
+7. Open Plausible and verify that visits are being recorded.
+</Steps>
+
+<Aside type="caution">
+The `site` value must be the real public URL of your deployed site. Plausible uses it to attach analytics events to the right domain.
+</Aside>
+
+## Use another provider
+
+You can use another analytics provider by adding its script with LightNet's [`headComponent` config option](/build/configuration/reference/#headcomponent).
+This adds a custom Astro component to the HTML `<head>` of every page.
+
+<Steps>
+1. Create a component in your LightNet project, for example `src/CustomHead.astro`.
+2. Add your provider's tracking script to the component. This example uses Fathom Analytics:
+    ```astro title="src/CustomHead.astro"
+    ---
+    ---
+    <script
+      src="https://cdn.usefathom.com/script.js"
+      data-site="YOUR-SITE-ID"
+      defer>
+    </script>
+    ```
+3. Configure LightNet to use the component:
+    ```js title="astro.config.mjs" {8}
+    import { defineConfig } from "astro/config";
+    import lightnet from "lightnet";
+
+    export default defineConfig({
+      site: "https://your-site.com",
+      integrations: [
+        lightnet({
+          headComponent: "src/CustomHead.astro",
+        }),
+      ],
+    });
+    ```
+4. Deploy your site and verify the installation in your analytics provider.
+</Steps>
+
+<Aside>
+Only add analytics services you trust, and check whether your provider needs a privacy notice or consent banner for your region.
+You will need to implement these yourself.
+</Aside>
