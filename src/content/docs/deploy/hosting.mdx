@@ -10,7 +10,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 You can host your media library on any file server you choose. To create a deployable folder, run the following command from your project folder:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 This command creates a folder named `dist`. It contains static HTML, CSS, JavaScript, and assets. Upload it to your file server.
@@ -68,7 +68,7 @@ GitHub and Cloudflare Workers both offer approachable free-tier starting points 
     }
     ```
 1. **Create a Workers application**: In the Cloudflare dashboard, open **Compute (Workers)** and create a new Worker connected to your GitHub repository.
-1. **Configure the build and deploy commands**: Set `npm run build` as the build command and `npx wrangler deploy` as the deploy command.
+1. **Configure the build and deploy commands**: Set `pnpm build` as the build command and `pnpx wrangler deploy` as the deploy command.
 1. **View your site**: Cloudflare provides a `workers.dev` preview URL. Each time you push a new commit to GitHub, Cloudflare can rebuild and deploy the site. If `preview_urls` is enabled, you can also use preview deployments while testing changes.
 </Steps>
 

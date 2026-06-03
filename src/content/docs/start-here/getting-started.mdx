@@ -18,6 +18,10 @@ This guide walks you through creating your first LightNet project.
 Before you start, make sure the following tools are installed on your machine:
 
 - **Node.js** (version 22 or higher) - [Download Node.js](https://nodejs.org)
+- **Pnpm package manager** - [Install pnpm](https://pnpm.io/installation), by running this command from your terminal:
+```bash
+npm install -g pnpm@latest
+```
 - **Git** - [Download Git](https://git-scm.com)
 - **Text Editor** - We recommend [Visual Studio Code](https://code.visualstudio.com/) with the official [Astro extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode).
 
@@ -26,9 +30,11 @@ To verify your installations, run the following commands in your terminal:
 ```bash
 node --version
 git --version
+pnpm --version
 ```
 
 If these commands return version numbers, you're ready to go!
+
 
 ## 1. Set up the example template
 
@@ -38,7 +44,7 @@ features for a fictional skateboard ministry. It is a great starting point for l
 To create a local copy of the project, navigate to the folder where you want to create it and run:
 
 ```bash
-npm create astro@latest -- --template LightNetDev/example-template
+pnpm create astro@latest -- --template LightNetDev/example-template
 ```
 
 This starts [Astro's](https://docs.astro.build/) `create astro` command, which lets you:
@@ -60,7 +66,7 @@ Now that your project is set up, start the development server to see your site i
 The development server lets you preview your media site in your browser without publishing it online.
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Your site is available at [localhost:4321](http://localhost:4321). Open it in your browser to preview the example site.
@@ -74,7 +80,7 @@ As your first modification, let's change the site title:
   1. Open the project folder in VS Code (or your preferred text editor).
   1. In VS Code, open `src/translations/en.yml`.
   1. Modify the `site.title` by changing the value from "SkateNet" to your desired site name.
-  1. Save the file. While `npm run dev` is still running, your browser automatically
+  1. Save the file. While `pnpm dev` is still running, your browser automatically
   refreshes to show the updated title. You can see it in front of the large image.
 </Steps>
 
@@ -85,7 +91,7 @@ The Administration UI is a graphical editor for managing your media site's conte
 Follow these steps to open it locally:
 
 <Steps>
-  1. Make sure `npm run dev` is still running in your terminal.
+  1. Make sure `pnpm dev` is still running in your terminal.
   2. Open Chrome or another Chromium-based browser and go to [localhost:4321/admin](http://localhost:4321/admin).
   3. Click the "Work with Local Repository" button.
   4. When your browser prompts you, select the local folder of your new project and grant access.
