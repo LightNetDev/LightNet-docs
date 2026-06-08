@@ -12,6 +12,6 @@
     {
       "pattern": "docs.lightnet.community",
       "custom_domain": true
-    },
-  ],
+    }
+  ]
 }

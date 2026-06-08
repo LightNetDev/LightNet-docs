@@ -11,12 +11,12 @@ Keep your media library up to date by following these steps:
 <Steps>
 1. Check your dependencies by running
     ```bash
-    npm outdated
+    pnpm outdated
     ```
 2. Read the [release notes on GitHub](https://github.com/lightnetdev/lightnet/releases)
 3. Update your dependencies by running
     ```bash
-    npm update
+    pnpm update
     ```
     This updates your dependencies to the latest version according to the [version specifiers](https://docs.npmjs.com/cli/v8/commands/npm-update) 
     inside `package.json`.
@@ -24,13 +24,13 @@ Keep your media library up to date by following these steps:
     Major releases might **break compatibility** with your project. LightNet depends on other packages such as Astro and Tailwind CSS.
     You should not update these dependencies to a new major version unless the LightNet release notes tell you to do so. The LightNet project follows those upstream releases and introduces major updates from time to time. If there is a new major LightNet release, do the following:
     1. Update your project to the latest LightNet major release: inside `package.json`, change the version numbers to match the latest LightNet version. Keep the `^` suffix
-        to support minor and patch updates with `npm update`.
+        to support minor and patch updates with `pnpm update`.
     1. Install the updated LightNet dependencies:
         ```bash
-        npm install
+        pnpm install
         ```
     1. Check the [LightNet release notes](https://github.com/lightnetdev/lightnet/releases) to see what additional changes are needed for your project.
-        This might include updating major version numbers of other packages. In this case update their version numbers in `package.json` and execute `npm install` again.
+        This might include updating major version numbers of other packages. In this case update their version numbers in `package.json` and execute `pnpm install` again.
     1. Follow the release notes to adjust your project to LightNet's changes.
 </Steps>
 

@@ -37,7 +37,7 @@ Follow these steps to add a new site language to your LightNet project:
 1. **Add your custom translation keys**: If your project already uses custom translation keys in other locale files, add translated values for those keys to the new file as well.
 1. **Set the default language if needed**: Your site must have exactly one default site language.
    If the new language should become the default, add `isDefaultSiteLanguage: true` to that entry and remove `isDefaultSiteLanguage` from the current default language.
-1. **Validate the new locale**: Run `npm run dev` and check that the new language appears in the language selector.
+1. **Validate the new locale**: Run `pnpm dev` and check that the new language appears in the language selector.
    Switch to the new locale and verify that built-in strings, your custom translations, and language labels display correctly.
 1. **Contribute upstream**: If you translated missing LightNet built-in strings, consider sharing them through this [translations update form](https://github.com/LightNetDev/LightNet/issues/new?template=---03-translations-update.yml).
 </Steps>
