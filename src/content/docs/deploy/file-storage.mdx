@@ -88,3 +88,67 @@ export default defineConfig({
 <Aside>
 `publicUrl` is required because the R2 S3 API itself requires authentication. LightNet needs a public URL for file previews and downloads.
 </Aside>
+
+## Migrate to external file storage
+
+Follow these steps when an existing site stores uploaded media files in `public/files` and you want future uploads to go to Cloudflare R2.
+
+Before you start, finish the R2 setup above and choose the public file URL you want to use, for example `https://files.your-site.org`.
+
+<Aside type="caution" title="Back up before migrating">
+The final Git cleanup steps replace the active repository history. Create an archive copy first if you need to keep old commits that contain the files from `public/files`.
+</Aside>
+
+<Steps>
+1. **Install rclone**: Install [`rclone`](https://rclone.org/install/) on your computer.
+1. **Create an R2 remote**: Run `rclone config` and follow Cloudflare's [rclone setup guide](https://developers.cloudflare.com/r2/examples/rclone/).
+    The examples below use `<remote-name>` for the rclone remote and `<bucket-name>` for the R2 bucket.
+1. **Upload the existing files**: From your site repository, copy the current `public/files` contents to the R2 bucket:
+    ```bash
+    cd public/files
+    rclone copy . <remote-name>:<bucket-name> --progress --exclude ".DS_Store"
+    ```
+    If you configured a `prefix` in `experimental.fileStorage`, include it in the destination:
+    ```bash
+    rclone copy . <remote-name>:<bucket-name>/<prefix> --progress --exclude ".DS_Store"
+    ```
+1. **Check the uploaded files**: Open a few uploaded file URLs in the browser using your public file domain.
+    For example, `public/files/videos/intro.mp4` should be available at `https://files.your-site.org/videos/intro.mp4`.
+1. **Update media item URLs**: In your site repository, replace file URLs in media content from the local `/files/` path to the R2 public URL.
+    For JSON content, this usually means replacing:
+    ```text
+    "/files/
+    ```
+    with:
+    ```text
+    "https://files.your-site.org/
+    ```
+    Keep the trailing slash so existing nested paths stay intact.
+1. **Allow the file domain in LightNet**: In `astro.config.mjs`, add the new file storage domain to `internalDomains` so LightNet treats the uploaded files as internal media:
+    ```js title="astro.config.mjs"
+    lightnet({
+      internalDomains: ["files.your-site.org"],
+    })
+    ```
+    If your config already has `internalDomains`, add the new domain to the existing list.
+1. **Enable R2 uploads in the Administration UI**: Add the `experimental.fileStorage` configuration to `lightnetSveltiaAdmin(...)` as shown above.
+    Future Administration UI uploads will now go to R2 instead of the Git repository.
+1. **Test the site locally**: Build or run the site and confirm that existing media loads from the R2 domain:
+    ```bash
+    pnpm build
+    ```
+1. **Archive the old repository history**: If you need to preserve the old Git history, push the current repository to a separate archive repository before removing the file blobs from the active project.
+1. **Create a fresh Git history**: When the R2 migration is verified and the archive is complete, remove the old `.git` directory and initialize a new repository:
+    ```bash
+    rm -rf .git
+    git init
+    git add .
+    git commit -m "Migrate media files to external storage"
+    git remote add origin git@github.com:Your-Org/Your-Repo.git
+    git push -u origin main --force
+    ```
+</Steps>
+
+<Aside type="caution">
+The force push replaces the remote repository history for the active repository. Coordinate with collaborators before running it.
+</Aside>
