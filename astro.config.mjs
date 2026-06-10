@@ -122,6 +122,7 @@ export default defineConfig({
             { slug: "deploy/hosting" },
             { slug: "deploy/search-engines" },
             { slug: "deploy/file-storage" },
+            { slug: "deploy/analytics" },
           ],
         },
         {
@@ -129,7 +130,6 @@ export default defineConfig({
           items: [
             { slug: "run/update" },
             { slug: "run/monitor" },
-            { slug: "run/analytics" },
             {
               label: "Major upgrade guides",
               items: [{ slug: "run/upgrade-to/v4", label: "v4.0" }],
@@ -255,5 +255,6 @@ Recommended reading order:
   ],
   redirects: {
     "/": "/start-here/getting-started",
+    "/run/analytics": "/deploy/analytics",
   },
 });
