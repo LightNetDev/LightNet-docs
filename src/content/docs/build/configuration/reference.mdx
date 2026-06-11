@@ -278,14 +278,61 @@ For example this component would add a script to every page:
 <script src="my-js-file.js" defer></script>
 ```
 
+### `disallowSearchIndexing`
+
+type: `boolean` \
+example: `false` \
+required: `false` 
+
+Set this to `true` to add a `noindex` robots directive to every page.
+This asks search engines not to include your site in search results.
+
+Do not combine this with a `robots.txt` file that disallows all pages.
+Search engines must be allowed to crawl a page before they can see its `noindex` directive.
+
+Search engines and other bots are not forced to respect this directive.
+
+### `searchPage`
+
+type: `object` \
+example: `{ filterByLocale: true }` \
+required: `false`
+
+Search page related settings.
+
+#### searchPage: `filterByLocale`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+If you set this to `true`, the search results are initially filtered by the current site language.
+The filter is applied when at least one media item is associated with that language. Users are still able to change
+the language filter's value. By default the language filter is initially set to "All languages".
+
+#### searchPage: `hideHeaderSearchIcon`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Set to `true`, this will remove the search magnifier icon from the header bar. This setting won't remove
+the search page on `/media`.
+
 ### `footerText`
 
 type: `object` \
-example: `{ en: "A media library for our church." }` \
+example: `{ en: "© {{year}} Your Ministry" }` \
 required: `false`
 
-Optional localized text displayed in the built-in LightNet footer.
+Localized text shown in the built-in LightNet footer, before any configured footer links.
+Use this for short site information such as a copyright notice, ministry name, or one-line description.
 Provide a locale map keyed by your configured site languages.
+
+Use the `{{year}}` placeholder to insert the current year at build time.
+
 Here is a [guide on how to use the footer](/build/pages/footer).
 
 ### `footerLinks`
@@ -331,37 +378,6 @@ required: `false`
 
 Path to an Astro component to be added at the bottom of all pages. 
 Here is a [guide on how to use the footer](/build/pages/footer).
-
-### `searchPage`
-
-type: `object` \
-example: `{ filterByLocale: true }` \
-required: `false`
-
-Search page related settings.
-
-#### searchPage: `filterByLocale`
-
-type: `boolean` \
-example: `true` \
-required: `false` \
-default: `false`
-
-If you set this to `true`, the search results are initially filtered by the current site language.
-The filter is applied when at least one media item is associated with that language. Users are still able to change
-the language filter's value. By default the language filter is initially set to "All languages".
-
-
-
-#### searchPage: `hideHeaderSearchIcon`
-
-type: `boolean` \
-example: `true` \
-required: `false` \
-default: `false`
-
-Set to `true`, this will remove the search magnifier icon from the header bar. This setting won't remove
-the search page on `/media`.
 
 ### `credits`
 
