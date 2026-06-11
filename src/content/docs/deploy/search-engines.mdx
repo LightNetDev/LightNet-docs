@@ -3,22 +3,40 @@ title: Instruct search engines
 description: How to configure your site for search engines.
 ---
 
-import { Aside } from "@astrojs/starlight/components"
+import { Aside } from "@astrojs/starlight/components";
 
 ## Remove your media library from search engines
 
 If you do not want your site to appear on Google or other search engines,
-you can ask them not to index your site. 
+you can ask them not to index your site.
 
-Do this by adding a `/public/robots.txt` file to your project folder,
-containing this content:
+Set `disallowSearchIndexing` to `true` in your LightNet configuration:
 
-```txt title="/public/robots.txt"
-User-agent: *
-Disallow: /
+```js title="astro.config.mjs" ins={7}
+import lightnet from "lightnet";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  integrations: [
+    lightnet({
+      disallowSearchIndexing: true,
+      // ...
+    }),
+  ],
+});
 ```
+
+This adds a `noindex` robots directive to every page.
+When a search engine crawls a page, the directive tells it not to include that page in search results.
+The page can still be visited by people who have the link.
+
+Do **not** combine this with a `robots.txt` file that blocks the whole site.
+
+A `robots.txt` rule like `Disallow: /` tells search engines not to crawl any page on your site.
+If a search engine does not crawl a page, it cannot see the `noindex` directive on that page.
+As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
 
 <Aside>
 Search engines and other bots on the internet
-are not forced to respect this file.
+are not forced to respect `noindex` directives or `robots.txt` files.
 </Aside>
