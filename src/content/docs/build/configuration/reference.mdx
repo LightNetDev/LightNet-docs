@@ -370,15 +370,6 @@ default: `true`
 If set to `true`, LightNet automatically adds the current locale to internal footer links.
 This setting is ignored for external URLs.
 
-### `footerComponent`
-
-type: `string` \
-example: `"./src/components/MyFooter.astro"` \
-required: `false`
-
-Path to an Astro component to be added at the bottom of all pages. 
-Here is a [guide on how to use the footer](/build/pages/footer).
-
 ### `credits`
 
 type: `boolean` \
@@ -388,3 +379,12 @@ default: `false`
 
 If set to `true`, a “Powered by LightNet” message will appear in the footer.
 You can toggle this as you prefer, though we’d appreciate it if you keep it enabled — it helps others discover LightNet.
+
+### `footerComponent`
+
+type: `string` \
+example: `"./src/components/MyFooter.astro"` \
+required: `false`
+
+Path to an Astro component to be added at the bottom of all pages. 
+Here is a [guide on how to use the footer](/build/pages/footer).
