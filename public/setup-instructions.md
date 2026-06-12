@@ -55,7 +55,9 @@ either remove it or strike it through (using double tildes around the text).
 
 - [ ] The content administrator (content admin) has successfully signed in to the Admin UI using their personal GitHub account.
 - [ ] The content admin has uploaded at least 10 media items using the Admin UI.
-  - 🚧 Continuing the setup is not recommended until the ministry has demonstrated that they can use the Admin UI successfully.
+
+> [!IMPORTANT]
+> Continuing the setup is not recommended until the ministry has demonstrated that they can use the Admin UI successfully.
 
 ## Optional: Automated data migration
 
