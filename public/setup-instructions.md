@@ -46,6 +46,7 @@ either remove it or strike it through (using double tildes around the text).
   - [ ] Updated media type labels
   - [ ] Updated `/src/translations` as needed, including any missing [built-in LightNet translations](https://github.com/LightNetDev/LightNet/tree/main/packages/lightnet/src/i18n/translations)
 - [ ] The site admin has [configured the Admin UI](https://docs.lightnet.community/content/administration-ui/), including GitHub authentication.
+- [ ] The site admin has tested uploading a new item through the Admin UI.
 
 ## Optional: File Storage
 
@@ -55,6 +56,7 @@ either remove it or strike it through (using double tildes around the text).
 
 - [ ] The content administrator (content admin) has successfully signed in to the Admin UI using their personal GitHub account.
 - [ ] The content admin has uploaded at least 10 media items using the Admin UI.
+- [ ] Content administrators understand and accept responsibility for ensuring that only files they are authorized to use and distribute are uploaded.
 
 > [!IMPORTANT]
 > Continuing the setup is not recommended until the ministry has demonstrated that they can use the Admin UI successfully.
