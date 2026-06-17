@@ -47,9 +47,9 @@ export default defineConfig({
         sidebarTopics([
           {
             label: "User Docs",
-            link: "/user/getting-started",
+            link: "/user-docs/getting-started",
             icon: "open-book",
-            items: ["user/getting-started"],
+            items: ["user-docs/getting-started"],
           },
           {
             label: "Developer Docs",
