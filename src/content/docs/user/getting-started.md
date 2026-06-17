@@ -10,8 +10,8 @@ Ideas for Content pages (each bullet could become one page)
   - cost calculations / estimates
 
 - Concepts:
-  - Interface: Homepage, Search Page, Details page
-  - Content: Media Items, Media Types
+  - Interface: Homepage, Search Page, Details page etc.
+  - Content: Media Items, Media Types etc.
   - Internationalization: Site Language vs. Content Language
 
 - Admin UI
