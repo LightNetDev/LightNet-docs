@@ -5,9 +5,12 @@ title: Getting started
 Ideas for Content pages (each bullet could become one page)
 
 - Plan:
-  - introduce our three models
   - questions to get started with strategy
   - cost calculations / estimates
+
+- Build
+  - how to setup cloudflare account, invite other user with super-admin permissions
+  - how to setup github account + github org, invite other user with owner permission
 
 - Concepts:
   - Interface: Homepage, Search Page, Details page etc.
