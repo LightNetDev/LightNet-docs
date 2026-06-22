@@ -1,14 +1,3 @@
-# Setup instructions
-
-This guide walks through the process of setting up a new LightNet site for a ministry.
-
-The checklist is presented in a recommended order, but some tasks can be completed in parallel or in a different sequence depending on the ministry's needs.
-
-### How to use this guide
-
-We recommend checking off items as you complete them. If a task is not relevant for the ministry,
-either remove it or strike it through (using double tildes around the text).
-
 ### Prerequisites
 
 - [ ] The ministry has decided to build a LightNet site.
