@@ -107,6 +107,7 @@
 - [ ] The site admin has [configured the favicon](https://docs.lightnet.community/build/configuration/set-favicon/)
 - [ ] Optional: The site admin has [set the primary site color](https://docs.lightnet.community/build/configuration/set-primary-color/) to match the ministry's branding
 - [ ] Optional: The site admin has [disabled search engine indexing](https://docs.lightnet.community/deploy/search-engines/) if the site should not be publicly discoverable yet
+- [ ] Optional: The site admin has [set search page to be filtered by current locale](https://docs.lightnet.community/build/configuration/reference/#searchpage)
 
 ### 🚀 Phase 3: Review and Go Live
 
