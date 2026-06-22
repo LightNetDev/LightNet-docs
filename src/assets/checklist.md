@@ -70,7 +70,7 @@
 
 ## 🎨 Phase 2: Customize the Site
 
-**Questions**:
+**Questions**
 
 - What is the final name of the site?
 - Is there an existing logo that should be used?
@@ -110,7 +110,7 @@
 
 ### 🚀 Phase 3: Review and Go Live
 
-**Questions**:
+**Questions**
 
 - What is the final domain name for the site?
 - Does the ministry require website analytics?
