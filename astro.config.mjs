@@ -46,13 +46,18 @@ export default defineConfig({
       plugins: [
         sidebarTopics([
           {
-            label: "User Docs",
-            link: "/user-docs/getting-started",
+            label: "Ministry Documentation",
+            link: "/ministry-docs/start-here/getting-started",
             icon: "open-book",
-            items: ["user-docs/getting-started"],
+            items: [
+              {
+                label: "Start here",
+                items: [{ slug: "ministry-docs/start-here/getting-started" }],
+              },
+            ],
           },
           {
-            label: "Developer Docs",
+            label: "Developer Documentation",
             link: "/start-here/getting-started",
             icon: "seti:json",
             items: [
@@ -164,7 +169,7 @@ export default defineConfig({
           announcements: [
             {
               id: "v4-release",
-              hideOn: ["/user/**"],
+              hideOn: ["/ministry-docs/**"],
               content: "LightNet v4 is here! ",
               link: {
                 text: "Learn how to upgrade your site",
