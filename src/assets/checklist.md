@@ -1,8 +1,8 @@
 ### Prerequisites
 
-- [ ] The ministry has decided to build a LightNet site.
-- [ ] The ministry understands the expected time and financial costs.
-- [ ] The ministry has appointed a content administrator.
+- The ministry has decided to build a LightNet site.
+- The ministry understands the expected time and financial costs.
+- The ministry has appointed a content administrator.
 
 ## Phase 1: Initialization
 
