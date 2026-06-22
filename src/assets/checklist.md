@@ -4,7 +4,7 @@
 - The ministry understands the expected time and financial costs.
 - The ministry has appointed a content administrator.
 
-## Phase 1: Initialization
+## 🏗️ Phase 1: Initialization
 
 **Questions**
 
@@ -68,7 +68,7 @@
 > [!IMPORTANT]
 > Continuing the setup is not recommended until the ministry has demonstrated that they can use the Admin UI successfully.
 
-## Phase 2: Customize the Site
+## 🎨 Phase 2: Customize the Site
 
 **Questions**:
 
@@ -108,7 +108,7 @@
 - [ ] Optional: The site admin has [set the primary site color](https://docs.lightnet.community/build/configuration/set-primary-color/) to match the ministry's branding
 - [ ] Optional: The site admin has [disabled search engine indexing](https://docs.lightnet.community/deploy/search-engines/) if the site should not be publicly discoverable yet
 
-### Phase 3: Review and Go Live
+### 🚀 Phase 3: Review and Go Live
 
 **Questions**:
 
