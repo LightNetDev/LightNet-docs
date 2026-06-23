@@ -48,6 +48,7 @@ export default defineConfig({
           items: [
             { slug: "start-here/getting-started" },
             { slug: "start-here/recommended-skills" },
+            { slug: "start-here/setup-checklist" },
           ],
         },
         {
