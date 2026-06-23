@@ -132,7 +132,7 @@
 - [ ] The site admin has [configured the site's custom domain](https://docs.lightnet.community/deploy/hosting/#set-up-cloudflare-workers) in `wrangler.jsonc`
 - [ ] The site admin has [set the `site` property](https://docs.lightnet.community/build/configuration/initialize-configuration/) in `astro.config.mjs` to the production URL
 - [ ] The site admin has updated the GitHub repository metadata (website URL and relevant topics)
-- [ ] Todo discuss: Responsibilities regarding content ownership, copyright, legal compliance, and ongoing site maintenance have been reviewed with the ministry, Any required project agreements or handover documentation have been completed
+- [ ] Responsibilities regarding content ownership, copyright, legal compliance, and ongoing site maintenance have been reviewed with the ministry, Any required project agreements or handover documentation have been completed
 - [ ] The site has been launched successfully. The ministry understands that the initial setup project is complete and knows how to request future support
 
 ### Additional Quality Improvements
