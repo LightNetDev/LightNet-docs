@@ -18,8 +18,8 @@ It is a paid service, which means your visitors do not pay with their personal d
 
 <Steps>
 1. Create a Plausible account.
-2. In Plausible, add your LightNet site as a new website.
-3. Select the **NPM installation** instructions.
+2. In Plausible, add your production domain as a new website, for example `your-site.com`.
+3. Do not paste Plausible's script manually. LightNet will add it through the Astro integration in the steps below.
 4. In your LightNet project, add the Plausible integration:
     ```bash
     pnpm astro add @lightnet/plausible-analytics
@@ -41,17 +41,23 @@ It is a paid service, which means your visitors do not pay with their personal d
       ],
     });
     ```
-6. Deploy your site.
-7. Open Plausible and verify that visits are being recorded.
+6. Deploy your site, then visit the deployed site.
+7. Open Plausible and verify that visits are being recorded. If you need help verifying the installation, see Plausible's [troubleshooting guide](https://plausible.io/docs/troubleshoot-integration).
 </Steps>
 
 <Aside type="caution">
 The `site` value must be the real public URL of your deployed site. Plausible uses it to attach analytics events to the right domain.
 </Aside>
 
-## Use another provider
+## Other analytics approaches
+We recommend using a simple client-side analytics integration for most LightNet sites, especially [Plausible](https://plausible.io/).
 
-You can use another analytics provider by adding its script with LightNet's [`headComponent` config option](/build/configuration/reference/#headcomponent).
+Server-side approaches are also possible, including edge functions, workers, or custom logging pipelines, but they are usually more complex to implement and maintain.
+They are outside the scope of this guide.
+
+## Use a different client-side provider
+
+If you prefer a different client-side analytics provider, you can add its script with LightNet's [`headComponent` config option](/build/configuration/reference/#headcomponent).
 This adds a custom Astro component to the HTML `<head>` of every page.
 
 <Steps>
