@@ -148,6 +148,7 @@ export default defineConfig({
       ],
       plugins: [
         starlightAnnouncement({
+          enabled: false,
           announcements: [
             {
               id: "v4-release",
