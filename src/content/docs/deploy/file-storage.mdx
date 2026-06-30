@@ -95,9 +95,6 @@ Follow these steps when an existing site stores uploaded media files in `public/
 
 Before you start, finish the R2 setup above and choose the public file URL you want to use, for example `https://files.your-site.org`.
 
-<Aside type="caution" title="Back up before migrating">
-The final Git cleanup steps replace the active repository history. Create an archive copy first if you need to keep old commits that contain the files from `public/files`.
-</Aside>
 
 <Steps>
 1. **Install rclone**: Install [`rclone`](https://rclone.org/install/) on your computer.
@@ -147,8 +144,11 @@ The final Git cleanup steps replace the active repository history. Create an arc
     ```bash
     pnpm build
     ```
-1. **Archive the old repository history**: If you need to preserve the old Git history, push the current repository to a separate archive repository before removing the file blobs from the active project.
-1. **Create a fresh Git history**: When the R2 migration is verified and the archive is complete, remove the old `.git` directory and initialize a new repository:
+1. **Archive the old repository history**: If you need to preserve the old Git history, push the current repository to a separate archive repository before removing the file blobs from the active project. This is done to reduce the size of the active repository after moving uploads to R2, which helps future clone, fetch, and CI performance. Deleting the files from the working tree alone would not be enough, because Git would still keep the old file blobs in the commit history.
+1. **Create a fresh Git history**: When the R2 migration is verified and the archive is complete, merge or close any important open pull requests first, and ask contributors to stop opening new ones.  Then remove the old `.git` directory and initialize a new repository:
+    <Aside type="caution">
+    This permanently replaces the visible history of the active Git repository. Open pull requests that still point to the old commits will break, and collaborators will likely need to re-clone the repository afterward.
+    </Aside>
     ```bash
     rm -rf .git
     git init
@@ -157,8 +157,5 @@ The final Git cleanup steps replace the active repository history. Create an arc
     git remote add origin git@github.com:Your-Org/Your-Repo.git
     git push -u origin main --force
     ```
+1. **Verify the site now uses R2**: After the force push, run the site again and confirm media still loads from the R2 domain rather than from repository files. Upload a new file in the Administration UI and check that it appears in R2 and is served from your public file URL.
 </Steps>
-
-<Aside type="caution">
-The force push replaces the remote repository history for the active repository. Coordinate with collaborators before running it.
-</Aside>
