@@ -258,7 +258,7 @@ default: `"admin"`
 The path where the Administration UI is available on your site. Change this path to make your Git host connection less guessable.
 
 <Aside type="caution">
-If your site has stricter security requirements, consider changing the default admin path to something less guessable.
+To protect your site, change the default "admin" path to something less guessable.
 </Aside>
 
 ### `maxFileSize`
@@ -270,6 +270,7 @@ default: `25`
 
 The maximum file size, in megabytes, that can be uploaded. The default is 25 MB, which aligns with Cloudflare's
 maximum file size.
+Lower this if you want editors to stay within a stricter content policy, or raise it only when your hosting and storage setup can support larger uploads.
 
 ### `backend`
 
@@ -279,15 +280,16 @@ required: `false`
 
 This option configures the Git host the Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
 Its fields map directly to the Sveltia CMS settings for GitHub or GitLab backends.
+Use this when editors should make changes through your hosted repository instead of accessing the project folder locally.
 
 #### `backend: "github"`
 
 GitHub backend configuration has these options:
 
-- **name**: `"github"` (required) selects GitHub as the backend.
-- **repo**: `string` (required) the GitHub repository path of your site.
-- **branch**: `string` the branch used by the Administration UI. The default is `"main"`.
-- **baseUrl**: `string` the URL of the service that handles the authentication request.
+- **name**: `"github"` (required) selects GitHub as the backend. Use this when your LightNet site is stored on GitHub.
+- **repo**: `string` (required) the GitHub repository path of your site. This tells the Administration UI exactly which repository to read from and commit to.
+- **branch**: `string` the branch used by the Administration UI. The default is `"main"`. Set this when your production content lives on a different default branch or when you want editors to work against a dedicated content branch.
+- **baseUrl**: `string` the URL of the service that handles the authentication request. This is useful because GitHub currently needs an auth proxy for this workflow.
 
 See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/github) for more details.
 
@@ -317,6 +319,7 @@ required: `false`
 
 Optional experimental features for the Administration UI.
 If omitted, all experimental features remain disabled.
+Use this section when you want to try newer admin capabilities before they become part of the stable default setup.
 
 #### `experimental.useLanguagesCollection`
 
@@ -328,6 +331,102 @@ default: `false`
 Enables Administration UI editing for LightNet languages through a root-level `languages.json` file.
 When this option is enabled, keep your `lightnet({ languages })` configuration and import the array from `./languages.json` in `astro.config.mjs`.
 The `languages.json` file must live at the root of the site repository.
+This is useful when non-developers need to manage language labels or enabled locales through the Administration UI instead of editing `astro.config.mjs` directly.
+
+#### `experimental.hideCategoriesCollection`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Hides the `categories` collection from the Administration UI.
+Use this when your taxonomy is managed only by developers, or when editors should assign existing categories without creating or editing category definitions.
+
+#### `experimental.hideMediaTypesCollection`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Hides the `media-types` collection from the Administration UI.
+Use this when your media types are part of a controlled site structure and editors should only choose from predefined types instead of maintaining them.
+
+#### `experimental.hideMediaCollectionsCollection`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Hides the `media-collections` collection from the Administration UI.
+Use this when collection structure is planned by the site team and ordinary editors only need to work on media items.
+
+#### `experimental.hideAuthorsField`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Hides the `authors` field in the media item editor.
+Use this when author metadata is not relevant for your library.
+
+#### `experimental.hideCategoriesField`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Hides the `categories` field in the media item editor.
+Use this when categories are not relevant for your library.
+
+#### `experimental.showContentLabelField`
+
+type: `boolean` \
+example: `false` \
+required: `false` \
+default: `true`
+
+Shows the `content[].label` field in the media item editor.
+Keep this enabled when editors need a reader-friendly label for uploaded files or links instead of showing raw filenames or URLs. 
+Disable it when you want the content editor to stay as minimal as possible.
+
+#### `experimental.showDateCreatedField`
+
+type: `boolean` \
+example: `false` \
+required: `false` \
+default: `true`
+
+Shows the `dateCreated` field in the media item editor.
+Enable this when editors should control when an item appears to have been added to the library. 
+Disable it when you want LightNet to handle the date automatically and avoid manual date mistakes.
+
+#### `experimental.showCommonIdField`
+
+type: `boolean` \
+example: `false` \
+required: `false` \
+default: `true`
+
+Shows the `commonId` field in the media item editor.
+Enable this when editors manage translated versions of the same media item and need to group them together across languages. 
+Disable it when your site is single-language or when translation grouping is handled by developers.
+
+#### `experimental.showSlugField`
+
+type: `boolean` \
+example: `false` \
+required: `false` \
+default: `true`
+
+Shows the `slug` field editor for new entries.
+Enable this when editors need direct control over entry URLs and filenames. 
+Disable it when you want slugs to be generated automatically from the entry title or name, 
+which reduces the chance of inconsistent slugs.
 
 #### `experimental.fileStorage`
 
