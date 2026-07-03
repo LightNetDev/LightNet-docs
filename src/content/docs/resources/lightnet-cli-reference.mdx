@@ -202,6 +202,16 @@ Use it when you want to:
 - verify hosted PDFs, audio files, and video files without downloading the full file
 - keep large LightNet content collections healthy
 
+#### Relationship to `check-files`
+
+Checking links for files managed by the LightNet site overlaps with what `check-files` does, but the commands answer different questions.
+
+Use `check-files` to audit your site's file storage. It checks whether local files under `public/files` or files in Cloudflare R2 match the file URLs used by your content, and it can also report unused files.
+
+Use `check-links` to audit what visitors can reach online. It checks each content URL, including external pages, external media, and LightNet-managed files after they have a public URL.
+
+Run both when you want full coverage: `check-files` keeps your managed file collection consistent, and `check-links` catches public availability problems such as deleted external pages, moved files, host errors, or a deployed file URL that no longer responds.
+
 #### Common checks
 
 Check all media links:
