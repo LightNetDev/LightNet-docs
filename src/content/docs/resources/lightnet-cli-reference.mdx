@@ -37,14 +37,11 @@ pnpm lightnet --help
 pnpm lightnet check-translations
 ```
 
-Use this command after a build to find translations that are still missing your site's languages.
+Use this command to find translations that are still missing your site's languages.
 
-Run it from the root of your LightNet site:
+Run it from the root of your LightNet site project.
 
-```bash
-pnpm build
-pnpm lightnet check-translations
-```
+The command asks whether to run `pnpm build` for you. When you confirm, the build runs as part of the check and the translation results are read from that build.
 
 Use it when you want to:
 
@@ -52,9 +49,32 @@ Use it when you want to:
 - review translation work after adding a new language
 - check inline translation maps after editing content or templates
 
-If the command reports missing translations, add the missing values to the content or template that owns them. Then build the site and run the check again.
+#### Common checks
 
-If the command asks you to run a build first, run `pnpm build` and then rerun `pnpm lightnet check-translations`.
+Check translations:
+
+```bash
+pnpm lightnet check-translations
+```
+
+Run a build before checking translations:
+
+```bash
+pnpm lightnet check-translations --build
+```
+
+Check translations without running a build or showing a prompt:
+
+```bash
+pnpm lightnet check-translations --no-build
+```
+
+#### Options
+
+- `--build`: runs `pnpm build` before checking translations.
+- `--no-build`: skips the build prompt and checks the latest available build output.
+
+If the command reports missing translations, add the missing values to the content or template that owns them.
 
 <Aside>
 This command only validates translations used during the last build.
@@ -106,7 +126,7 @@ pnpm lightnet check-files --fix
 Remove unused files without an interactive confirmation prompt:
 
 ```bash
-pnpm lightnet check-files --fix --yes
+pnpm lightnet check-files --fix --no-confirm
 ```
 
 Check only content files in Cloudflare R2:
@@ -118,7 +138,7 @@ pnpm lightnet check-files --r2 --scope content-files
 #### Options
 
 - `--fix`: removes unused files or R2 objects. It does not repair broken links.
-- `--yes`: skips the deletion confirmation prompt when you also use `--fix`.
+- `--no-confirm`: skips the deletion confirmation prompt when you also use `--fix`.
 - `--r2`: checks content files in Cloudflare R2 instead of local files under `public/files`. Thumbnail checks still use local files.
 - `--scope <values>`: limits the check to `content-files`, `thumbnails`, or both, separated by commas. By default, both scopes are checked.
 
@@ -158,7 +178,7 @@ Use `--r2` when your content files are stored in Cloudflare R2 instead of `publi
 
 R2 checks require `rclone`. You can [download it from rclone.org](https://rclone.org/downloads/).
 
-The first time you run an R2 check, the CLI asks for connection details for the site's R2 bucket and saves them in `.lightnet-cli.config.json`. Keep that file out of git.
+The first time you run an R2 check, the CLI asks for connection details for the site's R2 bucket and saves them in `lightnet-cli.json`.
 
 The R2 connection settings match the fields from [Configure file storage](/deploy/file-storage/#configuration-fields) and include:
 
@@ -179,7 +199,7 @@ Use `--fix` when you want the CLI to remove unused local files or unused R2 obje
 
 Fix mode does not repair broken links. If a content item points at a missing file, update that content item or restore the file yourself.
 
-Before deleting anything, the CLI shows the files or objects that will be removed and asks for confirmation. Add `--yes` only when you are comfortable skipping that prompt, such as in a trusted CI cleanup job.
+Before deleting anything, the CLI shows the files or objects that will be removed and asks for confirmation. Add `--no-confirm` only when you are comfortable skipping that prompt, such as in a trusted CI cleanup job.
 
 If all reported issues were unused files and they were removed successfully, the command exits successfully. If broken links still remain, the command continues to exit with an error so you can fix them before deployment.
 
@@ -241,7 +261,7 @@ Root-relative URLs need a site URL before they can be checked online:
 }
 ```
 
-The first time `check-links` finds a root-relative URL, the CLI asks for your site URL and saves it in `.lightnet-cli.config.json`:
+The first time `check-links` finds a root-relative URL, the CLI asks for your site URL and saves it in `lightnet-cli.json`:
 
 ```json
 {
@@ -250,8 +270,6 @@ The first time `check-links` finds a root-relative URL, the CLI asks for your si
 ```
 
 After that, `/files/my-pdf.pdf` is checked as `https://example.org/files/my-pdf.pdf`.
-
-Keep `.lightnet-cli.config.json` out of git.
 
 #### Reading the result
 
