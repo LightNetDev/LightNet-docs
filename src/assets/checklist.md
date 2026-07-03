@@ -2,7 +2,7 @@
 
 - The ministry has decided to build a LightNet site.
 - The ministry understands the expected time and financial costs.
-- The ministry has appointed a content administrator.
+- The ministry has appointed a content admin.
 
 ## 🏗️ Phase 1: Initialization
 
@@ -59,11 +59,12 @@
 - [ ] The site admin has migrated media items from a legacy site.
 - [ ] The site admin has migrated media collections from a legacy site.
 
-### Content Administrator Onboarding
+### Content Admin Onboarding
 
-- [ ] The content administrator (content admin) has successfully signed in to the Admin UI using their personal GitHub account.
+- [ ] The site admin has configured the Admin UI to hide unnecessary fields or collections.
+- [ ] The content admin (content admin) has successfully signed in to the Admin UI using their personal GitHub account.
 - [ ] The content admin has uploaded at least 10 media items using the Admin UI.
-- [ ] Content administrators understand and accept responsibility for ensuring that only files they are authorized to use and distribute are uploaded.
+- [ ] Content admins understand and accept responsibility for ensuring that only files they are authorized to use and distribute are uploaded.
 
 > [!IMPORTANT]
 > Continuing the setup is not recommended until the ministry has demonstrated that they can use the Admin UI successfully.
@@ -83,8 +84,8 @@
 
 ### Content Organization
 
-- [ ] The content administrator understands how to [use categories](https://docs.lightnet.community/content/categories/)
-- [ ] The content administrator understands how to [use media collections](https://docs.lightnet.community/content/media-collections/)
+- [ ] The content admin understands how to [use categories](https://docs.lightnet.community/content/categories/)
+- [ ] The content admin understands how to [use media collections](https://docs.lightnet.community/content/media-collections/)
 
 ### Pages and Content
 
