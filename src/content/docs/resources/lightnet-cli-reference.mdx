@@ -182,3 +182,72 @@ Fix mode does not repair broken links. If a content item points at a missing fil
 Before deleting anything, the CLI shows the files or objects that will be removed and asks for confirmation. Add `--yes` only when you are comfortable skipping that prompt, such as in a trusted CI cleanup job.
 
 If all reported issues were unused files and they were removed successfully, the command exits successfully. If broken links still remain, the command continues to exit with an error so you can fix them before deployment.
+
+### `check-links`
+
+```bash
+pnpm lightnet check-links
+```
+
+Use this command to check whether the URLs used in your media items are still reachable online.
+
+Run it from the root of your LightNet site project.
+
+The command reads every URL from the `content` array in `src/content/media/**/*.json`, including uploaded file links and external links. For each unique URL, it sends a lightweight request to check whether the target is available without downloading large files such as videos or PDFs.
+
+Use it when you want to:
+
+- find broken media links before visitors hit them
+- catch deleted or moved external pages
+- verify hosted PDFs, audio files, and video files without downloading the full file
+- keep large LightNet content collections healthy
+
+#### Common checks
+
+Check all media links:
+
+```bash
+pnpm lightnet check-links
+```
+
+Adjust the per-link timeout:
+
+```bash
+pnpm lightnet check-links --timeout 15000
+```
+
+#### Options
+
+- `--timeout <milliseconds>`: sets the per-link timeout. The default is `10000` milliseconds, or 10 seconds. Use a higher value for slow hosts or large collections that include links to slower external services.
+
+#### Site URL
+
+Root-relative URLs need a site URL before they can be checked online:
+
+```json
+{
+  "type": "upload",
+  "url": "/files/my-pdf.pdf"
+}
+```
+
+The first time `check-links` finds a root-relative URL, the CLI asks for your site URL and saves it in `.lightnet-cli.config.json`:
+
+```json
+{
+  "siteUrl": "https://example.org"
+}
+```
+
+After that, `/files/my-pdf.pdf` is checked as `https://example.org/files/my-pdf.pdf`.
+
+Keep `.lightnet-cli.config.json` out of git.
+
+#### Reading the result
+
+If all links are available, the command exits successfully.
+
+If a link is broken, the command prints the URL, the error or HTTP status, and the media JSON file that references it. 
+Fix the URL in that content file, or restore the missing target, and then rerun the check.
+
+Some websites block automated checks even though the URL works in a browser. These are reported as protected or forbidden warnings instead of hard failures.
