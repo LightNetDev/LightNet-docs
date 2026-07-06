@@ -17,7 +17,7 @@ export default defineConfig({
           tag: "script",
           attrs: {
             async: true,
-            src: "https://plausible.io/js/pa-fXd-Zxar2A8V5g75juI8t.js",
+            src: "https://plausible.io/js/pa-lvbjEZBNHGmir95L5sKqA.js",
           },
         },
         {
