@@ -126,7 +126,7 @@ pnpm lightnet check-files --fix
 Remove unused files without an interactive confirmation prompt:
 
 ```bash
-pnpm lightnet check-files --fix --no-confirm
+pnpm lightnet check-files --fix-without-confirm
 ```
 
 Check only content files in Cloudflare R2:
@@ -138,7 +138,7 @@ pnpm lightnet check-files --r2 --scope content-files
 #### Options
 
 - `--fix`: removes unused files or R2 objects. It does not repair broken links.
-- `--no-confirm`: skips the deletion confirmation prompt when you also use `--fix`.
+- `--fix-without-confirm`: removes unused files or R2 objects. Skips the deletion confirmation prompt ⚠️.
 - `--r2`: checks content files in Cloudflare R2 instead of local files under `public/files`. Thumbnail checks still use local files.
 - `--scope <values>`: limits the check to `content-files`, `thumbnails`, or both, separated by commas. By default, both scopes are checked.
 
@@ -199,7 +199,7 @@ Use `--fix` when you want the CLI to remove unused local files or unused R2 obje
 
 Fix mode does not repair broken links. If a content item points at a missing file, update that content item or restore the file yourself.
 
-Before deleting anything, the CLI shows the files or objects that will be removed and asks for confirmation. Add `--no-confirm` only when you are comfortable skipping that prompt, such as in a trusted CI cleanup job.
+Before deleting anything, the CLI shows the files or objects that will be removed and asks for confirmation. Use `--fix-without-confirm` only when you are comfortable skipping that prompt, such as in a trusted CI cleanup job.
 
 If all reported issues were unused files and they were removed successfully, the command exits successfully. If broken links still remain, the command continues to exit with an error so you can fix them before deployment.
 
