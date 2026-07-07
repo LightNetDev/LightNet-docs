@@ -327,7 +327,7 @@ Some websites block automated checks even though the URL works in a browser. The
 pnpm lightnet r2 <command>
 ```
 
-Use this command to list, copy, and remove files in a Cloudflare R2 bucket.
+Use this command to list, copy, move, and remove files in a Cloudflare R2 bucket.
 Run it anywhere inside your LightNet site project.
 
 This command requires an R2 connection configured through rclone. See [R2 setup](#r2-setup) for details.
@@ -337,6 +337,7 @@ Use it when you want to:
 - [list](#list-files) the files in your site's R2 bucket
 - [copy](#copy-files) local files or folders to R2
 - [download](#copy-files) files from R2
+- [move](#move-files) files or folders inside R2
 - [remove](#remove-files) individual files or folders from R2
 
 #### List files
@@ -368,12 +369,12 @@ pnpm lightnet r2 ls images | grep jpg
 #### Copy files
 
 ```bash
-pnpm lightnet r2 cp <source> <destination>
+pnpm lightnet r2 cp [options] <source> <destination>
 ```
 
-Copies files between your local filesystem and R2.
+Copies files between your local filesystem and R2, or from one R2 path to another.
 
-Use the `r2:` prefix for the R2 side of the copy. Exactly one side must be an R2 path.
+Use the `r2:` prefix for R2 paths. At least one side must be an R2 path.
 
 Upload a local folder to R2:
 
@@ -399,7 +400,63 @@ Download from R2 into the current directory:
 pnpm lightnet r2 cp r2:images .
 ```
 
+Copy a folder inside R2:
+
+```bash
+pnpm lightnet r2 cp r2:images r2:archive/images
+```
+
 The command uses `rclone copy`. When copying a directory, it copies the contents of that directory into the destination.
+
+When the destination file or directory already exists, the command follows Unix-style copy overwrite behavior and prompts before replacing existing files. 
+Use `-f` or `--force` to skip overwrite prompts.
+
+Skip overwrite prompts:
+
+```bash
+pnpm lightnet r2 cp -f ./images r2:images
+```
+
+#### Options
+
+- `-f`, `--force`: skips overwrite confirmation prompts.
+
+#### Move files
+
+```bash
+pnpm lightnet r2 mv [options] <source> <destination>
+```
+
+Moves or renames files and folders inside the configured R2 bucket.
+
+Both paths are R2 paths in the configured bucket. The `r2:` prefix is accepted but optional. Local paths like `./image.jpg` are rejected.
+
+Rename a file:
+
+```bash
+pnpm lightnet r2 mv image.jpg image-backup.jpg
+```
+
+Move a folder:
+
+```bash
+pnpm lightnet r2 mv images archived-images
+```
+
+The command follows Unix-style move behavior. It can move files or directories without `-r` or `--recursive`.
+
+When the destination file or directory already exists, the command prompts before replacing it. 
+Prefix overwrites replace the destination prefix contents before moving. Bucket-root moves are refused.
+
+Skip overwrite prompts:
+
+```bash
+pnpm lightnet r2 mv -f images archived-images
+```
+
+#### Options
+
+- `-f`, `--force`: skips overwrite confirmation prompts.
 
 #### Remove files
 
@@ -435,9 +492,18 @@ Skip confirmation for recursive removal:
 pnpm lightnet r2 rm -rf images/old
 ```
 
+Remove all content from the bucket:
+
+```bash
+pnpm lightnet r2 rm -r /
+```
+
 Be careful with recursive deletion. It removes matching objects under that R2 path.
+
+When removing `/`, the command deletes all content in the configured R2 bucket. 
+This always prompts for confirmation, even when you pass `-f` or `--force`.
 
 #### Options
 
-- `-f`, `--force`: skips the deletion confirmation prompt.
+- `-f`, `--force`: skips the deletion confirmation prompt, except when removing `/`.
 - `-r`, `--recursive`: removes all matching objects under a directory.
