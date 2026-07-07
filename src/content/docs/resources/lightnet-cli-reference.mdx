@@ -35,6 +35,51 @@ Show help for a specific command:
 pnpm lightnet <command> --help
 ```
 
+## R2 setup
+
+R2 commands and R2 file checks require `rclone`. You can [download it from rclone.org](https://rclone.org/install/).
+
+The first time you run a command that needs R2 access, LightNet prompts for any missing bucket settings and saves them in `lightnet-cli.json`.
+You can also create or edit that file manually.
+
+LightNet reads R2 connection settings from `lightnet-cli.json`:
+
+```json
+{
+  "r2": {
+    "publicUrl": "https://files.your-site.org",
+    "accountId": "your-cloudflare-account-id",
+    "accessKeyId": "your-r2-access-key-id",
+    "bucket": "your-bucket-name"
+  }
+}
+```
+
+Add `lightnet-cli.json` to your git repository so every developer and CI job uses the same non-secret bucket settings.
+
+These settings match the fields from [Configure file storage](/deploy/file-storage/#configuration-fields):
+
+- `publicUrl`: the public URL for your files, such as `https://files.your-site.org`
+- `accountId`: your Cloudflare account ID
+- `accessKeyId`: the public access key ID from your Cloudflare token
+- `bucket`: the R2 bucket for your site
+
+LightNet passes these settings to `rclone` automatically. You do not need to create an `rclone` remote manually.
+
+The secret access key is intentionally not saved in `lightnet-cli.json`.
+
+For local interactive use, you can let the CLI prompt for the secret access key. The prompt stores the key only for the current command session.
+
+For CI, scripts, or repeated local commands, set the secret access key in your shell before running the command:
+
+```bash
+export LIGHTNET_R2_SECRET_ACCESS_KEY="your-r2-secret-access-key"
+```
+
+<Aside type="caution">
+Commit `lightnet-cli.json`, but keep `LIGHTNET_R2_SECRET_ACCESS_KEY` in your shell, CI secrets, or password manager. 
+Do not commit the secret access key to your repository.
+</Aside>
 
 ## Available commands
 
@@ -183,18 +228,7 @@ The sections can include:
 
 Use `--r2` when your content files are stored in Cloudflare R2 instead of `public/files`.
 
-R2 checks require `rclone`. You can [download it from rclone.org](https://rclone.org/downloads/).
-
-The first time you run an R2 check, the CLI asks for connection details for the site's R2 bucket and saves them in `lightnet-cli.json`.
-
-The R2 connection settings match the fields from [Configure file storage](/deploy/file-storage/#configuration-fields) and include:
-
-- `publicUrl`: the public URL for your files, such as `https://files.your-site.org`
-- `accountId`: your Cloudflare account ID
-- `accessKeyId`: the public access key ID from your Cloudflare token
-- `bucket`: the R2 bucket for your site
-
-The secret access key is not saved in the config file. Provide it with the `LIGHTNET_R2_SECRET_ACCESS_KEY` environment variable, or enter it when the CLI prompts you.
+R2 checks require an R2 connection configured through rclone. See [R2 setup](#r2-setup) for details.
 
 If a saved R2 connection stops working, rerun the command and follow the prompt to refresh the saved settings.
 
@@ -286,3 +320,124 @@ If a link is broken, the command prints the URL, the error or HTTP status, and t
 Fix the URL in that content file, or restore the missing target, and then rerun the check.
 
 Some websites block automated checks even though the URL works in a browser. These are reported as protected or forbidden warnings instead of hard failures.
+
+### `r2`
+
+```bash
+pnpm lightnet r2 <command>
+```
+
+Use this command to list, copy, and remove files in a Cloudflare R2 bucket.
+Run it anywhere inside your LightNet site project.
+
+This command requires an R2 connection configured through rclone. See [R2 setup](#r2-setup) for details.
+
+Use it when you want to:
+
+- inspect the files in your site's R2 bucket
+- upload local files or folders to R2
+- download files from R2
+- remove individual files or folders from R2
+
+#### List files
+
+```bash
+pnpm lightnet r2 ls [path]
+```
+
+Lists files in the R2 bucket. The optional path limits the listing to a folder.
+
+List all files:
+
+```bash
+pnpm lightnet r2 ls
+```
+
+List files under a folder:
+
+```bash
+pnpm lightnet r2 ls images
+```
+
+Pipe the plain output into another command:
+
+```bash
+pnpm lightnet r2 ls images | grep jpg
+```
+
+#### Copy files
+
+```bash
+pnpm lightnet r2 cp <source> <destination>
+```
+
+Copies files between your local filesystem and R2.
+
+Use the `r2:` prefix for the R2 side of the copy. Exactly one side must be an R2 path.
+
+Upload a local folder to R2:
+
+```bash
+pnpm lightnet r2 cp ./images r2:images
+```
+
+Upload the contents of the current directory:
+
+```bash
+pnpm lightnet r2 cp . r2:
+```
+
+Download an R2 folder locally:
+
+```bash
+pnpm lightnet r2 cp r2:images ./images
+```
+
+Download from R2 into the current directory:
+
+```bash
+pnpm lightnet r2 cp r2:images .
+```
+
+The command uses `rclone copy`. When copying a directory, it copies the contents of that directory into the destination.
+
+#### Remove files
+
+```bash
+pnpm lightnet r2 rm <path>
+```
+
+Deletes a single R2 file. Confirmation is required by default.
+
+Delete one file:
+
+```bash
+pnpm lightnet r2 rm images/photo.jpg
+```
+
+Skip confirmation:
+
+```bash
+pnpm lightnet r2 rm -f images/photo.jpg
+```
+
+#### Remove directories
+
+Use `-r` or `--recursive` to remove a directory:
+
+```bash
+pnpm lightnet r2 rm -r images/old
+```
+
+Skip confirmation for recursive removal:
+
+```bash
+pnpm lightnet r2 rm -rf images/old
+```
+
+Be careful with recursive deletion. It removes matching objects under that R2 path.
+
+#### Options
+
+- `-f`, `--force`: skips the deletion confirmation prompt.
+- `-r`, `--recursive`: removes all matching objects under a directory.
