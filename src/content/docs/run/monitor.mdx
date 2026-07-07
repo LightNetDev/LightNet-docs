@@ -3,6 +3,182 @@ title: Monitor availability
 description: Learn how to monitor the availability of your LightNet media site.
 ---
 
-LightNet is designed to be highly available. However, things can still go wrong.
-We recommend using [Checkly](https://checklyhq.com/) to monitor the availability of your media library.
-In the future, LightNet might add tooling to help you use Checkly. Follow the release notes to stay informed.
+import { Aside, Steps } from "@astrojs/starlight/components"
+
+LightNet sites are static and designed to be highly available. Still, a deploy can fail, DNS can break,
+or a CDN can return a page that no longer contains the content you expect.
+
+For simple availability monitoring, we recommend our tool
+[check-site-availability](https://github.com/LightNetDev/check-site-availability). It is a reusable GitHub
+Action that requests a URL on a schedule and fails the workflow if the URL is not available. It can also check
+that the response body contains a literal text fragment, which helps catch cases where the page responds but
+is not the page you expected.
+
+Use it to monitor pages of your LightNet site, such as the homepage.
+
+## How it works
+
+The action runs inside GitHub Actions and uses `curl` to request a URL.
+
+- If you provide `expected-text`, the action downloads the response body and checks that the exact text appears in it.
+- If you omit `expected-text`, the action checks that the URL is available without downloading the full response body.
+  This is useful for large files such as PDFs, MP3s, or MP4s.
+- The action retries transient request failures up to three times.
+- When a check fails, the workflow fails and writes details to the GitHub Actions step summary.
+
+<Aside>
+  `check-site-availability` does not host a monitoring service for you. It runs in your site's GitHub repository,
+  so GitHub Actions notifications are how you learn about failed checks.
+</Aside>
+
+## Limitations
+
+This action is intentionally small. It is a good fit for basic site availability checks, but it is not a full
+monitoring platform.
+
+- It does not parse HTML or validate DOM structure.
+- It does not support regular expressions for expected content.
+- It does not expose workflow outputs in `v1`.
+- It does not schedule checks by itself; you configure the schedule in your own GitHub Actions workflow.
+- Scheduled workflows in public repositories can be disabled by GitHub after 60 days without repository activity.
+- GitHub Actions scheduling is not exact and can be delayed, especially at busy times.
+
+If you need multi-region checks, uptime dashboards, incidents, alert routing, browser checks, or more detailed
+reporting, use a dedicated monitoring service such as [Checkly](https://checklyhq.com/) instead.
+
+## Set up monitoring
+
+<Steps>
+1. In your LightNet site repository, create the folder `.github/workflows` if it does not exist.
+
+2. Create a workflow file named `.github/workflows/check-site-availability.yaml`.
+
+3. Add a scheduled check for your published site:
+
+    ```yaml title=".github/workflows/check-site-availability.yaml"
+    name: Check site availability
+
+    on:
+      workflow_dispatch:
+      schedule:
+        - cron: "17 * * * *"
+
+    jobs:
+      check-site:
+        runs-on: ubuntu-slim
+        steps:
+          - uses: LightNetDev/check-site-availability@v1
+            with:
+              url: https://example.com/en/media
+              expected-text: Media
+    ```
+
+    Replace `https://example.com/en/media` with a public URL from your site.
+    Replace `Media` with text that should appear on that page.
+
+4. Choose a schedule that matches how quickly you need to know about problems.
+
+    The example runs once per hour at minute `17`. Avoid scheduling checks at the start of the hour,
+    because GitHub may delay or drop scheduled workflow runs during high load.
+
+5. Commit the workflow file to your repository's default branch.
+
+6. Open the **Actions** tab on GitHub, select **Check site availability**, and run the workflow manually once.
+
+    The workflow file must exist on the default branch before GitHub shows the **Run workflow** button.
+
+7. [Turn on GitHub Actions notifications](https://docs.github.com/en/subscriptions-and-notifications/how-tos/managing-github-actions-notifications) for failed workflows.
+
+    GitHub can send email notifications when a workflow fails. For monitoring, consider limiting notifications
+    to failed workflows so successful hourly checks do not create noise.
+</Steps>
+
+## Check large files
+
+To check that a large file is available without downloading the whole response body, omit `expected-text`:
+
+```yaml title=".github/workflows/check-file-availability.yaml"
+name: Check file availability
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 * * * *"
+
+jobs:
+  check-file:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: LightNetDev/check-site-availability@v1
+        with:
+          url: https://files.example.com/file.pdf
+```
+
+In this mode, the action first sends a `HEAD` request. If the server does not accept that request, it falls back
+to a one-byte range request.
+
+## Monitor multiple pages
+
+You can add more steps to the same workflow when you want to check several important URLs:
+
+```yaml title=".github/workflows/check-site-availability.yaml"
+name: Check site availability
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+jobs:
+  check-site:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: LightNetDev/check-site-availability@v1
+        with:
+          url: https://example.com/
+          expected-text: My Library
+
+      - uses: LightNetDev/check-site-availability@v1
+        with:
+          url: https://example.com/en/media
+          expected-text: Search
+
+      - uses: LightNetDev/check-site-availability@v1
+        with:
+          url: https://example.com/en/media/example-item
+          expected-text: Example item title
+```
+
+Pick pages that represent the parts of your site your visitors rely on most.
+
+## Reference
+
+### Action
+
+```yaml
+uses: LightNetDev/check-site-availability@v1
+```
+
+Use the stable major tag `@v1` to receive compatible updates.
+
+### Inputs
+
+| Input | Required | Description |
+| --- | --- | --- |
+| `url` | Yes | Full public URL to request. |
+| `expected-text` | No | Literal text fragment that must appear in the response body. Omit it for availability-only checks. |
+
+### Failure behavior
+
+The action fails when:
+
+- `url` is missing.
+- The HTTP request fails.
+- `expected-text` is provided but is not found in the response body.
+- `expected-text` is omitted and the URL does not return a successful response to either a `HEAD` request or a one-byte range request.
+
+When `expected-text` is missing from a response, the workflow log includes a truncated preview of the response body
+to help you debug the failure.
+
+
+
