@@ -490,3 +490,31 @@ LightNet now uses the [Lucide](https://lucide.dev/) icon set for a more consiste
 Projects should update custom icons used in media types or with the `<Icon />` component to Lucide icon names prefixed with `lucide--`.
 
 Material Design Icons with the `mdi--` prefix are now deprecated and will be removed in the next major release.
+
+## 6. Adopt pnpm for ongoing development
+
+If your existing LightNet v3 project still uses npm, this is a good point in the upgrade to switch to pnpm for future work.
+
+#### Migration
+
+1. Install pnpm globally if it is not available on your machine.
+
+```bash
+npm install -g pnpm@latest
+```
+
+2. From your project directory, install dependencies with pnpm to generate a `pnpm-lock.yaml` file.
+
+```bash
+pnpm install
+```
+
+3. Use pnpm for future project commands, for example:
+
+```bash
+pnpm dev
+pnpm build
+pnpm update
+```
+
+4. Commit the resulting `pnpm-lock.yaml` file and any related `package.json` updates as part of your upgrade.
