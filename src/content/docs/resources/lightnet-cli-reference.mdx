@@ -385,7 +385,7 @@ pnpm lightnet r2 cp ./images r2:images
 Upload the contents of the current directory:
 
 ```bash
-pnpm lightnet r2 cp . r2:
+pnpm lightnet cp ./* r2:/
 ```
 
 Download an R2 folder locally:
@@ -419,7 +419,7 @@ pnpm lightnet r2 cp -f ./images r2:images
 
 #### Options
 
-- `-f`, `--force`: skips overwrite confirmation prompts.
+- `-f`, `--force`: skips overwrite confirmation prompts. Use `--force`, not `-f`, when the destination is the R2 bucket root.
 
 #### Move files
 
@@ -461,7 +461,7 @@ pnpm lightnet r2 mv -f images archived-images
 #### Remove files
 
 ```bash
-pnpm lightnet r2 rm <path>
+pnpm lightnet r2 rm [options] <path>
 ```
 
 Deletes a single R2 file. Confirmation is required by default.
@@ -501,9 +501,8 @@ pnpm lightnet r2 rm -r /
 Be careful with recursive deletion. It removes matching objects under that R2 path.
 
 When removing `/`, the command deletes all content in the configured R2 bucket. 
-This always prompts for confirmation, even when you pass `-f` or `--force`.
 
 #### Options
 
-- `-f`, `--force`: skips the deletion confirmation prompt, except when removing `/`.
+- `-f`, `--force`: skips the deletion confirmation prompt. Use `--force`, not `-f`, when removing `/`.
 - `-r`, `--recursive`: removes all matching objects under a directory.
