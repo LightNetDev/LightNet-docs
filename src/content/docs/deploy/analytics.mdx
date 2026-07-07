@@ -10,15 +10,16 @@ You can collect those insights without using cookies or building visitor profile
 
 We recommend [Plausible](https://plausible.io/) for LightNet sites because it is privacy-friendly and easy to add.
 
-## Set up Plausible
-
-[Plausible](https://plausible.io/) does not use cookies and does not require a cookie banner for standard pageview analytics.
+Plausible does not use cookies and does not require a cookie banner for standard pageview analytics.
 It is a paid service, which means your visitors do not pay with their personal data.
+
+## Set up Plausible
+For full set up instructions, see Plausible Analytics' [Get Started](https://plausible.io/docs/) documentation.
 
 <Steps>
 1. Create a Plausible account.
 2. In Plausible, add your production domain as a new website, for example `your-site.com`.
-3. Do not paste Plausible's script manually. LightNet will add it through the Astro integration in the steps below.
+3. Select the **NPM installation** instructions.
 4. In your LightNet project, add the Plausible integration:
     ```bash
     pnpm astro add @lightnet/plausible-analytics
