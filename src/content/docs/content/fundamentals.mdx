@@ -9,6 +9,10 @@ A LightNet site generates pages from content metadata structured with [Astro's c
 Content collections organize different types of metadata into separate folders, each containing JSON files.
 The filename, excluding the `.json` suffix, serves as the item's unique identifier.
 
+<Aside type="note" title="Use URL friendly filenames">
+Use only lowercase `a-z` letters, numbers, and hyphens in content filenames. This avoids surprises with Astro's handling of identifiers.
+</Aside>
+
 All content folders are located in `src/content`. LightNet uses the following content folders:
 
 - [media](/content/media-items): Each file in this folder describes a media item. This is the core of your media library. Media items
