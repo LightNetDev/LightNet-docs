@@ -5,7 +5,13 @@ description: How to configure your site for search engines.
 
 import { Aside } from "@astrojs/starlight/components";
 
-## Remove your media library from search engines
+## Default search engine configuration
+
+By default, LightNet allows search engines to crawl and index your site.
+
+If search engines such as Google or other search engines discover your site, they may include its pages in search results.
+
+## Ask search engines not to index your site
 
 If you do not want your site to appear on Google or other search engines,
 you can ask them not to index your site.
@@ -30,13 +36,15 @@ This adds a `noindex` robots directive to every page.
 When a search engine crawls a page, the directive tells it not to include that page in search results.
 The page can still be visited by people who have the link.
 
-Do **not** combine this with a `robots.txt` file that blocks the whole site.
-
-A `robots.txt` rule like `Disallow: /` tells search engines not to crawl any page on your site.
-If a search engine does not crawl a page, it cannot see the `noindex` directive on that page.
-As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
-
 <Aside>
 Search engines and other bots on the internet
 are not forced to respect `noindex` directives or `robots.txt` files.
 </Aside>
+
+## Avoid blocking crawlers with `robots.txt`
+
+Do **not** combine this with a `robots.txt` file that blocks the whole site.
+
+A `robots.txt` rule like `Disallow: /` tells search engines not to crawl any page on your site. 
+If a search engine does not crawl a page, it cannot see the `noindex` directive on that page. 
+As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
