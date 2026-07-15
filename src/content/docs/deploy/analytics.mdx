@@ -32,7 +32,7 @@ For full set up instructions, see Plausible Analytics' [Get Started](https://pla
     import plausibleAnalytics from "@lightnet/plausible-analytics"
 
     export default defineConfig({
-      site: "https://your-site.com",
+      site: "https://your-site.example",
       integrations: [
         lightnet({
           /* Your LightNet configuration */
@@ -78,7 +78,7 @@ This adds a custom Astro component to the HTML `<head>` of every page.
     import lightnet from "lightnet";
 
     export default defineConfig({
-      site: "https://your-site.com",
+      site: "https://your-site.example",
       integrations: [
         lightnet({
           headComponent: "src/CustomHead.astro",
