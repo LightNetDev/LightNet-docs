@@ -12,7 +12,7 @@ import lightnet from "lightnet";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://yourdomain.example",
+  site: "https://your-site.example",
   integrations: [
     lightnet({
       /* Your config here */
@@ -253,13 +253,13 @@ You do not need to set this option for external links such as `https://wikipedia
 ### `internalDomains`
 
 type: `array` \
-example: `[ "files.your-domain.com" ]` \
+example: `[ "files.your-site.example" ]` \
 required: `false`
 
 The internal domains of the site. This is used to determine whether a URL is internal or external.
 
-For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-domain.com`, you can add it to the `internalDomains` array.
-A link to `https://files.your-domain.com/file.pdf` won't be treated as an external link.
+For example if you want to link to your files on a different domain e.g. on a subdomain `files.your-site.example`, you can add it to the `internalDomains` array.
+A link to `https://files.your-site.example/file.pdf` won't be treated as an external link.
 
 ### `headComponent`
 

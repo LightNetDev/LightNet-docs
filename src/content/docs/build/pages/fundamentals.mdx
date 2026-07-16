@@ -12,11 +12,11 @@ so use the [Astro documentation](https://docs.astro.build/en/basics/astro-pages/
 
 Routes on your site are determined by the files in the `src/pages` folder.
 The file path maps directly to the page route.
-For instance, a file at `src/pages/en/about.astro` corresponds to `https://your.site/en/about`.
+For instance, a file at `src/pages/en/about.astro` corresponds to `https://your-site.example/en/about`.
 
 In addition to your own pages, LightNet automatically adds:
 
-- **Homepage Redirect**: Visiting the root path (`https://your.site`) redirects to the homepage in the default site language.
+- **Homepage Redirect**: Visiting the root path (`https://your-site.example`) redirects to the homepage in the default site language.
 - **Search Page**: Lists all media items at `[locale]/media`.
 - **Details Pages**: Displays details of a media item at `[locale]/media/[id]`.
 - **404 Page**: Shown by convention when a non-existent page is accessed. Available at `/404`.
@@ -89,5 +89,5 @@ Each component inside the `src/pages` folder maps to an HTML file in the output 
 
 <Aside type="note">
 Notice how Astro generates `index.html` files. Browsers serve `index.html` when accessing a folder path.
-This simplifies URLs (e.g., `https://your.site/en/about` instead of `https://your.site/en/about.html`).
+This simplifies URLs (e.g., `https://your-site.example/en/about` instead of `https://your-site.example/en/about.html`).
 </Aside>

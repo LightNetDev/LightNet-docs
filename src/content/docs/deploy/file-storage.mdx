@@ -19,14 +19,14 @@ The `experimental.fileStorage` option in `@lightnet/sveltia-admin` is still expe
 <Steps>
 1. **Add an R2 subscription**: Open your Cloudflare account and enable R2 Object Storage if it is not already active.
 1. **Create a bucket**: Create a new R2 bucket for your uploaded files.
-1. **Configure bucket settings**: In the bucket settings, add a custom domain such as `files.your-site.org`.
+1. **Configure bucket settings**: In the bucket settings, add a custom domain such as `files.your-site.example`.
     Then add a CORS policy like this:
     ```json
     [
       {
         "AllowedOrigins": [
           "http://localhost:4321",
-          "https://your-site.org"
+          "https://your-site.example"
         ],
         "AllowedMethods": [
           "GET", "PUT", "HEAD"
@@ -68,7 +68,7 @@ export default defineConfig({
           accessKeyId: "<your-access-key-id>",
           bucket: "<your-bucket>",
           accountId: "<your-account-id>",
-          publicUrl: "https://files.your-site.org",
+          publicUrl: "https://files.your-site.example",
         },
       },
     }),
@@ -93,7 +93,7 @@ export default defineConfig({
 
 Follow these steps when an existing site stores uploaded media files in `public/files` and you want future uploads to go to Cloudflare R2.
 
-Before you start, finish the R2 setup above and choose the public file URL you want to use, for example `https://files.your-site.org`.
+Before you start, finish the R2 setup above and choose the public file URL you want to use, for example `https://files.your-site.example`.
 
 
 <Steps>
@@ -120,7 +120,7 @@ Before you start, finish the R2 setup above and choose the public file URL you w
       --exclude "desktop.ini"
     ```
 1. **Check the uploaded files**: Open a few uploaded file URLs in the browser using your public file domain.
-    For example, `public/files/videos/intro.mp4` should be available at `https://files.your-site.org/videos/intro.mp4`.
+    For example, `public/files/videos/intro.mp4` should be available at `https://files.your-site.example/videos/intro.mp4`.
 1. **Update media item URLs**: In your site repository, replace file URLs in media content from the local `/files/` path to the R2 public URL.
     For JSON content, this usually means replacing:
     ```text
@@ -128,13 +128,13 @@ Before you start, finish the R2 setup above and choose the public file URL you w
     ```
     with:
     ```text
-    "https://files.your-site.org/
+    "https://files.your-site.example/
     ```
     Keep the trailing slash so existing nested paths stay intact.
 1. **Allow the file domain in LightNet**: In `astro.config.mjs`, add the new file storage domain to `internalDomains` so LightNet treats the uploaded files as internal media:
     ```js title="astro.config.mjs"
     lightnet({
-      internalDomains: ["files.your-site.org"],
+      internalDomains: ["files.your-site.example"],
     })
     ```
     If your config already has `internalDomains`, add the new domain to the existing list.

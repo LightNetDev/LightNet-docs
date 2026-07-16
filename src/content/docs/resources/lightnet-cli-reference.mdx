@@ -47,7 +47,7 @@ LightNet reads R2 connection settings from `lightnet-cli.json`:
 ```json
 {
   "r2": {
-    "publicUrl": "https://files.your-site.org",
+    "publicUrl": "https://files.your-site.example",
     "accountId": "your-cloudflare-account-id",
     "accessKeyId": "your-r2-access-key-id",
     "bucket": "your-bucket-name"
@@ -59,7 +59,7 @@ Add `lightnet-cli.json` to your git repository so every developer and CI job use
 
 These settings match the fields from [Configure file storage](/deploy/file-storage/#configuration-fields):
 
-- `publicUrl`: the public URL for your files, such as `https://files.your-site.org`
+- `publicUrl`: the public URL for your files, such as `https://files.your-site.example`
 - `accountId`: your Cloudflare account ID
 - `accessKeyId`: the public access key ID from your Cloudflare token
 - `bucket`: the R2 bucket for your site
@@ -306,11 +306,11 @@ The first time `check-links` finds a root-relative URL, the CLI asks for your si
 
 ```json
 {
-  "siteUrl": "https://example.org"
+  "siteUrl": "https://your-site.example"
 }
 ```
 
-After that, `/files/my-pdf.pdf` is checked as `https://example.org/files/my-pdf.pdf`.
+After that, `/files/my-pdf.pdf` is checked as `https://your-site.example/files/my-pdf.pdf`.
 
 #### Reading the result
 

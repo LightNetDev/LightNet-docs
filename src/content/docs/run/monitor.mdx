@@ -69,11 +69,11 @@ reporting, use a dedicated monitoring service such as [Checkly](https://checklyh
         steps:
           - uses: LightNetDev/check-site-availability@v1
             with:
-              url: https://example.com/en/media
+              url: https://your-site.example/en/media
               expected-text: Media
     ```
 
-    Replace `https://example.com/en/media` with a public URL from your site.
+    Replace `https://your-site.example/en/media` with a public URL from your site.
     Replace `Media` with text that should appear on that page.
 
 4. Choose a schedule that matches how quickly you need to know about problems.
@@ -111,7 +111,7 @@ jobs:
     steps:
       - uses: LightNetDev/check-site-availability@v1
         with:
-          url: https://files.example.com/file.pdf
+          url: https://files.your-site.example/file.pdf
 ```
 
 In this mode, the action first sends a `HEAD` request. If the server does not accept that request, it falls back
@@ -135,17 +135,17 @@ jobs:
     steps:
       - uses: LightNetDev/check-site-availability@v1
         with:
-          url: https://example.com/
+          url: https://your-site.example/
           expected-text: My Library
 
       - uses: LightNetDev/check-site-availability@v1
         with:
-          url: https://example.com/en/media
+          url: https://your-site.example/en/media
           expected-text: Search
 
       - uses: LightNetDev/check-site-availability@v1
         with:
-          url: https://example.com/en/media/example-item
+          url: https://your-site.example/en/media/example-item
           expected-text: Example item title
 ```
 
@@ -179,6 +179,5 @@ The action fails when:
 
 When `expected-text` is missing from a response, the workflow log includes a truncated preview of the response body
 to help you debug the failure.
-
 
 
