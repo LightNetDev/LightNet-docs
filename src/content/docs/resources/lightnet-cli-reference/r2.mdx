@@ -3,16 +3,18 @@ title: r2
 description: List, copy, move, and remove files in a Cloudflare R2 bucket.
 ---
 
+The `r2` command is part of the [LightNet CLI](/resources/lightnet-cli-reference/).
+
 ```bash
-pnpm lightnet r2 <command>
+pnpm lightnet r2 <action>
 ```
 
-Use this command to list, copy, move, and remove files in a Cloudflare R2 bucket.
+Use the `r2` command to manage files in a Cloudflare R2 bucket.
 Run it anywhere inside your LightNet site project.
 
-This command requires an R2 connection configured through rclone. See [R2 setup](/resources/lightnet-cli-reference/#r2-setup) for details.
+This command requires an R2 connection configured through rclone. See [Rclone setup](/resources/lightnet-cli-reference/#rclone-setup) for details.
 
-Use it when you want to:
+The `r2` command provides these actions:
 
 - [list](#list-files) the files in your site's R2 bucket
 - [copy](#copy-files) local files or directories to R2
@@ -27,6 +29,8 @@ pnpm lightnet r2 ls [path]
 ```
 
 Lists files in the R2 bucket. The optional path limits the listing to a directory.
+
+#### Examples
 
 List all files:
 
@@ -55,6 +59,8 @@ pnpm lightnet r2 cp [options] <source...> <destination>
 Copies files between your local filesystem and R2, or from one R2 path to another.
 
 Use the `r2:` prefix for R2 paths. At least one side must be an R2 path.
+
+#### Examples
 
 Copy one local file to the R2 root:
 
@@ -138,6 +144,8 @@ Moves or renames files and directories inside the configured R2 bucket.
 
 Paths are inside the configured R2 bucket. The `r2:` prefix is accepted but optional. Local paths like `./image.jpg` are rejected.
 
+#### Examples
+
 Rename a file:
 
 ```bash
@@ -187,6 +195,8 @@ pnpm lightnet r2 rm [options] <path...>
 ```
 
 Deletes files and directories from the configured R2 bucket. Confirmation is required by default.
+
+#### Examples
 
 Delete one file:
 

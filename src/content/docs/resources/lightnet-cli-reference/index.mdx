@@ -8,7 +8,7 @@ import { Aside } from "@astrojs/starlight/components";
 
 ## Install
 
-From the root of your LightNet project, add the CLI as a development dependency:
+From the root of your LightNet site project, add the CLI as a development dependency:
 
 ```bash
 pnpm add -D @lightnet/cli@latest
@@ -22,6 +22,13 @@ Run LightNet CLI commands with:
 pnpm lightnet <command> [options]
 ```
 
+Available commands:
+
+- [`check-files`](/resources/lightnet-cli-reference/check-files/): find broken file links and unused files.
+- [`check-links`](/resources/lightnet-cli-reference/check-links/): check Media Item URLs.
+- [`check-translations`](/resources/lightnet-cli-reference/check-translations/): find missing translations.
+- [`r2`](/resources/lightnet-cli-reference/r2/): manage files in a Cloudflare R2 bucket.
+
 Show all available commands:
 
 ```bash
@@ -34,11 +41,17 @@ Show help for a specific command:
 pnpm lightnet <command> --help
 ```
 
-## R2 setup
+## Rclone setup
 
-R2 commands and R2 file checks require `rclone`. You can [download it from rclone.org](https://rclone.org/install/).
+### Requirements
 
-The first time you run a command that needs R2 access, LightNet prompts for any missing bucket settings and saves them in `lightnet-cli.json`.
+If you have [set up large file storage](/deploy/file-storage/) with Cloudflare R2, install
+`rclone` to use [R2 commands](/resources/lightnet-cli-reference/r2/) and [R2 file checks](/resources/lightnet-cli-reference/check-files/#checking-r2).
+You can download `rclone` from [rclone.org](https://rclone.org/install/).
+
+### Configuration
+
+The first time you run a command that needs R2 access, LightNet CLI prompts for any missing bucket settings and saves them in `lightnet-cli.json` at the root of your LightNet site project.
 You can also create or edit that file manually.
 
 LightNet reads R2 connection settings from `lightnet-cli.json`:
