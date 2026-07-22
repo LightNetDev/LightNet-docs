@@ -1,0 +1,81 @@
+---
+title: "LightNet CLI reference"
+description: Reference for the LightNet command-line interface and its available commands.
+---
+import { Aside } from "@astrojs/starlight/components";
+
+`@lightnet/cli` provides command-line tools for working with LightNet projects.
+
+## Install
+
+From the root of your LightNet project, add the CLI as a development dependency:
+
+```bash
+pnpm add -D @lightnet/cli@latest
+```
+
+## Usage
+
+Run LightNet CLI commands with:
+
+```bash
+pnpm lightnet <command> [options]
+```
+
+Show all available commands:
+
+```bash
+pnpm lightnet --help
+```
+
+Show help for a specific command:
+
+```bash
+pnpm lightnet <command> --help
+```
+
+## R2 setup
+
+R2 commands and R2 file checks require `rclone`. You can [download it from rclone.org](https://rclone.org/install/).
+
+The first time you run a command that needs R2 access, LightNet prompts for any missing bucket settings and saves them in `lightnet-cli.json`.
+You can also create or edit that file manually.
+
+LightNet reads R2 connection settings from `lightnet-cli.json`:
+
+```json
+{
+  "r2": {
+    "publicUrl": "https://files.your-site.example",
+    "accountId": "your-cloudflare-account-id",
+    "accessKeyId": "your-r2-access-key-id",
+    "bucket": "your-bucket-name"
+  }
+}
+```
+
+Add `lightnet-cli.json` to your git repository so every developer and CI job uses the same non-secret bucket settings.
+
+These settings match the fields from [Configure file storage](/deploy/file-storage/#configuration-fields):
+
+- `publicUrl`: the public URL for your files, such as `https://files.your-site.example`
+- `accountId`: your Cloudflare account ID
+- `accessKeyId`: the public access key ID from your Cloudflare token
+- `bucket`: the R2 bucket for your site
+
+LightNet passes these settings to `rclone` automatically. You do not need to create an `rclone` remote manually.
+
+The secret access key is intentionally not saved in `lightnet-cli.json`.
+
+For local interactive use, you can let the CLI prompt for the secret access key. The prompt stores the key only for the current command session.
+
+For CI, scripts, or repeated local commands, set the secret access key in your shell before running the command:
+
+```bash
+export LIGHTNET_R2_SECRET_ACCESS_KEY="your-r2-secret-access-key"
+```
+
+<Aside type="caution">
+Commit `lightnet-cli.json`, but keep `LIGHTNET_R2_SECRET_ACCESS_KEY` in your shell, CI secrets, or password manager.
+Do not commit the secret access key to your repository.
+</Aside>

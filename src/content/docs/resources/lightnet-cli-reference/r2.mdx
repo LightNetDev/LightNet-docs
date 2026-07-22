@@ -1,0 +1,241 @@
+---
+title: r2
+description: List, copy, move, and remove files in a Cloudflare R2 bucket.
+---
+
+```bash
+pnpm lightnet r2 <command>
+```
+
+Use this command to list, copy, move, and remove files in a Cloudflare R2 bucket.
+Run it anywhere inside your LightNet site project.
+
+This command requires an R2 connection configured through rclone. See [R2 setup](/resources/lightnet-cli-reference/#r2-setup) for details.
+
+Use it when you want to:
+
+- [list](#list-files) the files in your site's R2 bucket
+- [copy](#copy-files) local files or directories to R2
+- [download](#copy-files) files from R2
+- [move](#move-files) files or directories inside R2
+- [remove](#remove-files) individual files or directories from R2
+
+### List files
+
+```bash
+pnpm lightnet r2 ls [path]
+```
+
+Lists files in the R2 bucket. The optional path limits the listing to a directory.
+
+List all files:
+
+```bash
+pnpm lightnet r2 ls
+```
+
+List files in a directory:
+
+```bash
+pnpm lightnet r2 ls images
+```
+
+Pipe the plain output into another command:
+
+```bash
+pnpm lightnet r2 ls images | grep jpg
+```
+
+### Copy files
+
+```bash
+pnpm lightnet r2 cp [options] <source...> <destination>
+```
+
+Copies files between your local filesystem and R2, or from one R2 path to another.
+
+Use the `r2:` prefix for R2 paths. At least one side must be an R2 path.
+
+Copy one local file to the R2 root:
+
+```bash
+pnpm lightnet r2 cp ./poster.jpg r2:
+```
+
+Copy several local files into a directory:
+
+```bash
+pnpm lightnet r2 cp a.jpg b.jpg c.jpg r2:images/
+```
+
+Copy all JPG files into a directory when your shell expands `*.jpg`:
+
+```bash
+pnpm lightnet r2 cp *.jpg r2:images/
+```
+
+Shell glob expansion is handled by your terminal, not by `lightnet r2 cp`, and is not available in every terminal.
+
+Copy a local directory into R2:
+
+```bash
+pnpm lightnet r2 cp -R ./images r2:
+```
+
+Copy the contents of the current directory into the R2 root:
+
+```bash
+pnpm lightnet r2 cp -R ./. r2:
+```
+
+Copy the contents of a local directory into the R2 root:
+
+```bash
+pnpm lightnet r2 cp -R ./images/. r2:
+```
+
+Download an R2 directory locally:
+
+```bash
+pnpm lightnet r2 cp -R r2:images ./images
+```
+
+Copy multiple R2 files into a local directory:
+
+```bash
+pnpm lightnet r2 cp r2:a.jpg r2:b.jpg ./downloads/
+```
+
+Directory copies require `-r`, `-R`, `-a`, or `--recursive`, like Unix `cp`.
+Directory copies merge into the destination. They do not delete destination files that are not present in the source.
+
+Use `/.` to copy the contents of a directory instead of the directory itself.
+For example, `./images/.` copies the files under `images` into the destination, while `./images` copies the `images` directory into the destination.
+
+If a copied file would overwrite an existing destination file, the command prompts before replacing it.
+
+Copy without overwriting existing files:
+
+```bash
+pnpm lightnet r2 cp -Rn ./. r2:
+```
+
+#### Options
+
+- `-a`: copies recursively. Supported as an archive-style alias for R2 paths.
+- `-f`, `--force`: overwrites existing destination files without prompting.
+- `-n`, `--no-clobber`: skips existing destination files without prompting or overwriting them.
+- `--progress`: shows progress for each top-level source path.
+- `-r`, `-R`, `--recursive`: copies directories recursively.
+
+### Move files
+
+```bash
+pnpm lightnet r2 mv [options] <source...> <destination>
+```
+
+Moves or renames files and directories inside the configured R2 bucket.
+
+Paths are inside the configured R2 bucket. The `r2:` prefix is accepted but optional. Local paths like `./image.jpg` are rejected.
+
+Rename a file:
+
+```bash
+pnpm lightnet r2 mv image.jpg image-backup.jpg
+```
+
+Move two files into a directory:
+
+```bash
+pnpm lightnet r2 mv a.jpg b.jpg archive/
+```
+
+Move a directory:
+
+```bash
+pnpm lightnet r2 mv images archive/
+```
+
+Move the contents of a directory:
+
+```bash
+pnpm lightnet r2 mv old-prefix/. archive/
+```
+
+Moves merge into the destination. Moving `images` to `archive/` creates or merges into `archive/images/` and keeps unrelated existing objects there.
+
+Use `/.` to move the contents of a directory instead of the directory itself.
+
+If a moved object would overwrite an existing destination object, the command prompts before replacing it. Whole-directory replacement is not supported.
+
+Move without overwriting existing objects:
+
+```bash
+pnpm lightnet r2 mv -n images archive/
+```
+
+#### Options
+
+- `-f`, `--force`: overwrites existing destination objects without prompting.
+- `-n`, `--no-clobber`: skips existing destination objects without prompting or overwriting them.
+- `--progress`: shows progress for each top-level source path.
+
+### Remove files
+
+```bash
+pnpm lightnet r2 rm [options] <path...>
+```
+
+Deletes files and directories from the configured R2 bucket. Confirmation is required by default.
+
+Delete one file:
+
+```bash
+pnpm lightnet r2 rm images/photo.jpg
+```
+
+Delete several files:
+
+```bash
+pnpm lightnet r2 rm a.jpg b.jpg c.jpg
+```
+
+Skip confirmation:
+
+```bash
+pnpm lightnet r2 rm -f images/photo.jpg
+```
+
+Remove a directory recursively:
+
+```bash
+pnpm lightnet r2 rm -r images/old
+```
+
+Remove a directory recursively without confirmation:
+
+```bash
+pnpm lightnet r2 rm -rf images/old
+```
+
+Ignore a missing file:
+
+```bash
+pnpm lightnet r2 rm -f missing.jpg
+```
+
+Remove all content from the bucket:
+
+```bash
+pnpm lightnet r2 rm -r /
+```
+
+Removing a directory without `-r` or `--recursive` fails, like Unix `rm`.
+Be careful with recursive deletion. It removes matching objects under that R2 path.
+Bucket root cleanup is specially protected: `pnpm lightnet r2 rm -rf /` still requires interactive confirmation, and non-interactive root cleanup requires the long `--force` flag.
+
+#### Options
+
+- `-f`, `--force`: skips deletion confirmation and ignores missing paths. Use the long `--force` flag for non-interactive bucket root cleanup.
+- `--progress`: shows progress for each top-level target path.
+- `-r`, `--recursive`: removes all matching objects under a directory.

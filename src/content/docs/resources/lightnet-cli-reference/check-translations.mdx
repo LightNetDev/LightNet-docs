@@ -1,0 +1,54 @@
+---
+title: check-translations
+description: Find translations that are missing from your site's languages.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+```bash
+pnpm lightnet check-translations
+```
+
+Use this command to find translations that are still missing your site's languages.
+
+Run it from the root of your LightNet site project.
+
+The command asks whether to run `pnpm build` for you. When you confirm, the build runs as part of the check and the translation results are read from that build.
+
+Use it when you want to:
+
+- catch incomplete translations before deploying
+- review translation work after adding a new language
+- check inline translation maps after editing content or templates
+
+### Common checks
+
+Check translations:
+
+```bash
+pnpm lightnet check-translations
+```
+
+Run a build before checking translations:
+
+```bash
+pnpm lightnet check-translations --build
+```
+
+Check translations without running a build or showing a prompt:
+
+```bash
+pnpm lightnet check-translations --no-build
+```
+
+### Options
+
+- `--build`: runs `pnpm build` before checking translations.
+- `--no-build`: skips the build prompt and checks the latest available build output.
+
+If the command reports missing translations, add the missing values to the content or template that owns them.
+
+<Aside>
+This command only validates translations used during the last build.
+Missing translations are not reported for labels that were never referenced while building the site.
+</Aside>

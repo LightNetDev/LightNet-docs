@@ -122,7 +122,7 @@
 ### Review
 
 - [ ] The ministry has reviewed the site and approved it for launch
-- [ ] The ministry has [reviewed all translations](https://docs.lightnet.community/resources/lightnet-cli-reference/#check-translations)
+- [ ] The ministry has [reviewed all translations](https://docs.lightnet.community/resources/lightnet-cli-reference/check-translations/)
 - [ ] The site admin has completed requested changes
 - [ ] The site admin has tested the site on desktop and mobile devices
 - [ ] The site admin has tested configured links and menus
