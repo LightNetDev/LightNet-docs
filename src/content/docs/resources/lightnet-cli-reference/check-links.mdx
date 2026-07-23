@@ -13,7 +13,7 @@ Use this command to check whether the URLs used in your Media Items are still re
 
 Run it from the root of your LightNet site project.
 
-The command reads every URL from the `content` array in each Media Item JSON file under `src/content/media/**/*.json`, including uploaded file links and external links. For each unique URL, it sends a lightweight request to check whether the target is available without downloading large files such as videos or PDFs.
+The command reads every URL from the [content array](/content/media-items/#content) in each Media Item JSON file under `src/content/media/**/*.json`, including uploaded file links and external links. For each unique URL, it sends a lightweight request to check whether the target is available without downloading large files such as videos or PDFs.
 
 Use it when you want to:
 
@@ -42,12 +42,11 @@ pnpm lightnet check-links --timeout 15000
 
 ### Read the report
 
-If all links are available, the command exits successfully.
+If the report finds no issues, it prints a summary of the link checks, ends with `No issues found. 🎉`, and exits successfully.
 
-If a link is broken, the command prints the URL, the error or HTTP status, and the Media Item JSON file that references it.
-Fix the URL in that content file, or restore the missing target, and then rerun the check.
+If the report lists an **unavailable** link, it appears under **Unavailable links**. It prints the URL, error or HTTP status, and Media Item JSON file that references it. It ends with `Issues found. 🚧` and exits with an error status. Fix the URL in that Media Item JSON file, or restore the missing target, then rerun the check.
 
-Some websites block automated checks even though the URL works in a browser. These are reported as protected or forbidden warnings instead of hard failures.
+If the report lists a **protected** link, it appears under **Protected or forbidden links**. It prints the URL, HTTP status, and Media Item JSON file that references it. A protected link has HTTP status `403 Forbidden`; some websites block automated checks even when the link works in a browser. Protected links do not cause an error. If the report has no unavailable links, it ends with `No unavailable links found. Some links could not be verified. ⚠️` and exits successfully. Open the link shown in the report in a browser to verify it manually.
 
 ### Relationship to `check-files`
 
