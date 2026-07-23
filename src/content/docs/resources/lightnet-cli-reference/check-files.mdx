@@ -1,6 +1,6 @@
 ---
 title: check-files
-description: Check site-managed content files and images for broken references and unused files.
+description: Check site-managed content files and images for broken file links and unused files.
 ---
 
 The `check-files` command is part of the [LightNet CLI](/resources/lightnet-cli-reference/).
@@ -64,8 +64,8 @@ pnpm lightnet check-files --fix-without-confirm
 
 The command reports two kinds of issues:
 
-- **Missing referenced content files**: a file reference in a Media Item's `content` array points to a file that is not available. Fix it by uploading or restoring the missing file, or by updating the file reference.
-- **Orphaned content files or images**: a file exists, but no Media Item or Category uses it. Review these before deleting them, especially in shared buckets.
+- **Missing referenced content files (broken file links)**: a file reference in a Media Item's `content` array points to a file that is not available. Fix it by uploading or restoring the missing file, or by updating the file reference.
+- **Orphaned content files or images**: a file exists, but no Media Item or Category uses it. Review these before deleting them.
 
 For `--scope content-files` checks, content file links should point to files under `public/files` and use `/files/...` URLs.
 
@@ -77,10 +77,9 @@ When a missing content file is reported, the output includes the Media Item JSON
 Use the report to decide what to do next: restore missing files, update file references, or remove unused files manually or with `--fix`.
 After making local changes, review them with `git status`, then stage and commit the intended changes using your normal Git workflow.
 
+### Read the report
 
-### Reading the report
-
-If everything is clean, the command prints nothing and exits successfully.
+If everything is clean, the command prints a summary of the checks, ending with `No issues found. 🎉`, and exits successfully.
 
 If it finds broken links or unused files, it prints grouped sections with counts in the headings and exits with an error status.
 That makes it safe to use in CI: a failing check means there is something to review before deployment.
@@ -89,12 +88,12 @@ The sections can include:
 
 1. warnings
 2. missing referenced content files
-3. orphaned local content files or orphaned R2 objects
+3. orphaned local content files
 4. orphaned Media Item images
 5. orphaned Category images
 6. removed items
 
-### Removing unused files with `--fix`
+### Remove unused files with `--fix`
 
 Use `--fix` when you want the CLI to remove unused local files for you.
 
@@ -104,11 +103,13 @@ Before deleting anything, the CLI shows the files or objects that will be remove
 
 If all reported issues were unused files and they were removed successfully, the command exits successfully. If broken links still remain, the command continues to exit with an error so you can fix them before deployment.
 
-### Using Cloudflare R2
+### Use the `--r2` option
 
 Use `--r2` when your content files are stored in [Cloudflare R2](/deploy/file-storage/) instead of `public/files`.
 
 R2 content-file checks require an R2 connection configured through rclone. See [Rclone setup](/resources/lightnet-cli-reference/#rclone-setup) for details.
+
+The `--r2` option checks content files in R2 instead of local content files under `public/files`. Media Item and Category image checks remain local.
 
 Check R2 content files and local Media Item and Category images:
 
@@ -122,8 +123,8 @@ Check only R2 content files:
 pnpm lightnet check-files --r2 --scope content-files
 ```
 
-The `--r2` option checks content files in R2 instead of local content files under `public/files`. Media Item and Category image checks remain local.
-
-With `--r2 --scope content-files`, `--fix` removes unused R2 objects after confirmation. Without `--scope`, it also removes unused local Media Item and Category images. If a saved R2 connection stops working, rerun the command and follow the prompt to update the R2 connection configuration in `lightnet-cli.json`.
+With `--r2 --scope content-files`, `--fix` removes unused R2 objects after confirmation. Without `--scope`, it also removes unused local Media Item and Category images.
 
 R2 checks review every object in the bucket. Files such as `.DS_Store` can be reported as unused objects if they are present.
+
+If a saved R2 connection stops working, rerun the command and follow the prompt to update the R2 connection configuration in `lightnet-cli.json`.
