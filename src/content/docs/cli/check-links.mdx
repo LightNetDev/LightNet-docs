@@ -3,7 +3,7 @@ title: check-links
 description: Check whether URLs used in Media Items are reachable online.
 ---
 
-The `check-links` command is part of the [LightNet CLI](/resources/lightnet-cli-reference/).
+The `check-links` command is part of the [LightNet CLI](/cli/overview).
 
 ```bash
 pnpm lightnet check-links
@@ -50,7 +50,7 @@ If the report lists a **protected** link, it appears under **Protected or forbid
 
 ### Relationship to `check-files`
 
-Checking links for files managed by the LightNet site overlaps with what [`check-files`](/resources/lightnet-cli-reference/check-files/) does, but the commands answer different questions.
+Checking links for files managed by the LightNet site overlaps with what [`check-files`](/cli/check-files/) does, but the commands answer different questions.
 
 Use `check-files` to audit your site's file storage. It checks whether local files under `public/files` or files in Cloudflare R2 match the file URLs used by your content, and it can also report unused files.
 

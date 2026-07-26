@@ -3,7 +3,7 @@ title: check-files
 description: Check site-managed content files and images for broken file links and unused files.
 ---
 
-The `check-files` command is part of the [LightNet CLI](/resources/lightnet-cli-reference/).
+The `check-files` command is part of the [LightNet CLI](/cli/overview).
 
 ```bash
 pnpm lightnet check-files
@@ -107,7 +107,7 @@ If all reported issues were unused files and they were removed successfully, the
 
 Use `--r2` when your content files are stored in [Cloudflare R2](/deploy/file-storage/) instead of `public/files`.
 
-R2 content-file checks require an R2 connection configured through rclone. See [Rclone setup](/resources/lightnet-cli-reference/#rclone-setup) for details.
+R2 content-file checks require an R2 connection configured through rclone. See [Rclone setup](/cli/overview/#rclone-setup) for details.
 
 The `--r2` option checks content files in R2 instead of local content files under `public/files`. Media Item and Category image checks remain local.
 
