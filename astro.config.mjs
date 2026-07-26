@@ -138,19 +138,20 @@ export default defineConfig({
           ],
         },
         {
+          label: "LightNet CLI",
+          items: [
+            { slug: "cli/overview" },
+            { slug: "cli/check-files" },
+            { slug: "cli/check-links" },
+            { slug: "cli/check-translations" },
+            { slug: "cli/r2" },
+          ],
+        },
+        {
           label: "Resources",
           items: [
             { slug: "resources/error-reference" },
-            {
-              label: "LightNet CLI reference",
-              items: [
-                { slug: "resources/lightnet-cli-reference", label: "Overview" },
-                { slug: "resources/lightnet-cli-reference/check-files" },
-                { slug: "resources/lightnet-cli-reference/check-links" },
-                { slug: "resources/lightnet-cli-reference/check-translations" },
-                { slug: "resources/lightnet-cli-reference/r2" },
-              ],
-            },
+
             { slug: "resources/versions" },
           ],
         },
