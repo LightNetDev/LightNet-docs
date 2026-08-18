@@ -19,23 +19,25 @@
 
 ### Set up accounts
 
-- [ ] The ministry has [created a free GitHub account](https://github.com/signup)
-- [ ] The ministry has [created a free Cloudflare account](https://dash.cloudflare.com/sign-up)
-- [ ] The ministry has [created a free GitHub organization](https://github.com/account/organizations/new?plan=free)
+- [ ] The ministry has a [GitHub account](https://docs.lightnet.community/deploy/hosting/#set-up-github)
+- [ ] The ministry has a [GitHub organization](https://docs.lightnet.community/deploy/hosting/#set-up-github)
+- [ ] The ministry has a [Cloudflare account](https://dash.cloudflare.com/sign-up)
 - [ ] The ministry has granted the site admin access to the GitHub organization and Cloudflare account.
 
 ### Initialize the site
 
-- [ ] The site admin has deployed the [minimal-template](https://github.com/LightNetDev/minimal-template) to [Cloudflare Workers](https://deploy.workers.cloudflare.com/?url=https://github.com/LightNetDev/minimal-template)
-  - [ ] A **private** repository has been created in the ministry's GitHub organization.
-  - [ ] A public Cloudflare Workers test URL is available.
-- [ ] The site admin has updated all dependencies:
+- [ ] The site admin has selected a starting template based on their experience:
+  - [ ] New to LightNet: the site admin has started with the [example-template setup guide](https://docs.lightnet.community/start-here/getting-started/#1-set-up-the-example-template)
+  - [ ] Experienced with LightNet: the site admin has started with the [minimal-template](https://github.com/LightNetDev/minimal-template)
+- [ ] The site admin has updated pnpm and the site dependencies:
   ```bash
   pnpm self-update
   pnpm update
   ```
 - [ ] The site admin has removed `LICENSE.md`.
 - [ ] The site admin has updated `README.md` to reflect the ministry's site.
+- [ ] The site admin has [pushed the local site to a private GitHub repository in the ministry’s GitHub organization](https://docs.lightnet.community/deploy/hosting/#set-up-github)
+- [ ] A [Cloudflare workers.dev URL](https://docs.lightnet.community/deploy/hosting/#set-up-cloudflare-workers) is available.
 
 ### Initial configuration
 

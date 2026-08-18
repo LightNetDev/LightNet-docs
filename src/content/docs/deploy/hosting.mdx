@@ -7,24 +7,24 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 ## Hosting your media library
 
-You can host your media library on any file server you choose. To create a deployable folder, run the following command from your project folder:
+Before you begin, you need a local LightNet site. If you have not created one yet, start with the [Getting started guide](https://docs.lightnet.community/start-here/getting-started/).
+More experienced users may prefer to start with the [minimal-template](https://github.com/LightNetDev/minimal-template).
+
+We recommend hosting LightNet sites with GitHub and Cloudflare Workers. This is the standard setup for new LightNet sites.
+
+## Set up hosting on GitHub and Cloudflare Workers
+
+To build your site locally, run the following command from your site folder:
 
 ```bash
 pnpm build
 ```
 
-This command creates a folder named `dist`. It contains static HTML, CSS, JavaScript, and assets. Upload it to your file server.
+This creates a `dist` folder containing the generated static site files. Cloudflare Workers can run the same build and serve the resulting folder directly from Cloudflare's global network.
 
-If you do not have a hosting preference, we recommend GitHub and Cloudflare Workers.
+Use GitHub as the main home for your LightNet site. It stores your source files, receives content changes from the Administration UI, and triggers Cloudflare Workers deployments whenever you push new commits.
 
-## Set up hosting on GitHub and Cloudflare Workers
-
-Cloudflare Workers can build your project and serve the generated `dist` folder directly from Cloudflare's global network.
-
-Use GitHub as the main home for your LightNet project. It stores your source files, receives content changes from the Administration UI, and triggers Cloudflare Workers deployments whenever you push new commits.
-GitHub is the Git host we recommend for new LightNet projects.
-
-GitHub and Cloudflare Workers both offer approachable free-tier starting points for static sites.
+GitHub and Cloudflare Workers both offer free-tier starting points for static sites.
 
 - Cloudflare Workers can serve static assets from your generated `dist` folder.
 - GitHub gives you a familiar pull request workflow and acts as the shared backend for both Cloudflare deployments and Administration UI content updates.
@@ -33,9 +33,9 @@ GitHub and Cloudflare Workers both offer approachable free-tier starting points 
 
 <Steps>
 1. **Create a GitHub account**: If you do not have one yet, sign up at [GitHub](https://github.com).
-1. **Create a GitHub organization**: For collaborating with others, create a GitHub organization to manage access more easily.
-1. **Create a new repository**: Create a new repository for your LightNet project. A private repository is usually the best choice if your project is not meant to be public.
-1. **Push the repository to GitHub**: Push your project folder to the new GitHub repository by running these commands from your project folder:
+1. **Create a GitHub organization**: Every LightNet site should be managed separately within a [GitHub organization](https://github.com/account/organizations/new?plan=free). This keeps site access and ongoing maintenance consistent and easier to manage.
+1. **Create a new repository**: Within the GitHub organization, create a new repository for your LightNet site. A private repository is usually the best choice if your site is not meant to be public.
+1. **Push the site to GitHub**: Push your local site to the new GitHub repository by running these commands from your site folder:
     ```bash
     git remote add origin https://github.com/your-org/your-project.git
     git push --set-upstream origin --all
@@ -46,8 +46,8 @@ GitHub and Cloudflare Workers both offer approachable free-tier starting points 
 ### Set up Cloudflare Workers
 
 <Steps>
-1. **Create a Cloudflare Account**: Sign up at [Cloudflare](https://cloudflare.com) if you don't have an account.
-1. **Add a Workers config**: Create a `wrangler.jsonc` file in your project root. Use this config to serve the `dist` folder as static assets:
+1. **Create a Cloudflare Account**: Sign up at [Cloudflare](https://dash.cloudflare.com/sign-up) if you don't have an account.
+1. **Add a Workers config**: Create a `wrangler.jsonc` file in your site root. Use this config to serve the `dist` folder as static assets:
     ```jsonc title="wrangler.jsonc"
     {
       "name": "your-site",
@@ -82,3 +82,7 @@ To configure a custom domain:
 1. Purchase a domain from [Cloudflare Domains](https://www.cloudflare.com/products/registrar/).
 1. Follow the instructions in the Cloudflare dashboard to attach your custom domain to your Worker route.
 </Steps>
+
+## Alternative: host your site elsewhere
+
+You can host your LightNet site on another file server if required. From your local site folder, run the `pnpm build` command described above. This creates a folder named `dist` containing the static HTML, CSS, JavaScript, and asset files. Upload that folder to your file server.
