@@ -158,6 +158,8 @@
 - Who will review analytics and respond to monitoring alerts?
 - How often should the site be updated and its files, links, and translations checked?
 
+**Checklist**
+
 - [ ] If applicable, the ministry understands the ongoing support arrangement for the site with MediaWorks.
 - [ ] Optional: The site admin has configured [monitoring checks](https://docs.lightnet.community/run/monitor/)
 - [ ] Optional: The ministry has created a Plausible account, and the site admin has [configured analytics](https://docs.lightnet.community/deploy/analytics/)
