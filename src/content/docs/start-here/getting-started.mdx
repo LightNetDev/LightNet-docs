@@ -11,14 +11,15 @@ Running digital media libraries for ministries can be complex and time consuming
 LightNet makes this easier for developers, so ministries can share media more effectively.
 Want to learn more what LightNet is all about? [Visit the LightNet homepage](https://lightnet.community).
 
-This guide walks you through creating your first LightNet project.
+This guide uses the [example-template](https://github.com/LightNetDev/example-template) to introduce LightNet in a local development environment.
+It does not cover deploying the site through [GitHub](https://docs.lightnet.community/deploy/hosting/#set-up-github) to [Cloudflare Workers](https://docs.lightnet.community/deploy/hosting/#set-up-cloudflare-workers).
 
 ## Requirements
 
 Before you start, make sure the following tools are installed on your machine:
 
 - **Node.js** (version 22 or higher) - [Download Node.js](https://nodejs.org)
-- **pnpm** - Package manager for installing and updating project dependencies. [Install pnpm](https://pnpm.io/installation) by running this command from your terminal:
+- **pnpm** - Package manager for installing and updating the site's dependencies. [Install pnpm](https://pnpm.io/installation) by running this command from your terminal:
 ```bash
 npm install -g pnpm@latest
 ```
@@ -41,7 +42,7 @@ If these commands return version numbers, you're ready to go!
 We recommend starting with the [example-template](https://github.com/LightNetDev/example-template), a prebuilt template that showcases LightNet's
 features for a fictional skateboard ministry. It is a great starting point for learning how to structure your media library.
 
-To create a local copy of the project, navigate to the folder where you want to create it and run:
+To create a local LightNet site from the template, navigate to the folder where you want to create it and run:
 
 ```bash
 pnpm create astro@latest --template LightNetDev/example-template
@@ -50,19 +51,19 @@ pnpm create astro@latest --template LightNetDev/example-template
 This starts [Astro's](https://docs.astro.build/) `create astro` command, which lets you:
 
 
-- Choose a location for your project. This creates the project folder and sets its name.
+- Choose a location for your site. This creates the site folder and sets its name.
 - Install its dependencies (`Yes`).
 - Initialize a Git repository (`Yes`).
 
-Once finished, navigate into your project folder:
+Once finished, navigate into your site folder:
 
 ```bash
-cd your-project-folder
+cd your-site-folder
 ```
 
 ## 2. Run the development server
 
-Now that your project is set up, start the development server to see your site in action.
+Now that your site is set up, start the development server to see it in action.
 The development server lets you preview your media site in your browser without publishing it online.
 
 ```bash
@@ -77,7 +78,7 @@ You will need the development server for the next steps, so keep it running.
 As your first modification, let's change the site title:
 
 <Steps>
-  1. Open the project folder in VS Code (or your preferred text editor).
+  1. Open the site folder in VS Code (or your preferred text editor).
   1. In VS Code, open `src/translations/en.yml`.
   1. Modify the `site.title` by changing the value from "SkateNet" to your desired site name.
   1. Save the file. While `pnpm dev` is still running, your browser automatically
@@ -94,13 +95,13 @@ Follow these steps to open it locally:
   1. Make sure `pnpm dev` is still running in your terminal.
   2. Open Chrome or another Chromium-based browser and go to [localhost:4321/admin](http://localhost:4321/admin).
   3. Click the "Work with Local Repository" button.
-  4. When your browser prompts you, select the local folder of your new project and grant access.
+  4. When your browser prompts you, select the local folder of your new site and grant access.
   5. In the Administration UI, open **Media Items** and select `How to 360 flip`. Change the title to "How to
   Do a 360 Flip". 
   6. Click the "Save" button in the header bar.
 </Steps>
 
-This action updates a [JSON content file](/content/fundamentals) stored inside your project folder.
+This action updates a [JSON content file](/content/fundamentals) stored inside your site folder.
 
 <Aside type="note">
 The local admin workflow requires the File System Access API, which is currently available only in Chrome and Chromium-based browsers.
