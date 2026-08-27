@@ -96,6 +96,7 @@ export default defineConfig({
                 items: [
                   { slug: "start-here/getting-started" },
                   { slug: "start-here/recommended-skills" },
+                  { slug: "start-here/setup-checklist" },
                 ],
               },
               {
@@ -185,10 +186,19 @@ export default defineConfig({
                 ],
               },
               {
+                label: "LightNet CLI",
+                items: [
+                  { slug: "cli/overview" },
+                  { slug: "cli/check-files" },
+                  { slug: "cli/check-links" },
+                  { slug: "cli/check-translations" },
+                  { slug: "cli/r2" },
+                ],
+              },
+              {
                 label: "Resources",
                 items: [
                   { slug: "resources/error-reference" },
-                  { slug: "resources/lightnet-cli-reference" },
                   { slug: "resources/versions" },
                 ],
               },
