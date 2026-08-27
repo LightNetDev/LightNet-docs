@@ -55,32 +55,6 @@ export default defineConfig({
                 items: [{ slug: "ministry-docs/start-here/getting-started" }],
               },
               {
-                label: "Plan",
-                items: [
-                  { slug: "ministry-docs/plan/planning-a-media-library" },
-                ],
-              },
-              {
-                label: "Build",
-                items: [
-                  { slug: "ministry-docs/build/accounts-and-access" },
-                ],
-              },
-              {
-                label: "Concepts",
-                items: [
-                  { slug: "ministry-docs/concepts/media-library-structure" },
-                  { slug: "ministry-docs/concepts/languages" },
-                ],
-              },
-              {
-                label: "Administration",
-                items: [
-                  { slug: "ministry-docs/administration/overview" },
-                  { slug: "ministry-docs/administration/create-media-item" },
-                ],
-              },
-              {
                 label: "Resources",
                 items: [{ slug: "ministry-docs/resources/glossary" }],
               },
@@ -204,7 +178,14 @@ export default defineConfig({
               },
             ],
           },
-        ]),
+        ], {
+          exclude: [
+            "/ministry-docs/administration/**",
+            "/ministry-docs/build/**",
+            "/ministry-docs/concepts/**",
+            "/ministry-docs/plan/**",
+          ],
+        }),
         announcement({
           announcements: [
             {
