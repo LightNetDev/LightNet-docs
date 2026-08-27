@@ -92,7 +92,7 @@ test("migrate-media-content-types infers upload and link types", async () => {
   await writeJson(projectDir, "src/content/media/book--en.json", {
     content: [
       { url: "/files/book.pdf" },
-      { url: "https://example.com/book.pdf" },
+      { url: "https://your-site.example/book.pdf" },
       { type: "upload", url: "/files/keep.pdf" },
     ],
   });

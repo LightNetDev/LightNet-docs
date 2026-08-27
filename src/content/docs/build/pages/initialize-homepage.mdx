@@ -1,7 +1,7 @@
 ---
-title: Initialize homepage
+title: Customize homepage
 description: >
-    How to add a homepage to your LightNet media site. The homepage is the first page that users see when they visit your site. 
+    How to customize the homepage of your LightNet media site. The homepage is the first page that users see when they visit your site.
     You can customize the homepage to include a hero image, a media item gallery or add your own components...
 ---
 
@@ -13,11 +13,31 @@ to include a hero image, a media item gallery, or your own components.
 
 You have [two different options](/build/pages/fundamentals/#defining-routes-with-the-pages-folder) for creating the homepage:
 
+- **dynamic locale (recommended)**: Use this if you plan to have the same layout for each locale but different translations and content. The [example-template](https://github.com/LightNetDev/example-template) and [minimal-template](https://github.com/LightNetDev/minimal-template) use this option.
 - **static locale**: Use this if you plan to have a different layout for each locale. Here, layout means different components or
     different order of components.
-- **dynamic locale**: Use this if you plan to have the same layout for each locale but different translations and content.
 
 This distinction is only about page layout, not about the content inside the components.
+
+## Dynamic locale
+
+Create one file named `src/pages/[locale]/index.astro`. The homepage for all locales is
+defined inside this file.
+This is the basic layout:
+
+```astro title="src/pages/[locale]/index.astro"
+---
+export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
+import { Page } from "lightnet/components"
+---
+<Page>
+    {/* Add components and HTML here */}
+</Page>
+```
+
+<Aside type="tip">
+Use `Astro.locals.i18n.currentLocale` to change the content based on the locale.
+</Aside>
 
 ## Static locale
 
@@ -42,27 +62,6 @@ import { Page } from "lightnet/components"
 <Aside type="tip">
 Although this solution could use hard-coded text, we recommend using translation keys
 to have all translated text in one place. This simplifies translation management when adding a new language.
-</Aside>
-
-
-## Dynamic locale
-
-Create one file named `src/pages/[locale]/index.astro`. The homepage for all locales is
-defined inside this file.
-This is the basic layout:
-
-```astro title="src/pages/[locale]/index.astro"
----
-export { getLocalePaths as getStaticPaths } from "lightnet/i18n"
-import { Page } from "lightnet/components"
----
-<Page>
-    {/* Add components and HTML here */}
-</Page>
-```
-
-<Aside type="tip">
-Use `Astro.locals.i18n.currentLocale` to change the content based on the locale.
 </Aside>
 
 

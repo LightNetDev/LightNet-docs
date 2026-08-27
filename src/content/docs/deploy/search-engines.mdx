@@ -1,14 +1,37 @@
 ---
-title: Instruct search engines
+title: Configure search engine indexing
 description: How to configure your site for search engines.
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-## Remove your media library from search engines
+LightNet has settings for asking search engines, such as Google, whether to include content from your site in search results.
 
-If you do not want your site to appear on Google or other search engines,
-you can ask them not to index your site.
+## Indexing options
+
+LightNet supports search-indexing control at the site and page level.
+When you request noindex, LightNet adds this robots meta tag to the `<head>` of the generated HTML:
+
+```html
+<meta name="robots" content="noindex">
+```
+
+See also [Block Search Indexing with `noindex`](https://developers.google.com/search/docs/crawling-indexing/block-indexing) in Google Search Central.
+
+<Aside type="caution" title="Noindex does not restrict access">
+Search engines and other bots on the internet
+are not forced to respect `noindex` directives or `robots.txt` files.
+</Aside>
+
+### Indexing enabled by default
+
+By default, LightNet allows search engines to crawl and index your site.
+If search engines discover your site, they may include its pages in search results.
+
+### Request site noindex
+
+If you do not want your site to appear in search results,
+you can ask search engines not to index your site.
 
 Set `disallowSearchIndexing` to `true` in your LightNet configuration:
 
@@ -26,17 +49,78 @@ export default defineConfig({
 });
 ```
 
-This adds a `noindex` robots directive to every page.
+This adds the `noindex` directive to all generated HTML output.
 When a search engine crawls a page, the directive tells it not to include that page in search results.
 The page can still be visited by people who have the link.
 
-Do **not** combine this with a `robots.txt` file that blocks the whole site.
+### Request page noindex
 
-A `robots.txt` rule like `Disallow: /` tells search engines not to crawl any page on your site.
-If a search engine does not crawl a page, it cannot see the `noindex` directive on that page.
+If you do not want one page to appear in search results, you can ask search engines not to index it.
+
+For a Markdown file, set `disallowSearchIndexing` in the frontmatter. For example, to request noindex for the [About page](/build/pages/about-page/):
+
+```md title="src/pages/en/about.md" ins={3}
+---
+layout: "lightnet/layouts/MarkdownPage.astro"
+disallowSearchIndexing: true
+---
+
+# About
+
+About this site.
+```
+
+For a page built with the [`Page`](/build/pages/fundamentals/) component, pass `disallowSearchIndexing` directly:
+
+```astro ins={5}
+---
+import { Page } from "lightnet/components";
+---
+
+<Page disallowSearchIndexing>
+  <h1>Public page</h1>
+</Page>
+```
+
+### Override site noindex for a page
+
+To override a site-wide noindex request, set `disallowSearchIndexing` to `false` for the page. The page-level value takes precedence over the global configuration:
+
+For a Markdown file:
+
+```md title="src/pages/en/about.md" ins={3}
+---
+layout: "lightnet/layouts/MarkdownPage.astro"
+disallowSearchIndexing: false
+---
+
+# About
+
+About this site.
+```
+
+For a page built with the [`Page`](/build/pages/fundamentals/) component:
+
+```astro ins={5}
+---
+import { Page } from "lightnet/components";
+---
+
+<Page disallowSearchIndexing={false}>
+  <h1>Public page</h1>
+</Page>
+```
+
+### Media Items
+
+LightNet does not support requesting noindex for individual [Media Items](/content/media-items/).
+
+## Do not use `robots.txt`
+
+If your existing LightNet project still uses `robots.txt`, remove the file and use `disallowSearchIndexing` instead.
+
+A `robots.txt` rule like `Disallow: /` blocks search engines from crawling your site.
+If a search engine cannot crawl generated HTML, it cannot see the `noindex` directive.
 As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
 
-<Aside>
-Search engines and other bots on the internet
-are not forced to respect `noindex` directives or `robots.txt` files.
-</Aside>
+See also [Understand the limitations of a `robots.txt` file](https://developers.google.com/search/docs/crawling-indexing/robots/intro#understand-the-limitations-of-a-robots.txt-file) in Google Search Central.

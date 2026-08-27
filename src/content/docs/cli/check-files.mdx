@@ -1,0 +1,130 @@
+---
+title: check-files
+description: Check site-managed content files and images for broken file links and unused files.
+---
+
+The `check-files` command is part of the [LightNet CLI](/cli/overview).
+
+```bash
+pnpm lightnet check-files
+```
+
+Use this command to check the files in a LightNet site. It checks for and reports on broken file links and unused files.
+After doing the check, optionally repeat the command using `--fix` to remove unused files.
+
+Files include [uploaded](/content/media-items/#content-type) content files that are site-managed, Media Item [images](/content/media-items/#image), and Category [images](/content/categories/#image).
+
+Run it from the root of your LightNet site project.
+
+### Common checks
+
+Check both site-managed content files and images:
+
+```bash
+pnpm lightnet check-files
+```
+
+Check only images:
+
+```bash
+pnpm lightnet check-files --scope thumbnails
+```
+
+Check only site-managed content files:
+
+```bash
+pnpm lightnet check-files --scope content-files
+```
+
+Remove unused files after reviewing the prompt:
+
+```bash
+pnpm lightnet check-files --fix
+```
+
+Remove unused content files after reviewing the prompt:
+
+```bash
+pnpm lightnet check-files --fix --scope content-files
+```
+
+Remove unused files without an interactive confirmation prompt:
+
+```bash
+pnpm lightnet check-files --fix-without-confirm
+```
+
+### Options
+
+- `--fix`: removes unused files. It does not repair broken links.
+- `--fix-without-confirm`: removes unused files. Skips the deletion confirmation prompt ⚠️.
+- `--scope <values>`: limits the check to `content-files`, `thumbnails`, or both, separated by commas. By default, both scopes are checked.
+
+### What to fix
+
+The command reports two kinds of issues:
+
+- **Missing referenced content files (broken file links)**: a file reference in a Media Item's `content` array points to a file that is not available. Fix it by uploading or restoring the missing file, or by updating the file reference.
+- **Orphaned content files or images**: a file exists, but no Media Item or Category uses it. Review these before deleting them.
+
+For `--scope content-files` checks, content file links should point to files under `public/files` and use `/files/...` URLs.
+
+For `--scope thumbnails` checks, use `./images/...` references next to your Media Item or Category content. Media Item images live under `src/content/media/images`, and Category images live under `src/content/categories/images`.
+If your site does not have Categories, you do not need to create that directory just for this check.
+
+When a missing content file is reported, the output includes the Media Item JSON filename that references it. Use that filename as your starting point for fixing the link.
+
+Use the report to decide what to do next: restore missing files, update file references, or remove unused files manually or with `--fix`.
+After making local changes, review them with `git status`, then stage and commit the intended changes using your normal Git workflow.
+
+### Read the report
+
+If everything is clean, the command prints a summary of the checks, ending with `No issues found. 🎉`, and exits successfully.
+
+If it finds broken links or unused files, it prints grouped sections with counts in the headings and exits with an error status.
+That makes it safe to use in CI: a failing check means there is something to review before deployment.
+
+The sections can include:
+
+1. warnings
+2. missing referenced content files
+3. orphaned local content files
+4. orphaned Media Item images
+5. orphaned Category images
+6. removed items
+
+### Remove unused files with `--fix`
+
+Use `--fix` when you want the CLI to remove unused local files for you.
+
+Fix mode does not repair broken links. If a file reference in a Media Item's `content` array points to a missing file, update the file reference or restore the file yourself.
+
+Before deleting anything, the CLI shows the files or objects that will be removed and asks for confirmation. Use `--fix-without-confirm` only when you are comfortable skipping that prompt, such as in a trusted CI cleanup job.
+
+If all reported issues were unused files and they were removed successfully, the command exits successfully. If broken links still remain, the command continues to exit with an error so you can fix them before deployment.
+
+### Use the `--r2` option
+
+Use `--r2` when your content files are stored in [Cloudflare R2](/deploy/file-storage/) instead of `public/files`.
+
+R2 content-file checks require an R2 connection configured through rclone. See [Rclone setup](/cli/overview/#rclone-setup) for details.
+
+The `--r2` option checks content files in R2 instead of local content files under `public/files`. Media Item and Category image checks remain local.
+
+Check R2 content files and local Media Item and Category images:
+
+```bash
+pnpm lightnet check-files --r2
+```
+
+Check only R2 content files:
+
+```bash
+pnpm lightnet check-files --r2 --scope content-files
+```
+
+With `--r2 --scope content-files`, `--fix` removes unused R2 objects after confirmation. Without `--scope`, it also removes unused local Media Item and Category images.
+
+R2 checks review every object in the bucket. Files such as `.DS_Store` can be reported as unused objects if they are present.
+
+If a saved R2 connection stops working, rerun the command and follow the prompt to update the R2 connection configuration in `lightnet-cli.json`.

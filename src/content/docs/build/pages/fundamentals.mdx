@@ -12,11 +12,11 @@ so use the [Astro documentation](https://docs.astro.build/en/basics/astro-pages/
 
 Routes on your site are determined by the files in the `src/pages` folder.
 The file path maps directly to the page route.
-For instance, a file at `src/pages/en/about.astro` corresponds to `https://your.site/en/about`.
+For instance, a file at `src/pages/en/about.astro` corresponds to `https://your-site.example/en/about`.
 
 In addition to your own pages, LightNet automatically adds:
 
-- **Homepage Redirect**: Visiting the root path (`https://your.site`) redirects to the homepage in the default site language.
+- **Homepage Redirect**: Visiting the root path (`https://your-site.example`) redirects to the homepage in the default site language.
 - **Search Page**: Lists all media items at `[locale]/media`.
 - **Details Pages**: Displays details of a media item at `[locale]/media/[id]`.
 - **404 Page**: Shown by convention when a non-existent page is accessed. Available at `/404`.
@@ -24,22 +24,11 @@ In addition to your own pages, LightNet automatically adds:
 All pages, except `404` and `/`,
 reside in folders defining their [locale](/build/i18n/fundamentals). 
 
-There are two different types of locale folders: **static** and **dynamic**. You can use both inside the same project.
+There are two different types of locale folders: **dynamic** and **static**. You can use both inside the same project.
 
 <Aside type="note">
-Static and dynamic routes are based on [Astro's routing concept](https://docs.astro.build/en/guides/routing/).
+Dynamic and static routes are based on [Astro's routing concept](https://docs.astro.build/en/guides/routing/).
 </Aside>
-
-### Static locale folder
-
-Create separate folders for each locale, such as `src/pages/en/` and `src/pages/de/`.
-This approach allows for completely unique page structures per language.
-For example, you could build an English homepage that starts with a gallery and a German homepage that starts with text.
-
-Use static locale folders when:
-- Rendering Markdown content for different locales.
-- Customizing page layouts for each locale.
-- You only need to support one language.
 
 ### Dynamic locale folder
 
@@ -61,6 +50,17 @@ To access the current locale within a dynamic folder, use `Astro.locals.i18n.cur
 
 Use dynamic locale folders for pages with the same structure but different translations.
 
+### Static locale folder
+
+Create separate folders for each locale, such as `src/pages/en/` and `src/pages/de/`.
+This approach allows for completely unique page structures per language.
+For example, you could build an English homepage that starts with a gallery and a German homepage that starts with text.
+
+Use static locale folders when:
+- Rendering Markdown content for different locales.
+- Customizing page layouts for each locale.
+- You only need to support one language.
+
 ## File layout
 
 Here's a basic layout for a LightNet page file:
@@ -78,6 +78,7 @@ import { Page } from "lightnet/components";
 - Below the frontmatter is the page content. You can insert HTML and any Astro component including LightNet's reusable components.
 
 LightNet's `Page` component ensures a consistent layout by adding the header, language selection menu, and navigation menus.
+To ask search engines not to index a page, see [Configure search engine indexing](/deploy/search-engines/).
 
 ### File to URL mapping
 
@@ -89,5 +90,5 @@ Each component inside the `src/pages` folder maps to an HTML file in the output 
 
 <Aside type="note">
 Notice how Astro generates `index.html` files. Browsers serve `index.html` when accessing a folder path.
-This simplifies URLs (e.g., `https://your.site/en/about` instead of `https://your.site/en/about.html`).
+This simplifies URLs (e.g., `https://your-site.example/en/about` instead of `https://your-site.example/en/about.html`).
 </Aside>

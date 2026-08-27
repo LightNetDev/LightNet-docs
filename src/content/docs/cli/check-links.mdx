@@ -1,0 +1,80 @@
+---
+title: check-links
+description: Check whether URLs used in Media Items are reachable online.
+---
+
+The `check-links` command is part of the [LightNet CLI](/cli/overview).
+
+```bash
+pnpm lightnet check-links
+```
+
+Use this command to check whether the URLs used in your Media Items are still reachable online.
+
+Run it from the root of your LightNet site project.
+
+The command reads every URL from the [content array](/content/media-items/#content) in each Media Item JSON file under `src/content/media/**/*.json`, including uploaded file links and external links. For each unique URL, it sends a lightweight request to check whether the target is available without downloading large files such as videos or PDFs.
+
+Use it when you want to:
+
+- find broken media links before visitors hit them
+- catch deleted or moved external pages
+- verify hosted PDFs, audio files, and video files without downloading the full file
+- keep large LightNet content collections healthy
+
+### Common checks
+
+Check all media links:
+
+```bash
+pnpm lightnet check-links
+```
+
+Adjust the per-link timeout:
+
+```bash
+pnpm lightnet check-links --timeout 15000
+```
+
+### Options
+
+- `--timeout <milliseconds>`: sets the per-link timeout. The default is `10000` milliseconds, or 10 seconds. Use a higher value for slow hosts or large collections that include links to slower external services.
+
+### Read the report
+
+If the report finds no issues, it prints a summary of the link checks, ends with `No issues found. 🎉`, and exits successfully.
+
+If the report lists an **unavailable** link, it appears under **Unavailable links**. It prints the URL, error or HTTP status, and Media Item JSON file that references it. It ends with `Issues found. 🚧` and exits with an error status. Fix the URL in that Media Item JSON file, or restore the missing target, then rerun the check.
+
+If the report lists a **protected** link, it appears under **Protected or forbidden links**. It prints the URL, HTTP status, and Media Item JSON file that references it. A protected link has HTTP status `403 Forbidden`; some websites block automated checks even when the link works in a browser. Protected links do not cause an error. If the report has no unavailable links, it ends with `No unavailable links found. Some links could not be verified. ⚠️` and exits successfully. Open the link shown in the report in a browser to verify it manually.
+
+### Relationship to `check-files`
+
+Checking links for files managed by the LightNet site overlaps with what [`check-files`](/cli/check-files/) does, but the commands answer different questions.
+
+Use `check-files` to audit your site's file storage. It checks whether local files under `public/files` or files in Cloudflare R2 match the file URLs used by your content, and it can also report unused files.
+
+Use `check-links` to audit what visitors can reach online. It checks each content URL, including external pages, external media, and LightNet-managed files after they have a public URL.
+
+Run both when you want full coverage: `check-files` keeps your managed file collection consistent, and `check-links` catches public availability problems such as deleted external pages, moved files, host errors, or a deployed file URL that no longer responds.
+
+### Site URL
+
+Root-relative URLs need a site URL before they can be checked online:
+
+```json
+{
+  "type": "upload",
+  "url": "/files/example.pdf"
+}
+```
+
+The first time `check-links` finds a root-relative URL, the CLI asks for your site URL and saves it in `lightnet-cli.json`:
+
+```json
+{
+  "siteUrl": "https://your-site.example"
+}
+```
+
+After that, `/files/example.pdf` is checked as `https://your-site.example/files/example.pdf`.

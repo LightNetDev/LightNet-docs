@@ -9,16 +9,16 @@ Analytics can help you understand how people use your media library, which pages
 You can collect those insights without using cookies or building visitor profiles.
 
 We recommend [Plausible](https://plausible.io/) for LightNet sites because it is privacy-friendly and easy to add.
-You can also use another analytics provider by adding its script to the document head.
+
+Plausible does not use cookies and does not require a cookie banner for standard pageview analytics.
+It is a paid service, which means your visitors do not pay with their personal data.
 
 ## Set up Plausible
-
-[Plausible](https://plausible.io/) does not use cookies and does not require a cookie banner for standard pageview analytics.
-It is a paid service, which means your visitors do not pay with their personal data.
+For full set up instructions, see Plausible Analytics' [Get Started](https://plausible.io/docs/) documentation.
 
 <Steps>
 1. Create a Plausible account.
-2. In Plausible, add your LightNet site as a new website.
+2. In Plausible, add your production domain as a new website, for example `your-site.example`.
 3. Select the **NPM installation** instructions.
 4. In your LightNet project, add the Plausible integration:
     ```bash
@@ -32,7 +32,7 @@ It is a paid service, which means your visitors do not pay with their personal d
     import plausibleAnalytics from "@lightnet/plausible-analytics"
 
     export default defineConfig({
-      site: "https://your-site.com",
+      site: "https://your-site.example",
       integrations: [
         lightnet({
           /* Your LightNet configuration */
@@ -41,17 +41,23 @@ It is a paid service, which means your visitors do not pay with their personal d
       ],
     });
     ```
-6. Deploy your site.
-7. Open Plausible and verify that visits are being recorded.
+6. Deploy your site, then visit the deployed site.
+7. Open Plausible and verify that visits are being recorded. If you need help verifying the installation, see Plausible's [troubleshooting guide](https://plausible.io/docs/troubleshoot-integration).
 </Steps>
 
 <Aside type="caution">
 The `site` value must be the real public URL of your deployed site. Plausible uses it to attach analytics events to the right domain.
 </Aside>
 
-## Use another provider
+## Other analytics approaches
+We recommend using a simple client-side analytics integration for most LightNet sites, especially [Plausible](https://plausible.io/).
 
-You can use another analytics provider by adding its script with LightNet's [`headComponent` config option](/build/configuration/reference/#headcomponent).
+Server-side approaches are also possible, including edge functions, workers, or custom logging pipelines, but they are usually more complex to implement and maintain.
+They are outside the scope of this guide.
+
+## Use a different client-side provider
+
+If you prefer a different client-side analytics provider, you can add its script with LightNet's [`headComponent` config option](/build/configuration/reference/#headcomponent).
 This adds a custom Astro component to the HTML `<head>` of every page.
 
 <Steps>
@@ -72,7 +78,7 @@ This adds a custom Astro component to the HTML `<head>` of every page.
     import lightnet from "lightnet";
 
     export default defineConfig({
-      site: "https://your-site.com",
+      site: "https://your-site.example",
       integrations: [
         lightnet({
           headComponent: "src/CustomHead.astro",
