@@ -55,6 +55,17 @@ export default defineConfig({
                 items: [{ slug: "ministry-docs/start-here/getting-started" }],
               },
               {
+                label: "Plan",
+                items: [
+                  {
+                    label: "Concepts",
+                    items: [
+                      { slug: "ministry-docs/concepts/user-experience" },
+                    ],
+                  },
+                ],
+              },
+              {
                 label: "Resources",
                 items: [{ slug: "ministry-docs/resources/glossary" }],
               },
@@ -178,14 +189,7 @@ export default defineConfig({
               },
             ],
           },
-        ], {
-          exclude: [
-            "/ministry-docs/administration/**",
-            "/ministry-docs/build/**",
-            "/ministry-docs/concepts/**",
-            "/ministry-docs/plan/**",
-          ],
-        }),
+        ]),
         announcement({
           announcements: [
             {
