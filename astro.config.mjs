@@ -1,9 +1,10 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import starlightLinksValidator from "starlight-links-validator";
-import starlightLlmsTxt from "starlight-llms-txt";
-import starlightAnnouncement from "starlight-announcement";
+import linksValidator from "starlight-links-validator";
+import llmsTxt from "starlight-llms-txt";
+import announcement from "starlight-announcement";
+import sidebarTopics from "starlight-sidebar-topics";
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +18,7 @@ export default defineConfig({
           tag: "script",
           attrs: {
             async: true,
-            src: "https://plausible.io/js/pa-lvbjEZBNHGmir95L5sKqA.js",
+            src: "https://plausible.io/js/pa-fXd-Zxar2A8V5g75juI8t.js",
           },
         },
         {
@@ -42,126 +43,158 @@ export default defineConfig({
       editLink: {
         baseUrl: "https://github.com/LightNetDev/lightnet-docs/edit/main/",
       },
-      sidebar: [
-        {
-          label: "Start here",
-          items: [
-            { slug: "start-here/getting-started" },
-            { slug: "start-here/recommended-skills" },
-            { slug: "start-here/setup-checklist" },
-          ],
-        },
-        {
-          label: "Concepts",
-          items: [
-            { slug: "concepts/media-site-structure" },
-            { slug: "concepts/architecture" },
-            { slug: "concepts/collaboration" },
-          ],
-        },
-        {
-          label: "Build",
-          items: [
-            { slug: "build/astro" },
-            {
-              label: "Global configuration",
-              items: [
-                { slug: "build/configuration/initialize-configuration" },
-                { slug: "build/configuration/set-logo" },
-                { slug: "build/configuration/set-favicon" },
-                { slug: "build/configuration/set-main-menu" },
-                { slug: "build/configuration/set-primary-color" },
-                { slug: "build/configuration/reference" },
-              ],
-            },
-            {
-              label: "Internationalization",
-              items: [
-                { slug: "build/i18n/fundamentals" },
-                { slug: "build/i18n/add-language" },
-                { slug: "build/i18n/custom-site-strings" },
-                { slug: "build/i18n/astro-locals-i18n" },
-              ],
-            },
-            {
-              label: "Pages",
-              items: [
-                { slug: "build/pages/fundamentals" },
-                { slug: "build/pages/initialize-homepage" },
-                { slug: "build/pages/about-page" },
-                { slug: "build/pages/section" },
-                { slug: "build/pages/hero-section" },
-                { slug: "build/pages/media-gallery-section" },
-                { slug: "build/pages/categories-section" },
-                { slug: "build/pages/search-section" },
-                { slug: "build/pages/highlight-section" },
-                { slug: "build/pages/video-player" },
-                { slug: "build/pages/media-list" },
-                { slug: "build/pages/search-input" },
-                { slug: "build/pages/custom-components" },
-                { slug: "build/pages/query-media-items" },
-                { slug: "build/pages/create-internal-links" },
-                { slug: "build/pages/footer" },
-              ],
-            },
-          ],
-        },
-        {
-          label: "Add content",
-          items: [
-            { slug: "content/fundamentals" },
-            { slug: "content/media-items" },
-            { slug: "content/media-types" },
-            { slug: "content/categories" },
-            { slug: "content/media-collections" },
-            { slug: "content/administration-ui" },
-          ],
-        },
-        {
-          label: "Deploy",
-          items: [
-            { slug: "deploy/hosting" },
-            { slug: "deploy/search-engines" },
-            { slug: "deploy/file-storage" },
-            { slug: "deploy/analytics" },
-          ],
-        },
-        {
-          label: "Run",
-          items: [
-            { slug: "run/update" },
-            { slug: "run/monitor" },
-            {
-              label: "Major upgrade guides",
-              items: [{ slug: "run/upgrade-to/v4", label: "v4.0" }],
-            },
-          ],
-        },
-        {
-          label: "LightNet CLI",
-          items: [
-            { slug: "cli/overview" },
-            { slug: "cli/check-files" },
-            { slug: "cli/check-links" },
-            { slug: "cli/check-translations" },
-            { slug: "cli/r2" },
-          ],
-        },
-        {
-          label: "Resources",
-          items: [
-            { slug: "resources/error-reference" },
-
-            { slug: "resources/versions" },
-          ],
-        },
-      ],
       plugins: [
-        starlightAnnouncement({
-          enabled: false,
+        sidebarTopics([
+          {
+            label: "Ministry Documentation",
+            link: "/ministry-docs/start-here/getting-started",
+            icon: "open-book",
+            items: [
+              {
+                label: "Start here",
+                items: [{ slug: "ministry-docs/start-here/getting-started" }],
+              },
+              {
+                label: "Plan",
+                items: [
+                  {
+                    label: "Concepts",
+                    items: [
+                      { slug: "ministry-docs/concepts/user-experience" },
+                    ],
+                  },
+                ],
+              },
+              {
+                label: "Resources",
+                items: [{ slug: "ministry-docs/resources/glossary" }],
+              },
+            ],
+          },
+          {
+            label: "Developer Documentation",
+            link: "/start-here/getting-started",
+            icon: "seti:json",
+            items: [
+              {
+                label: "Start here",
+                items: [
+                  { slug: "start-here/getting-started" },
+                  { slug: "start-here/recommended-skills" },
+                  { slug: "start-here/setup-checklist" },
+                ],
+              },
+              {
+                label: "Concepts",
+                items: [
+                  { slug: "concepts/media-site-structure" },
+                  { slug: "concepts/architecture" },
+                  { slug: "concepts/collaboration" },
+                ],
+              },
+              {
+                label: "Build",
+                items: [
+                  { slug: "build/astro" },
+                  {
+                    label: "Global configuration",
+                    items: [
+                      { slug: "build/configuration/initialize-configuration" },
+                      { slug: "build/configuration/set-logo" },
+                      { slug: "build/configuration/set-favicon" },
+                      { slug: "build/configuration/set-main-menu" },
+                      { slug: "build/configuration/set-primary-color" },
+                      { slug: "build/configuration/reference" },
+                    ],
+                  },
+                  {
+                    label: "Internationalization",
+                    items: [
+                      { slug: "build/i18n/fundamentals" },
+                      { slug: "build/i18n/add-language" },
+                      { slug: "build/i18n/custom-site-strings" },
+                      { slug: "build/i18n/astro-locals-i18n" },
+                    ],
+                  },
+                  {
+                    label: "Pages",
+                    items: [
+                      { slug: "build/pages/fundamentals" },
+                      { slug: "build/pages/initialize-homepage" },
+                      { slug: "build/pages/about-page" },
+                      { slug: "build/pages/section" },
+                      { slug: "build/pages/hero-section" },
+                      { slug: "build/pages/media-gallery-section" },
+                      { slug: "build/pages/categories-section" },
+                      { slug: "build/pages/search-section" },
+                      { slug: "build/pages/highlight-section" },
+                      { slug: "build/pages/video-player" },
+                      { slug: "build/pages/media-list" },
+                      { slug: "build/pages/search-input" },
+                      { slug: "build/pages/custom-components" },
+                      { slug: "build/pages/query-media-items" },
+                      { slug: "build/pages/create-internal-links" },
+                      { slug: "build/pages/footer" },
+                    ],
+                  },
+                ],
+              },
+              {
+                label: "Add content",
+                items: [
+                  { slug: "content/fundamentals" },
+                  { slug: "content/media-items" },
+                  { slug: "content/media-types" },
+                  { slug: "content/categories" },
+                  { slug: "content/media-collections" },
+                  { slug: "content/administration-ui" },
+                ],
+              },
+              {
+                label: "Deploy",
+                items: [
+                  { slug: "deploy/hosting" },
+                  { slug: "deploy/search-engines" },
+                  { slug: "deploy/file-storage" },
+                  { slug: "deploy/analytics" },
+                ],
+              },
+              {
+                label: "Run",
+                items: [
+                  { slug: "run/update" },
+                  { slug: "run/monitor" },
+                  {
+                    label: "Major upgrade guides",
+                    items: [{ slug: "run/upgrade-to/v4", label: "v4.0" }],
+                  },
+                ],
+              },
+              {
+                label: "LightNet CLI",
+                items: [
+                  { slug: "cli/overview" },
+                  { slug: "cli/check-files" },
+                  { slug: "cli/check-links" },
+                  { slug: "cli/check-translations" },
+                  { slug: "cli/r2" },
+                ],
+              },
+              {
+                label: "Resources",
+                items: [
+                  { slug: "resources/error-reference" },
+                  { slug: "resources/versions" },
+                ],
+              },
+            ],
+          },
+        ]),
+        announcement({
           announcements: [
             {
               id: "v4-release",
+              hideOn: ["/ministry-docs/**"],
               content: "LightNet v4 is here! ",
               link: {
                 text: "Learn how to upgrade your site",
@@ -170,7 +203,7 @@ export default defineConfig({
             },
           ],
         }),
-        starlightLlmsTxt({
+        llmsTxt({
           projectName: "LightNet Developer Docs",
           description:
             "Developer documentation for LightNet, an Astro-based integration for building static media library sites.",
@@ -257,7 +290,7 @@ Recommended reading order:
         }),
         ...(process.env.CHECK_LINKS
           ? [
-              starlightLinksValidator({
+              linksValidator({
                 errorOnLocalLinks: false,
               }),
             ]
