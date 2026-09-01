@@ -57,31 +57,11 @@ export default defineConfig({
               {
                 label: "Plan",
                 items: [
-                  { slug: "ministry-docs/plan/planning-a-media-library" },
                   {
                     label: "Concepts",
                     items: [
                       { slug: "ministry-docs/concepts/user-experience" },
                       { slug: "ministry-docs/concepts/languages" },
-                      {
-                        slug: "ministry-docs/concepts/media-library-structure",
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                label: "Build",
-                items: [{ slug: "ministry-docs/build/accounts-and-access" }],
-              },
-              {
-                label: "Run",
-                items: [
-                  {
-                    label: "Administration",
-                    items: [
-                      { slug: "ministry-docs/administration/overview" },
-                      { slug: "ministry-docs/administration/create-media-item" },
                     ],
                   },
                 ],
