@@ -4,61 +4,65 @@ description: Understand the main pages and navigation in a LightNet Site
 ---
 
 Users access **Content** provided by a Ministry through a LightNet Site in a web browser.
-The User experience is organized around three main pages and a small number of static
-pages.
+The User experience is organized around three main pages and a small number of Static Pages.
 
 ## Main pages
 
 The three main pages are the Homepage, Search Page, and Media Item Details Page.
 
-```text
-        Homepage
-            |
-      Search Page
-            |
-Media Item Details Page
-```
+<pre>
+{'Homepage ──→ Search Page\n   │            │\n   └────────────┴──→ Media Item Details Page'}
+</pre>
 
 ### Homepage
 
 The Homepage is the starting point for a LightNet Site. It introduces the site and helps
 Users discover the **Media Items** in it. From the Homepage, a User can go to the Search Page,
-select a highlighted Media Item, or open the Main Menu.
+select a Media Item shown on the Homepage, or open the Main Menu.
 
 ### Search Page
 
 The Search Page helps Users find Media Items in the site's **Media Library**. Users can
-search for media and use filters to narrow the results.
+search for Media Items and use filters to narrow the results.
 
 ### Media Item Details Page
 
-Each Media Item has a Media Item Details Page. It provides information about the Content,
-such as its title, description, and language, and provides access to the
-Content.
+When a User selects a Media Item on the Homepage or Search Page, the Media Item Details
+Page opens. It presents information about the Media Item, such as its title and description,
+and provides access to the Content.
 
 ## Header Bar
 
-The Header Bar appears at the top of the LightNet Site. It identifies the site and
-contains an optional logo, the site title, access to the Search Page, the Language
-Selection Menu, and the Main Menu.
+The Header Bar appears at the top of the LightNet Site.
+
+It contains an optional logo and the site title. It also provides access to the Search Page
+and the Main Menu. When a LightNet Site supports more than one **Site Language**, the Header
+Bar also includes the Language Selection Menu.
 
 ### Language Selection Menu
 
-The Language Selection Menu allows Users to choose the **Site Language**. Changing the
-Site Language changes the language of the site's user interface, but does not change the
-**Content Language**.
+The Language Selection Menu allows Users to choose the **Site Language**. The Site Language
+is the language of the site's user interface, including button labels, menus, and other
+user interface elements.
+Changing the Site Language does not change the **Content Language**. See also
+[Languages](/ministry-docs/concepts/languages).
 
 ### Main Menu
 
-The Main Menu is a navigation menu that provides access to Static Pages.
+The Main Menu is a navigation menu that provides access to the Homepage and Search Page.
+It may also provide access to an About Page and other Static Pages.
 
 ## Static Pages
 
-Static Pages contain information about the Ministry or the LightNet Site rather than
-describing a Media Item. They are typically accessed through the Main Menu.
+Static Pages provide additional information for Users of the LightNet Site.
+A Ministry can use them for any information it wants to make available. They are
+typically accessed through the Main Menu.
+In general, a LightNet Site should have only a small number of Static Pages.
 
-Most sites have an About page, although some sites may not need one. In general, a
-LightNet Site should have only a small number of Static Pages.
+### About Page
+
+An About Page is common, although some Ministries may not need one. An About Page can
+share information about the Ministry or the LightNet Site, or provide contact information.
 
 ## Examples of LightNet Sites
 

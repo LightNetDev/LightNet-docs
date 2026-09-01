@@ -8,7 +8,8 @@
 
 Use these terms consistently throughout the docs:
 
-- **Media Library**: A LightNet website.
+- [**Media Library**](/ministry-docs/resources/glossary#media-library): A collection of media
+  content organized and made available by an organization.
 - **Terminal**: A command-line interface.
 
 ## Lists
