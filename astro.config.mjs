@@ -61,6 +61,7 @@ export default defineConfig({
                     label: "Concepts",
                     items: [
                       { slug: "ministry-docs/concepts/content-lifecycle" },
+                      { slug: "ministry-docs/concepts/how-lightnet-works" },
                       { slug: "ministry-docs/concepts/why-lightnet" },
                       { slug: "ministry-docs/concepts/user-experience" },
                       { slug: "ministry-docs/concepts/languages" },

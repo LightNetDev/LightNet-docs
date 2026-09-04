@@ -1,0 +1,61 @@
+---
+title: How LightNet works
+description: How LightNet helps Ministries organize and publish Content
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+LightNet helps a Ministry with **Media Distribution**, the Distribution stage of the
+[Content lifecycle](/ministry-docs/concepts/content-lifecycle). It gives the Ministry a way to
+organize its **Content** in a **Media Library**, publish information about each piece of Content, and
+help people find and access it on the internet.
+
+## From Content to a LightNet Site
+
+<Aside>
+A **Media Library** operated by a Ministry and published using LightNet is called a
+**LightNet Site**.
+
+Each piece of **Content** in a LightNet Site is described by a **Media Item**.
+</Aside>
+
+Media Items can describe Content such as videos, audio, images, and documents.
+A Media Item includes information such as the title, description, language, and type, and gives people access to the Content.
+The Content may be uploaded directly to the LightNet Site or hosted elsewhere and linked to it, such as a video on YouTube.
+This allows the Ministry to publish different kinds of Content in one place.
+
+## Using the LightNet Site
+
+People use the LightNet Site to browse, search for, and access Content. See [User
+experience](/ministry-docs/concepts/user-experience) for more details:
+
+- The Homepage displays selected Content.
+- The Search Page helps people find Content by searching and filtering.
+- Each Media Item has a Media Item Details Page where people can read, listen to, watch,
+  view, open, or download the Content, depending on its **Media Type**.
+
+The Ministry can group Content by type or topic. A **Media Collection** groups related
+Content into a sequence or set, such as the parts of a sermon series.
+
+## Hosting the LightNet Site
+
+A hosting service stores the LightNet Site and any Content stored with it and makes them
+available on the internet.
+
+A **Site Administrator** manages the LightNet Site's files and hosting.
+
+**Technical note:** MediaWorks recommends [GitHub](/deploy/hosting) for storing and managing the site's files and
+[Cloudflare Workers](/deploy/hosting) for making the site available on the internet.
+
+## Managing the LightNet Site
+
+A **Content Administrator** manages the Content on a LightNet Site using the
+[**Administration User Interface**](/content/administration-ui). This is the part of
+LightNet where the Content Administrator adds, updates, and organizes Content. Changes
+made there are reflected in the LightNet Site when it is updated.
+
+## Analytics
+
+A Ministry may add analytics to its LightNet Site.
+
+**Technical note:** MediaWorks recommends [Plausible Analytics](/deploy/analytics).
