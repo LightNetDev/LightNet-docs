@@ -47,12 +47,12 @@ export default defineConfig({
         sidebarTopics([
           {
             label: "Ministry Documentation",
-            link: "/ministry-docs/start-here/getting-started",
+            link: "/ministry/start-here/getting-started",
             icon: "open-book",
             items: [
               {
                 label: "Start here",
-                items: [{ slug: "ministry-docs/start-here/getting-started" }],
+                items: [{ slug: "ministry/start-here/getting-started" }],
               },
               {
                 label: "Plan",
@@ -60,18 +60,18 @@ export default defineConfig({
                   {
                     label: "Concepts",
                     items: [
-                      { slug: "ministry-docs/concepts/content-lifecycle" },
-                      { slug: "ministry-docs/concepts/how-lightnet-works" },
-                      { slug: "ministry-docs/concepts/why-lightnet" },
-                      { slug: "ministry-docs/concepts/user-experience" },
-                      { slug: "ministry-docs/concepts/languages" },
+                      { slug: "ministry/concepts/content-lifecycle" },
+                      { slug: "ministry/concepts/how-lightnet-works" },
+                      { slug: "ministry/concepts/why-lightnet" },
+                      { slug: "ministry/concepts/user-experience" },
+                      { slug: "ministry/concepts/languages" },
                     ],
                   },
                 ],
               },
               {
                 label: "Resources",
-                items: [{ slug: "ministry-docs/resources/glossary" }],
+                items: [{ slug: "ministry/resources/glossary" }],
               },
             ],
           },
@@ -198,7 +198,7 @@ export default defineConfig({
           announcements: [
             {
               id: "v4-release",
-              hideOn: ["/ministry-docs/**"],
+              hideOn: ["/ministry/**"],
               content: "LightNet v4 is here! ",
               link: {
                 text: "Learn how to upgrade your site",
