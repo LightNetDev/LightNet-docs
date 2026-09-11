@@ -27,7 +27,7 @@ pnpm lightnet check-files
 Check only images:
 
 ```bash
-pnpm lightnet check-files --scope thumbnails
+pnpm lightnet check-files --scope images
 ```
 
 Check only site-managed content files:
@@ -58,7 +58,7 @@ pnpm lightnet check-files --fix-without-confirm
 
 - `--fix`: removes unused files. It does not repair broken links.
 - `--fix-without-confirm`: removes unused files. Skips the deletion confirmation prompt ⚠️.
-- `--scope <values>`: limits the check to `content-files`, `thumbnails`, or both, separated by commas. By default, both scopes are checked.
+- `--scope <values>`: limits the check to `content-files`, `images`, or both, separated by commas. By default, both scopes are checked.
 
 ### What to fix
 
@@ -69,7 +69,7 @@ The command reports two kinds of issues:
 
 For `--scope content-files` checks, content file links should point to files under `public/files` and use `/files/...` URLs.
 
-For `--scope thumbnails` checks, use `./images/...` references next to your Media Item or Category content. Media Item images live under `src/content/media/images`, and Category images live under `src/content/categories/images`.
+For `--scope images` checks, use `./images/...` references next to your Media Item or Category content. Media Item images live under `src/content/media/images`, and Category images live under `src/content/categories/images`.
 If your site does not have Categories, you do not need to create that directory just for this check.
 
 When a missing content file is reported, the output includes the Media Item JSON filename that references it. Use that filename as your starting point for fixing the link.
