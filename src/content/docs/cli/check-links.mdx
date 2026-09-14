@@ -36,9 +36,16 @@ Adjust the per-link timeout:
 pnpm lightnet check-links --timeout 15000
 ```
 
+Exclude media URLs that are explicitly exempt from checking:
+
+```bash
+pnpm lightnet check-links --exclude '/articles/**' --exclude 'https://internal.example/**'
+```
+
 ### Options
 
 - `--timeout <milliseconds>`: sets the per-link timeout. The default is `10000` milliseconds, or 10 seconds. Use a higher value for slow hosts or large collections that include links to slower external services.
+- `--exclude <pattern>`: skips media content URLs that match the glob pattern. Repeat the option to exclude multiple patterns. Patterns are matched against the original URL in a Media Item's `content[].url` field, before root-relative URLs are resolved using the configured site URL.
 
 ### Read the report
 

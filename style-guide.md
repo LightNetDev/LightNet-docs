@@ -8,7 +8,7 @@
 
 Use these terms consistently throughout the docs:
 
-- [**Media Library**](/ministry-docs/resources/glossary#media-library): A collection of media
+- [**Media Library**](/ministry/resources/glossary#media-library): A collection of media
   content organized and made available by an organization.
 - **Terminal**: A command-line interface.
 
@@ -29,7 +29,7 @@ Use these terms consistently throughout the docs:
 - Full-sentence bullets use sentence case and end with a period.
 - When a bullet starts with a label, use a colon after the label.
 - Prefer `- **Label**: explanation` over `- **Label** - explanation`.
-- Prefer `- \`option\`: explanation` over `- \`option\` - explanation`.
+- Prefer `- \`option\`: explanation`over`- \`option\` - explanation`.
 
 ### Ordered lists
 
