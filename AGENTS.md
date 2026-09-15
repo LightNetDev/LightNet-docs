@@ -20,12 +20,14 @@
 - Preserve the existing frontmatter format.
 - Use sentence case for headings.
 - Use the project's existing terminology and capitalization.
-- For the most important terms in Ministry Documentation, refer to the [Glossary](/ministry-docs/resources/glossary), including `Ministry`, `Content`, `LightNet Site`, and `Administration UI`.
-- Use site-relative links such as `/ministry-docs/...`.
+- For the most important terms in Ministry Documentation, refer to the [Glossary](/ministry/resources/glossary), including `Ministry`, `Content`, `LightNet Site`, and `Administration UI`.
+- Use site-relative links such as `/ministry/...`.
 - Keep claims about prices, performance, hosting, and security consistent with the existing documentation.
 
 ## Verification
 
+- CI runs CSpell against the repository using the configuration in `cspell.json`.
+- When CSpell reports a legitimate project-specific term, add the lowercase spelling to the `words` array in `cspell.json` rather than ignoring the file or disabling the check.
 - Never run `pnpm build`.
 - Ask the user to run `pnpm build` manually instead.
 - Run only targeted checks that do not invoke `pnpm build`.
