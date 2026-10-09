@@ -63,7 +63,7 @@ export default defineConfig({
                       { slug: "ministry/concepts/content-lifecycle" },
                       { slug: "ministry/concepts/how-lightnet-works" },
                       { slug: "ministry/concepts/why-lightnet" },
-                      { slug: "ministry/concepts/user-experience" },
+                      { label: "Site navigation", slug: "ministry/concepts/site-navigation" },
                       { slug: "ministry/concepts/languages" },
                     ],
                   },
