@@ -30,6 +30,7 @@
 ## Verification
 
 - CI runs CSpell against the repository using the configuration in `cspell.json`.
+- Do not run CSpell locally during documentation tasks; rely on CI to report spelling issues.
 - When CSpell reports a legitimate project-specific term, add the lowercase spelling to the `words` array in `cspell.json` rather than ignoring the file or disabling the check.
 - Never run `pnpm build`.
 - Ask the user to run `pnpm build` manually instead.

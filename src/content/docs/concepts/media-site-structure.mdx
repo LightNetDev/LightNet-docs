@@ -1,97 +1,123 @@
 ---
 title: Media library structure
-description: > 
-    This introduces the key terminology and 
-    structure of a LightNet-powered media library. This chapter explains 
-    how media content is organized and navigated, providing clarity 
-    on terms like media items, site language, and content language. 
-    It’s a quick guide to understanding how LightNet works, 
-    helping you become familiar with the core concepts as you explore 
-    the site.
+description: Understand the structure and configuration of a LightNet-powered media library
 ---
 
-This chapter introduces the structure of a media library built with LightNet from a User's perspective.
-Along the way, it explains key **LightNet terminology**, which is used throughout the documentation.
+This page explains the structure of a media library built with LightNet and the implementation
+details relevant to Site Administrators. It also explains key **LightNet terminology** used
+throughout the documentation.
 
 ## Understanding media content in LightNet
 
-LightNet is designed for sharing [**media content**](/content/fundamentals/), which can include these [**media types**](/content/media-types):
+LightNet supports a wide range of media formats in a single Media Library. The four broad
+kinds most sites start with are:
 
 - Videos
-- Audio recordings
+- Audio
 - Images
-- Text (e.g. articles, books, PDFs)
-- Downloadable files
-- Links to external websites
+- Documents
 
-Each piece of media content is represented by a [**media item**](/content/media-items), which contains **metadata** such as:
+[**Media Types**](/content/media-types) are configurable. A site can use format-based names
+such as Videos or Audio, or Ministry-specific names such as Sermons, Books, or Podcasts.
+A Media Library can include multiple Media Types.
+
+A [**media item**](/content/media-items) represents each piece of media content. Its metadata
+is organized into the following fields:
 
 - Title
-- Media type
-- Description
+- Content Language
+- Media Type
 - Cover image
+- Content
+- Date created
+- Description
 - Authors
 - Categories
-- Links to the content
 
-## Navigating a LightNet media library
+Content can be stored on the LightNet Site or hosted elsewhere and linked to it. In a
+Media Item, use `upload` for site-managed files and `link` for external URLs. See
+[Media Items](/content/media-items#content) for details.
 
-Users enter a LightNet-powered site through the [**homepage**](/build/pages/initialize-homepage), a customizable landing page
-that welcomes them and displays a selection of media items in [**gallery views**](/build/pages/media-gallery-section).
+## Site navigation
 
-At the top of the page, they see the [**header bar**](/build/configuration/initialize-configuration), which contains:
-- The **site title**, with an optional site logo.
-- Various **action icons**, which can include Search, Language Selection, and Main Menu.
+See [LightNet Site navigation](/ministry/concepts/site-navigation) for a user-facing
+overview of what Users see and how they navigate a LightNet Site.
+
+## Homepage
+
+The [**homepage**](/build/pages/initialize-homepage) is a customizable landing page. A Site
+Administrator can configure it to display selected media items in [**gallery views**](/build/pages/media-gallery-section).
 
 ![SkateNet homepage](./images/homepage.webp)
 
-### Main menu
+## Search page
 
-The **main menu**, opened via the three-line "hamburger" icon, allows navigation to:
-- Other pages on the same site
-- External links
-
-![Main Menu](./images/mainmenu.webp)
-
-### Language selection
-
-Next to the main menu, Users find the **language selection menu**, where they can choose their preferred
-**site language**. Selecting a different language changes the **locale**, meaning Users are redirected to a version
-of the site in the selected language. However, this does **not** translate media items themselves—titles, descriptions, 
-and other metadata remain in their original **content language**.
-
-![Language Selection](./images/languageselect.webp)
-
-### Search page
-
-The Search Page is accessible from the header bar by clicking the **magnifier icon**. On the **Search Page**, Users can:
-- Search for media items by text
-- Filter by **content language**, **media type**, or **categories**
-    - **Content language** refers to the language in which a media item's content is presented, such as the written 
-        language of a book or the spoken language of a video.
-    - **Media types** define the kind of content, such as "video" or "book."
-    - **Categories** group media items by topic, such as "Theology" or "Life Support."
+The Search Page is accessible from the [**Header Bar**](#header-bar) by clicking the
+**magnifier icon**. It supports:
+- Text searches for media items
+- Filtering by [**Content Language**](/content/media-items#language), [**Media Type**](/content/media-types), or [**Categories**](/content/categories)
 
 ![Search Page](./images/searchpage.webp)
 
-### About page
+## Media item details page
 
-The [**About Page**](/build/pages/about-page) is accessible from the main menu and provides Users with key information
-about the site. This page typically includes:
-
-- A brief **introduction** to the site's purpose and mission.
-- Details about the **organization** or individuals behind the media content.
-- Contact information or links to related resources.
-- Copyright notices and legal disclaimers.
-
-![Image About Page](./images/aboutpage.webp)
-
-
-### Media item details page
-
-
-Selecting a media item from the homepage or search page leads to its **details page**. This page presents:
-- The item's **metadata** (title, description, cover image, authors, etc.)
-- A way to **view the content directly** or navigate to it via external links.
+The Media Item Details Page presents the Media Item's **metadata**, including its title,
+description, cover image, and authors, and provides access to its **Content**.
+The first Content entry is the primary Content, and any remaining entries are additional
+Content. The layout of the Media Item Details Page is determined by its Media Type. The
+selected layout controls how the cover image, Content, and metadata are displayed.
 
 ![Media Item](./images/mediaitem.webp)
+
+## Header bar
+
+The [**Header Bar**](/build/configuration/initialize-configuration) appears at the top of each page and contains:
+- An optional **site logo**
+- **Site title**
+- **Search** icon
+- **Language Selection** menu
+- **Main Menu** icon
+
+### Language selection
+
+The **Language Selection Menu** switches the **Site Language**. Selecting a different
+Site Language changes the **locale** and displays the LightNet Site in the selected language.
+This does **not** translate **Media Items**: their titles, descriptions, and other metadata
+remain in the original **Content Language**.
+
+![Language Selection](./images/languageselect.webp)
+
+### Main menu
+
+The **Main Menu**, opened via the three-line "hamburger" icon, allows navigation to:
+- Internal pages, including Static Pages
+- External websites
+
+The [Main Menu configuration](/build/configuration/set-main-menu) uses the `mainMenu`
+option in `astro.config.mjs`. Each menu item defines a destination and a localized label.
+
+![Main Menu](./images/mainmenu.webp)
+
+## Footer
+
+The optional [**footer**](/build/pages/footer) appears on every page. A Site Administrator
+can configure footer text, links, and a “Powered by LightNet” credit.
+
+## Static pages
+
+Static Pages are custom pages that Site Administrators can create and link from the Main
+Menu or Footer.
+
+### About page
+
+An About Page is a common example of a Static Page. Site Administrators can use it to
+provide information about the Ministry or LightNet Site. See [Create an About Page](/build/pages/about-page) for details.
+
+An About Page might include:
+
+- A brief introduction to the site's purpose and mission
+- Details about the organization or individuals behind the media content
+- Contact information or links to related resources
+- Copyright notices and legal disclaimers
+
+![Example About Page](./images/aboutpage.webp)
