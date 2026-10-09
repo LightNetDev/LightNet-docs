@@ -18,8 +18,11 @@
 ## Editing content
 
 - Preserve the existing frontmatter format.
-- Use sentence case for headings.
-- Use the project's existing terminology and capitalization.
+- Use sentence case for headings: capitalize the first word, proper names, and canonical
+  Glossary terms; lowercase other words. For example, use `Media Item details page`,
+  `Language selection menu`, and `Site Language`.
+- Preserve the project's existing terminology and capitalization. Glossary entry headings
+  should use the canonical capitalization of the defined term.
 - For the most important terms in Ministry Documentation, refer to the [Glossary](/ministry/resources/glossary), including `Ministry`, `Content`, `LightNet Site`, and `Administration UI`.
 - Use site-relative links such as `/ministry/...`.
 - Keep claims about prices, performance, hosting, and security consistent with the existing documentation.
