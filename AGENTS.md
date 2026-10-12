@@ -38,5 +38,8 @@
 
 ## Git
 
+- Before making any edits, check the current branch with `git branch --show-current`.
+- Remind the user to create a feature branch before editing if the current branch is `main`, `master`, another default branch, or detached HEAD.
+- Use lowercase kebab-case for feature branch names. Do not use `/`; prefix new branches with `codex-` (for example, `codex-update-ministry-docs`).
+- Ask the user to create branches; do not create branches yourself.
 - Do not reset, discard, or overwrite unrelated user changes.
-- Ask the user to create a branch when one is required; do not create branches yourself.
