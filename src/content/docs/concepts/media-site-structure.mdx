@@ -10,10 +10,9 @@ throughout the documentation.
 The screenshots on this page are from the running [example-template site](https://example-template.kuuluu.org/),
 built from the [example-template project](https://github.com/LightNetDev/example-template).
 
-## Understanding media content in LightNet
+## Media types
 
-LightNet supports a wide range of media formats in a single Media Library. The four broad
-kinds most sites start with are:
+LightNet supports a wide range of media formats in a single Media Library. Examples include:
 
 - Videos
 - Audio
@@ -22,24 +21,23 @@ kinds most sites start with are:
 
 [**Media Types**](/content/media-types) are configurable. A site can use format-based names
 such as Videos or Audio, or Ministry-specific names such as Sermons, Books, or Podcasts.
-A Media Library can include multiple Media Types.
+A Media Library can include one or more Media Types.
 
-A [**media item**](/content/media-items) represents each piece of media content. Its metadata
-is organized into the following fields:
+## Media items
+
+A [**Media Item**](/content/media-items) represents each piece of media content. Common Media Item
+fields include:
 
 - Title
 - Content Language
 - Media Type
 - Cover image
-- Content
-- Date created
+- Content references (uploaded files or external links)
 - Description
-- Authors
-- Categories
 
-Content can be stored on the LightNet Site or hosted elsewhere and linked to it. In a
-Media Item, use `upload` for site-managed files and `link` for external URLs. See
-[Media Items](/content/media-items#content) for details.
+Each Media Item is represented by its own JSON file in the `src/content/media` folder. The file
+stores the Media Item's metadata and contains references to Content, such as a video, audio file,
+image, or document. The referenced Content may be stored on the LightNet Site or hosted elsewhere.
 
 ## Site navigation
 
@@ -56,7 +54,8 @@ Administrator can configure it to display selected media items in [**gallery vie
 ## Search page
 
 The Search Page is accessible from the [**Header Bar**](#header-bar) by clicking the
-**magnifier icon**. It supports:
+**search magnifier icon**. It supports:
+
 - Text searches for media items
 - Filtering by [**Content Language**](/content/media-items#language), [**Media Type**](/content/media-types), or [**Categories**](/content/categories)
 
@@ -64,17 +63,18 @@ The Search Page is accessible from the [**Header Bar**](#header-bar) by clicking
 
 ## Media item details page
 
-The Media Item Details Page presents the Media Item's **metadata**, including its title,
-description, cover image, and authors, and provides access to its **Content**.
-The first Content entry is the primary Content, and any remaining entries are additional
-Content. The layout of the Media Item Details Page is determined by its Media Type. The
-selected layout controls how the cover image, Content, and metadata are displayed.
+The Media Item Details Page presents information about the Media Item, including its title,
+description, Content Language, Media Type, and cover image, and provides access to its **Content**.
+The layout of the Media Item Details Page is determined by its Media Type. The selected layout
+controls how the cover image, Content, and metadata are displayed.
+See [Media items](/content/media-items) for the complete list of Media Item properties.
 
 ![Media Item](./images/mediaitem.webp)
 
 ## Header bar
 
 The [**Header Bar**](/build/configuration/initialize-configuration) appears at the top of each page and contains:
+
 - An optional **site logo**
 - **Site title**
 - **Search** icon
@@ -85,10 +85,12 @@ The [**Header Bar**](/build/configuration/initialize-configuration) appears at t
 
 ### Language selection
 
-The **Language Selection Menu** switches the **Site Language**. Selecting a different
-Site Language changes the **locale** and displays the LightNet Site in the selected language.
-This does **not** translate **Media Items**: their titles, descriptions, and other metadata
-remain in the original **Content Language**.
+The **Language Selection Menu** is a control in the **Header Bar** that lists the configured
+**Site Languages**. Selecting a different Site Language changes the **locale** and displays the
+LightNet Site in the selected language. This does **not** translate **Media Items**: their titles,
+descriptions, and other metadata remain in the original **Content Language**.
+See [Internationalization fundamentals](/build/i18n/fundamentals) for how to configure Site
+Languages and translations.
 
 ![Language Selection](./images/languageselect.webp)
 
@@ -98,8 +100,8 @@ The **Main Menu**, opened via the three-line "hamburger" icon, allows navigation
 - Internal pages, including Static Pages
 - External websites
 
-The [Main Menu configuration](/build/configuration/set-main-menu) uses the `mainMenu`
-option in `astro.config.mjs`. Each menu item defines a destination and a localized label.
+See [Main Menu configuration](/build/configuration/set-main-menu) for instructions and the
+complete list of menu item properties.
 
 ![Main Menu](./images/mainmenu.webp)
 
