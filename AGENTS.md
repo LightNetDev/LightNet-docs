@@ -13,7 +13,7 @@
 - The site has two documentation sections for different audiences and roles: Developer Documentation for Site Administrators, and Ministry Documentation for Ministries and Content Administrators.
 - Ministry Documentation is written for a primarily non-technical Ministry reader who makes project decisions and approves purchases and subscriptions.
 - A Content Administrator manages and uploads Content through the Administration UI. This reader may be somewhat technically comfortable, but is not expected to be a software developer.
-- A Site Administrator is the software developer who configures and deploys a LightNet Site. The [setup checklist](https://docs.lightnet.community/start-here/setup-checklist/#how-to-use-the-checklist) describes this role and the skills and responsibilities involved.
+- A Site Administrator is the software developer responsible for the technical setup and operation of a LightNet Site. The [setup checklist](https://docs.lightnet.community/start-here/setup-checklist/#how-to-use-the-checklist) describes this role and the skills and responsibilities involved.
 
 ## Editing content
 
@@ -25,6 +25,7 @@
   should use the canonical capitalization of the defined term.
 - For the most important terms in Ministry Documentation, refer to the [Glossary](/ministry/resources/glossary), including `Ministry`, `Content`, `LightNet Site`, and `Administration UI`.
 - Use site-relative links such as `/ministry/...`.
+- Introduce concepts for non-technical Ministry readers with plain definitions and concrete examples. Keep implementation details such as `commonId`, GitHub, Cloudflare, and deployment mechanics in Developer Documentation unless they are essential to the Ministry reader's decision.
 - Keep claims about prices, performance, hosting, and security consistent with the existing documentation.
 
 ## Verification
