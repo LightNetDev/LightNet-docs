@@ -21,12 +21,25 @@
 - Use sentence case for headings: capitalize the first word, proper names, and canonical
   Glossary terms; lowercase other words. For example, use `Media Item details page`,
   `Language selection menu`, and `Site Language`.
-- Preserve the project's existing terminology and capitalization. Glossary entry headings
-  should use the canonical capitalization of the defined term.
+- Preserve the project's terminology, but apply the domain terminology and capitalization
+  rules below consistently. Glossary entry headings should use the canonical capitalization
+  of the defined term.
 - For the most important terms in Ministry Documentation, refer to the [Glossary](/ministry/resources/glossary), including `Ministry`, `Content`, `LightNet Site`, and `Administration UI`.
 - Use site-relative links such as `/ministry/...`.
 - Introduce concepts for non-technical Ministry readers with plain definitions and concrete examples. Keep implementation details such as `commonId`, GitHub, Cloudflare, and deployment mechanics in Developer Documentation unless they are essential to the Ministry reader's decision.
 - Keep claims about prices, performance, hosting, and security consistent with the existing documentation.
+
+## Domain terminology and capitalization
+
+- Lowercase ordinary domain concepts in prose, even when they are defined in the Glossary. Examples include `ministry`, `content`, `media item`, `media library`, `media type`, `media collection`, `user`, `author`, `site language`, and `content language`.
+- Capitalize proper names, product names, and official component names, including `LightNet`, `MediaWorks`, and `Administration UI`.
+- Use bold only when first introducing or defining a domain concept for the intended audience. Do not re-bold terms that were already introduced earlier in the documentation flow.
+- For official page and UI component names, bold the first explanatory use when it introduces the component in context. Do not bold names in headings, navigation lists, diagrams, or later references.
+- Use Markdown backticks only for literal technical identifiers such as types, variables, properties, filenames, and commands.
+- Glossary headings may retain canonical capitalization as labels, but glossary definitions and later prose references follow the lowercase domain-term rules.
+- On the Glossary page, capitalize and bold each defined term so readers can recognize the shared vocabulary. Link the first use of related Glossary terms in each definition to their entries. Do not link a defined term to its own entry.
+- Do not infer capitalization from a Glossary entry alone. Determine whether a term is a proper name, official component name, technical identifier, or ordinary domain concept.
+- When reviewing terminology for the production Ministry site, skip pages with `draft: true` unless explicitly asked to include them.
 
 ## Verification
 
