@@ -44,7 +44,7 @@
   - [ ] Updated the [`about.md` page path and content](https://docs.lightnet.community/build/pages/about-page/)
   - [ ] Updated `/src/translations` as needed, including any missing [built-in LightNet translations](https://docs.lightnet.community/build/i18n/add-language/)
 - [ ] The site admin has removed or replaced all example content included with the starting template, including [media items](https://docs.lightnet.community/content/media-items/), [media types](https://docs.lightnet.community/content/media-types/), [categories](https://docs.lightnet.community/content/categories/), and [media collections](https://docs.lightnet.community/content/media-collections/).
-- [ ] The site admin has [configured the Admin UI](https://docs.lightnet.community/content/administration-ui/), including [GitHub authentication](https://docs.lightnet.community/content/administration-ui/#connect-to-github).
+- [ ] The site admin has [configured the Admin UI](https://docs.lightnet.community/content/administration-ui/), including [GitHub authentication](https://docs.lightnet.community/content/setup-github-auth/).
 - [ ] The site admin has tested uploading a new item through the Admin UI.
 
 ### Optional: File Storage
