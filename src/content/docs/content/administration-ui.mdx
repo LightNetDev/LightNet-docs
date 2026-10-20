@@ -191,39 +191,14 @@ This architecture has several advantages:
 LightNet works with either GitHub and GitLab as Git hosts. We recommend GitHub for new LightNet projects.
 
 <Aside>
-GitHub does not yet support client-only PKCE authentication for this workflow.
-For now, use an auth proxy such as [sveltia/sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth).
-GitHub is planning native support for this flow in the future. Track progress in [GitHub roadmap issue #1153](https://github.com/github/roadmap/issues/1153).
+GitHub does not yet support client-only authentication.
+For now, use an auth proxy such as [LightNetDev/sveltia-cms-auth](https://github.com/LightNetDev/sveltia-cms-auth).
+GitHub is planning native support for this client-only authentication in the future. Track progress in [GitHub roadmap issue #1153](https://github.com/github/roadmap/issues/1153).
 </Aside>
 
 #### Connect to GitHub
 
-Follow these steps to connect the Administration UI to a GitHub repository.
-
-<Steps>
-1. **Host your repository on GitHub**: Make sure your LightNet project is hosted on GitHub. If you still need to create or move the repository, follow the [hosting guide](/deploy/hosting).
-1. **Deploy an auth proxy**: Set up [`sveltia/sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) on Cloudflare Workers. Follow the instructions for setting up GitHub authentication in the [sveltia-cms-auth README](https://github.com/sveltia/sveltia-cms-auth/blob/main/README.md). Copy the public base URL of the deployed proxy.
-1. **Open your project configuration**: Return to your project and open `astro.config.mjs`.
-1. **Configure the backend**: Add the `backend` configuration for your GitHub repository:
-    ```js title="astro.config.mjs" ins={6-10}
-    // ...
-    export default defineConfig({ 
-      integrations: [
-        // ...
-        lightnetSveltiaAdmin({
-            backend: {
-                name: "github",
-                repo: "<Owner>/<Repository Name>",
-                baseUrl: "https://your-auth-proxy.workers.dev",  
-            },
-        })
-      ]    
-    });
-    ```
-    Set `repo` to the GitHub repository path and `baseUrl` to the public URL of your auth proxy service.
-1. **Use the Administration UI**: After your site is deployed, open `/admin` on your website, click the login button, and authorize access with GitHub.
-    You can now edit media items online. If other people also need access, add them as collaborators or grant access through your GitHub organization.
-</Steps>
+Follow the [setup GitHub authentication guide](/content/setup-github-auth) to connect the Administration UI to a GitHub repository.
 
 <Aside>
 Even if you configure a GitHub backend, you can still use a local Administration UI workflow during development.

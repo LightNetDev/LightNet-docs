@@ -63,7 +63,10 @@ export default defineConfig({
                       { slug: "ministry/concepts/content-lifecycle" },
                       { slug: "ministry/concepts/how-lightnet-works" },
                       { slug: "ministry/concepts/why-lightnet" },
-                      { label: "Site navigation", slug: "ministry/concepts/site-navigation" },
+                      {
+                        label: "Site navigation",
+                        slug: "ministry/concepts/site-navigation",
+                      },
                       { slug: "ministry/concepts/languages" },
                     ],
                   },
@@ -151,6 +154,7 @@ export default defineConfig({
                   { slug: "content/categories" },
                   { slug: "content/media-collections" },
                   { slug: "content/administration-ui" },
+                  { slug: "content/setup-github-auth" },
                 ],
               },
               {
