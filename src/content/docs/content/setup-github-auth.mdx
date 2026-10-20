@@ -1,0 +1,83 @@
+---
+title: Setup GitHub authentication
+description: Learn how to setup GitHub authentication for the Admin UI.
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+The Administration UI supports editing content online.
+It does this by connecting to a Git host such as GitHub.
+GitHub does not yet support client only authentication through the browser but needs a thin middle layer to 
+handle the authentication workflow. We use a Cloudflare worker for this.
+
+Follow this guide to setup online authentication with GitHub.
+
+## Step 1. Deploy Cloudflare auth Worker
+
+<Steps>
+1. Deploy the [LightNet/sveltia-cms-auth](https://github.com/LightNetDev/sveltia-cms-auth) worker template to your Cloudflare account.
+You can deploy the template by using [this link](https://deploy.workers.cloudflare.com/?url=https://github.com/lightnetdev/sveltia-cms-auth).
+2. During the deploy setup select:
+    - your GitHub organization to create the repository for this worker
+    - create a **private** repository
+    - project name can be "sveltia-cms-auth" or whatever you would like 
+    - do not yet set `ALLOWED_ORIGINS` and `GITHUB_CLIENT_ID` we will do this in step 3.
+    - leave the defaults for build and deploy commands
+3. Once deployed, open your Cloudflare Workers dashboard, select the sveltia-cms-auth service, 
+then the worker URL (https://sveltia-cms-auth.[SUBDOMAIN].workers.dev) will be displayed. Copy it for Steps 2-4.
+</Steps>
+
+
+## Step 2.Register the Worker as a GitHub OAuth app 
+
+Register a new OAuth application on GitHub.
+
+<Steps>
+1. Open GitHub settings for your organisation.
+2. In the left menu under "Developer Settings" select "OAuth Apps"
+4. Create a "New OAuth App" with these properties
+    - Application name: LightNet Authenticator (or whatever)
+    - Homepage URL: https://github.com/lightnetdev/sveltia-cms-auth (or whatever)
+    - Application description: (can be left empty)
+    - Redirect URI: YOUR_WORKER_URL/callback, do **not** allow `wildcard matching`.
+5. Once registered, click on the Generate a new client secret button. The app’s Client ID and Client Secret will be displayed. 
+We’ll use them in Step 3 below.
+</Steps>
+
+
+## Step 3. Configure the Worker
+
+<Steps>
+1. In your worker project replace the placeholder values in wrangler.jsonc with your configuration:
+    - GITHUB_CLIENT_ID: Client ID from Step 2
+    - ALLOWED_ORIGINS: Set this to your media library domain e.g. `my-library.org`. If you have more than one domain, 
+    you can add a comma separated list of domain names here. Wildcard matching is not supported. The list stops other sites from using your Worker.
+2. In the Cloudflare Worker Dashboard under Settings > Variables and Secrets set. 
+    - GITHUB_CLIENT_SECRET: Client Secret from Step 2; click the Encrypt button to hide it
+</Steps>
+
+## Step 4. Update your Media Library site configuration
+
+<Steps>
+1. **Host your repository on GitHub**: Make sure your LightNet project is hosted on GitHub. If you still need to create or move the repository, follow the [hosting guide](/deploy/hosting).
+1. **Open your media library configuration**: Return to your media library and open `astro.config.mjs`.
+1. **Configure the backend**: Add the `backend` configuration for your GitHub repository:
+    ```js title="astro.config.mjs" ins={6-10}
+    // ...
+    export default defineConfig({ 
+      integrations: [
+        // ...
+        lightnetSveltiaAdmin({
+            backend: {
+                name: "github",
+                repo: "<Owner>/<Repository Name>",
+                baseUrl: "https://your-auth-proxy.workers.dev",  
+            },
+        })
+      ]    
+    });
+    ```
+    Set `repo` to the GitHub repository path and `baseUrl` to the public URL of your auth worker (from step 1.3).
+1. **Use the Administration UI**: After your site is deployed, open `/admin` (or your configured admin path) on your media library, click the login button, and authorize access with GitHub.
+    You can now edit media items online. If other people also need access, add them as collaborators or grant access through your GitHub organization.
+</Steps>
