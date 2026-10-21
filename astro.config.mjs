@@ -127,7 +127,7 @@ export default defineConfig({
                     items: [
                       { slug: "build/pages/fundamentals" },
                       { slug: "build/pages/initialize-homepage" },
-                      { slug: "build/pages/about-page" },
+                      { slug: "build/pages/markdown-page" },
                       { slug: "build/pages/section" },
                       { slug: "build/pages/hero-section" },
                       { slug: "build/pages/media-gallery-section" },
