@@ -41,7 +41,7 @@
 - [ ] The site admin has [configured site and content languages](https://docs.lightnet.community/build/i18n/add-language/)
 - [ ] The site admin has completed an initial translation of the site into the configured languages (AI-assisted translation is acceptable).
   - [ ] Updated [`astro.config.mjs`](https://docs.lightnet.community/build/configuration/initialize-configuration)
-  - [ ] Updated the [`about.md` page path and content](https://docs.lightnet.community/build/pages/about-page/)
+  - [ ] Updated the [`about.md` page path and content](https://docs.lightnet.community/build/pages/markdown-page/)
   - [ ] Updated `/src/translations` as needed, including any missing [built-in LightNet translations](https://docs.lightnet.community/build/i18n/add-language/)
 - [ ] The site admin has removed or replaced all example content included with the starting template, including [media items](https://docs.lightnet.community/content/media-items/), [media types](https://docs.lightnet.community/content/media-types/), [categories](https://docs.lightnet.community/content/categories/), and [media collections](https://docs.lightnet.community/content/media-collections/).
 - [ ] The site admin has [configured the Admin UI](https://docs.lightnet.community/content/administration-ui/), including [GitHub authentication](https://docs.lightnet.community/content/setup-github-auth/).
@@ -92,7 +92,7 @@
 - [ ] The site admin has [configured the homepage hero section](https://docs.lightnet.community/build/pages/hero-section/) with the title, subtitle, and hero image
 - [ ] The site admin has [added media gallery sections](https://docs.lightnet.community/build/pages/media-gallery-section/) to the homepage, if required
 - [ ] The site admin has [added a category overview section](https://docs.lightnet.community/build/pages/categories-section/), if categories are being used
-- [ ] The ministry has provided content for the [About page](https://docs.lightnet.community/build/pages/about-page/), and the site admin has published it
+- [ ] The ministry has provided content for the [About page](https://docs.lightnet.community/build/pages/markdown-page/), and the site admin has published it
 - [ ] Optional: Legal pages (such as an imprint and privacy policy) have been created
 
 ### Site Configuration

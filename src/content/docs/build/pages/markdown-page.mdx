@@ -1,17 +1,27 @@
 ---
-title: Create an markdown page
+title: Create a Markdown page
 description: >
-  How to create an markdown page for your LightNet media site. 
-  Using the example of an about page is a common page that provides information about your ministry or community.
+  Create a Markdown page for your LightNet site, write its content in each site language,
+  and add it to the main menu using an about page as an example.
 ---
 
 import { FileTree, Steps } from "@astrojs/starlight/components";
 
-This chapter guides you through creating a markdown page. It uses the example of an about page.
-The about page is a common page that provides information about your ministry or community.
+Markdown pages are useful for text-focused pages such as an introduction to your ministry, contact information, or frequently asked questions.
+Markdown lets you write headings, paragraphs, lists, links, and images in a plain text file.
+LightNet provides a layout that displays this content within your site's design, including the header and navigation.
+
+This guide shows you how to create a Markdown page, using an about page as an example.
+An about page introduces your ministry or community; you can follow the same steps to create other text-focused pages.
+You will create a file for each site language, add the page content, and link to the page from the main menu.
+The example uses English and German, but you can use the same approach for your site's languages.
+
+If you are new to how file paths become page URLs, read [Page fundamentals](/build/pages/fundamentals) first.
+
+## Create the page
 
 <Steps>
-    1. **Create Files**: Start by creating a markdown file for each locale.
+    1. Create a Markdown file for each site language in its locale folder under `src/pages/`.
         For example, if your site supports English and German, you would create the following files:
         <FileTree>
         - src
@@ -22,7 +32,7 @@ The about page is a common page that provides information about your ministry or
               - about.md
         </FileTree>
 
-    1. **Add file content**: Use [Markdown syntax](https://learnxinyminutes.com/markdown/) to write your content. The content of the `/en/about.md` file could look like this:
+    1. Add the layout, title, and page content to each file. Use [Markdown syntax](https://learnxinyminutes.com/markdown/) to write your content. For example:
 
         ```markdown title="src/pages/en/about.md"
         ---
@@ -32,16 +42,20 @@ The about page is a common page that provides information about your ministry or
 
         # About
 
-        Some text about your ministry or community.
+        Learn about our ministry and the community we serve.
 
-        ![Community Picture](../../assets/my-community-picture.jpg)
+        ![Our community gathered together](../../assets/my-community-picture.jpg)
         ```
 
-        Set the layout to `lightnet/layouts/MarkdownPage.astro`. This makes sure your page includes the header and looks good on all screen sizes.
-        You can also create your own layout if you want to customize the look of the page.
-        Astro takes care of optimizing your images that are referenced in the markdown file.
+        The `layout` field selects LightNet's Markdown page layout, which includes the site header and adapts to different screen sizes.
+        The `title` field sets the page title; the `# About` heading appears in the page content.
+        You can also create your own layout to customize the page's appearance.
+
+        For the image in this example, place your image at `src/assets/my-community-picture.jpg`, or update the relative path to match your file.
+        Astro optimizes local images referenced in Markdown.
+        Add the translated title, heading, and content to `src/pages/de/about.md` using the same layout.
         
-    1. **Add About to the main menu**: Add the following code to the `astro.config.mjs` file:
+    1. Add an entry to `mainMenu` in your existing LightNet configuration in `astro.config.mjs`:
         ```js title="astro.config.mjs" ins={5-9}
         export default defineConfig({
           integrations: [
@@ -58,7 +72,10 @@ The about page is a common page that provides information about your ministry or
           ],
         });
         ```
-    1. **Translate the menu label directly in config**: For each site language, add the translated label to the locale map used in the previous step.
+        Use `/about` as the link destination. LightNet adds the current locale automatically, so the menu links to `/en/about` or `/de/about`.
+        See [Set the main menu](/build/configuration/set-main-menu) for more options.
+
+    1. Translate the menu label for each site language in the `label` map from the previous step.
         For example:
         ```js title="astro.config.mjs"
         label: {
@@ -66,4 +83,6 @@ The about page is a common page that provides information about your ministry or
           de: "Über uns",
         }
         ```
-    </Steps>
+</Steps>
+
+Open `/en/about` and `/de/about` on your local development site to check the content, image, and menu labels in each language.
