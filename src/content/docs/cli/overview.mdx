@@ -14,6 +14,30 @@ From the root of your LightNet site project, add the CLI as a development depend
 pnpm add -D @lightnet/cli@latest
 ```
 
+## Update
+
+From the root of your LightNet site project, check whether a newer CLI version is available:
+
+```bash
+pnpm outdated @lightnet/cli
+```
+
+If the CLI is up to date, the command produces no output. Otherwise, it shows a table like this:
+
+```text
+┌─────────────────────┬─────────┬────────┐
+│ Package             │ Current │ Latest │
+├─────────────────────┼─────────┼────────┤
+│ @lightnet/cli (dev) │ 4.4.2   │ 4.8.1  │
+└─────────────────────┴─────────┴────────┘
+```
+
+To update to the latest version, run:
+
+```bash
+pnpm add -D @lightnet/cli@latest
+```
+
 ## Usage
 
 Run LightNet CLI commands with:
