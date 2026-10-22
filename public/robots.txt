@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://docs.lightnet.community/sitemap-index.xml
