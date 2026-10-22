@@ -18,7 +18,7 @@ Use it to monitor pages of your LightNet site, such as the homepage.
 The action uses `curl` to request the URL from within GitHub Actions.
 
 - If you provide `expected-text`, the action downloads the response body and checks that the exact text appears in it.
-- If you omit `expected-text`, the action checks that the URL is available without downloading the full response body.
+- If you omit `expected-text`, the action sends a `GET` range request to check that the URL is available while requesting only one byte of the response body.
   This is useful for large files such as PDFs, MP3s, or MP4s.
 - The action retries transient request failures up to three times.
 - When a check fails, the workflow fails and writes details to the GitHub Actions step summary.
@@ -96,8 +96,8 @@ jobs:
           url: https://files.your-site.example/file.pdf
 ```
 
-In this mode, the action first sends a `HEAD` request. If the server does not accept that request, it falls back
-to a one-byte range request.
+In this mode, the action sends a `GET` request with a `Range: bytes=0-0` header to request only the first byte
+of the response body.
 
 ## Monitor multiple pages
 
@@ -157,7 +157,7 @@ The action fails when:
 - `url` is missing.
 - The HTTP request fails.
 - `expected-text` is provided but is not found in the response body.
-- `expected-text` is omitted and the URL does not return a successful response to either a `HEAD` request or a one-byte range request.
+- `expected-text` is omitted and the URL does not return a successful response to the `GET` range request.
 
 When `expected-text` is missing from a response, the workflow log includes a truncated preview of the response body
 to help you debug the failure.

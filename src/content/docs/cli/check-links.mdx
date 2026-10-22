@@ -13,7 +13,7 @@ Use this command to check whether the URLs used in your Media Items are still re
 
 Run it from the root of your LightNet site project.
 
-The command reads every URL from the [content array](/content/media-items/#content) in each Media Item JSON file under `src/content/media/**/*.json`, including uploaded file links and external links. For each unique URL, it sends a lightweight request to check whether the target is available without downloading large files such as videos or PDFs.
+The command reads every URL from the [content array](/content/media-items/#content) in each Media Item JSON file under `src/content/media/**/*.json`, including uploaded file links and external links. For each unique URL, it sends a `GET` range request to check whether the target is available while requesting only a small part of the response body. This keeps checks lightweight for large files such as videos or PDFs.
 
 Use it when you want to:
 
