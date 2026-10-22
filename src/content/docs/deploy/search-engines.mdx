@@ -88,7 +88,15 @@ See also [Understand the limitations of a `robots.txt` file](https://developers.
 
 ## Improve search engine performance
 
-Start by allowing search engines to crawl and index the pages you want people to find.
+LightNet automatically generates sitemaps and `robots.txt` for your site.
+These files help search engines discover and crawl your content:
+
+- A sitemap lists page URLs, helping search engines find pages without relying only on links from other pages or sites. This is especially useful for a large media library or newly added content.
+- A `robots.txt` file provides instructions about which parts of the site search engines can crawl. It can also tell search engines where to find a sitemap.
+
+LightNet generates these files for you, so you do not need to maintain them by hand.
+For more background, see Google's [sitemap overview](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview) and [introduction to robots.txt](https://developers.google.com/search/docs/crawling-indexing/robots/intro).
+
+To benefit from this discovery, allow search engines to crawl and index the pages you want people to find.
 LightNet allows indexing by default, so leave `disallowSearchIndexing` unset or set it to `false` for those pages.
-If search engines discover your site, they may include its pages in search results.
-Allowing indexing does not guarantee inclusion or a particular ranking.
+Sitemaps and crawling instructions help search engines find your content, but do not guarantee inclusion in search results or a particular ranking.
