@@ -1,16 +1,17 @@
 ---
-title: Configure search engine indexing
+title: Configure search engines
 description: How to configure your site for search engines.
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-LightNet has settings for asking search engines, such as Google, whether to include content from your site in search results.
+LightNet allows search engines, such as Google, to index your site by default.
+You can ask them to exclude your whole site or individual pages from search results.
 
-## Indexing options
+## Hide from search engines
 
-LightNet supports search-indexing control at the site and page level.
-When you request noindex, LightNet adds this robots meta tag to the `<head>` of the generated HTML:
+Set `disallowSearchIndexing` to `true` to ask search engines not to index your site or a page.
+LightNet adds this robots meta tag to the `<head>` of the affected HTML pages:
 
 ```html
 <meta name="robots" content="noindex">
@@ -19,19 +20,11 @@ When you request noindex, LightNet adds this robots meta tag to the `<head>` of 
 See also [Block Search Indexing with `noindex`](https://developers.google.com/search/docs/crawling-indexing/block-indexing) in Google Search Central.
 
 <Aside type="caution" title="Noindex does not restrict access">
-Search engines and other bots on the internet
-are not forced to respect `noindex` directives or `robots.txt` files.
+Pages remain accessible to anyone who has the link.
+Search engines and other bots are not forced to respect `noindex` directives or `robots.txt` files.
 </Aside>
 
-### Indexing enabled by default
-
-By default, LightNet allows search engines to crawl and index your site.
-If search engines discover your site, they may include its pages in search results.
-
-### Request site noindex
-
-If you do not want your site to appear in search results,
-you can ask search engines not to index your site.
+### Hide the whole site
 
 Set `disallowSearchIndexing` to `true` in your LightNet configuration:
 
@@ -49,15 +42,11 @@ export default defineConfig({
 });
 ```
 
-This adds the `noindex` directive to all generated HTML output.
-When a search engine crawls a page, the directive tells it not to include that page in search results.
-The page can still be visited by people who have the link.
+This applies `noindex` to all generated HTML pages unless a page overrides the setting.
 
-### Request page noindex
+### Hide an individual page
 
-If you do not want one page to appear in search results, you can ask search engines not to index it.
-
-For a Markdown file, set `disallowSearchIndexing` in the frontmatter. For example, to request noindex for a [markdown page](/build/pages/markdown-page/):
+For a [Markdown page](/build/pages/markdown-page/), set `disallowSearchIndexing` in the frontmatter:
 
 ```md title="src/pages/en/about.md" ins={3}
 ---
@@ -82,40 +71,12 @@ import { Page } from "lightnet/components";
 </Page>
 ```
 
-### Override site noindex for a page
+The page-level value takes precedence over the site configuration.
+To allow indexing for a page when the whole site uses `noindex`, use `disallowSearchIndexing: false` in its frontmatter or `<Page disallowSearchIndexing={false}>` in its component.
 
-To override a site-wide noindex request, set `disallowSearchIndexing` to `false` for the page. The page-level value takes precedence over the global configuration:
+LightNet does not support requesting `noindex` for individual [media items](/content/media-items/).
 
-For a Markdown file:
-
-```md title="src/pages/en/about.md" ins={3}
----
-layout: "lightnet/layouts/MarkdownPage.astro"
-disallowSearchIndexing: false
----
-
-# About
-
-About this site.
-```
-
-For a page built with the [`Page`](/build/pages/fundamentals/) component:
-
-```astro ins={5}
----
-import { Page } from "lightnet/components";
----
-
-<Page disallowSearchIndexing={false}>
-  <h1>Public page</h1>
-</Page>
-```
-
-### Media Items
-
-LightNet does not support requesting noindex for individual [Media Items](/content/media-items/).
-
-## Do not use `robots.txt`
+### Remove blocking `robots.txt` rules
 
 If your existing LightNet project still uses `robots.txt`, remove the file and use `disallowSearchIndexing` instead.
 
@@ -124,3 +85,10 @@ If a search engine cannot crawl generated HTML, it cannot see the `noindex` dire
 As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
 
 See also [Understand the limitations of a `robots.txt` file](https://developers.google.com/search/docs/crawling-indexing/robots/intro#understand-the-limitations-of-a-robots.txt-file) in Google Search Central.
+
+## Improve search engine performance
+
+Start by allowing search engines to crawl and index the pages you want people to find.
+LightNet allows indexing by default, so leave `disallowSearchIndexing` unset or set it to `false` for those pages.
+If search engines discover your site, they may include its pages in search results.
+Allowing indexing does not guarantee inclusion or a particular ranking.
