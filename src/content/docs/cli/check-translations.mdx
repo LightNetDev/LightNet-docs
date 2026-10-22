@@ -43,10 +43,23 @@ Check translations without running a build or showing a prompt:
 pnpm lightnet check-translations --no-build
 ```
 
+Skip completeness checks for specific translation keys (requires `@lightnet/cli` 4.9.0 or later):
+
+```bash
+pnpm lightnet check-translations --exclude ln.details.edit custom.title
+```
+
+You can also repeat `--exclude` to add more keys:
+
+```bash
+pnpm lightnet check-translations --exclude ln.details.edit --exclude custom.title
+```
+
 ### Options
 
 - `--build`: runs `pnpm build` before checking translations.
 - `--no-build`: skips the build prompt and checks the latest available build output.
+- `--exclude <keys...>`: skips completeness checks for one or more space-separated translation keys. Repeat the option to exclude more keys. Matching is exact and case-sensitive; wildcards are not supported. Exclusions apply to built-in keys, custom keys, and inline translation-map paths. Stale override warnings are still reported for excluded keys.
 
 If the command reports missing translations, add the missing values to the content or template that owns them.
 
