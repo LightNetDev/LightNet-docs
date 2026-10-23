@@ -76,20 +76,10 @@ To allow indexing for a page when the whole site uses `noindex`, use `disallowSe
 
 LightNet does not support requesting `noindex` for individual [media items](/content/media-items/).
 
-### Remove blocking `robots.txt` rules
+### Hide non HTML files
 
-If your existing LightNet project still uses `robots.txt`, remove the file and use `disallowSearchIndexing` instead.
-
-A `robots.txt` rule like `Disallow: /` blocks search engines from crawling your site.
-If a search engine cannot crawl generated HTML, it cannot see the `noindex` directive.
-As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
-
-See also [Understand the limitations of a `robots.txt` file](https://developers.google.com/search/docs/crawling-indexing/robots/intro#understand-the-limitations-of-a-robots.txt-file) in Google Search Central.
-
-### Hide other files
-
-To ask search engines not to index files such as PDFs, add an `X-Robots-Tag: noindex` HTTP response header to the files.
 The `disallowSearchIndexing` setting affects generated HTML pages; it does not add this header to other files served through your site.
+To ask search engines not to index files such as PDFs, add an `X-Robots-Tag: noindex` HTTP response header to the files.
 
 If the domain or subdomain serving your files is proxied through Cloudflare, you can add the header using a **Response Header Transform Rule**.
 For example, to apply `noindex` to PDF files:
@@ -120,6 +110,18 @@ This rule matches URL paths ending in lowercase `.pdf`. Adjust the condition if 
 Search engines must be allowed to crawl the files to discover the header, so do not block those URLs in `robots.txt`.
 
 See Cloudflare's [response header transform rule instructions](https://developers.cloudflare.com/rules/transform/response-header-modification/create-dashboard/) and Google's [documentation for the `X-Robots-Tag` header](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#xrobotstag).
+
+### Remove blocking `robots.txt` rules
+
+If your existing LightNet project still uses `robots.txt`, remove the file and use `disallowSearchIndexing` instead.
+
+A `robots.txt` rule like `Disallow: /` blocks search engines from crawling your site.
+If a search engine cannot crawl generated HTML, it cannot see the `noindex` directive.
+As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
+
+See also [Understand the limitations of a `robots.txt` file](https://developers.google.com/search/docs/crawling-indexing/robots/intro#understand-the-limitations-of-a-robots.txt-file) in Google Search Central.
+
+
 
 ## Improve search engine performance
 
