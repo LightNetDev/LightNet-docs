@@ -3,7 +3,7 @@ title: Configure search engines
 description: How to configure your site for search engines.
 ---
 
-import { Aside } from "@astrojs/starlight/components";
+import { Aside, Steps } from "@astrojs/starlight/components";
 
 LightNet allows search engines, such as Google, to index your site by default.
 You can ask them to exclude your whole site or individual pages from search results.
@@ -85,6 +85,41 @@ If a search engine cannot crawl generated HTML, it cannot see the `noindex` dire
 As a result, the page may still appear in search results if the search engine already knows about it from before or finds links to it elsewhere.
 
 See also [Understand the limitations of a `robots.txt` file](https://developers.google.com/search/docs/crawling-indexing/robots/intro#understand-the-limitations-of-a-robots.txt-file) in Google Search Central.
+
+### Hide other files
+
+To ask search engines not to index files such as PDFs, add an `X-Robots-Tag: noindex` HTTP response header to the files.
+The `disallowSearchIndexing` setting affects generated HTML pages; it does not add this header to other files served through your site.
+
+If the domain or subdomain serving your files is proxied through Cloudflare, you can add the header using a **Response Header Transform Rule**.
+For example, to apply `noindex` to PDF files:
+
+<Steps>
+
+1. Open the **Cloudflare dashboard** and select the **domain** serving your files.
+2. Go to **Rules > Overview > Create rule > Response Header Transform Rule**.
+3. Enter a descriptive rule name, such as "Do not index PDFs".
+4. Under When incoming requests match, select Custom filter expression and configure:
+
+   | Field | Operator | Value |
+   | --- | --- | --- |
+   | URI Path (`http.request.uri.path`) | ends with | `.pdf` |
+
+5. Under Modify response header, configure:
+
+   | Operation | Header name | Value |
+   | --- | --- | --- |
+   | Set static | `X-Robots-Tag` | `noindex` |
+
+6. Select Deploy to activate the rule.
+7. Open your browser's developer tools and select the Network tab. Open or reload a PDF URL from your site, select the PDF request, and inspect its response headers. You should see `X-Robots-Tag: noindex`.
+
+</Steps>
+
+This rule matches URL paths ending in lowercase `.pdf`. Adjust the condition if your files use other extensions or paths.
+Search engines must be allowed to crawl the files to discover the header, so do not block those URLs in `robots.txt`.
+
+See Cloudflare's [response header transform rule instructions](https://developers.cloudflare.com/rules/transform/response-header-modification/create-dashboard/) and Google's [documentation for the `X-Robots-Tag` header](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#xrobotstag).
 
 ## Improve search engine performance
 
