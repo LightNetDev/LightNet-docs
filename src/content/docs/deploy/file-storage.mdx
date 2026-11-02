@@ -131,6 +131,11 @@ Before you start, finish the R2 setup above and choose the public file URL you w
     "https://files.your-site.example/
     ```
     Keep the trailing slash so existing nested paths stay intact.
+1. **Redirect outdated file links**: To keep bookmarks and shared `/files/` links working, open your site's domain in Cloudflare and go to Rules > Overview > Create rule > Redirect Rule.
+    Select Wildcard pattern, set Request URL to `https://your-site.example/files/*`, and set Target URL to `https://files.your-site.example/${1}`.
+    Choose status code `301`, enable Preserve query string, and deploy the rule. The site's hostname must be proxied through Cloudflare.
+    Include your storage prefix in the target URL if you configured one, and test an old file link to confirm it reaches the uploaded file.
+    See Cloudflare's [redirect rule guide](https://developers.cloudflare.com/rules/url-forwarding/single-redirects/create-dashboard/) for details.
 1. **Allow the file domain in LightNet**: In `astro.config.mjs`, add the new file storage domain to `internalDomains` so LightNet treats the uploaded files as internal media:
     ```js title="astro.config.mjs"
     lightnet({
