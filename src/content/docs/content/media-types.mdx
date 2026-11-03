@@ -48,6 +48,24 @@ The icon that represents this type. For example, this could be a play icon for a
 It must be in the format `lucide--[icon-name]`, where `[icon-name]` is the name of an icon from
 the [Lucide](https://lucide.dev/icons/) icon set.
 
+### schemaType
+
+type: `"CreativeWork" | "Book" | "Article" | "DigitalDocument" | "AudioObject" | "VideoObject" | "ImageObject" | "SoftwareApplication" | "WebPage"` \
+example: `"Book"` \
+required: `false` \
+default: inferred from the details page layout and content
+
+Sets the Schema.org type of the work described by each media item's JSON-LD structured data.
+This describes what the media item is, independently of its details page layout and downloadable file formats.
+For example, use `"Book"` for a book offered as a PDF and an audio recording. The work is described as a book,
+while its files retain their own structured data types.
+See the [Schema.org CreativeWork reference](https://schema.org/CreativeWork) for descriptions of these types and their properties.
+
+Set this field explicitly to give search engines a more precise description of your media items.
+If omitted, LightNet makes a best-effort inference from the details page layout and content,
+which can produce less detailed structured data. For example, a book may be described only as a general creative work.
+You can also set it using the **Structured Data Type** field in the Administration UI.
+
 ### coverImageStyle
 
 type: `"default" | "book" | "video"` \

@@ -403,6 +403,32 @@ Enable this when editors need direct control over entry URLs and filenames.
 Disable it when you want slugs to be generated automatically from the entry title or name, 
 which reduces the chance of inconsistent slugs.
 
+#### `experimental.summaryLocale`
+
+type: `string` \
+example: `"en"` \
+required: `false` \
+default: the site's default language
+
+Added in `@lightnet/sveltia-admin@4.2.0`.
+Sets the language used for entry summaries and translated labels in the Administration UI.
+Use this when editors need to identify entries in a different language from the site's default language.
+
+The value must match the `code` of a configured site language.
+Make sure entry labels include a translation for this language.
+In translated fields, both the site's default language and the selected summary language are required.
+If omitted, summaries use the site's default language.
+
+For example, to display summaries in English when `"en"` is a configured site language:
+
+```ts title="astro.config.mjs"
+lightnetSveltiaAdmin({
+  experimental: {
+    summaryLocale: "en",
+  },
+})
+```
+
 #### `experimental.fileStorage`
 
 type: `object` \
