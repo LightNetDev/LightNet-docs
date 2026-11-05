@@ -278,6 +278,17 @@ For example this component would add a script to every page:
 <script src="my-js-file.js" defer></script>
 ```
 
+### `disableOpenGraphImages`
+
+type: `boolean` \
+example: `true` \
+required: `false` \
+default: `false`
+
+Set this to `true` to skip generating Open Graph images for media item details pages.
+LightNet uses the media cover images for Open Graph and Twitter previews instead.
+By default, LightNet generates share images that include the cover, title, and authors.
+
 ### `disallowSearchIndexing`
 
 type: `boolean` \
