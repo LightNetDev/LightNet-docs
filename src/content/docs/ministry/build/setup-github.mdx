@@ -4,29 +4,38 @@ title: Set up GitHub
 
 import { Steps } from "@astrojs/starlight/components"
 
-GitHub stores the code and information that describes the content on your
+GitHub is an online service that stores the code and content information for your
 [LightNet site](/ministry/resources/glossary/#lightnet-site). Content administrators
 also use their GitHub accounts to sign in to the
 [Administration UI](/ministry/resources/glossary/#administration-user-interface).
 
-This guide helps your ministry create a GitHub account, set up an organization,
-and give your [site administrator](/ministry/resources/glossary/#site-administrator)
-access to complete the technical setup.
+In this guide, you will create a shared space for your ministry on GitHub and
+invite your [site administrator](/ministry/resources/glossary/#site-administrator)
+to complete the technical setup. You do not need to know how to write code to
+follow these steps.
 
 ## Before you begin
 
-GitHub has two types of accounts you will use:
+You will use two things on GitHub:
 
-- A personal account identifies one person. Each person signs in with their own
-  account.
-- An organization is a shared workspace for your ministry's site and the people
-  who manage it. For example, a ministry called Hope Media might choose the
-  organization name “hope-media”.
+- A personal account is your own sign-in. Each person uses their own account,
+  including your site administrator.
+- An organization is a shared space for your ministry's site. You use your
+  personal account to create it and decide who else can access it. The
+  organization does not have a separate password.
 
-Choose someone at your ministry to create the organization and remain an owner.
-Ask your site administrator for their GitHub username so you can invite them later.
-If your ministry already has a GitHub organization, agree with its owners whether
-to use it for this project, then go to the invitation step.
+Choose a ministry representative to follow this guide and remain responsible for
+the organization. Have these details ready:
+
+- An email address you can access to verify your personal account.
+- A contact email address for the organization that your ministry can continue
+  to access.
+- Your site administrator's GitHub username (the name that identifies their
+  account), so you can invite the right person.
+
+If your ministry already has a GitHub organization, ask one of its owners whether
+you can use it for this project. If they agree, ask them to follow
+[Invite your site administrator](#invite-your-site-administrator) below.
 
 ## Create your account and organization
 
@@ -34,47 +43,78 @@ to use it for this project, then go to the invitation step.
 
 1. Create a personal account
 
-   Open [GitHub signup](https://github.com/signup), follow the prompts, and verify
-   your email address. If you already have a personal account, sign in to it.
+   If you already have a personal GitHub account, sign in to it and continue to
+   the next step.
+
+   Otherwise, open [GitHub signup](https://github.com/signup) and follow the
+   prompts to choose a username and create your account. Check your email and
+   complete GitHub's email verification.
 
 2. Create the ministry's organization
 
-   While signed in, open [Create a GitHub organization](https://github.com/account/organizations/new) and create a **free** GitHub organisation.
+   While signed in, open
+   [Create a GitHub organization](https://github.com/account/organizations/new).
+   Choose the GitHub Free plan. See
+   [GitHub's plan information](https://docs.github.com/en/get-started/learning-about-github/githubs-plans)
+   if you need to compare the options.
 
-   Choose an organization name that represents your ministry and enter a contact
-   email address the ministry can continue to access. Complete the remaining
-   prompts. If GitHub offers to invite members during setup, skip that step;
-   you will invite your site administrator below.
+   Enter a name that represents your ministry. For example, Hope Media might
+   choose “hope-media”. If the name is already taken, try a variation such as
+   “hope-media-ministry”. Enter the ministry's contact email address and follow
+   the remaining prompts.
+
+   If GitHub offers to invite people during setup, skip that step. You will invite
+   your site administrator in the next section.
+
+3. Save the organization link
+
+   Open your new organization's page and save its web address so you can find it
+   again. Share this link with your site administrator.
+
+   Your personal account is now an owner of the organization. Keep access to
+   this account so your ministry can continue to manage the organization.
 
 </Steps>
 
 ## Invite your site administrator
 
-The Owner role gives someone full administrative access to the organization.
-For this setup, you will grant that role to your site administrator so they can
-configure the services your site needs. Keep a ministry representative as an owner
-as well, so the ministry retains access and can manage who helps with the site.
-See [GitHub's explanation of organization roles](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
+An owner can manage the organization's settings and decide who has access.
+You will give your site administrator the Owner role so they can complete the
+technical setup. Keep the ministry representative as an owner too, so the
+ministry retains control. See
+[GitHub's explanation of organization roles](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
 
 <Steps>
 
 1. Open your organization
 
-   Click your profile picture in GitHub, select Organizations, then select your
-   ministry's organization.
+   In GitHub, click your profile picture at the top right, select
+   **Organizations**, then select your ministry's organization.
 
 2. Send an invitation
 
-   Open the People tab and select Invite member. Search for your site
-   administrator's GitHub username, select the matching account, and click Invite.
-   Under Role in the organization, choose Owner, then select Send invitation.
+   Open the **People** tab and select **Invite member**. Search for your site
+   administrator's GitHub username. Check that you have the right account, then
+   select **Invite**.
+
+   Under **Role in the organization**, choose Owner, then select
+   **Send invitation**.
 
 3. Confirm that the invitation was accepted
 
-   Ask your site administrator to accept the invitation. Return to the People
-   tab and confirm that they appear as an owner. Invitations expire after seven
-   days; if needed, follow
+   Ask your site administrator to open the invitation email from GitHub and
+   accept it. Return to the People tab and check that their account appears with
+   the Owner role.
+
+   Invitations expire after seven days. If they miss the email or the invitation
+   expires, use
    [GitHub's invitation instructions](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization)
-   to retry an expired invitation.
+   to send it again.
 
 </Steps>
+
+## When you are finished
+
+Check that both the ministry representative and the site administrator appear
+as owners on the organization's People tab. Let your site administrator know
+that access is ready; they can now continue with the technical setup.
