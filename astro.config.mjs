@@ -73,6 +73,13 @@ export default defineConfig({
                 ],
               },
               {
+                label: "Build",
+                items: [
+                  { slug: "ministry/build/setup-github" },
+                  { slug: "ministry/build/setup-cloudflare" },
+                ],
+              },
+              {
                 label: "Resources",
                 items: [{ slug: "ministry/resources/glossary" }],
               },

@@ -19,10 +19,10 @@
 
 ### Set up accounts
 
-- [ ] The ministry has [set up a GitHub account](https://docs.lightnet.community/deploy/hosting/#set-up-github)
-- [ ] The ministry has [set up a GitHub organization](https://docs.lightnet.community/deploy/hosting/#set-up-github)
+- [ ] The ministry has [set up a GitHub account](https://docs.lightnet.community/ministry/build/setup-github/#create-your-account-and-organization)
+- [ ] The ministry has [set up a GitHub organization](https://docs.lightnet.community/ministry/build/setup-github/#create-your-account-and-organization)
 - [ ] The ministry has [set up a Cloudflare account](https://docs.lightnet.community/deploy/hosting/#set-up-cloudflare-workers)
-- [ ] The ministry has granted the site admin access to the GitHub organization and Cloudflare account.
+- [ ] The ministry has granted the site admin access to the [GitHub organization](https://docs.lightnet.community/ministry/build/setup-github/#invite-your-site-administrator) and [Cloudflare account](https://docs.lightnet.community/ministry/build/setup-cloudflare/).
 
 ### Initialize the site
 
