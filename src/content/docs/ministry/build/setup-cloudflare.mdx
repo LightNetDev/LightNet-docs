@@ -1,3 +1,108 @@
 ---
-title: Setup Cloudflare
+title: Set up Cloudflare
+description: Create a Cloudflare account for your ministry and invite your site administrator to set up hosting.
 ---
+
+import { Aside, Steps } from "@astrojs/starlight/components"
+
+Cloudflare is an online service that hosts your
+[LightNet site](/ministry/resources/glossary/#lightnet-site), making it available
+to visitors on the internet. You can also use it to buy a domain name, such as
+“hope-media.org”, for your site's web address.
+
+In this guide, you will create an account for your ministry and invite your
+[site administrator](/ministry/resources/glossary/#site-administrator) to complete
+the technical setup. You do not need to know how to write code to follow these
+steps.
+
+## Before you begin
+
+Choose a ministry representative to create the account and keep access to it.
+Have these details ready:
+
+- An email address for the representative that your ministry can continue to
+  access.
+- The email address your site administrator uses to sign in to Cloudflare.
+
+Each person uses their own sign-in. You will invite your site administrator to
+access the ministry's account so they can work on your site.
+
+If your ministry already has a Cloudflare account, agree with the person who
+manages it whether to use it for this project. If they agree, ask them to follow
+[Invite your site administrator](#invite-your-site-administrator) below.
+
+## Create your account
+
+<Steps>
+
+1. Sign up for Cloudflare
+
+   Open [Cloudflare signup](https://dash.cloudflare.com/sign-up) and create a
+   free account using your email address and a password.
+
+   You can also use Continue with GitHub to sign up with your
+   [GitHub account](/ministry/build/setup-github/). Cloudflare uses your GitHub
+   account's primary email address for this option.
+
+2. Verify your email address
+
+   Check your inbox for an email from Cloudflare and follow its verification
+   link. You need a verified email address before you can invite your site
+   administrator.
+
+   <Aside type="note" title="Protect your account">
+
+   We strongly recommend enabling two-factor authentication (2FA) for extra
+   security. This adds a second check when you sign in, such as a code from an
+   app on your phone. Follow
+   [Cloudflare's guide to setting up two-factor authentication](https://developers.cloudflare.com/fundamentals/user-profiles/2fa/).
+   </Aside>
+
+</Steps>
+
+## Invite your site administrator
+
+The Administrator role lets your site administrator configure hosting and change
+subscriptions. It does not let them manage account members or the billing
+profile. Keep the ministry representative's Super Administrator access so the
+ministry can continue to manage who has access. See
+[Cloudflare's explanation of account roles](https://developers.cloudflare.com/fundamentals/manage-members/roles/).
+
+<Steps>
+
+1. Open the member list
+
+   Sign in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select
+   your ministry's account. In the left sidebar, open **Manage account**, then
+   **Members**.
+
+2. Enter your site administrator's email address
+
+   Select **Invite members**. Under **Add email addresses**, enter the email
+   address your site administrator uses for Cloudflare.
+
+3. Choose their access and send the invitation
+
+   Under **Add permission policies**, choose the entire account as the scope
+   (the area they can access) and select the Administrator role. Select
+   **Create policy**, then Invite members.
+
+4. Confirm that the invitation was accepted
+
+   Ask your site administrator to accept Cloudflare's invitation email. Return
+   to Members and check that their status has changed from Pending to Active.
+
+   If they cannot find the email, open the menu beside their pending invitation
+   and select **Resend invite**. See
+   [Cloudflare's invitation instructions](https://developers.cloudflare.com/fundamentals/manage-members/manage/)
+   for help.
+
+</Steps>
+
+## When you are finished
+
+Check that the ministry representative still has Super Administrator access and
+the site administrator has Administrator access. Let your site administrator
+know the account is ready so they can set up hosting and help connect your
+domain name. Agree on any purchases or paid subscriptions with them before
+proceeding.
