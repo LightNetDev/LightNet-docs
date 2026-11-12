@@ -57,13 +57,13 @@ They are outside the scope of this guide.
 
 ## Use a different client-side provider
 
-If you prefer a different client-side analytics provider, you can add its script with LightNet's [`headComponent` config option](/build/configuration/reference/#headcomponent).
+If you prefer a different client-side analytics provider, you can add its script with LightNet's [`inject.head` config option](/build/configuration/reference/#inject-head).
 This adds a custom Astro component to the HTML `<head>` of every page.
 
 <Steps>
-1. Create a component in your LightNet project, for example `src/CustomHead.astro`.
+1. Create a component in your LightNet project, for example `src/components/CustomHead.astro`.
 2. Add your provider's tracking script to the component. This example uses Fathom Analytics:
-    ```astro title="src/CustomHead.astro"
+    ```astro title="src/components/CustomHead.astro"
     ---
     ---
     <script
@@ -73,7 +73,7 @@ This adds a custom Astro component to the HTML `<head>` of every page.
     </script>
     ```
 3. Configure LightNet to use the component:
-    ```js title="astro.config.mjs" {8}
+    ```js title="astro.config.mjs" {8-10}
     import { defineConfig } from "astro/config";
     import lightnet from "lightnet";
 
@@ -81,7 +81,9 @@ This adds a custom Astro component to the HTML `<head>` of every page.
       site: "https://your-site.example",
       integrations: [
         lightnet({
-          headComponent: "src/CustomHead.astro",
+          inject: {
+            head: "./src/components/CustomHead.astro",
+          },
         }),
       ],
     });
