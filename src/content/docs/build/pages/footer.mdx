@@ -76,13 +76,15 @@ Use a custom footer component only if the built-in footer is not enough for your
     </footer>
     ```
 1. **Add translations**: If your footer uses translation keys like in the example above, add the translations to `src/translations`.
-1. **Set the footer in configuration**: Inside `astro.config.mjs`, add a `footerComponent` property to the LightNet integration. This should reference the component created in step 1:
-    ```js title="astro.config.mjs" ins={5}
+1. **Set the footer in configuration**: Inside `astro.config.mjs`, add an `override.footer` property to the LightNet integration. This should reference the component created in step 1:
+    ```js title="astro.config.mjs" ins={5-7}
     export default defineConfig({
         integrations: [
             lightnet({
                 // ...
-                footerComponent: "./src/components/Footer.astro",
+                override: {
+                    footer: "./src/components/Footer.astro",
+                },
             }),
         ],
     })
