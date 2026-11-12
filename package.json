@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
-    "@astrojs/starlight": "^0.42.8",
-    "astro": "^7.4.5",
+    "@astrojs/starlight": "^0.42.10",
+    "astro": "^7.4.10",
     "sharp": "^0.35.5",
     "starlight-announcement": "^2.0.0",
     "starlight-links-validator": "^0.27.0",
@@ -22,5 +22,5 @@
     "starlight-sidebar-topics": "^0.9.0",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@12.16.1"
+  "packageManager": "pnpm@12.18.0"
 }
