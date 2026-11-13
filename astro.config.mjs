@@ -192,6 +192,7 @@ export default defineConfig({
                   { slug: "cli/check-links" },
                   { slug: "cli/check-translations" },
                   { slug: "cli/r2" },
+                  { slug: "cli/setup-github-auth" },
                 ],
               },
               {

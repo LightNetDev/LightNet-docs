@@ -1,0 +1,77 @@
+---
+title: setup-github-auth
+description: Create the GitHub App for the Administration UI and configure your site's Worker to handle sign-in.
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+The `setup-github-auth` command is part of the [LightNet CLI](/cli/overview).
+
+```bash
+pnpm lightnet setup-github-auth
+```
+
+Use this command to set up GitHub sign-in for the [Administration UI](/content/administration-ui/). It creates a GitHub App for your site and configures your site's Cloudflare Worker to handle sign-in under `/_auth`.
+The [Set up GitHub authentication](/content/setup-github-auth/) guide explains the whole setup, including the steps before and after this command.
+
+Run it from the root of your LightNet site project. The project needs a `wrangler.jsonc` file that serves your site's static files, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers).
+
+## What it does
+
+<Steps>
+1. Reads your site's URL from the `site` option in your Astro config. If it's missing, the command asks for it.
+   It then asks which GitHub organization should own the app and suggests the owner from `backend.repo`. Leave the answer empty to use your personal account.
+2. Opens GitHub's page for creating a GitHub App, with these settings filled in:
+    - **Callback URL**: your site's URL followed by `/_auth/callback`
+    - **Repository permissions**: Contents read and write, Metadata read-only
+    - **Webhook**: inactive
+    - **Installable on**: only the owning account
+
+   You review the settings, can change the app name, and create the app on GitHub. GitHub then returns the app's client ID and client secret to the CLI.
+3. Updates `wrangler.jsonc` and keeps its comments:
+    - sets `main` to the Worker from `@lightnet/sveltia-github-auth`
+    - sets `assets.binding` to `ASSETS`
+    - adds `/_auth/*` to `assets.run_worker_first`
+    - sets `vars.GITHUB_CLIENT_ID`
+4. Offers to store the client secret as the encrypted secret `GITHUB_CLIENT_SECRET` in your Cloudflare Worker, using Wrangler. If you skip this step, or it fails, the command shows the secret once so you can add it in the Cloudflare dashboard.
+5. Opens the app's installation page so you can install it on your site's repository, and lists the remaining steps.
+</Steps>
+
+The command warns you instead of changing your configuration if `wrangler.jsonc` already has a different `main` script or assets binding, if `@lightnet/sveltia-github-auth` is missing from `package.json`, or if your Astro config still sets `backend.baseUrl`.
+
+<Aside type="caution">
+GitHub shows the client secret only once. If you lose it, generate a new client secret in the GitHub App's settings.
+</Aside>
+
+## Common usage
+
+Create the app for the organization that owns your site's repository:
+
+```bash
+pnpm lightnet setup-github-auth
+```
+
+Create the app for a specific organization:
+
+```bash
+pnpm lightnet setup-github-auth --org my-org
+```
+
+Create the app on your personal GitHub account:
+
+```bash
+pnpm lightnet setup-github-auth --personal
+```
+
+## Options
+
+- `--site <url>`: your site's public HTTPS URL. The default is the `site` option from your Astro config. Only the origin is used, so `https://my-library.org/library/` signs in through `https://my-library.org/_auth`.
+- `--org <name>`: the GitHub organization that owns the app. The default is the owner in `backend.repo`.
+- `--personal`: create the app on your personal GitHub account instead of an organization.
+- `--name <name>`: the GitHub App's name. The default is your site's hostname followed by "CMS". GitHub App names must be unique across GitHub and can have at most 34 characters.
+- `--config <path>`: the Wrangler config file to update. The default is `wrangler.jsonc`.
+- `--no-open`: print URLs instead of opening them in your browser.
+
+## Run it again
+
+You can run the command again, for example to replace a GitHub App. It creates a new app and replaces `GITHUB_CLIENT_ID`; the other `wrangler.jsonc` settings are not added twice. Delete the old app in your organization's **Developer settings** afterwards.
