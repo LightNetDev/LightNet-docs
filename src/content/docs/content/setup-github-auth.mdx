@@ -3,7 +3,7 @@ title: Set up GitHub authentication
 description: Connect the Administration UI to GitHub using a Cloudflare Worker.
 ---
 
-import { Steps } from "@astrojs/starlight/components";
+import { Aside, Steps } from "@astrojs/starlight/components";
 
 The Administration UI connects to GitHub so editors can sign in and save content changes to your site's repository. A small Cloudflare Worker handles the authentication exchange between the Administration UI and GitHub.
 
@@ -53,6 +53,10 @@ The authenticator has its own repository and Worker, separate from your LightNet
 4. Under Credential → Client secrets, select Generate a new client secret. Keep the Client ID and client secret available for step 3.
    The secret belongs in the Worker's encrypted settings only.
 5. Select Install App in the sidebar, then select Install next to your organization. Choose Only select repositories, select your LightNet site's repository, and confirm the installation.
+
+    <Aside type="caution">
+    Select your LightNet site's repository, not the authenticator repository from step 1. Otherwise, editors get a "You don't have access to the repository" error when they sign in.
+    </Aside>
 </Steps>
 
 See [GitHub's guide to registering a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) for more details.
