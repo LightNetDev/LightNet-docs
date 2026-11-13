@@ -111,7 +111,61 @@ Editors stay signed in as long as they use the Administration UI at least once e
 If your authenticator was set up with a GitHub OAuth app, switch to a GitHub App:
 
 <Steps>
-1. Update the authenticator repository to the latest version of the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth). It needs `@lightnet/sveltia-github-auth` 1.2.0 or later and routes token refresh requests to the Worker.
+1. Update the authenticator repository to match the latest version of the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth):
+
+    - In `package.json`, update `@lightnet/sveltia-github-auth` to 1.2.0 or later:
+
+      ```json title="package.json" ins={3}
+      {
+        "dependencies": {
+          "@lightnet/sveltia-github-auth": "^1.2.0"
+        }
+      }
+      ```
+
+    - In `index.js`, import `handleRefresh` and route token refresh requests to it:
+
+      ```js title="index.js" ins={4,26-32}
+      import {
+        handleAuth,
+        handleCallback,
+        handleRefresh,
+      } from "@lightnet/sveltia-github-auth";
+
+      const worker = {
+        /** Route OAuth authorization, callback, and token refresh requests. */
+        async fetch(request, env) {
+          const { pathname } = new URL(request.url);
+
+          if (
+            request.method === "GET" &&
+            ["/auth", "/oauth/authorize"].includes(pathname)
+          ) {
+            return handleAuth(request, env);
+          }
+
+          if (
+            request.method === "GET" &&
+            ["/callback", "/oauth/redirect"].includes(pathname)
+          ) {
+            return handleCallback(request, env);
+          }
+
+          // Sveltia CMS refreshes expiring GitHub App tokens through the worker.
+          if (
+            ["POST", "OPTIONS"].includes(request.method) &&
+            ["/auth", "/oauth/access_token"].includes(pathname)
+          ) {
+            return handleRefresh(request, env);
+          }
+
+          return new Response("", { status: 404 });
+        },
+      };
+
+      export default worker;
+      ```
+
 2. Create and install a GitHub App as described in [step 2](#step-2-create-a-github-app), using the same callback URL as your OAuth app.
 3. Replace `GITHUB_CLIENT_ID` in `wrangler.jsonc` and the `GITHUB_CLIENT_SECRET` secret in the Cloudflare dashboard with the GitHub App's credentials, then deploy the Worker.
 4. Sign in to the Administration UI to confirm that everything works. Editors are asked to authorize the new app on their next sign-in. Your site configuration does not change.
