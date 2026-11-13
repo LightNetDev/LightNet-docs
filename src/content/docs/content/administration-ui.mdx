@@ -191,14 +191,15 @@ This architecture has several advantages:
 LightNet works with either GitHub and GitLab as Git hosts. We recommend GitHub for new LightNet projects.
 
 <Aside>
-GitHub does not yet support client-only authentication.
-For now, use an auth proxy such as [LightNetDev/sveltia-cms-auth](https://github.com/LightNetDev/sveltia-cms-auth).
-GitHub is planning native support for this client-only authentication in the future. Track progress in [GitHub roadmap issue #1153](https://github.com/github/roadmap/issues/1153).
+GitHub does not yet support client-only authentication, so sign-in needs a small server-side step.
+LightNet runs it in your site's own Cloudflare Worker with `@lightnet/sveltia-github-auth`.
+GitHub is planning native support for client-only authentication in the future. Track progress in [GitHub roadmap issue #1153](https://github.com/github/roadmap/issues/1153).
 </Aside>
 
 #### Connect to GitHub
 
 Follow the [setup GitHub authentication guide](/content/setup-github-auth) to connect the Administration UI to a GitHub repository.
+The [`setup-github-auth`](/cli/setup-github-auth/) CLI command creates the GitHub App and configures your site's Worker for you.
 
 <Aside>
 Even if you configure a GitHub backend, you can still use a local Administration UI workflow during development.
@@ -250,7 +251,7 @@ Lower this if you want editors to stay within a stricter content policy, or rais
 ### `backend`
 
 type: `object` \
-example: `{ name: "github", repo: "your-org/your-site", baseUrl: "https://your-auth-proxy.workers.dev" }` \
+example: `{ name: "github", repo: "your-org/your-site" }` \
 required: `false`
 
 This option configures the Git host the Administration UI connects to. LightNet currently supports GitLab and GitHub backends.
@@ -264,13 +265,12 @@ GitHub backend configuration has these options:
 - **name**: `"github"` (required) selects GitHub as the backend. Use this when your LightNet site is stored on GitHub.
 - **repo**: `string` (required) the GitHub repository path of your site. This tells the Administration UI exactly which repository to read from and commit to.
 - **branch**: `string` the branch used by the Administration UI. The default is `"main"`. Set this when your production content lives on a different default branch or when you want editors to work against a dedicated content branch.
-- **baseUrl**: `string` the URL of the service that handles the authentication request. This is useful because GitHub currently needs an auth proxy for this workflow.
+- **baseUrl**: `string` the URL of the service that handles sign-in. The default is your site's origin followed by `/_auth`, such as `https://my-library.org/_auth`, which is where your site's Worker handles sign-in when you follow the [setup GitHub authentication guide](/content/setup-github-auth). The default uses the `site` option of your Astro config. Set `baseUrl` only when you [use a separate authenticator Worker](/content/setup-github-auth/#use-a-separate-authenticator-worker).
 
 See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/github) for more details.
 
 <Aside>
-GitHub does not yet support client-only PKCE for this flow.
-For now, use an auth proxy such as [`sveltia/sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) and point `baseUrl` to that service.
+Before `@lightnet/sveltia-admin` 4.5.0, an unset `baseUrl` used Netlify's authentication service. If your site signs in through Netlify, set `baseUrl: "https://api.netlify.com"`.
 </Aside>
 
 #### `backend: "gitlab"`
