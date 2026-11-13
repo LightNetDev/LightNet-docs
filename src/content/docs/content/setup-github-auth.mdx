@@ -117,53 +117,27 @@ If your authenticator was set up with a GitHub OAuth app, switch to a GitHub App
 <Steps>
 1. Update the authenticator repository to match the latest version of the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth):
 
-    - In `package.json`, update `@lightnet/sveltia-github-auth` to 1.2.0 or later:
+    - In `package.json`, update `@lightnet/sveltia-github-auth` to 1.3.0 or later:
 
       ```json title="package.json" ins={3}
       {
         "dependencies": {
-          "@lightnet/sveltia-github-auth": "^1.2.0"
+          "@lightnet/sveltia-github-auth": "^1.3.0"
         }
       }
       ```
 
-    - In `index.js`, import `handleRefresh` and route token refresh requests to it:
+    - Replace the contents of `index.js` with the following code. `routeRequest` handles sign-in, the GitHub callback, and token refresh requests:
 
-      ```js title="index.js" ins={4,26-32}
-      import {
-        handleAuth,
-        handleCallback,
-        handleRefresh,
-      } from "@lightnet/sveltia-github-auth";
+      ```js title="index.js"
+      import { routeRequest } from "@lightnet/sveltia-github-auth";
 
       const worker = {
         /** Route OAuth authorization, callback, and token refresh requests. */
         async fetch(request, env) {
-          const { pathname } = new URL(request.url);
-
-          if (
-            request.method === "GET" &&
-            ["/auth", "/oauth/authorize"].includes(pathname)
-          ) {
-            return handleAuth(request, env);
-          }
-
-          if (
-            request.method === "GET" &&
-            ["/callback", "/oauth/redirect"].includes(pathname)
-          ) {
-            return handleCallback(request, env);
-          }
-
-          // Sveltia CMS refreshes expiring GitHub App tokens through the worker.
-          if (
-            ["POST", "OPTIONS"].includes(request.method) &&
-            ["/auth", "/oauth/access_token"].includes(pathname)
-          ) {
-            return handleRefresh(request, env);
-          }
-
-          return new Response("", { status: 404 });
+          return (
+            (await routeRequest(request, env)) ?? new Response("", { status: 404 })
+          );
         },
       };
 
