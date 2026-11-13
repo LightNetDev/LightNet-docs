@@ -7,14 +7,15 @@ import { Steps } from "@astrojs/starlight/components";
 
 The Administration UI connects to GitHub so editors can sign in and save content changes to your site's repository. A small Cloudflare Worker handles the authentication exchange between the Administration UI and GitHub.
 
-This guide uses the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth) to deploy that Worker, register a GitHub OAuth app, and connect it to your site.
+This guide uses the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth) to deploy that Worker, register a GitHub App, and connect it to your site.
+A GitHub App only gets access to the repositories you install it on, so editors don't have to grant access to all of their repositories.
 
 ## Before you begin
 
 You need:
 
 - A LightNet site with the [Administration UI](/content/administration-ui) installed and its repository hosted on GitHub. Follow the [hosting guide](/deploy/hosting) if needed.
-- Administrative access to the GitHub organization that will own the OAuth app.
+- Administrative access to the GitHub organization that will own the GitHub App.
 - A Cloudflare account where you can deploy Workers.
 
 The authenticator has its own repository and Worker, separate from your LightNet site.
@@ -32,23 +33,29 @@ The authenticator has its own repository and Worker, separate from your LightNet
 3. Complete the deployment. In the Cloudflare dashboard, open the new Worker and copy its public URL, such as https://sveltia-cms-auth.your-subdomain.workers.dev. You will use this URL in the remaining steps.
 </Steps>
 
-## Step 2. Create a GitHub OAuth app
+## Step 2. Create a GitHub App
 
 <Steps>
-1. In your GitHub organization's settings, open Developer settings → OAuth Apps → New OAuth App.
+1. In your GitHub organization's settings, open Developer settings → GitHub Apps → New GitHub App.
 2. Enter the following details:
 
-    - Application name: LightNet Authenticator, or another descriptive name.
+    - GitHub App name: A unique name such as "My Library Authenticator". It is shown to editors when they sign in for the first time.
     - Homepage URL: Your site's public URL, such as https://my-library.org.
-    - Application description: Optional; you can leave it empty.
-    - Redirect URI: Your Worker URL followed by `/callback`, such as https://sveltia-cms-auth.your-subdomain.workers.dev/callback. 
-      Leave wildcard matching disabled for the callback URL.
+    - Callback URL: Your Worker URL followed by `/callback`, such as https://sveltia-cms-auth.your-subdomain.workers.dev/callback.
+    - Expire user authorization tokens: Checked. Editors stay signed in because the Worker refreshes their access automatically.
+    - Request user authorization (OAuth) during installation: Unchecked.
+    - Enable Device Flow: Unchecked.
+    - Webhook → Active: Unchecked.
+    - Repository permissions → Contents: Read and write. Metadata is set to Read-only automatically. Leave all other permissions at No access.
+    - Where can this GitHub App be installed: Only on this account.
 
-3. Register the application, then select Generate a new client secret. Keep the Client ID and Client secret available for step 3. 
+3. Select Create GitHub App. Copy the Client ID shown on the app's settings page.
+4. Under Client secrets, select Generate a new client secret. Keep the Client ID and client secret available for step 3.
    The secret belongs in the Worker's encrypted settings only.
+5. Select Install App in the sidebar, then select Install next to your organization. Choose Only select repositories, select your LightNet site's repository, and confirm the installation.
 </Steps>
 
-See [GitHub's OAuth app registration guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for more details.
+See [GitHub's guide to registering a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) for more details.
 
 ## Step 3. Configure the Worker
 
@@ -93,7 +100,74 @@ See [GitHub's OAuth app registration guide](https://docs.github.com/en/apps/oaut
 
     Set `repo` to your LightNet site's GitHub repository in `owner/repository` format. Set `baseUrl` to the Worker URL from step 1, without `/callback`.
 2. Commit and push the site configuration, then wait for your site to deploy.
-3. Open `/admin` (or your configured Administration UI path) on an origin listed in `ALLOWED_ORIGINS`. Select the GitHub login option and authorize the OAuth app. Confirm that you can access your site's content.
+3. Open `/admin` (or your configured Administration UI path) on an origin listed in `ALLOWED_ORIGINS`. Select the GitHub login option and authorize the GitHub App. Confirm that you can access your site's content.
 </Steps>
 
-To give other editors access, grant them write access to the site's GitHub repository through collaborators or organization teams. Each editor signs in with their own GitHub account.
+To give other editors access, grant them write access to the site's GitHub repository through collaborators or organization teams. Each editor signs in with their own GitHub account and authorizes the GitHub App on their first sign-in.
+Editors stay signed in as long as they use the Administration UI at least once every six months.
+
+## Migrate from a GitHub OAuth app
+
+If your authenticator was set up with a GitHub OAuth app, switch to a GitHub App:
+
+<Steps>
+1. Update the authenticator repository to match the latest version of the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth):
+
+    - In `package.json`, update `@lightnet/sveltia-github-auth` to 1.2.0 or later:
+
+      ```json title="package.json" ins={3}
+      {
+        "dependencies": {
+          "@lightnet/sveltia-github-auth": "^1.2.0"
+        }
+      }
+      ```
+
+    - In `index.js`, import `handleRefresh` and route token refresh requests to it:
+
+      ```js title="index.js" ins={4,26-32}
+      import {
+        handleAuth,
+        handleCallback,
+        handleRefresh,
+      } from "@lightnet/sveltia-github-auth";
+
+      const worker = {
+        /** Route OAuth authorization, callback, and token refresh requests. */
+        async fetch(request, env) {
+          const { pathname } = new URL(request.url);
+
+          if (
+            request.method === "GET" &&
+            ["/auth", "/oauth/authorize"].includes(pathname)
+          ) {
+            return handleAuth(request, env);
+          }
+
+          if (
+            request.method === "GET" &&
+            ["/callback", "/oauth/redirect"].includes(pathname)
+          ) {
+            return handleCallback(request, env);
+          }
+
+          // Sveltia CMS refreshes expiring GitHub App tokens through the worker.
+          if (
+            ["POST", "OPTIONS"].includes(request.method) &&
+            ["/auth", "/oauth/access_token"].includes(pathname)
+          ) {
+            return handleRefresh(request, env);
+          }
+
+          return new Response("", { status: 404 });
+        },
+      };
+
+      export default worker;
+      ```
+
+2. Create and install a GitHub App as described in [step 2](#step-2-create-a-github-app), using the same callback URL as your OAuth app.
+3. Replace `GITHUB_CLIENT_ID` in `wrangler.jsonc` and the `GITHUB_CLIENT_SECRET` secret in the Cloudflare dashboard with the GitHub App's credentials, then deploy the Worker.
+4. Sign in to the Administration UI to confirm that everything works. Editors are asked to authorize the new app on their next sign-in. Your site configuration does not change.
+5. Delete the old OAuth app in your organization's Developer settings. This also revokes the access tokens it issued.
+</Steps>
