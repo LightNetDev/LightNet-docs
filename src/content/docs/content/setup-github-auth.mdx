@@ -75,12 +75,10 @@ The [`setup-github-auth`](/cli/setup-github-auth/) command creates the GitHub Ap
     pnpm lightnet setup-github-auth
     ```
 
-3. When asked which GitHub organization should own the app, confirm the suggested organization from your `repo` setting, or enter another one.
-4. Your browser opens GitHub with the app's settings filled in. Review them, change the app name if you like, and select **Create GitHub App**. The app name is shown to editors when they sign in for the first time.
-5. Back in the terminal, choose whether to store the client secret in your Cloudflare Worker with Wrangler. Wrangler may ask you to log in to Cloudflare.
-   If you skip this step, or it fails, the CLI shows the client secret once. In the Cloudflare dashboard, open your site's Worker, go to **Settings → Variables and Secrets**, and add it as the encrypted secret `GITHUB_CLIENT_SECRET`.
-6. Your browser opens the app's installation page. Select your organization, choose **Only select repositories**, select your site's repository, and confirm the installation.
-7. Open the app's settings on GitHub and check that **Expire user authorization tokens** is selected. Editors then stay signed in because the Worker refreshes their access automatically.
+3. Confirm or enter your site's URL, your site's repository, and the app name. The app is created for the owner of the repository.
+4. When you agree, your browser opens GitHub with the app's settings filled in. Review them, change the app name if you like, and select **Create GitHub App**. The app name is shown to editors when they sign in for the first time.
+5. Back in the terminal, the CLI shows the client secret once. In the Cloudflare dashboard, open your site's Worker, go to **Settings → Variables and Secrets**, add it as the secret `GITHUB_CLIENT_SECRET`, and confirm in the terminal.
+6. When you agree, your browser opens the app's installation page. Choose **Only select repositories**, select only your site's repository, and confirm the installation.
 </Steps>
 
 The CLI updates `wrangler.jsonc` as described in the manual steps. Review the changes before you commit them.

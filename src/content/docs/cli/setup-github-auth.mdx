@@ -16,11 +16,14 @@ The [Set up GitHub authentication](/content/setup-github-auth/) guide explains t
 
 Run it from the root of your LightNet site project. The project needs a `wrangler.jsonc` file that serves your site's static files, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers).
 
+The command is interactive because GitHub asks you to confirm each step in your browser. Before it opens GitHub, the command explains what happens next and waits until you choose to open the browser. If you decline, it prints the URL so you can open it yourself.
+
 ## What it does
 
 <Steps>
-1. Reads your site's URL from the `site` option in your Astro config. If it's missing, the command asks for it.
-   It then asks which GitHub organization should own the app and suggests the owner from `backend.repo`. Leave the answer empty to use your personal account.
+1. Asks for your site's URL, your site's GitHub repository, and the GitHub App's name.
+   It suggests the `site` option and `backend.repo` from your Astro config, and your site's hostname followed by "Authentication" as the app name, such as "my-library.org Authentication". GitHub App names can have at most 34 characters.
+   The app is created for the owner of the repository, either an organization or your personal account.
 2. Opens GitHub's page for creating a GitHub App, with these settings filled in:
     - **Callback URL**: your site's URL followed by `/_auth/callback`
     - **Repository permissions**: Contents read and write, Metadata read-only
@@ -33,44 +36,21 @@ Run it from the root of your LightNet site project. The project needs a `wrangle
     - sets `assets.binding` to `ASSETS`
     - adds `/_auth/*` to `assets.run_worker_first`
     - sets `vars.GITHUB_CLIENT_ID`
-4. Offers to store the client secret as the encrypted secret `GITHUB_CLIENT_SECRET` in your Cloudflare Worker, using Wrangler. If you skip this step, or it fails, the command shows the secret once so you can add it in the Cloudflare dashboard.
-5. Opens the app's installation page so you can install it on your site's repository, and lists the remaining steps.
+4. Adds `@lightnet/sveltia-github-auth` to your site with `pnpm add` if it is missing.
+5. Shows the client secret and waits until you have added it as the secret `GITHUB_CLIENT_SECRET` to your site's Worker in the Cloudflare dashboard.
+6. Opens the app's installation page so you can install it on your site's repository only. For public repositories, the command preselects your site's repository.
+7. Lists the remaining steps.
 </Steps>
 
-The command warns you instead of changing your configuration if `wrangler.jsonc` already has a different `main` script or assets binding, if `@lightnet/sveltia-github-auth` is missing from `package.json`, or if your Astro config still sets `backend.baseUrl`.
+The command warns you instead of changing your configuration if `wrangler.jsonc` already has a different `main` script or assets binding. If your Astro config still sets `backend.baseUrl`, the remaining steps tell you to remove it.
 
 <Aside type="caution">
 GitHub shows the client secret only once. If you lose it, generate a new client secret in the GitHub App's settings.
 </Aside>
 
-## Common usage
-
-Create the app for the organization that owns your site's repository:
-
-```bash
-pnpm lightnet setup-github-auth
-```
-
-Create the app for a specific organization:
-
-```bash
-pnpm lightnet setup-github-auth --org my-org
-```
-
-Create the app on your personal GitHub account:
-
-```bash
-pnpm lightnet setup-github-auth --personal
-```
-
-## Options
-
-- `--site <url>`: your site's public HTTPS URL. The default is the `site` option from your Astro config. Only the origin is used, so `https://my-library.org/library/` signs in through `https://my-library.org/_auth`.
-- `--org <name>`: the GitHub organization that owns the app. The default is the owner in `backend.repo`.
-- `--personal`: create the app on your personal GitHub account instead of an organization.
-- `--name <name>`: the GitHub App's name. The default is your site's hostname followed by "CMS". GitHub App names must be unique across GitHub and can have at most 34 characters.
-- `--config <path>`: the Wrangler config file to update. The default is `wrangler.jsonc`.
-- `--no-open`: print URLs instead of opening them in your browser.
+<Aside>
+GitHub App names must be unique across GitHub. If GitHub says the name is already taken, change it on GitHub's form, for example to "My Library Authentication".
+</Aside>
 
 ## Run it again
 
