@@ -75,10 +75,11 @@ The [`setup-github-auth`](/cli/setup-github-auth/) command creates the GitHub Ap
     pnpm lightnet setup-github-auth
     ```
 
-3. Confirm or enter your site's URL, your site's repository, and the app name. The app is created for the owner of the repository.
+3. Confirm or enter your site's repository and the app name. The CLI uses the `site` option of your Astro config as your site's URL. The app is created for the owner of the repository.
 4. When you agree, your browser opens GitHub with the app's settings filled in. Review them, change the app name if you like, and select **Create GitHub App**. The app name is shown to editors when they sign in for the first time.
-5. Back in the terminal, the CLI shows the client secret once. In the Cloudflare dashboard, open your site's Worker, go to **Settings → Variables and Secrets**, add it as the secret `GITHUB_CLIENT_SECRET`, and confirm in the terminal.
-6. When you agree, your browser opens the app's installation page. Choose **Only select repositories**, select only your site's repository, and confirm the installation.
+5. When you agree, your browser opens the app's installation page. Choose **Only select repositories**, select only your site's repository, and confirm the installation.
+6. When the CLI asks, commit and push the changes to `package.json`, `pnpm-lock.yaml`, `astro.config.mjs`, and `wrangler.jsonc`, and wait for Cloudflare to deploy your site. Keep the terminal open.
+7. The CLI then shows the client secret once. In the Cloudflare dashboard, open your site's Worker, go to **Settings → Variables and Secrets**, add it as the secret `GITHUB_CLIENT_SECRET`, and confirm in the terminal.
 </Steps>
 
 The CLI updates `wrangler.jsonc` as described in the manual steps. Review the changes before you commit them.
@@ -127,7 +128,8 @@ The CLI updates `wrangler.jsonc` as described in the manual steps. Review the ch
     - `run_worker_first` sends only `/_auth/*` requests to that Worker. Cloudflare keeps serving all other pages directly from your static files.
     - Set `GITHUB_CLIENT_ID` to the Client ID from step 3.
 
-7. In the Cloudflare dashboard, open your site's Worker and go to **Settings → Variables and Secrets**. Add `GITHUB_CLIENT_SECRET` with the client secret from step 4, select the encrypted **Secret** type, and save.
+7. Commit and push the changes to `package.json`, `pnpm-lock.yaml`, `astro.config.mjs`, and `wrangler.jsonc`. Wait for Cloudflare to deploy your site.
+8. In the Cloudflare dashboard, open your site's Worker and go to **Settings → Variables and Secrets**. Add `GITHUB_CLIENT_SECRET` with the client secret from step 4, select the encrypted **Secret** type, and save.
    Don't add the secret to `wrangler.jsonc` or anywhere else in your repository.
 </Steps>
 
@@ -140,12 +142,15 @@ See [GitHub's guide to registering a GitHub App](https://docs.github.com/en/apps
 Install the GitHub App on your site's repository. Otherwise, editors get a "You don't have access to the repository" error when they sign in.
 </Aside>
 
-## Step 4. Deploy and sign in
+<Aside>
+Cloudflare can store variables and secrets only for a Worker that runs a script. Your site's Worker runs one after you deploy the `main` setting from `wrangler.jsonc`. That's why you add the client secret after the deploy.
+</Aside>
+
+## Step 4. Sign in
 
 <Steps>
-1. Commit and push the changes to `package.json`, `pnpm-lock.yaml`, `astro.config.mjs`, and `wrangler.jsonc`. Wait for Cloudflare to deploy your site.
-2. Open the Administration UI on your site's URL, such as `https://my-library.org/admin` (or your configured Administration UI path).
-3. Select the GitHub login option and authorize the GitHub App. Confirm that you can access your site's content.
+1. Open the Administration UI on your site's URL, such as `https://my-library.org/admin` (or your configured Administration UI path).
+2. Select the GitHub login option and authorize the GitHub App. Confirm that you can access your site's content.
 </Steps>
 
 <Aside>
@@ -192,11 +197,12 @@ If your site isn't hosted on Cloudflare Workers, run sign-in in a separate Worke
 If your site signs in through a separate authenticator Worker, you can move sign-in into your site's Worker:
 
 <Steps>
-1. Follow steps 1 to 3 of this guide. In step 2, remove `baseUrl` from the `backend` configuration.
+1. Follow steps 1 to 3 of this guide. In step 2, keep `baseUrl` for now, so editors can sign in through the old authenticator until the new client secret is added.
    With the CLI, you get a new GitHub App. To keep your existing GitHub App instead, follow the manual steps, but skip creating the app. In the app's settings, add `https://my-library.org/_auth/callback` as the **first** callback URL; GitHub always returns to the first one.
-2. Deploy your site and sign in to confirm that everything works.
-3. Delete the old authenticator Worker in the Cloudflare dashboard and archive its repository.
-4. If you created a new app, delete the old GitHub App or OAuth app in your organization's **Developer settings**. This also revokes the access tokens it issued. Editors are asked to authorize the new app on their next sign-in.
+2. Remove `baseUrl` from the `backend` configuration. Commit, push, and wait for Cloudflare to deploy your site.
+3. Sign in to confirm that everything works.
+4. Delete the old authenticator Worker in the Cloudflare dashboard and archive its repository.
+5. If you created a new app, delete the old GitHub App or OAuth app in your organization's **Developer settings**. This also revokes the access tokens it issued. Editors are asked to authorize the new app on their next sign-in.
 </Steps>
 
 <Aside>
@@ -208,6 +214,7 @@ If you keep a separate authenticator that still uses a GitHub OAuth app, you can
 - **"You don't have access to the repository"**: The GitHub App isn't installed on your site's repository. Open the app's settings on GitHub, select **Install App**, and add the repository.
 - **"Your domain is not allowed to use the authenticator"**: You opened the Administration UI on a URL other than the one in your `site` option, such as a preview URL or your old `workers.dev` URL. Open it on your site's URL. With a separate authenticator, add the hostname to `ALLOWED_ORIGINS`.
 - **The sign-in window opens your old URL** or shows "Your Git backend is not supported by the authenticator": The GitHub App's callback URL doesn't match your `site` option. See [Switch to your own domain](/deploy/custom-domain/).
+- **"Variables cannot be added to a Worker that only has static assets"**: Cloudflare shows this when you add the client secret before your site is deployed with the `main` setting from `wrangler.jsonc`. Commit and push the changes, wait for the deploy, and add the secret again.
 - **"GitHub client ID or secret is not configured"**: Add `GITHUB_CLIENT_ID` to `wrangler.jsonc` and the `GITHUB_CLIENT_SECRET` secret to your Worker, then deploy again.
 - **The sign-in window shows your site's 404 page**: The Worker doesn't serve `/_auth`. Check `main` and `run_worker_first` in `wrangler.jsonc`, and that `@lightnet/sveltia-github-auth` is listed in your site's `package.json`.
 - **Editors have to sign in again every eight hours**: Your Worker uses `@lightnet/sveltia-github-auth` older than 1.2.0, which can't refresh expiring access tokens. Update it to the latest version.

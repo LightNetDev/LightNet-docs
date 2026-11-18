@@ -21,31 +21,33 @@ The command is interactive because GitHub asks you to confirm each step in your 
 ## What it does
 
 <Steps>
-1. Asks for your site's URL, your site's GitHub repository, and the GitHub App's name.
-   It suggests the `site` option and `backend.repo` from your Astro config, and your site's hostname followed by "Authentication" as the app name, such as "my-library.org Authentication". GitHub App names can have at most 34 characters.
+1. Reads your site's URL from the `site` option of your Astro config. If `site` is missing, the command stops and asks you to set it.
+2. Asks for your site's GitHub repository and the GitHub App's name.
+   It suggests `backend.repo` from your Astro config, and your site's hostname followed by "Authentication" as the app name, such as "my-library.org Authentication". GitHub App names can have at most 34 characters.
    The app is created for the owner of the repository, either an organization or your personal account.
-2. Opens GitHub's page for creating a GitHub App, with these settings filled in:
+3. Opens GitHub's page for creating a GitHub App, with these settings filled in:
     - **Callback URL**: your site's URL followed by `/_auth/callback`
     - **Repository permissions**: Contents read and write, Metadata read-only
     - **Webhook**: inactive
     - **Installable on**: only the owning account
 
    You review the settings, can change the app name, and create the app on GitHub. GitHub then returns the app's client ID and client secret to the CLI.
-3. Updates `wrangler.jsonc` and keeps its comments:
+4. Updates `wrangler.jsonc` and keeps its comments:
     - sets `main` to the Worker from `@lightnet/sveltia-github-auth`
     - sets `assets.binding` to `ASSETS`
     - adds `/_auth/*` to `assets.run_worker_first`
     - sets `vars.GITHUB_CLIENT_ID`
-4. Adds `@lightnet/sveltia-github-auth` to your site with `pnpm add` if it is missing.
-5. Shows the client secret and waits until you have added it as the secret `GITHUB_CLIENT_SECRET` to your site's Worker in the Cloudflare dashboard.
+5. Adds `@lightnet/sveltia-github-auth` to your site with `pnpm add` if it is missing.
 6. Opens the app's installation page so you can install it on your site's repository only. For public repositories, the command preselects your site's repository.
-7. Lists the remaining steps.
+7. Asks you to commit and push the changes and waits until Cloudflare has deployed your site. Cloudflare can store secrets only for a Worker that runs a script, which your Worker does after this deploy.
+8. Shows the client secret and waits until you have added it as the secret `GITHUB_CLIENT_SECRET` to your site's Worker in the Cloudflare dashboard.
+9. Lists the remaining steps.
 </Steps>
 
 The command warns you instead of changing your configuration if `wrangler.jsonc` already has a different `main` script or assets binding. If your Astro config still sets `backend.baseUrl`, the remaining steps tell you to remove it.
 
 <Aside type="caution">
-GitHub shows the client secret only once. If you lose it, generate a new client secret in the GitHub App's settings.
+GitHub shows the client secret only once. Keep the terminal open until you have added it. If you lose it, generate a new client secret in the GitHub App's settings.
 </Aside>
 
 <Aside>
