@@ -199,7 +199,6 @@ GitHub is planning native support for client-only authentication in the future. 
 #### Connect to GitHub
 
 Follow the [setup GitHub authentication guide](/content/setup-github-auth) to connect the Administration UI to a GitHub repository.
-The [`setup-github-auth`](/cli/setup-github-auth/) CLI command creates the GitHub App and configures your site's Worker for you.
 
 <Aside>
 Even if you configure a GitHub backend, you can still use a local Administration UI workflow during development.
@@ -265,13 +264,10 @@ GitHub backend configuration has these options:
 - **name**: `"github"` (required) selects GitHub as the backend. Use this when your LightNet site is stored on GitHub.
 - **repo**: `string` (required) the GitHub repository path of your site. This tells the Administration UI exactly which repository to read from and commit to.
 - **branch**: `string` the branch used by the Administration UI. The default is `"main"`. Set this when your production content lives on a different default branch or when you want editors to work against a dedicated content branch.
-- **baseUrl**: `string` the URL of the service that handles sign-in. The default is your site's origin followed by `/_auth`, such as `https://my-library.org/_auth`, which is where your site's Worker handles sign-in when you follow the [setup GitHub authentication guide](/content/setup-github-auth). The default uses the `site` option of your Astro config. Set `baseUrl` only when you [use a separate authenticator Worker](/content/setup-github-auth/#use-a-separate-authenticator-worker).
+- **baseUrl**: `string` the URL of the service that handles sign-in. The default is your site's origin followed by `/_auth`, such as `https://my-library.org/_auth`, which is where your site's Worker handles sign-in when you follow the [setup GitHub authentication guide](/content/setup-github-auth). Set `baseUrl` only when you [use a separate authenticator Worker](/content/setup-github-auth/#use-a-separate-authenticator-worker).
 
 See the [Sveltia CMS documentation](https://sveltiacms.app/en/docs/backends/github) for more details.
 
-<Aside>
-Before `@lightnet/sveltia-admin` 4.5.0, an unset `baseUrl` used Netlify's authentication service. If your site signs in through Netlify, set `baseUrl: "https://api.netlify.com"`.
-</Aside>
 
 #### `backend: "gitlab"`
 

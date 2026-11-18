@@ -3,7 +3,7 @@ title: setup-github-auth
 description: Create the GitHub App for the Administration UI and configure your site's Worker to handle sign-in.
 ---
 
-import { Aside, Steps } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
 
 The `setup-github-auth` command is part of the [LightNet CLI](/cli/overview).
 
@@ -14,41 +14,41 @@ pnpm lightnet setup-github-auth
 Use this command to set up GitHub sign-in for the [Administration UI](/content/administration-ui/). It creates a GitHub App for your site and configures your site's Cloudflare Worker to handle sign-in under `/_auth`.
 The [Set up GitHub authentication](/content/setup-github-auth/) guide explains the whole setup, including the steps before and after this command.
 
-Run it from the root of your LightNet site project. The project needs a `wrangler.jsonc` file that serves your site's static files, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers), and `backend` configured as described in [Set up GitHub authentication](/content/setup-github-auth/#step-2-connect-the-administration-ui-to-github).
+## Why use the CLI
 
-The command is interactive because GitHub asks you to confirm each step in your browser. Before it opens GitHub, the command explains what happens next and waits until you choose to open the browser. If you decline, it prints the URL so you can open it yourself.
+Setting up sign-in by hand means filling in about ten settings on GitHub's form, copying the client ID and secret between GitHub, your project, and Cloudflare, and doing it all in the right order. A single mistake, such as a wrong callback URL or a missing permission, only shows up later when an editor can't sign in.
 
-## What it does
+The command takes care of these details:
 
-<Steps>
-1. Reads your site's URL from the `site` option of your Astro config. If `site` is missing, the command stops and asks you to set it.
-2. Reads your site's GitHub repository from `backend.repo` in your Astro config, the repository the Administration UI saves content to. If `backend.repo` is missing, the command stops and asks you to set it.
-   The app is created for the owner of the repository, either an organization or your personal account.
-3. Asks for the GitHub App's name. It suggests your repository's name followed by "Authentication", such as "my-library Authentication", or by "Auth" if the name would be too long. GitHub App names can have at most 34 characters.
-4. Opens GitHub's page for creating a GitHub App, with these settings filled in:
-    - **Callback URL**: your site's URL followed by `/_auth/callback`
-    - **Homepage URL**: `https://lightnet.community`
-    - **Repository permissions**: Contents read and write, Metadata read-only
-    - **Webhook**: inactive
-    - **Installable on**: only the owning account
+- **Correct GitHub App settings.** It builds the callback URL from your `site` option and fills in GitHub's form with the settings LightNet needs. The app gets only read and write access to repository contents, and can be installed only on your own account.
+- **No copying of the client ID.** GitHub hands the client ID directly to the CLI, which writes it to `wrangler.jsonc`.
+- **Safe changes to `wrangler.jsonc`.** It adds the settings for the sign-in Worker, keeps your comments, and doesn't add settings twice. If your Worker already runs a different script, it warns you instead of overwriting it.
+- **Missing package added.** It adds `@lightnet/sveltia-github-auth` to your site if it isn't installed yet.
+- **Steps in the right order.** It guides you through installing the app on your repository, deploying your site, and adding the client secret to Cloudflare. Cloudflare only accepts the secret after the deploy, which is easy to miss when you set things up by hand.
 
-   You review the settings, can change the app name, and create the app on GitHub. GitHub then returns the app's client ID and client secret to the CLI.
-5. Updates `wrangler.jsonc` and keeps its comments:
-    - sets `main` to the Worker from `@lightnet/sveltia-github-auth`
-    - sets `assets.binding` to `ASSETS`
-    - adds `/_auth/*` to `assets.run_worker_first`
-    - sets `vars.GITHUB_CLIENT_ID`
-6. Adds `@lightnet/sveltia-github-auth` to your site with `pnpm add` if it is missing.
-7. Opens the app's installation page so you can install it on your site's repository only. For public repositories, the command preselects your site's repository.
-8. Asks you to commit and push the changes and waits until Cloudflare has deployed your site. Cloudflare can store secrets only for a Worker that runs a script, which your Worker does after this deploy.
-9. Shows the client secret and waits until you have added it as the secret `GITHUB_CLIENT_SECRET` to your site's Worker in the Cloudflare dashboard.
-10. Lists the remaining steps.
-</Steps>
+You still review and confirm each step in your browser, because GitHub requires it. Before the command opens a page, it explains what happens next. If you prefer, it prints the URL so you can open it yourself.
 
-The command warns you instead of changing your configuration if `wrangler.jsonc` already has a different `main` script or assets binding. If your Astro config still sets `backend.baseUrl`, the remaining steps tell you to remove it.
+## When to set it up by hand
+
+Follow the manual steps in [Set up GitHub authentication](/content/setup-github-auth/#step-2-create-the-github-app) instead if:
+
+- you can't run the CLI on a computer with a browser where you are signed in to GitHub
+- you want to keep an existing GitHub App, for example when you [move an existing authenticator into your site](/content/setup-github-auth/#move-an-existing-authenticator-into-your-site)
+- your `wrangler.jsonc` already runs a different Worker script
+- your site isn't hosted on Cloudflare Workers. In that case, [use a separate authenticator Worker](/content/setup-github-auth/#use-a-separate-authenticator-worker).
+
+## Before you run it
+
+Run the command from the root of your LightNet site project. Your project needs:
+
+- the `site` option in your Astro config set to your site's public URL
+- `backend.repo` set to your site's GitHub repository, as described in [Connect the Administration UI to GitHub](/content/setup-github-auth/#step-1-connect-the-administration-ui-to-github). The app is created for the owner of this repository, either an organization or your personal account.
+- a `wrangler.jsonc` file that serves your site's static files, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers)
+
+You also need administrative access to the GitHub organization that owns the repository, and access to your site's Worker in the Cloudflare dashboard.
 
 <Aside type="caution">
-GitHub shows the client secret only once. Keep the terminal open until you have added it. If you lose it, generate a new client secret in the GitHub App's settings.
+GitHub shows the client secret only once. Keep the terminal open until you have added it to Cloudflare. If you lose it, generate a new client secret in the GitHub App's settings.
 </Aside>
 
 <Aside>
