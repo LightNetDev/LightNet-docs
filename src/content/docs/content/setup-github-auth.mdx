@@ -7,17 +7,13 @@ import { Aside, Steps, Tabs, TabItem } from "@astrojs/starlight/components";
 
 This guide shows you how to set up a GitHub App and configure a Cloudflare Worker so editors can sign in to the Administration UI with their GitHub accounts and save content changes to your site's repository.
 
-The Worker can handle sign-in alongside your site or run as a separate authenticator. Choose the setup that fits your site.
-
-- **Site served as static files on Cloudflare Workers.** Start with step 1. Your site's Worker handles sign-in at `/_auth`.
-- **Site hosted elsewhere, site with a custom Worker script, or several sites sharing one GitHub App.** [Use a separate authenticator Worker](#use-a-separate-authenticator-worker).
-- **Site already using a separate authenticator.** To switch to your site's Worker, follow [Move an existing authenticator into your site](#move-an-existing-authenticator-into-your-site).
+Your site's Worker handles sign-in at `/_auth`. If you already use a separate authenticator, follow [Move an existing authenticator into your site](#move-an-existing-authenticator-into-your-site).
 
 ## Before you begin
 
 - Have a LightNet site with the [Administration UI](/content/administration-ui/) and a GitHub repository.
 - Use a GitHub account with permission to create and install a GitHub App for the repository owner. For an organization-owned repository, an organization owner can do both.
-- Make sure you can manage the Worker in Cloudflare. To use your site's own Worker, deploy your site first. See the [hosting guide](/deploy/hosting/).
+- Deploy your site to Cloudflare Workers and make sure you can manage the Worker in the Cloudflare dashboard. See the [hosting guide](/deploy/hosting/).
 - Set `site` in `astro.config.mjs` to the public URL editors use, such as https://my-library.org. If your site uses its `workers.dev` address, use that URL.
 
 From the root of your site project, run `pnpm update` to update your installed dependencies, including `@lightnet/sveltia-admin`.
@@ -81,7 +77,7 @@ Add the client secret in Cloudflare after the Worker script deploys. Store it as
     | --- | --- |
     | GitHub App name | A name that's unique on GitHub, such as My Library Authentication. Editors see it during authorization. |
     | Homepage URL | https://lightnet.community |
-    | Callback URL | Your site's public URL with `/_auth/callback` appended, for example https://my-library.org/_auth/callback. For a separate authenticator, use the callback URL from that setup. |
+    | Callback URL | Your site's public URL with `/_auth/callback` appended, for example https://my-library.org/_auth/callback. |
     | Expire user authorization tokens | Checked |
     | Request user authorization (OAuth) during installation | Unchecked |
     | Enable Device Flow | Unchecked |
@@ -145,42 +141,6 @@ For sign-in through your site's Worker, use the public URL in `site`. That's whe
 
 Give each editor write access to the site's GitHub repository, either as a collaborator or through an organization team. Editors sign in with their own GitHub accounts and authorize the app the first time.
 
-## Use a separate authenticator Worker
-
-The authenticator runs on Cloudflare Workers while your site stays on its existing host.
-
-<Steps>
-1. Follow [step 1](#step-1-connect-the-administration-ui-to-github) to connect the Administration UI to GitHub.
-2. Use the deploy button to deploy the [LightNet authenticator template](https://github.com/LightNetDev/sveltia-cms-auth) to Cloudflare.
-
-    [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/lightnetdev/sveltia-cms-auth)
-
-    Create the authenticator repository as private. After deployment, copy the authenticator Worker's public URL, for example https://sveltia-cms-auth.your-subdomain.workers.dev.
-
-3. In [step 2](#step-2-create-the-github-app), open the **Manually** tab and follow its first five steps, through installing the app. For **Callback URL**, use the authenticator Worker's URL followed by `/callback`, for example https://sveltia-cms-auth.your-subdomain.workers.dev/callback. For a shared app, select each site repository when you install the app.
-4. In the authenticator repository's `wrangler.jsonc`, set `GITHUB_CLIENT_ID` to the app's client ID. Set `ALLOWED_ORIGINS` to the hostname where editors open the Administration UI. Use a comma-separated list for multiple hostnames, such as `my-library.org,www.my-library.org`. Enter only hostnames, with no scheme, path, or wildcard.
-
-    ```jsonc title="wrangler.jsonc (vars only)"
-    "vars": {
-      "ALLOWED_ORIGINS": "my-library.org",
-      "GITHUB_CLIENT_ID": "your-github-client-id"
-    }
-    ```
-
-5. Commit and push the authenticator repository's `wrangler.jsonc` changes. After Cloudflare deploys them, open the authenticator Worker's **Settings → Variables and Secrets**. Add `GITHUB_CLIENT_SECRET` with type **Secret**, paste the value from GitHub, and deploy the change.
-6. In your site's `astro.config.mjs`, set `baseUrl` to the authenticator Worker's base URL.
-
-    ```js title="astro.config.mjs" ins={4}
-    backend: {
-      name: "github",
-      repo: "your-org/your-site",
-      baseUrl: "https://sveltia-cms-auth.your-subdomain.workers.dev",
-    },
-    ```
-
-7. Deploy the site and follow [step 3](#step-3-sign-in) to test sign-in. For a shared app, configure and test each site.
-</Steps>
-
 ## Move an existing authenticator into your site
 
 Follow this procedure if your site is deployed to Cloudflare Workers and currently uses a separate authenticator.
@@ -195,18 +155,14 @@ Follow this procedure if your site is deployed to Cloudflare Workers and current
 4. Once the test succeeds, delete the old Worker and archive its repository if they serve only this site. If you created a new app and the old app serves only this site, remove the old app from **Developer settings**.
 </Steps>
 
-<Aside>
-If you keep a separate authenticator that uses a GitHub OAuth app, switch it to a GitHub App. Update `@lightnet/sveltia-github-auth`, make sure `index.js` matches the [authenticator template](https://github.com/LightNetDev/sveltia-cms-auth), and configure the authenticator with the new app's client ID and secret.
-</Aside>
-
 ## Troubleshooting
 
 | What you see | What to check |
 | --- | --- |
 | “You don't have access to the repository” | Open the GitHub App's **Install App** settings and confirm that the app is installed on your site's repository. Also check that the GitHub account you're signing in with has write access. |
-| “Your domain is not allowed to use the authenticator” | Open the Administration UI on the public URL in `site`. If you use a separate authenticator, check that `ALLOWED_ORIGINS` includes the site's hostname. |
+| “Your domain is not allowed to use the authenticator” | Open the Administration UI on the public URL in `site`. |
 | The sign-in window opens your old URL or shows “Your Git backend is not supported by the authenticator” | Check the GitHub App's first callback URL. See [Switch to your own domain](/deploy/custom-domain/). |
 | “Variables cannot be added to a Worker that only has static assets” | Wait for the deployment that includes `main` in `wrangler.jsonc` to succeed, then add the secret again. |
 | “GitHub client ID or secret is not configured” | Check `GITHUB_CLIENT_ID` in the authenticator's deployed `wrangler.jsonc` and `GITHUB_CLIENT_SECRET` in that Worker's settings. |
-| The sign-in window shows your site's 404 page | For in-site sign-in, check that `package.json` includes `@lightnet/sveltia-github-auth` and that the deployed `wrangler.jsonc` has the `main` and `run_worker_first` settings from step 2. |
+| The sign-in window shows your site's 404 page | Check that `package.json` includes `@lightnet/sveltia-github-auth` and that the deployed `wrangler.jsonc` has the `main` and `run_worker_first` settings from step 2. |
 | Editors have to sign in again every eight hours | Check the authenticator's version of `@lightnet/sveltia-github-auth`. Versions before 1.2.0 can't refresh expiring access tokens. |

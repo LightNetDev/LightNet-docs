@@ -16,6 +16,8 @@ You need:
 - A domain that is managed in your Cloudflare account. You can buy one with [Cloudflare Domains](https://www.cloudflare.com/products/registrar/) or add a domain you already own to Cloudflare.
 - If editors use the Administration UI: GitHub authentication set up as described in [Set up GitHub authentication](/content/setup-github-auth/), and admin access to the GitHub App's settings.
 
+If your site uses a separate authenticator, [move authentication into your site's Worker](/content/setup-github-auth/#move-an-existing-authenticator-into-your-site) before switching domains.
+
 ## What changes
 
 Sign-in to the Administration UI only works on the URL in the `site` option of your Astro config. GitHub sends editors back to the callback URL registered for the GitHub App, which is that same URL followed by `/_auth/callback`.
@@ -78,16 +80,6 @@ Update services that use your site's URL:
 
 - **Analytics**: If you use [Plausible analytics](/deploy/analytics), add your new domain as a website in Plausible or change the domain of the existing website in its settings.
 - **Links to your site**: Update links in newsletters, social media profiles, and other websites to the new domain.
-
-## If you use a separate authenticator Worker
-
-If your site signs in through a [separate authenticator Worker](/content/setup-github-auth/#use-a-separate-authenticator-worker), the callback URL stays the same because it points to the authenticator. Instead:
-
-<Steps>
-1. In the authenticator repository's `wrangler.jsonc`, add your new hostname to `ALLOWED_ORIGINS`, such as `my-library.org`. Commit and push the change.
-2. Follow steps 1, 2, 4, and 5 above to move your site to the new domain.
-3. Sign in on the new domain. When everything works, remove the `workers.dev` hostname from `ALLOWED_ORIGINS`.
-</Steps>
 
 ## Troubleshooting
 
