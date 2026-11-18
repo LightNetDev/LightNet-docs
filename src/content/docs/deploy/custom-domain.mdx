@@ -1,0 +1,66 @@
+---
+title: Switch to your own domain
+description: Connect a custom domain to your LightNet Site on Cloudflare Workers and verify that the site works at its new address.
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+Move your LightNet Site from its Cloudflare-provided `workers.dev` address to a public address you choose, such as https://my-library.org. This guide assumes your site already runs on [Cloudflare Workers](/deploy/hosting/#set-up-cloudflare-workers).
+
+## Get your domain ready
+
+- **Buying a domain.** We recommend purchasing it through Cloudflare Registrar in the same Cloudflare account as your Worker. This keeps registration and DNS in one place and skips the nameserver setup. Follow [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain/).
+- **Using a domain you already own.** Add it to the Cloudflare account that hosts your Worker and wait for it to show as **Active**. You can keep your current registrar. Follow [Onboard a domain](https://developers.cloudflare.com/fundamentals/manage-domains/add-site/).
+
+Choose the address you'll share with visitors, such as https://my-library.org or https://www.my-library.org. Use the same hostname in the Worker configuration and in your site's public URL.
+
+If editors sign in with GitHub, review [Update Administration UI sign-in](#update-administration-ui-sign-in) before you deploy.
+
+## Connect the domain and deploy
+
+<Steps>
+1. In `wrangler.jsonc`, add a Custom Domain entry to `routes`. If you already have a `routes` array, add the entry to it. For `pattern`, enter just the hostname, such as `my-library.org`.
+
+    ```jsonc title="wrangler.jsonc" ins={4-9}
+    {
+      "name": "your-site",
+      // ...
+      "routes": [
+        {
+          "pattern": "my-library.org",
+          "custom_domain": true
+        }
+      ]
+    }
+    ```
+
+    Cloudflare creates the DNS record and issues the HTTPS certificate when you deploy. See [Cloudflare Workers Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/).
+
+    The root domain and `www` are separate hostnames. To send visitors from one to the other, [set up a redirect](https://developers.cloudflare.com/fundamentals/manage-domains/manage-subdomains/#set-up-redirects).
+
+2. In `astro.config.mjs`, set `site` to the full HTTPS address. Astro uses this public URL when it generates canonical URLs and the sitemap. See [Astro's `site` option](https://docs.astro.build/en/reference/configuration-reference/#site).
+
+    ```js title="astro.config.mjs" ins={3}
+    // ...
+    export default defineConfig({
+      site: "https://my-library.org",
+      // ...
+    });
+    ```
+
+3. Commit and push both config changes to the branch Cloudflare deploys from. Wait for the deployment to succeed.
+4. Open the new HTTPS address. Check that the home page and a few inner pages load, and that navigation and media work. If you set up a second hostname to redirect visitors, check that it lands on the chosen address.
+</Steps>
+
+If the new address fails to load, check that the domain is active in the same Cloudflare account and that the hostname appears under your Worker's **Domains**. An existing CNAME record for that hostname can prevent Cloudflare from adding it as a Custom Domain. If the domain is connected and HTTPS still fails, give Cloudflare a few minutes to issue the certificate. See [Cloudflare Workers Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/).
+
+## Update Administration UI sign-in
+
+If editors sign in with GitHub, plan the switch for a time when nobody is editing. Ask editors to save their changes first because drafts stored in the browser are tied to the old address. Sign-in may be interrupted until the site deployment and the callback URL change are both in place.
+
+If you still use a separate authenticator, [move authentication into your site's Worker](/content/setup-github-auth/#move-an-existing-authenticator-into-your-site) before deploying the domain change.
+
+After the new address is live, open the existing GitHub App under the owning account's **Settings → Developer settings → GitHub Apps**. Set its first **Callback URL** to the new site URL followed by `/_auth/callback`, for example https://my-library.org/_auth/callback, and save. Keep using the existing app and its credentials.
+
+Open the Administration UI at the new address, for example https://my-library.org/admin, and sign in. If sign-in opens the old address, check the GitHub App's first callback URL.
+

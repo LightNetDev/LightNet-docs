@@ -168,6 +168,7 @@ export default defineConfig({
                 label: "Deploy",
                 items: [
                   { slug: "deploy/hosting" },
+                  { slug: "deploy/custom-domain" },
                   { slug: "deploy/search-engines" },
                   { slug: "deploy/file-storage" },
                   { slug: "deploy/analytics" },
@@ -192,6 +193,7 @@ export default defineConfig({
                   { slug: "cli/check-links" },
                   { slug: "cli/check-translations" },
                   { slug: "cli/r2" },
+                  { slug: "cli/setup-github-auth" },
                 ],
               },
               {

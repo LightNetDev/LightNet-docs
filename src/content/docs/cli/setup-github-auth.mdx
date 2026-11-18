@@ -1,0 +1,59 @@
+---
+title: setup-github-auth
+description: Create the GitHub App for the Administration UI and configure your site's Worker to handle sign-in.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+The `setup-github-auth` command is part of the [LightNet CLI](/cli/overview).
+
+```bash
+pnpm lightnet setup-github-auth
+```
+
+Use this command to set up GitHub sign-in for the [Administration UI](/content/administration-ui/). It creates a GitHub App for your site and configures your site's Cloudflare Worker to handle sign-in under `/_auth`.
+The [Set up GitHub authentication](/content/setup-github-auth/) guide explains the whole setup, including the steps before and after this command.
+
+## Why use the CLI
+
+Setting up sign-in by hand means filling in about ten settings on GitHub's form, copying the client ID and secret between GitHub, your project, and Cloudflare, and doing it all in the right order. A single mistake, such as a wrong callback URL or a missing permission, only shows up later when an editor can't sign in.
+
+The command takes care of these details:
+
+- **Correct GitHub App settings.** It builds the callback URL from your `site` option and fills in GitHub's form with the settings LightNet needs. The app gets only read and write access to repository contents, and can be installed only on your own account.
+- **No copying of the client ID.** GitHub hands the client ID directly to the CLI, which writes it to `wrangler.jsonc`.
+- **Safe changes to `wrangler.jsonc`.** It adds the settings for the sign-in Worker, keeps your comments, and doesn't add settings twice. If your Worker already runs a different script, it warns you instead of overwriting it.
+- **Missing package added.** It adds `@lightnet/sveltia-github-auth` to your site if it isn't installed yet.
+- **Steps in the right order.** It guides you through installing the app on your repository, deploying your site, and adding the client secret to Cloudflare. Cloudflare only accepts the secret after the deploy, which is easy to miss when you set things up by hand.
+
+You still review and confirm each step in your browser, because GitHub requires it. Before the command opens a page, it explains what happens next. If you prefer, it prints the URL so you can open it yourself.
+
+## When to set it up by hand
+
+Follow the manual steps in [Set up GitHub authentication](/content/setup-github-auth/#step-2-create-the-github-app) instead if:
+
+- you can't run the CLI on a computer with a browser where you are signed in to GitHub
+- you want to keep an existing GitHub App, for example when you [move an existing authenticator into your site](/content/setup-github-auth/#move-an-existing-authenticator-into-your-site)
+- your `wrangler.jsonc` already runs a different Worker script
+
+## Before you run it
+
+Run the command from the root of your LightNet site project. Your project needs:
+
+- the `site` option in your Astro config set to your site's public URL
+- `backend.repo` set to your site's GitHub repository, as described in [Connect the Administration UI to GitHub](/content/setup-github-auth/#step-1-connect-the-administration-ui-to-github). The app is created for the owner of this repository, either an organization or your personal account.
+- a `wrangler.jsonc` file that serves your site's static files, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers)
+
+You also need administrative access to the GitHub organization that owns the repository, and access to your site's Worker in the Cloudflare dashboard.
+
+<Aside type="caution">
+GitHub shows the client secret only once. Keep the terminal open until you have added it to Cloudflare. If you lose it, generate a new client secret in the GitHub App's settings.
+</Aside>
+
+<Aside>
+GitHub App names must be unique across GitHub. If GitHub says the name is already taken, change it on GitHub's form, for example to "My Library Authentication".
+</Aside>
+
+## Run it again
+
+You can run the command again, for example to replace a GitHub App. It creates a new app and replaces `GITHUB_CLIENT_ID`; the other `wrangler.jsonc` settings are not added twice. Delete the old app in your organization's **Developer settings** afterwards.
