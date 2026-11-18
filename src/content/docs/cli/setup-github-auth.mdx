@@ -14,7 +14,7 @@ pnpm lightnet setup-github-auth
 Use this command to set up GitHub sign-in for the [Administration UI](/content/administration-ui/). It creates a GitHub App for your site and configures your site's Cloudflare Worker to handle sign-in under `/_auth`.
 The [Set up GitHub authentication](/content/setup-github-auth/) guide explains the whole setup, including the steps before and after this command.
 
-Run it from the root of your LightNet site project. The project needs a `wrangler.jsonc` file that serves your site's static files and a Git remote `origin` on GitHub, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers).
+Run it from the root of your LightNet site project. The project needs a `wrangler.jsonc` file that serves your site's static files, as described in the [hosting guide](/deploy/hosting/#set-up-cloudflare-workers), and `backend` configured as described in [Set up GitHub authentication](/content/setup-github-auth/#step-2-connect-the-administration-ui-to-github).
 
 The command is interactive because GitHub asks you to confirm each step in your browser. Before it opens GitHub, the command explains what happens next and waits until you choose to open the browser. If you decline, it prints the URL so you can open it yourself.
 
@@ -22,7 +22,7 @@ The command is interactive because GitHub asks you to confirm each step in your 
 
 <Steps>
 1. Reads your site's URL from the `site` option of your Astro config. If `site` is missing, the command stops and asks you to set it.
-2. Reads your site's GitHub repository from the Git remote `origin`. The command stops if `origin` is missing or isn't on GitHub, and warns if `backend.repo` in your Astro config points to a different repository.
+2. Reads your site's GitHub repository from `backend.repo` in your Astro config, the repository the Administration UI saves content to. If `backend.repo` is missing, the command stops and asks you to set it.
    The app is created for the owner of the repository, either an organization or your personal account.
 3. Asks for the GitHub App's name. It suggests your site's hostname followed by "Authentication", such as "my-library.org Authentication". GitHub App names can have at most 34 characters.
 4. Opens GitHub's page for creating a GitHub App, with these settings filled in:
