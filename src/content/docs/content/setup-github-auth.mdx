@@ -75,7 +75,7 @@ The [`setup-github-auth`](/cli/setup-github-auth/) command creates the GitHub Ap
     pnpm lightnet setup-github-auth
     ```
 
-3. Confirm or enter your site's repository and the app name. The CLI uses the `site` option of your Astro config as your site's URL. The app is created for the owner of the repository.
+3. Confirm or change the app name. The CLI uses the `site` option of your Astro config as your site's URL and the Git remote `origin` as your site's repository. The app is created for the owner of the repository.
 4. When you agree, your browser opens GitHub with the app's settings filled in. Review them, change the app name if you like, and select **Create GitHub App**. The app name is shown to editors when they sign in for the first time.
 5. When you agree, your browser opens the app's installation page. Choose **Only select repositories**, select only your site's repository, and confirm the installation.
 6. When the CLI asks, commit and push the changes to `package.json`, `pnpm-lock.yaml`, `astro.config.mjs`, and `wrangler.jsonc`, and wait for Cloudflare to deploy your site. Keep the terminal open.
