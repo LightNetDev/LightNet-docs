@@ -24,9 +24,10 @@ The command is interactive because GitHub asks you to confirm each step in your 
 1. Reads your site's URL from the `site` option of your Astro config. If `site` is missing, the command stops and asks you to set it.
 2. Reads your site's GitHub repository from `backend.repo` in your Astro config, the repository the Administration UI saves content to. If `backend.repo` is missing, the command stops and asks you to set it.
    The app is created for the owner of the repository, either an organization or your personal account.
-3. Asks for the GitHub App's name. It suggests your site's hostname followed by "Authentication", such as "my-library.org Authentication". GitHub App names can have at most 34 characters.
+3. Asks for the GitHub App's name. It suggests your repository's name followed by "Authentication", such as "my-library Authentication", or by "Auth" if the name would be too long. GitHub App names can have at most 34 characters.
 4. Opens GitHub's page for creating a GitHub App, with these settings filled in:
     - **Callback URL**: your site's URL followed by `/_auth/callback`
+    - **Homepage URL**: `https://lightnet.community`
     - **Repository permissions**: Contents read and write, Metadata read-only
     - **Webhook**: inactive
     - **Installable on**: only the owning account

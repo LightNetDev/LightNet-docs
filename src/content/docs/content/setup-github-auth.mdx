@@ -91,8 +91,8 @@ The CLI updates `wrangler.jsonc` as described in the manual steps. Review the ch
 1. In your GitHub organization's settings, open **Developer settings → GitHub Apps → New GitHub App**.
 2. Enter the following details:
 
-    - **GitHub App name**: A unique name such as "My Library CMS". It is shown to editors when they sign in for the first time.
-    - **Homepage URL**: Your site's public URL, such as `https://my-library.org`.
+    - **GitHub App name**: A unique name such as "My Library Authentication". It is shown to editors when they sign in for the first time. Don't use your site's domain in the name, because the domain can change later.
+    - **Homepage URL**: `https://lightnet.community`. GitHub requires a homepage, and this one doesn't change when your site moves to another domain.
     - **Callback URL**: Your site's URL followed by `/_auth/callback`, such as `https://my-library.org/_auth/callback`.
     - **Expire user authorization tokens**: Checked. Editors stay signed in because the Worker refreshes their access automatically.
     - **Request user authorization (OAuth) during installation**: Unchecked.
