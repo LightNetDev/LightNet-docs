@@ -73,19 +73,6 @@ GitHub and Cloudflare Workers both offer free-tier starting points for static si
 1. **View your site**: Cloudflare provides a `workers.dev` preview URL. Each time you push a new commit to GitHub, Cloudflare can rebuild and deploy the site. If `preview_urls` is enabled, you can also use preview deployments while testing changes.
 </Steps>
 
-### Configure a Cloudflare domain
-
-You can use Cloudflare Domains to purchase a domain registration.
-
-To configure a custom domain:
-
-<Steps>
-1. Purchase a domain from [Cloudflare Domains](https://www.cloudflare.com/products/registrar/).
-1. Follow the instructions in the Cloudflare dashboard to attach your custom domain to your Worker route.
-</Steps>
-
-If your site already runs on its `workers.dev` URL, follow [Switch to your own domain](/deploy/custom-domain/). It also keeps sign-in to the Administration UI working.
-
 ## Alternative: host your site elsewhere
 
 You can host your LightNet site on another file server if required. From your local site folder, run the `pnpm build` command described above. This creates a folder named `dist` containing the static HTML, CSS, JavaScript, and asset files. Upload that folder to your file server.
