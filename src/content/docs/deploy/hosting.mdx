@@ -67,6 +67,7 @@ GitHub and Cloudflare Workers both offer free-tier starting points for static si
       ]
     }
     ```
+    If you don't have your own domain yet, leave out `routes` and use the `workers.dev` URL until you [switch to your own domain](/deploy/custom-domain/).
 1. **Create a Workers application**: In the Cloudflare dashboard, open **Compute (Workers)** and create a new Worker connected to your GitHub repository.
 1. **Configure the build and deploy commands**: Set `pnpm build` as the build command and `npx wrangler deploy` as the deploy command.
 1. **View your site**: Cloudflare provides a `workers.dev` preview URL. Each time you push a new commit to GitHub, Cloudflare can rebuild and deploy the site. If `preview_urls` is enabled, you can also use preview deployments while testing changes.
@@ -82,6 +83,8 @@ To configure a custom domain:
 1. Purchase a domain from [Cloudflare Domains](https://www.cloudflare.com/products/registrar/).
 1. Follow the instructions in the Cloudflare dashboard to attach your custom domain to your Worker route.
 </Steps>
+
+If your site already runs on its `workers.dev` URL, follow [Switch to your own domain](/deploy/custom-domain/). It also keeps sign-in to the Administration UI working.
 
 ## Alternative: host your site elsewhere
 

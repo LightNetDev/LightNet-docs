@@ -1,0 +1,95 @@
+---
+title: Switch to your own domain
+description: Move your site from its workers.dev URL to your own domain and keep Administration UI sign-in working.
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+Many sites start on the `workers.dev` URL that Cloudflare gives every Worker, such as `https://my-library.your-subdomain.workers.dev`, and move to their own domain, such as `https://my-library.org`, when they go live.
+This guide moves your site to its own domain. Editors keep using the same GitHub App, so you don't have to set up GitHub authentication again.
+
+## Before you begin
+
+You need:
+
+- A site hosted on Cloudflare Workers, as described in the [hosting guide](/deploy/hosting).
+- A domain that is managed in your Cloudflare account. You can buy one with [Cloudflare Domains](https://www.cloudflare.com/products/registrar/) or add a domain you already own to Cloudflare.
+- If editors use the Administration UI: GitHub authentication set up as described in [Set up GitHub authentication](/content/setup-github-auth/), and admin access to the GitHub App's settings.
+
+## What changes
+
+Sign-in to the Administration UI only works on the URL in the `site` option of your Astro config. GitHub sends editors back to the callback URL registered for the GitHub App, which is that same URL followed by `/_auth/callback`.
+When you move to your own domain, you change both to the new domain. The GitHub App, its client ID and client secret, and its installation on your repository stay the same.
+
+After the switch, editors sign in on the new domain. Sign-in on the `workers.dev` URL stops working, but the site itself stays available there.
+
+<Aside type="caution">
+Sign-in fails between changing the callback URL and deploying the new `site` value. Plan the switch for a time when nobody is editing, and ask editors to save their open changes first. Unsaved drafts in the Administration UI are stored per URL and don't move to the new domain.
+</Aside>
+
+## Switch the domain
+
+<Steps>
+1. In your site's `wrangler.jsonc`, add your domain to `routes`:
+
+    ```jsonc title="wrangler.jsonc" ins={4-9}
+    {
+      "name": "your-site",
+      // ...
+      "routes": [
+        {
+          "pattern": "my-library.org",
+          "custom_domain": true
+        }
+      ]
+    }
+    ```
+
+    If you also want `www.my-library.org`, add a second route for it.
+
+2. In `astro.config.mjs`, set `site` to your new URL:
+
+    ```js title="astro.config.mjs" ins={3}
+    // ...
+    export default defineConfig({
+      site: "https://my-library.org",
+      // ...
+    });
+    ```
+
+3. Open the GitHub App's settings. For an app owned by an organization, open the organization's **Settings → Developer settings → GitHub Apps** and select **Edit** next to the app.
+   Change the **Callback URL** to your new URL followed by `/_auth/callback`, such as `https://my-library.org/_auth/callback`, and select **Save changes**.
+   Don't change the client ID or generate a new client secret.
+
+4. Commit and push the changes to `wrangler.jsonc` and `astro.config.mjs`. Wait for Cloudflare to deploy your site.
+
+5. Open your site on the new domain. Cloudflare can take a few minutes to issue the certificate for a new domain.
+
+6. Open the Administration UI on the new domain, such as `https://my-library.org/admin`, and sign in. Editors sign in once more on the new domain. They don't have to authorize the GitHub App again.
+</Steps>
+
+<Aside>
+Don't run [`setup-github-auth`](/cli/setup-github-auth/) again to switch the domain. It creates a new GitHub App, and editors would have to authorize it again.
+</Aside>
+
+## Update other services
+
+Update services that use your site's URL:
+
+- **Analytics**: If you use [Plausible analytics](/deploy/analytics), add your new domain as a website in Plausible or change the domain of the existing website in its settings.
+- **Links to your site**: Update links in newsletters, social media profiles, and other websites to the new domain.
+
+## If you use a separate authenticator Worker
+
+If your site signs in through a [separate authenticator Worker](/content/setup-github-auth/#use-a-separate-authenticator-worker), the callback URL stays the same because it points to the authenticator. Instead:
+
+<Steps>
+1. In the authenticator repository's `wrangler.jsonc`, add your new hostname to `ALLOWED_ORIGINS`, such as `my-library.org`. Commit and push the change.
+2. Follow steps 1, 2, 4, and 5 above to move your site to the new domain.
+3. Sign in on the new domain. When everything works, remove the `workers.dev` hostname from `ALLOWED_ORIGINS`.
+</Steps>
+
+## Troubleshooting
+
+- **The sign-in window opens your old URL** or shows "Your Git backend is not supported by the authenticator": The GitHub App's callback URL still points to the old URL. Change it as described in step 3.
+- **"Your domain is not allowed to use the authenticator"**: You opened the Administration UI on a URL other than the one in `site`, or the new `site` value isn't deployed yet. Wait for the deployment and open the Administration UI on the new domain.

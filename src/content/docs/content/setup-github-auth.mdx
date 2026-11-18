@@ -17,7 +17,7 @@ You can create the GitHub App and configure your site with the [LightNet CLI](/c
 You need:
 
 - A LightNet site with the [Administration UI](/content/administration-ui) installed, its repository hosted on GitHub, and the site deployed with Cloudflare Workers. Follow the [hosting guide](/deploy/hosting) if needed.
-- The `site` option in `astro.config.mjs` set to your site's public URL, such as `https://my-library.org`.
+- The `site` option in `astro.config.mjs` set to your site's public URL, such as `https://my-library.org`. If your site doesn't have its own domain yet, use its `workers.dev` URL, such as `https://my-library.your-subdomain.workers.dev`.
 - Administrative access to the GitHub organization that will own the GitHub App.
 
 If your site is not hosted on Cloudflare Workers, [use a separate authenticator Worker](#use-a-separate-authenticator-worker) instead.
@@ -149,7 +149,8 @@ Install the GitHub App on your site's repository. Otherwise, editors get a "You 
 </Steps>
 
 <Aside>
-Sign-in only works on your site's URL. Cloudflare's `workers.dev` and preview URLs can't sign in, because GitHub always returns to the callback URL registered for the app.
+Sign-in works on the URL in your `site` option, because GitHub always returns to the callback URL registered for the app. Until your site has its own domain, set `site` to its `workers.dev` URL so editors can sign in from the start.
+When you move to your own domain, follow [Switch to your own domain](/deploy/custom-domain/) to update `site` and the callback URL. You keep the same GitHub App. Cloudflare preview URLs can't sign in.
 </Aside>
 
 To give other editors access, grant them write access to the site's GitHub repository through collaborators or organization teams. Each editor signs in with their own GitHub account and authorizes the GitHub App on their first sign-in.
@@ -205,7 +206,8 @@ If you keep a separate authenticator that still uses a GitHub OAuth app, you can
 ## Troubleshooting
 
 - **"You don't have access to the repository"**: The GitHub App isn't installed on your site's repository. Open the app's settings on GitHub, select **Install App**, and add the repository.
-- **"Your domain is not allowed to use the authenticator"**: You opened the Administration UI on a URL other than your site's URL, such as a `workers.dev` or preview URL. Open it on your site's URL. With a separate authenticator, add the hostname to `ALLOWED_ORIGINS`.
+- **"Your domain is not allowed to use the authenticator"**: You opened the Administration UI on a URL other than the one in your `site` option, such as a preview URL or your old `workers.dev` URL. Open it on your site's URL. With a separate authenticator, add the hostname to `ALLOWED_ORIGINS`.
+- **The sign-in window opens your old URL** or shows "Your Git backend is not supported by the authenticator": The GitHub App's callback URL doesn't match your `site` option. See [Switch to your own domain](/deploy/custom-domain/).
 - **"GitHub client ID or secret is not configured"**: Add `GITHUB_CLIENT_ID` to `wrangler.jsonc` and the `GITHUB_CLIENT_SECRET` secret to your Worker, then deploy again.
 - **The sign-in window shows your site's 404 page**: The Worker doesn't serve `/_auth`. Check `main` and `run_worker_first` in `wrangler.jsonc`, and that `@lightnet/sveltia-github-auth` is listed in your site's `package.json`.
 - **Editors have to sign in again every eight hours**: Your Worker uses `@lightnet/sveltia-github-auth` older than 1.2.0, which can't refresh expiring access tokens. Update it to the latest version.
