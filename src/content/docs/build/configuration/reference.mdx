@@ -305,9 +305,10 @@ example: `true` \
 required: `false` \
 default: `false`
 
-Set this to `true` to skip generating Open Graph images for media item details pages.
-LightNet uses the media cover images for Open Graph and Twitter previews instead.
-By default, LightNet generates share images that include the cover, title, and authors.
+By default, LightNet generates a 1200 x 630 Open Graph image containing the media item’s cover image, 
+title, and authors for each media item details page. The og:image and twitter:image tags point to this generated image.
+
+Set this to true to skip generating Open Graph images for media item details pages. The og:image and twitter:image tags instead point to media item’s cover image.
 
 ### `disallowSearchIndexing`
 
