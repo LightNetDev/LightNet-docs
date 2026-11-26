@@ -5,10 +5,40 @@ import linksValidator from "starlight-links-validator";
 import llmsTxt from "starlight-llms-txt";
 import announcement from "starlight-announcement";
 import sidebarTopics from "starlight-sidebar-topics";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+
+const site = "https://docs.lightnet.community";
+
+/**
+ * Rewrites site-relative Markdown links in the generated llms.txt files to absolute URLs,
+ * so agents can follow them without knowing where the file came from.
+ * @returns {import("astro").AstroIntegration}
+ */
+function absoluteLlmsTxtLinks() {
+  return {
+    name: "absolute-llms-txt-links",
+    hooks: {
+      "astro:build:done": async ({ dir }) => {
+        const files = [
+          ...["llms.txt", "llms-full.txt", "llms-small.txt"].map(
+            (name) => new URL(name, dir),
+          ),
+          ...(await readdir(new URL("_llms-txt/", dir))).map(
+            (name) => new URL(`_llms-txt/${name}`, dir),
+          ),
+        ];
+        for (const file of files) {
+          const text = await readFile(file, "utf8");
+          await writeFile(file, text.replace(/\]\(\/(?!\/)/g, `](${site}/`));
+        }
+      },
+    },
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://docs.lightnet.community",
+  site,
   integrations: [
     starlight({
       title: "LightNet",
@@ -268,7 +298,8 @@ For a whole task area, fetch the matching documentation set below instead of ind
             {
               label: "LightNet releases",
               url: "https://github.com/LightNetDev/LightNet/releases",
-              description: "Release notes, including breaking changes in major versions.",
+              description:
+                "Release notes, including breaking changes in major versions.",
             },
             {
               label: "Example template",
@@ -284,7 +315,8 @@ For a whole task area, fetch the matching documentation set below instead of ind
           customSets: [
             {
               label: "Start here",
-              description: "Getting started and the setup checklist for new sites.",
+              description:
+                "Getting started and the setup checklist for new sites.",
               paths: ["start-here/**"],
             },
             {
@@ -313,7 +345,8 @@ For a whole task area, fetch the matching documentation set below instead of ind
             },
             {
               label: "Run",
-              description: "Updates, availability monitoring, and major upgrade guides.",
+              description:
+                "Updates, availability monitoring, and major upgrade guides.",
               paths: ["run/**"],
             },
             {
@@ -354,9 +387,13 @@ For a whole task area, fetch the matching documentation set below instead of ind
           minify: {
             note: false,
             tip: false,
-            details: true,
-            whitespace: true,
+            // FileTree renders folders as <details>, so removing them drops file trees.
+            details: false,
+            // Keep line breaks so lists and steps stay readable.
+            whitespace: false,
           },
+          // Strip the "Section titled ..." heading anchor links.
+          customSelectors: { all: [".sl-anchor-link"] },
         }),
         ...(process.env.CHECK_LINKS
           ? [
@@ -367,6 +404,7 @@ For a whole task area, fetch the matching documentation set below instead of ind
           : []),
       ],
     }),
+    absoluteLlmsTxtLinks(),
   ],
   redirects: {
     "/": "/start-here/getting-started",
