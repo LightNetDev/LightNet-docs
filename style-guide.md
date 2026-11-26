@@ -1,16 +1,37 @@
 # Style guide
 
+## Writing for the reader
+
+- Describe how LightNet works today. Do not describe how it changed, what it used to do, or what is planned. Leave out phrases like "now supports", "previously", "new in", or "will soon". Version upgrade guides are the exception.
+- Explain what the reader needs to do their task or make a decision, not how something works internally. Leave out internal mechanics unless the reader has to act on them.
+- Keep it simple: short sentences, one idea per paragraph, and concrete examples over abstract explanations.
+- **Developer Documentation**: Assume the reader knows common web development concepts, such as Git, npm packages, environment variables, and deployment. Use technical terms without explaining them, but don't explain LightNet internals beyond what is needed to configure, extend, or run a site.
+- **Ministry Documentation**: Write for someone without a technical background. Use everyday language, explain each concept with a plain definition and an example, and describe what something means for their ministry, not how it is built. Leave out technical details such as `commonId`, GitHub, Cloudflare, or deployment unless the reader needs them to make a decision. If a technical step is unavoidable, say who does it, for example "your site administrator sets this up".
+
 ## Punctuation
 
 - **Apostrophe**: Use `'`, for example in `let's`. Do not use `’`. We use `'` because it is easier to type on a non-English keyboard.
 
-## Terms
+## Headings
 
-Use these terms consistently throughout the docs:
+- Use sentence case: capitalize the first word and proper names, and lowercase everything else. For example, use `Media item details page`.
 
-- [**Media Library**](/ministry/resources/glossary#media-library): A collection of media
-  content organized and made available by an organization.
-- **Terminal**: A command-line interface.
+## Terminology and capitalization
+
+- Lowercase ordinary domain concepts, even when they have a [Glossary](/ministry/resources/glossary) entry: `ministry`, `content`, `media item`, `media library`, `media type`, `media collection`, `site language`, `content language`.
+- Capitalize proper names, product names, and official component names: `LightNet`, `MediaWorks`, `Administration UI`.
+- Use `terminal` consistently for a command-line interface.
+
+## Formatting
+
+- Bold a term only where it is first introduced or defined for the reader. Do not bold in headings, navigation lists, or diagrams, and do not re-bold a term later.
+- Use backticks only for literal identifiers: types, properties, filenames, commands.
+- Use site-relative links, such as `/ministry/resources/glossary`.
+
+## Glossary page
+
+- Entry headings and defined terms use canonical capitalization and bold.
+- Link the first use of other Glossary terms in each definition. Do not link a term to its own entry.
 
 ## Lists
 
@@ -29,7 +50,7 @@ Use these terms consistently throughout the docs:
 - Full-sentence bullets use sentence case and end with a period.
 - When a bullet starts with a label, use a colon after the label.
 - Prefer `- **Label**: explanation` over `- **Label** - explanation`.
-- Prefer `- \`option\`: explanation`over`- \`option\` - explanation`.
+- Prefer `` - `option`: explanation `` over `` - `option` - explanation ``.
 
 ### Ordered lists
 
