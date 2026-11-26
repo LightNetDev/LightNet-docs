@@ -14,7 +14,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.12",
     "@astrojs/starlight": "^0.43.1",
-    "astro": "^7.4.12",
+    "astro": "^7.4.13",
     "sharp": "^0.35.5",
     "starlight-announcement": "^2.0.0",
     "starlight-links-validator": "^0.27.0",
@@ -22,5 +22,5 @@
     "starlight-sidebar-topics": "^0.9.0",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@12.21.0"
+  "packageManager": "pnpm@12.23.0"
 }
