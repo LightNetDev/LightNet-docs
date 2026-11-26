@@ -52,6 +52,10 @@ required: `false`
 LightNet uses `commonId` to find translations of a media item. If your media item is available in multiple languages,
 you should create a media item for each language. In this case use the same `commonId` for all languages.
 
+Give each media item with the same `commonId` a different language.
+When [search indexing](/deploy/search-engines) is allowed, LightNet tells search engines which media items are translations of each other, so they can show people the version in their language.
+If two media items with the same `commonId` share a language, LightNet leaves out these links for all of them.
+
 ### title
 
 type: `string` \

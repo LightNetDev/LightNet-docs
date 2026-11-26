@@ -139,6 +139,7 @@ When you run `pnpm build` with this setting, LightNet:
 - Allows indexing of generated HTML pages and adds canonical and sitemap links, unless a page [overrides the setting](#hide-an-individual-page).
 - Generates `robots.txt` with `Allow: /` and a `Sitemap:` line pointing to the sitemap index, unless you provide a [custom file](#use-a-custom-robotstxt).
 - Automatically configures sitemap generation to produce `sitemap-index.xml` and sitemap files, unless you have already configured `@astrojs/sitemap` separately.
+- Links translations of a media item, which are media items with the same [`commonId`](/content/media-items#commonid), so search engines can show people the version in their language.
 
 These files help search engines discover and crawl your content:
 
