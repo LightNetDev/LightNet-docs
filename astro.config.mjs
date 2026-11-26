@@ -220,18 +220,40 @@ export default defineConfig({
           ],
         }),
         llmsTxt({
-          projectName: "LightNet Developer Docs",
+          projectName: "LightNet Docs",
           description:
-            "Developer documentation for LightNet, an Astro-based integration for building static media library sites.",
-          details: `LightNet uses static site generation (SSG) to turn structured content into a fast, secure media library. It is built on Astro and provides prebuilt layouts, components, and tooling for media sites.
+            "Documentation for LightNet, an Astro integration for building static, multilingual media library websites (for example, a ministry's library of videos, audio, books, and other media).",
+          details: `LightNet uses static site generation (SSG) to turn structured content into a fast, secure media library. It is built on Astro and provides prebuilt layouts, pages, components, an optional browser-based Administration UI, and a CLI. Sites are typically stored on GitHub and hosted on Cloudflare Workers, with optional Cloudflare R2 storage for large files.
 
-Use these docs to learn how to set up a project, configure the LightNet integration, build pages and components, structure content collections (JSON files under src/content), add i18n, and deploy and operate a site.
+The documentation has two sections:
+- Developer Documentation (all paths except \`/ministry/\`): for Site Administrators, the developers who set up, build, deploy, and run a LightNet Site. This is the section coding agents usually need.
+- Ministry Documentation (\`/ministry/\`): plain-language guidance for ministries and Content Administrators who make project decisions. Use its Glossary for the shared vocabulary.
 
-Recommended reading order:
-- Start with “Getting started”.
-- Review architecture and Astro foundations.
-- Use the configuration reference for exact option shapes.
-- Follow the pages and content sections for building your media library.`,
+Docs are organized around three lifecycle stages: Plan, Build, and Run.
+
+Key facts for coding agents:
+- Docs are verified against specific package versions; see [Versions](https://docs.lightnet.community/resources/versions/). Check the project's \`package.json\` before applying instructions.
+- Packages: \`lightnet\` (Astro integration), \`@lightnet/cli\` (run as \`pnpm lightnet <command>\`), \`@lightnet/sveltia-admin\` (Administration UI), \`@lightnet/sveltia-github-auth\` (Administration UI sign-in), \`@lightnet/plausible-analytics\` (analytics).
+- The integration is configured in \`astro.config.mjs\` with \`lightnet({ ... })\`; see the [configuration reference](https://docs.lightnet.community/build/configuration/reference/) for exact option shapes.
+- Content lives in JSON files in content collections: \`src/content/media/\` (media items), \`src/content/media-types/\`, \`src/content/categories/\`, and \`src/content/media-collections/\`.
+- Pages are Astro or Markdown files under \`src/pages/[locale]/\`; custom site strings live in \`src/translations/<locale>.yml\`.
+- Use pnpm for package management. Look up build or runtime error messages in the [error reference](https://docs.lightnet.community/resources/error-reference/).
+
+Key pages by task:
+- Set up a new site: [Getting started](https://docs.lightnet.community/start-here/getting-started/), [Setup checklist](https://docs.lightnet.community/start-here/setup-checklist/)
+- Understand the system: [Architecture](https://docs.lightnet.community/concepts/architecture/), [Media library structure](https://docs.lightnet.community/concepts/media-site-structure/), [Astro foundation](https://docs.lightnet.community/build/astro/)
+- Configure the site: [Initialize configuration](https://docs.lightnet.community/build/configuration/initialize-configuration/), [Configuration reference](https://docs.lightnet.community/build/configuration/reference/)
+- Languages: [i18n fundamentals](https://docs.lightnet.community/build/i18n/fundamentals/), [Add a site language](https://docs.lightnet.community/build/i18n/add-language/), [Custom translation keys](https://docs.lightnet.community/build/i18n/custom-site-strings/), [Astro.locals.i18n reference](https://docs.lightnet.community/build/i18n/astro-locals-i18n/)
+- Build pages: [Pages fundamentals](https://docs.lightnet.community/build/pages/fundamentals/), [Customize homepage](https://docs.lightnet.community/build/pages/initialize-homepage/), [Query media items](https://docs.lightnet.community/build/pages/query-media-items/), [Custom components](https://docs.lightnet.community/build/pages/custom-components/), [Internal links](https://docs.lightnet.community/build/pages/create-internal-links/)
+- Page components: [Section](https://docs.lightnet.community/build/pages/section/), [HeroSection](https://docs.lightnet.community/build/pages/hero-section/), [MediaGallerySection](https://docs.lightnet.community/build/pages/media-gallery-section/), [CategoriesSection](https://docs.lightnet.community/build/pages/categories-section/), [SearchSection](https://docs.lightnet.community/build/pages/search-section/), [HighlightSection](https://docs.lightnet.community/build/pages/highlight-section/), [VideoPlayer](https://docs.lightnet.community/build/pages/video-player/), [MediaList](https://docs.lightnet.community/build/pages/media-list/), [SearchInput](https://docs.lightnet.community/build/pages/search-input/), [Footer](https://docs.lightnet.community/build/pages/footer/)
+- Manage content: [Content fundamentals](https://docs.lightnet.community/content/fundamentals/), [Media items](https://docs.lightnet.community/content/media-items/), [Media types](https://docs.lightnet.community/content/media-types/), [Categories](https://docs.lightnet.community/content/categories/), [Media collections](https://docs.lightnet.community/content/media-collections/)
+- Administration UI: [Add the Administration UI](https://docs.lightnet.community/content/administration-ui/), [Set up GitHub authentication](https://docs.lightnet.community/content/setup-github-auth/)
+- Deploy: [Hosting](https://docs.lightnet.community/deploy/hosting/), [Custom domain](https://docs.lightnet.community/deploy/custom-domain/), [Search engines](https://docs.lightnet.community/deploy/search-engines/), [Large file storage (R2)](https://docs.lightnet.community/deploy/file-storage/), [Analytics](https://docs.lightnet.community/deploy/analytics/)
+- Run and maintain: [Update your site](https://docs.lightnet.community/run/update/), [Monitor availability](https://docs.lightnet.community/run/monitor/), [Upgrade to v4](https://docs.lightnet.community/run/upgrade-to/v4/)
+- CLI: [Overview](https://docs.lightnet.community/cli/overview/), [check-files](https://docs.lightnet.community/cli/check-files/), [check-links](https://docs.lightnet.community/cli/check-links/), [check-translations](https://docs.lightnet.community/cli/check-translations/), [r2](https://docs.lightnet.community/cli/r2/), [setup-github-auth](https://docs.lightnet.community/cli/setup-github-auth/)
+- Troubleshooting and terms: [Error reference](https://docs.lightnet.community/resources/error-reference/), [Versions](https://docs.lightnet.community/resources/versions/), [Glossary](https://docs.lightnet.community/ministry/resources/glossary/)
+
+For a whole task area, fetch the matching documentation set below instead of individual pages. Use the abridged set when context is limited; it omits Ministry Documentation except the Glossary.`,
           optionalLinks: [
             {
               label: "LightNet homepage",
@@ -244,59 +266,91 @@ Recommended reading order:
               description: "Core LightNet source code and issues.",
             },
             {
+              label: "LightNet releases",
+              url: "https://github.com/LightNetDev/LightNet/releases",
+              description: "Release notes, including breaking changes in major versions.",
+            },
+            {
               label: "Example template",
               url: "https://github.com/LightNetDev/example-template",
               description: "Starter project used in the Getting started guide.",
+            },
+            {
+              label: "Documentation source",
+              url: "https://github.com/LightNetDev/lightnet-docs",
+              description: "Source files for this documentation site.",
             },
           ],
           customSets: [
             {
               label: "Start here",
-              description: "Project setup and onboarding for new users.",
+              description: "Getting started and the setup checklist for new sites.",
               paths: ["start-here/**"],
             },
             {
               label: "Concepts",
               description:
-                "Architecture, structure, and collaboration concepts.",
+                "Architecture, media library structure, and collaboration.",
               paths: ["concepts/**"],
             },
             {
               label: "Build",
-              description: "Astro foundations, configuration, pages, and i18n.",
+              description:
+                "Astro foundations, global configuration and reference, internationalization, pages, and page components.",
               paths: ["build/**"],
             },
             {
               label: "Content",
-              description: "Content collections, media metadata, and admin UI.",
+              description:
+                "Content collections (media items, media types, categories, media collections), the Administration UI, and GitHub authentication.",
               paths: ["content/**"],
             },
             {
               label: "Deploy",
-              description: "Hosting, search engines, and file storage.",
+              description:
+                "Hosting on Cloudflare Workers, custom domains, search engines, R2 file storage, and analytics.",
               paths: ["deploy/**"],
             },
             {
               label: "Run",
-              description: "Updates and monitoring.",
+              description: "Updates, availability monitoring, and major upgrade guides.",
               paths: ["run/**"],
             },
             {
+              label: "LightNet CLI",
+              description:
+                "@lightnet/cli commands: check-files, check-links, check-translations, r2, and setup-github-auth.",
+              paths: ["cli/**"],
+            },
+            {
               label: "Resources",
-              description: "Error reference and version information.",
+              description: "Error reference and verified package versions.",
               paths: ["resources/**"],
+            },
+            {
+              label: "Ministry Documentation",
+              description:
+                "Non-technical guidance for ministries: concepts, account setup on GitHub and Cloudflare, and the Glossary.",
+              paths: ["ministry/**"],
             },
           ],
           promote: [
             "start-here/getting-started",
+            "start-here/setup-checklist",
             "concepts/architecture",
             "build/astro",
             "build/configuration/initialize-configuration",
             "build/configuration/reference",
             "content/fundamentals",
           ],
-          demote: ["resources/versions", "resources/error-reference"],
-          exclude: ["resources/versions", "resources/error-reference"],
+          demote: ["ministry/**", "resources/versions"],
+          exclude: [
+            "ministry/start-here/**",
+            "ministry/concepts/**",
+            "ministry/build/**",
+            "ministry/plan/**",
+            "ministry/administration/**",
+          ],
           minify: {
             note: false,
             tip: false,
